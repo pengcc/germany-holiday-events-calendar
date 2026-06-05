@@ -1,0 +1,28 @@
+# Local working memory
+dev_locals/
+
+# Dependencies
+node_modules/
+
+# Next.js and static export output
+.next/
+out/
+
+# Test and browser artifacts
+coverage/
+playwright-report/
+test-results/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Environment files
+.env*
+!.env.example
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
