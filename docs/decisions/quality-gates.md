@@ -9,13 +9,15 @@ The intended local and CI quality gates are:
 - Format/lint/import organization through Biome.
 - Type checking through TypeScript.
 - Unit tests through Vitest.
-- Data validation once the first static data contract exists.
-- Static build through Next.js.
-- Desktop/mobile Playwright smoke checks once the app has runnable pages.
+- Data schema validation and deterministic rebuild checks.
+- Static public build through Vite.
+- Local Data Studio production build through TanStack Start.
+- Desktop/mobile Playwright smoke checks for public routes and the local Studio.
 
 ## Current Foundation State
 
-This foundation defines package scripts and config stubs, but does not install dependencies, generate a lockfile, or scaffold product pages. A GitHub Actions workflow should be added after the first install/lockfile step and minimal app scaffold exist, so CI does not start in a known-failing state.
+CI must use the frozen lockfile and may not refresh external holiday data. Source monitoring is a
+separate read-only workflow that reports drift without changing reviewed files.
 
 ## Command Targets
 
@@ -25,8 +27,8 @@ Future default commands:
 pnpm check
 pnpm typecheck
 pnpm test
+pnpm data:validate
+pnpm data:rebuild:check
 pnpm build
 pnpm smoke
 ```
-
-Data validation should become a first-class command when the data schema and generated static data paths are introduced.

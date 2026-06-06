@@ -1,0 +1,24 @@
+{
+  "name": "@hsg/data-core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@internationalized/date": "3.12.2",
+    "date-holidays": "3.30.2",
+    "ical.js": "2.2.1",
+    "p-limit": "7.3.0",
+    "yaml": "2.9.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.0",
+    "typescript": "5.9.3"
+  }
+}

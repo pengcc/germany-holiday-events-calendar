@@ -18,12 +18,37 @@ The project must not introduce accounts, saved trips, alerts, personal data stor
 
 - Runtime: Node.js 24 LTS through `mise`.
 - Package manager: `pnpm` with exact `packageManager` pinning.
-- App: Next.js static export with TypeScript.
+- Public app: TanStack Router with Vite static output.
+- Local data app: TanStack Start Data Studio bound to `127.0.0.1`.
+- Shared data tooling: TypeScript schemas, adapters, validation, review, and publishing.
 - UI: shadcn/ui, Tailwind CSS, Radix UI primitives, and lucide-react icons.
-- Quality: Biome, Vitest, and Playwright smoke checks once the app is runnable.
+- Quality: Biome, TypeScript, Vitest, deterministic data checks, and Playwright smoke tests.
+
+## Workspace
+
+```txt
+apps/web             Static public comparison app
+apps/data-studio     Local-only review and publishing interface
+packages/data-core   Shared holiday data contracts and pipeline services
+tools/data-cli       Resumable command-line data workflow
+data/                Versioned sources, accepted records, reviews, and overrides
+```
+
+Common commands:
+
+```sh
+pnpm dev:web
+pnpm dev:studio
+pnpm data:refresh -- --source <source-id>
+pnpm data:validate
+pnpm data:rebuild:check
+pnpm build
+pnpm smoke
+```
 
 See [docs/decisions/dependencies.md](docs/decisions/dependencies.md) for exact dependency decisions.
 See [docs/decisions/quality-gates.md](docs/decisions/quality-gates.md) for quality gate expectations.
+See [docs/data-workflow.md](docs/data-workflow.md) for refresh, review, recovery, and publishing.
 
 ## Working Rules
 

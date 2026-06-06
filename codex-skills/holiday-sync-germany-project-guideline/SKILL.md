@@ -25,7 +25,8 @@ Read these references as needed for the task:
 - Keep recurring cost at zero by default.
 - Do not introduce accounts, telemetry, personal data storage, API keys, paid APIs, or lock-in services without explicit confirmation.
 - Use `YYYY-MM-DD` German local all-day dates with inclusive ranges for holiday logic.
-- Preserve data provenance: source URL, terms/license note, retrieval date, raw snapshot, parsed result, diff/report, and human review status.
+- Preserve data provenance: source URL, terms/license note, retrieval date, license-appropriate
+  raw snapshot or hash, parsed result, diff/report, and human review status.
 - Use exact dependency versions only; update `docs/decisions/dependencies.md` with any dependency change.
 - Use `shadcn/ui`, Tailwind CSS, Radix primitives, and lucide-react for UI foundations; prefer a custom comparison calendar/heatmap before adopting a large calendar library.
 - Maintain product UI copy in Chinese, German, and English.

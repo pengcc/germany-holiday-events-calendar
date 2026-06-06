@@ -21,3 +21,7 @@ Work locally, keep recurring cost at zero, and avoid external services unless ex
 ## Data Source Rule
 
 External holiday data may be collected only into a local review workflow first. It must not flow directly into publishable static data without validation and human review.
+
+The approved quarterly GitHub source monitor is read-only with respect to repository data. It may
+open or update an Issue about reachability, fingerprints, or review dates, but it may not commit
+data, open data pull requests, or deploy.

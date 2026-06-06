@@ -6,7 +6,17 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!node_modules", "!.next", "!out", "!dev_locals"]
+    "includes": [
+      "**",
+      "!node_modules",
+      "!dist",
+      "!.output",
+      "!coverage",
+      "!playwright-report",
+      "!test-results",
+      "!dev_locals",
+      "!**/routeTree.gen.ts"
+    ]
   },
   "formatter": {
     "enabled": true,

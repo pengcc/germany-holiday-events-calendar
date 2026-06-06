@@ -3,10 +3,12 @@ dev_locals/
 
 # Dependencies
 node_modules/
+.pnpm-store/
 
-# Next.js and static export output
-.next/
-out/
+# Vite and TanStack Start output
+dist/
+.output/
+.tanstack/
 
 # Test and browser artifacts
 coverage/
