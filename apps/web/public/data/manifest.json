@@ -1,11 +1,488 @@
 {
+  "categories": [
+    "school",
+    "public"
+  ],
   "coverage": [],
+  "coverageMatrix": [
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-BW",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-BW",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-BW",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-BW",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-BY",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-BY",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-BY",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-BY",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-BE",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-BE",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-BE",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-BE",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-BB",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-BB",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-BB",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-BB",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-HB",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-HB",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-HB",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-HB",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-HH",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-HH",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-HH",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-HH",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-HE",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-HE",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-HE",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-HE",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-MV",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-MV",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-MV",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-MV",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-NI",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-NI",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-NI",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-NI",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-NW",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-NW",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-NW",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-NW",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-RP",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-RP",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-RP",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-RP",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-SL",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-SL",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-SL",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-SL",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-SN",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-SN",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-SN",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-SN",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-ST",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-ST",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-ST",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-ST",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-SH",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-SH",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-SH",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-SH",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-TH",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-TH",
+      "sourceIds": [],
+      "year": 2026
+    },
+    {
+      "category": "school",
+      "covered": false,
+      "jurisdiction": "DE-TH",
+      "sourceIds": [],
+      "year": 2027
+    },
+    {
+      "category": "public",
+      "covered": false,
+      "jurisdiction": "DE-TH",
+      "sourceIds": [],
+      "year": 2027
+    }
+  ],
   "datasetVersion": "b7e438728dfa6aee",
   "generatedAt": "1970-01-01T00:00:00.000Z",
+  "jurisdictions": [
+    "DE-BW",
+    "DE-BY",
+    "DE-BE",
+    "DE-BB",
+    "DE-HB",
+    "DE-HH",
+    "DE-HE",
+    "DE-MV",
+    "DE-NI",
+    "DE-NW",
+    "DE-RP",
+    "DE-SL",
+    "DE-SN",
+    "DE-ST",
+    "DE-SH",
+    "DE-TH"
+  ],
   "overrideIds": [],
   "recordCount": 0,
   "recordsFile": "holidays.json",
   "recordsSha256": "b7e438728dfa6aee7b7b3070f719b6f2f861144078a99ecc88f50a3119a1a1f2",
+  "regionalRecordCount": 0,
   "schemaVersion": 1,
+  "targetYears": [
+    2026,
+    2027
+  ],
   "warnings": []
 }

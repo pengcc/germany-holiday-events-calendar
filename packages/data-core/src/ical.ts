@@ -4,12 +4,29 @@ import type { HolidayRecord, SourceManifest, ValidationIssue } from "./schemas";
 
 function localizedName(summary: string): HolidayRecord["names"] {
   const germanName = summary.split(" - ")[0]?.trim() || summary.trim();
+  const normalized = germanName.toLocaleLowerCase("de");
+  const translation = schoolHolidayTranslations.find(({ terms }) =>
+    terms.some((term) => normalized.includes(term)),
+  );
   return {
     de: germanName,
-    en: germanName,
-    zh: germanName,
+    en: translation?.en ?? "School holidays",
+    zh: translation?.zh ?? "学校假期",
   };
 }
+
+const schoolHolidayTranslations = [
+  { terms: ["herbst"], en: "Autumn holidays", zh: "秋假" },
+  { terms: ["weihnacht"], en: "Christmas holidays", zh: "圣诞假期" },
+  { terms: ["winter"], en: "Winter holidays", zh: "寒假" },
+  { terms: ["oster", "frühjahr"], en: "Easter or spring holidays", zh: "复活节或春假" },
+  {
+    terms: ["pfingst", "himmelfahrt"],
+    en: "Ascension or Pentecost holidays",
+    zh: "升天节或圣灵降临节假期",
+  },
+  { terms: ["sommer"], en: "Summer holidays", zh: "暑假" },
+] as const;
 
 export function normalizeKmkIcs(
   text: string,

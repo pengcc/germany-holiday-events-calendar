@@ -44,6 +44,7 @@ All workspace manifests use exact versions.
 | zod | 4.4.3 | Runtime schemas for every persisted data boundary. |
 | yaml | 2.9.0 | Human-readable source manifests and override records. |
 | ical.js | 2.2.1 | Standards-aware iCalendar parsing. |
+| pdfjs-dist | 6.0.227 | Extract positioned text from official KMK holiday PDFs in local tooling. Requires Node 22.13+ or 24, compatible with the pinned Node 24.16.0 runtime. |
 | @internationalized/date | 3.12.2 | All-day calendar arithmetic without timezone timestamps. |
 | commander | 15.0.0 | Structured CLI commands and help. |
 | p-limit | 7.3.0 | Bounded source fetch concurrency. |

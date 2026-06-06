@@ -39,12 +39,16 @@ Common commands:
 ```sh
 pnpm dev:web
 pnpm dev:studio
-pnpm data:refresh -- --source <source-id>
+pnpm data:refresh --source <source-id>
 pnpm data:validate
 pnpm data:rebuild:check
 pnpm build
 pnpm smoke
 ```
+
+The current release contract covers all 16 states for 2026 and 2027. It requires 80 reviewed
+source/state/period batches before the first static dataset can be published. A refresh always
+stops at the human review gate.
 
 See [docs/decisions/dependencies.md](docs/decisions/dependencies.md) for exact dependency decisions.
 See [docs/decisions/quality-gates.md](docs/decisions/quality-gates.md) for quality gate expectations.

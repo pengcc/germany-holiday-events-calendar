@@ -14,6 +14,13 @@ interface ReviewInput {
   decision: "approved" | "rejected";
 }
 
+interface BulkReviewInput {
+  runId: string;
+  sourceIds: string[];
+  reviewer: string;
+  notes: string;
+}
+
 interface ResolveInput {
   runId: string;
   sourceId: string;
@@ -123,6 +130,32 @@ export const saveReview = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { reviewBatch } = await import("@hsg/data-core");
     return reviewBatch(await findWorkspaceRoot(), data);
+  });
+
+export const saveReviews = createServerFn({ method: "POST" })
+  .inputValidator((input: BulkReviewInput) => input)
+  .handler(async ({ data }) => {
+    const { getRun, reviewBatch } = await import("@hsg/data-core");
+    const workspaceRoot = await findWorkspaceRoot();
+    const run = await getRun(workspaceRoot, data.runId);
+    const allowed = new Set(run.sources.map((source) => source.sourceId));
+    const sourceIds = [...new Set(data.sourceIds)];
+    if (sourceIds.length === 0 || sourceIds.some((sourceId) => !allowed.has(sourceId))) {
+      throw new Error("Bulk review contains an unknown or empty source selection.");
+    }
+    const reviews = [];
+    for (const sourceId of sourceIds) {
+      reviews.push(
+        await reviewBatch(workspaceRoot, {
+          runId: data.runId,
+          sourceId,
+          reviewer: data.reviewer,
+          notes: data.notes,
+          decision: "approved",
+        }),
+      );
+    }
+    return reviews;
   });
 
 export const saveResolution = createServerFn({ method: "POST" })

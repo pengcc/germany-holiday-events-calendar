@@ -30,6 +30,13 @@ export function ComparisonPage({ locale }: ComparisonPageProps) {
       .then(({ records: loadedRecords, manifest: loadedManifest }) => {
         setRecords(loadedRecords);
         setManifest(loadedManifest);
+        if (loadedManifest.targetYears.length > 0) {
+          setYear((current) =>
+            loadedManifest.targetYears.includes(current)
+              ? current
+              : (loadedManifest.targetYears[0] ?? current),
+          );
+        }
       })
       .catch((loadError: unknown) => {
         setError(loadError instanceof Error ? loadError.message : String(loadError));
@@ -37,13 +44,16 @@ export function ComparisonPage({ locale }: ComparisonPageProps) {
   }, []);
 
   const availableYears = useMemo(() => {
+    if (manifest?.targetYears.length) {
+      return manifest.targetYears;
+    }
     const years = new Set<number>([new Date().getFullYear(), new Date().getFullYear() + 1]);
     for (const record of records) {
       years.add(Number(record.startDate.slice(0, 4)));
       years.add(Number(record.endDate.slice(0, 4)));
     }
     return [...years].sort();
-  }, [records]);
+  }, [manifest, records]);
 
   function toggleState(stateCode: string): void {
     setSelectedStates((current) =>

@@ -40,6 +40,37 @@ export const PeriodSchema = z.object({
 });
 export type Period = z.infer<typeof PeriodSchema>;
 
+export const RedistributionSchema = z.enum(["allowed", "prohibited", "unknown"]);
+
+export const FetchPolicySchema = z.object({
+  expectedContentTypes: z.array(z.string().min(1)).min(1),
+  allowedHosts: z.array(z.string().min(1)).min(1),
+  timeoutMs: z.number().int().positive().max(120_000),
+  maxBytes: z.number().int().positive().max(20_000_000),
+  maxRedirects: z.number().int().min(0).max(5),
+});
+
+export const FreshnessSchema = z.object({
+  retrievalCadenceDays: z.number().int().positive(),
+  reviewBy: IsoDateSchema,
+});
+
+export const SourceDocumentSchema = z.object({
+  schemaVersion: z.literal(1),
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  name: z.string().min(1),
+  homepageUrl: z.url(),
+  fetchUrl: z.url(),
+  format: z.enum(["ics", "pdf", "html", "json"]),
+  license: z.object({
+    note: z.string().min(1),
+    redistribution: RedistributionSchema,
+  }),
+  fetch: FetchPolicySchema,
+  freshness: FreshnessSchema,
+});
+export type SourceDocument = z.infer<typeof SourceDocumentSchema>;
+
 export const SourceManifestSchema = z.object({
   schemaVersion: z.literal(1),
   id: z.string().regex(/^[a-z0-9-]+$/),
@@ -47,29 +78,71 @@ export const SourceManifestSchema = z.object({
   authority: z.enum(["official", "cross-check"]),
   category: z.enum(["school", "public"]),
   jurisdiction: StateCodeSchema,
+  documentId: z
+    .string()
+    .regex(/^[a-z0-9-]+$/)
+    .optional(),
+  crossCheckDocumentId: z
+    .string()
+    .regex(/^[a-z0-9-]+$/)
+    .optional(),
+  crossCheckDocument: SourceDocumentSchema.optional(),
   homepageUrl: z.url(),
   fetchUrl: z.url(),
-  format: z.enum(["ics", "json"]),
-  adapter: z.enum(["kmk-ics", "holiday-json"]),
+  format: z.enum(["ics", "pdf", "html", "json"]),
+  adapter: z.enum(["kmk-ics", "kmk-pdf", "public-rules", "holiday-json"]),
   enabled: z.boolean().default(true),
   period: PeriodSchema,
   license: z.object({
     note: z.string().min(1),
-    redistribution: z.enum(["allowed", "prohibited", "unknown"]),
+    redistribution: RedistributionSchema,
   }),
-  fetch: z.object({
-    expectedContentTypes: z.array(z.string().min(1)).min(1),
-    allowedHosts: z.array(z.string().min(1)).min(1),
-    timeoutMs: z.number().int().positive().max(120_000),
-    maxBytes: z.number().int().positive().max(20_000_000),
-    maxRedirects: z.number().int().min(0).max(5),
-  }),
-  freshness: z.object({
-    retrievalCadenceDays: z.number().int().positive(),
-    reviewBy: IsoDateSchema,
-  }),
+  fetch: FetchPolicySchema,
+  freshness: FreshnessSchema,
 });
 export type SourceManifest = z.infer<typeof SourceManifestSchema>;
+
+export const SourceMatrixSchema = z
+  .object({
+    schemaVersion: z.literal(1),
+    idPrefix: z.string().regex(/^[a-z0-9-]+$/),
+    name: z.string().min(1),
+    authority: z.enum(["official", "cross-check"]),
+    category: z.enum(["school", "public"]),
+    adapter: z.enum(["kmk-ics", "kmk-pdf", "public-rules", "holiday-json"]),
+    documentId: z
+      .string()
+      .regex(/^[a-z0-9-]+$/)
+      .optional(),
+    documents: z.record(StateCodeSchema, z.string().regex(/^[a-z0-9-]+$/)).optional(),
+    crossCheckDocumentId: z
+      .string()
+      .regex(/^[a-z0-9-]+$/)
+      .optional(),
+    crossCheckDocuments: z.record(StateCodeSchema, z.string().regex(/^[a-z0-9-]+$/)).optional(),
+    enabled: z.boolean().default(true),
+    period: PeriodSchema,
+    jurisdictions: z.union([z.literal("all"), z.array(StateCodeSchema).min(1)]),
+  })
+  .refine((matrix) => Boolean(matrix.documentId || matrix.documents), {
+    message: "A source matrix requires documentId or jurisdiction-specific documents.",
+  });
+export type SourceMatrix = z.infer<typeof SourceMatrixSchema>;
+
+export const SourceCatalogSchema = z.object({
+  schemaVersion: z.literal(1),
+  documents: z.array(SourceDocumentSchema),
+  matrices: z.array(SourceMatrixSchema),
+});
+export type SourceCatalog = z.infer<typeof SourceCatalogSchema>;
+
+export const ReleaseConfigSchema = z.object({
+  schemaVersion: z.literal(1),
+  targetYears: z.array(z.number().int().min(2000).max(2200)).min(1),
+  jurisdictions: z.array(StateCodeSchema).min(1),
+  categories: z.array(z.enum(["school", "public"])).min(1),
+});
+export type ReleaseConfig = z.infer<typeof ReleaseConfigSchema>;
 
 export const HolidayRecordSchema = z.object({
   schemaVersion: z.literal(1),
@@ -97,6 +170,17 @@ export const SourceFingerprintSchema = z.object({
   etag: z.string().optional(),
   lastModified: z.string().optional(),
   finalUrl: z.url(),
+  documents: z
+    .array(
+      z.object({
+        documentId: z.string().min(1),
+        sha256: z.string().length(64),
+        bytes: z.number().int().nonnegative(),
+        contentType: z.string(),
+        finalUrl: z.url(),
+      }),
+    )
+    .optional(),
 });
 export type SourceFingerprint = z.infer<typeof SourceFingerprintSchema>;
 
@@ -195,6 +279,21 @@ export const PublishedDatasetManifestSchema = z.object({
   recordsFile: z.string().min(1),
   recordsSha256: z.string().length(64),
   recordCount: z.number().int().nonnegative(),
+  targetYears: z.array(z.number().int()).default([]),
+  jurisdictions: z.array(StateCodeSchema).default([]),
+  categories: z.array(z.enum(["school", "public"])).default([]),
+  regionalRecordCount: z.number().int().nonnegative().default(0),
+  coverageMatrix: z
+    .array(
+      z.object({
+        jurisdiction: StateCodeSchema,
+        year: z.number().int(),
+        category: z.enum(["school", "public"]),
+        covered: z.boolean(),
+        sourceIds: z.array(z.string()),
+      }),
+    )
+    .default([]),
   coverage: z.array(
     z.object({
       sourceId: z.string(),

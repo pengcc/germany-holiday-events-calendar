@@ -173,6 +173,11 @@ async function makeWorkspace(): Promise<string> {
     ].join("\n"),
     "utf8",
   );
+  await writeFile(
+    resolve(root, "data/public-holiday-rules.yaml"),
+    "schemaVersion: 1\nrules: []\n",
+    "utf8",
+  );
   return root;
 }
 
