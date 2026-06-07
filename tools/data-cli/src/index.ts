@@ -38,7 +38,7 @@ program
       concurrency: Number(options.concurrency),
     });
     printRun(run);
-    console.log(`\nReview run: pnpm data:review -- ${run.id} <source-id>`);
+    console.log(`\nReview run: pnpm data:review ${run.id} <source-id>`);
   });
 
 program
@@ -131,7 +131,7 @@ program
       console.log(
         `${decision.sourceId} ${decision.decision} by ${decision.reviewer} at ${decision.reviewedAt}`,
       );
-      console.log(`Preview publish: pnpm data:publish -- ${runId} --preview`);
+      console.log(`Preview publish: pnpm data:publish ${runId} --preview`);
     },
   );
 

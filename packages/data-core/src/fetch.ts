@@ -9,7 +9,7 @@ interface CachedSource {
 }
 
 export interface FetchResult {
-  body: string;
+  body: Uint8Array;
   fingerprint: SourceFingerprint;
   fromCache: boolean;
 }
@@ -18,7 +18,10 @@ export async function fetchSource(
   source: SourceManifest,
   cacheDirectory: string,
 ): Promise<FetchResult> {
-  const sourceCacheDirectory = assertWithin(cacheDirectory, resolve(cacheDirectory, source.id));
+  const sourceCacheDirectory = assertWithin(
+    cacheDirectory,
+    resolve(cacheDirectory, source.documentId ?? source.id),
+  );
   await mkdir(sourceCacheDirectory, { recursive: true });
   const metadataPath = resolve(sourceCacheDirectory, "latest.json");
   let cached: CachedSource | undefined;
@@ -43,7 +46,6 @@ export async function fetchSource(
     return {
       body: await readFile(
         assertWithin(sourceCacheDirectory, resolve(sourceCacheDirectory, cached.bodyFile)),
-        "utf8",
       ),
       fingerprint: cached.fingerprint,
       fromCache: true,
@@ -71,7 +73,6 @@ export async function fetchSource(
     );
   }
 
-  const body = new TextDecoder().decode(bytes);
   const fingerprint: SourceFingerprint = {
     sha256: sha256(bytes),
     bytes: bytes.byteLength,
@@ -82,9 +83,9 @@ export async function fetchSource(
     finalUrl: response.url,
   };
   const bodyFile = `${fingerprint.sha256}.raw`;
-  await writeFile(resolve(sourceCacheDirectory, bodyFile), body, "utf8");
+  await writeFile(resolve(sourceCacheDirectory, bodyFile), bytes);
   await writeJsonAtomic(metadataPath, { fingerprint, bodyFile });
-  return { body, fingerprint, fromCache: false };
+  return { body: bytes, fingerprint, fromCache: false };
 }
 
 async function fetchWithLimits(source: SourceManifest, headers: Headers): Promise<Response> {

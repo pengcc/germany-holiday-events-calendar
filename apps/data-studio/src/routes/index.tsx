@@ -23,6 +23,7 @@ import {
   resumeData,
   saveResolution,
   saveReview,
+  saveReviews,
 } from "../server/data-functions";
 
 export const Route = createFileRoute("/")({
@@ -36,6 +37,7 @@ function StudioPage() {
   const refresh = useServerFn(refreshData);
   const resume = useServerFn(resumeData);
   const review = useServerFn(saveReview);
+  const bulkReview = useServerFn(saveReviews);
   const resolve = useServerFn(saveResolution);
   const draftOverride = useServerFn(makeOverrideDraft);
   const publish = useServerFn(publishData);
@@ -48,6 +50,23 @@ function StudioPage() {
   const [busy, setBusy] = useState<string>();
   const [message, setMessage] = useState<string>();
   const [publishConfirmed, setPublishConfirmed] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [jurisdictionFilter, setJurisdictionFilter] = useState("all");
+  const [periodFilter, setPeriodFilter] = useState("all");
+  const [selectedBatchIds, setSelectedBatchIds] = useState<string[]>([]);
+
+  const filteredBatches = useMemo(
+    () =>
+      dashboard.batches.filter(
+        (batch) =>
+          (categoryFilter === "all" || batch.artifacts?.source.category === categoryFilter) &&
+          (jurisdictionFilter === "all" || batch.sourceRun.jurisdiction === jurisdictionFilter) &&
+          (periodFilter === "all" || batch.sourceRun.periodId === periodFilter),
+      ),
+    [categoryFilter, dashboard.batches, jurisdictionFilter, periodFilter],
+  );
+  const periods = [...new Set(dashboard.sources.map((source) => source.period.id))].sort();
+  const jurisdictions = [...new Set(dashboard.sources.map((source) => source.jurisdiction))].sort();
 
   const selectedBatch = useMemo(
     () =>
@@ -216,19 +235,126 @@ function StudioPage() {
                   <p className="eyebrow">Latest run</p>
                   <h2>{dashboard.latestRun?.id}</h2>
                 </div>
-                <label>
-                  Batch
-                  <select
-                    value={selectedBatch.sourceRun.sourceId}
-                    onChange={(event) => setSelectedSourceId(event.target.value)}
+                <div className="batch-filters">
+                  <label>
+                    Category
+                    <select
+                      value={categoryFilter}
+                      onChange={(event) => setCategoryFilter(event.target.value)}
+                    >
+                      <option value="all">All</option>
+                      <option value="school">School</option>
+                      <option value="public">Public</option>
+                    </select>
+                  </label>
+                  <label>
+                    State
+                    <select
+                      value={jurisdictionFilter}
+                      onChange={(event) => setJurisdictionFilter(event.target.value)}
+                    >
+                      <option value="all">All</option>
+                      {jurisdictions.map((jurisdiction) => (
+                        <option key={jurisdiction}>{jurisdiction}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Period
+                    <select
+                      value={periodFilter}
+                      onChange={(event) => setPeriodFilter(event.target.value)}
+                    >
+                      <option value="all">All</option>
+                      {periods.map((period) => (
+                        <option key={period}>{period}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Batch
+                    <select
+                      value={selectedBatch.sourceRun.sourceId}
+                      onChange={(event) => setSelectedSourceId(event.target.value)}
+                    >
+                      {filteredBatches.map((batch) => (
+                        <option key={batch.sourceRun.sourceId} value={batch.sourceRun.sourceId}>
+                          {batch.sourceRun.jurisdiction} · {batch.sourceRun.periodId} ·{" "}
+                          {batch.artifacts?.source.category}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+              </section>
+
+              <section className="section">
+                <div className="section-heading">
+                  <div>
+                    <p className="eyebrow">Release coverage</p>
+                    <h2>Batch selection</h2>
+                  </div>
+                  <span>{filteredBatches.length} visible batches</span>
+                </div>
+                <div className="batch-selection">
+                  {filteredBatches.map((batch) => {
+                    const keys = new Set(
+                      batch.resolutions.map((resolution) => resolution.issueKey),
+                    );
+                    const blocked = Boolean(
+                      batch.artifacts?.issues.some(
+                        (issue) =>
+                          (issue.severity === "blocker" || issue.decisionRequired) &&
+                          !keys.has(issueKey(issue)),
+                      ),
+                    );
+                    return (
+                      <label key={batch.sourceRun.sourceId} className="batch-select-row">
+                        <input
+                          checked={selectedBatchIds.includes(batch.sourceRun.sourceId)}
+                          disabled={blocked || batch.review?.decision === "approved"}
+                          type="checkbox"
+                          onChange={(event) =>
+                            setSelectedBatchIds((current) =>
+                              event.target.checked
+                                ? [...current, batch.sourceRun.sourceId]
+                                : current.filter((id) => id !== batch.sourceRun.sourceId),
+                            )
+                          }
+                        />
+                        <span>{batch.sourceRun.jurisdiction}</span>
+                        <span>{batch.sourceRun.periodId}</span>
+                        <span>{batch.artifacts?.source.category}</span>
+                        <StatusText blocked={blocked} count={batch.sourceRun.issueCount} />
+                      </label>
+                    );
+                  })}
+                </div>
+                <div className="button-row">
+                  <button
+                    className="primary-action"
+                    disabled={!reviewer || selectedBatchIds.length === 0 || Boolean(busy)}
+                    type="button"
+                    onClick={() =>
+                      runAction(
+                        "bulk-approve",
+                        () =>
+                          bulkReview({
+                            data: {
+                              runId: dashboard.latestRun?.id ?? "",
+                              sourceIds: selectedBatchIds,
+                              reviewer,
+                              notes,
+                            },
+                          }),
+                        `${selectedBatchIds.length} batches approved locally.`,
+                      )
+                    }
                   >
-                    {dashboard.batches.map((batch) => (
-                      <option key={batch.sourceRun.sourceId} value={batch.sourceRun.sourceId}>
-                        {batch.sourceRun.jurisdiction} · {batch.sourceRun.periodId}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                    <CheckCircle2 />
+                    Approve selected
+                  </button>
+                </div>
               </section>
 
               <section className="section">
@@ -454,6 +580,11 @@ function StudioPage() {
                   <p>
                     Approved batches:{" "}
                     {dashboard.publishPreview?.approvableSources.join(", ") || "none"}
+                  </p>
+                  <p>
+                    Retained reviewed batches:{" "}
+                    {dashboard.publishPreview?.retainedSources.length ?? 0} · Regional records:{" "}
+                    {dashboard.publishPreview?.regionalRecordCount ?? 0}
                   </p>
                   <ul className="file-list">
                     {dashboard.publishPreview?.files.map((file) => (

@@ -5,6 +5,7 @@ import { promisify } from "node:util";
 import pLimit from "p-limit";
 import { stringify } from "yaml";
 import { compareRecords } from "./diff";
+import type { FetchResult } from "./fetch";
 import { fetchSource } from "./fetch";
 import {
   assertWithin,
@@ -12,13 +13,21 @@ import {
   readJson,
   sha256,
   stableStringify,
+  writeBytesAtomic,
   writeJsonAtomic,
   writeTextAtomic,
 } from "./fs";
 import { normalizeKmkIcs } from "./ical";
-import { loadOverrides, loadSourceManifests } from "./manifests";
+import { normalizeKmkPdf } from "./kmk-pdf";
+import { loadOverrides, loadReleaseConfig, loadSourceManifests } from "./manifests";
 import { applyOverrides } from "./overrides";
 import { crossCheckPublicHolidays } from "./public-holiday-crosscheck";
+import {
+  generatePublicHolidays,
+  loadPublicHolidayRules,
+  type PublicHolidayRule,
+  regionalRuleReviewIssues,
+} from "./public-holidays";
 import {
   type AcceptedBatch,
   AcceptedBatchSchema,
@@ -29,8 +38,11 @@ import {
   type DecisionResolution,
   DecisionResolutionSchema,
   type HolidayOverride,
+  type HolidayRecord,
   type PublishedDatasetManifest,
   PublishedDatasetManifestSchema,
+  type SourceDocument,
+  type SourceFingerprint,
   type SourceManifest,
   type SourceRun,
   type SourceRunArtifacts,
@@ -59,7 +71,10 @@ export async function refreshSources(options: RefreshOptions): Promise<DataRun> 
     throw new Error("No enabled source manifests matched the requested source IDs.");
   }
 
-  const overrides = await loadOverrides(paths.overrides);
+  const [overrides, publicHolidayRules] = await Promise.all([
+    loadOverrides(paths.overrides),
+    loadPublicHolidayRules(paths.publicRules),
+  ]);
   const runId = createRunId();
   const runDirectory = assertWithin(paths.runs, resolve(paths.runs, runId));
   const reuseDirectory = options.reuseFromRunId
@@ -88,10 +103,20 @@ export async function refreshSources(options: RefreshOptions): Promise<DataRun> 
   await writeJsonAtomic(resolve(runDirectory, "run.json"), run);
 
   const limit = pLimit(options.concurrency ?? 3);
+  const sharedFetches = new Map<string, Promise<FetchResult>>();
   const sourceRuns = await Promise.all(
     selected.map((source) =>
       limit(() =>
-        processSource(source, overrides, paths.accepted, paths.cache, runDirectory, reuseDirectory),
+        processSource(
+          source,
+          overrides,
+          publicHolidayRules,
+          paths.accepted,
+          paths.cache,
+          runDirectory,
+          reuseDirectory,
+          sharedFetches,
+        ),
       ),
     ),
   );
@@ -108,16 +133,58 @@ export async function refreshSources(options: RefreshOptions): Promise<DataRun> 
 async function processSource(
   source: SourceManifest,
   overrides: HolidayOverride[],
+  publicHolidayRules: PublicHolidayRule[],
   acceptedDirectory: string,
   cacheDirectory: string,
   runDirectory: string,
   reuseDirectory?: string,
+  sharedFetches?: Map<string, Promise<FetchResult>>,
 ): Promise<SourceRun> {
   const sourceDirectory = assertWithin(runDirectory, resolve(runDirectory, source.id));
   await mkdir(sourceDirectory, { recursive: true });
   try {
-    const fetched = await getFetchInput(source, cacheDirectory, sourceDirectory, reuseDirectory);
-    const normalized = normalizeSource(fetched.body, source);
+    const fetched = await getFetchInput(
+      source,
+      cacheDirectory,
+      sourceDirectory,
+      reuseDirectory,
+      sharedFetches,
+    );
+    const crossCheck = source.crossCheckDocument
+      ? await getCrossCheckInput(
+          source,
+          cacheDirectory,
+          sourceDirectory,
+          reuseDirectory,
+          sharedFetches,
+        )
+      : undefined;
+    const rulesFingerprint =
+      source.adapter === "public-rules"
+        ? localRulesFingerprint(source, publicHolidayRules)
+        : undefined;
+    const fingerprint = compositeFingerprint(
+      source,
+      fetched.fingerprint,
+      crossCheck?.fingerprint ?? rulesFingerprint,
+      crossCheck ? undefined : rulesFingerprint ? "public-holiday-rules" : undefined,
+    );
+    const normalized = await normalizeSource(fetched.body, source, publicHolidayRules);
+    const officialCrossCheck =
+      source.adapter === "kmk-ics" && crossCheck
+        ? await normalizeKmkPdf(crossCheck.body, {
+            ...source,
+            documentId: source.crossCheckDocument?.id,
+            adapter: "kmk-pdf",
+            format: "pdf",
+          })
+        : undefined;
+    const officialCrossCheckIssues = officialCrossCheck
+      ? [
+          ...officialCrossCheck.issues,
+          ...compareKmkOfficialSources(normalized.records, officialCrossCheck.records, source),
+        ]
+      : [];
     const overridden = applyOverrides(normalized.records, overrides, source.id);
     const validationIssues = [
       ...validateRecords(overridden.records, source),
@@ -143,11 +210,17 @@ async function processSource(
           "Inspect the source event and explicitly resolve the decision before approval.",
         decisionRequired: true,
       }));
-    const issues = [...normalized.issues, ...overridden.issues, ...validationIssues, ...diffIssues];
+    const issues = [
+      ...normalized.issues,
+      ...officialCrossCheckIssues,
+      ...overridden.issues,
+      ...validationIssues,
+      ...diffIssues,
+    ];
     const artifacts: SourceRunArtifacts = {
       schemaVersion: 1,
       source,
-      fingerprint: fetched.fingerprint,
+      fingerprint,
       records: overridden.records,
       issues,
       diff,
@@ -161,7 +234,7 @@ async function processSource(
       periodId: source.period.id,
       status: hasBlockingIssues(issues) ? "blocked" : "completed",
       stage: "compared",
-      fingerprint: fetched.fingerprint,
+      fingerprint,
       recordCount: overridden.records.length,
       issueCount: issues.length,
       decisionRequiredCount: issues.filter((issue) => issue.decisionRequired).length,
@@ -186,19 +259,19 @@ async function getFetchInput(
   cacheDirectory: string,
   sourceDirectory: string,
   reuseDirectory?: string,
+  sharedFetches?: Map<string, Promise<FetchResult>>,
 ) {
   if (reuseDirectory) {
     try {
       const reusedBody = await readFile(
         assertWithin(reuseDirectory, resolve(reuseDirectory, source.id, "raw.source")),
-        "utf8",
       );
       const reusedFingerprint = SourceRunArtifactsSchema.shape.fingerprint.parse(
         await readJson(
           assertWithin(reuseDirectory, resolve(reuseDirectory, source.id, "fingerprint.json")),
         ),
       );
-      await writeTextAtomic(resolve(sourceDirectory, "raw.source"), reusedBody);
+      await writeBytesAtomic(resolve(sourceDirectory, "raw.source"), reusedBody);
       await writeJsonAtomic(resolve(sourceDirectory, "fingerprint.json"), reusedFingerprint);
       return { body: reusedBody, fingerprint: reusedFingerprint, fromCache: true };
     } catch {
@@ -206,17 +279,196 @@ async function getFetchInput(
     }
   }
 
-  const fetched = await fetchSource(source, cacheDirectory);
-  await writeTextAtomic(resolve(sourceDirectory, "raw.source"), fetched.body);
+  const fetched = await fetchShared(source, cacheDirectory, sharedFetches);
+  await writeBytesAtomic(resolve(sourceDirectory, "raw.source"), fetched.body);
   await writeJsonAtomic(resolve(sourceDirectory, "fingerprint.json"), fetched.fingerprint);
   return fetched;
 }
 
-function normalizeSource(body: string, source: SourceManifest) {
+async function getCrossCheckInput(
+  source: SourceManifest,
+  cacheDirectory: string,
+  sourceDirectory: string,
+  reuseDirectory?: string,
+  sharedFetches?: Map<string, Promise<FetchResult>>,
+) {
+  const document = source.crossCheckDocument;
+  if (!document) {
+    throw new Error(`Source ${source.id} does not define a cross-check document.`);
+  }
+  const crossCheckSource = sourceFromDocument(source, document, `${source.id}-cross-check`);
+  const rawPath = resolve(sourceDirectory, "cross-check.raw");
+  const fingerprintPath = resolve(sourceDirectory, "cross-check-fingerprint.json");
+
+  if (reuseDirectory) {
+    try {
+      const reusedBody = await readFile(
+        assertWithin(reuseDirectory, resolve(reuseDirectory, source.id, "cross-check.raw")),
+      );
+      const reusedFingerprint = SourceRunArtifactsSchema.shape.fingerprint.parse(
+        await readJson(
+          assertWithin(
+            reuseDirectory,
+            resolve(reuseDirectory, source.id, "cross-check-fingerprint.json"),
+          ),
+        ),
+      );
+      await writeBytesAtomic(rawPath, reusedBody);
+      await writeJsonAtomic(fingerprintPath, reusedFingerprint);
+      return { body: reusedBody, fingerprint: reusedFingerprint, fromCache: true };
+    } catch {
+      // A parent run that failed before cross-check fetch completion is not reusable.
+    }
+  }
+
+  const fetched = await fetchShared(crossCheckSource, cacheDirectory, sharedFetches);
+  await writeBytesAtomic(rawPath, fetched.body);
+  await writeJsonAtomic(fingerprintPath, fetched.fingerprint);
+  return fetched;
+}
+
+function fetchShared(
+  source: SourceManifest,
+  cacheDirectory: string,
+  sharedFetches?: Map<string, Promise<FetchResult>>,
+): Promise<FetchResult> {
+  if (!sharedFetches) {
+    return fetchSource(source, cacheDirectory);
+  }
+  const key = source.documentId ?? source.id;
+  const existing = sharedFetches.get(key);
+  if (existing) {
+    return existing;
+  }
+  const request = fetchSource(source, cacheDirectory);
+  sharedFetches.set(key, request);
+  return request;
+}
+
+async function normalizeSource(
+  body: Uint8Array,
+  source: SourceManifest,
+  publicHolidayRules: PublicHolidayRule[],
+) {
   if (source.adapter === "kmk-ics") {
-    return normalizeKmkIcs(body, source);
+    return normalizeKmkIcs(new TextDecoder().decode(body), source);
+  }
+  if (source.adapter === "kmk-pdf") {
+    return normalizeKmkPdf(body, source);
+  }
+  if (source.adapter === "public-rules") {
+    return {
+      records: generatePublicHolidays(source, publicHolidayRules),
+      issues: regionalRuleReviewIssues(source, publicHolidayRules),
+    };
   }
   throw new Error(`Adapter ${source.adapter} is declared but not implemented.`);
+}
+
+function sourceFromDocument(
+  source: SourceManifest,
+  document: SourceDocument,
+  id: string,
+): SourceManifest {
+  return {
+    ...source,
+    id,
+    documentId: document.id,
+    crossCheckDocumentId: undefined,
+    crossCheckDocument: undefined,
+    name: document.name,
+    homepageUrl: document.homepageUrl,
+    fetchUrl: document.fetchUrl,
+    format: document.format,
+    license: document.license,
+    fetch: document.fetch,
+    freshness: document.freshness,
+  };
+}
+
+function compositeFingerprint(
+  source: SourceManifest,
+  primary: SourceFingerprint,
+  crossCheck?: SourceFingerprint,
+  secondaryDocumentId?: string,
+): SourceFingerprint {
+  if (!crossCheck) {
+    return primary;
+  }
+  return {
+    ...primary,
+    sha256: sha256(`${primary.sha256}:${crossCheck.sha256}`),
+    bytes: primary.bytes + crossCheck.bytes,
+    retrievedAt:
+      primary.retrievedAt > crossCheck.retrievedAt ? primary.retrievedAt : crossCheck.retrievedAt,
+    documents: [
+      {
+        documentId: source.documentId ?? source.id,
+        sha256: primary.sha256,
+        bytes: primary.bytes,
+        contentType: primary.contentType,
+        finalUrl: primary.finalUrl,
+      },
+      {
+        documentId:
+          secondaryDocumentId ?? source.crossCheckDocument?.id ?? `${source.id}-cross-check`,
+        sha256: crossCheck.sha256,
+        bytes: crossCheck.bytes,
+        contentType: crossCheck.contentType,
+        finalUrl: crossCheck.finalUrl,
+      },
+    ],
+  };
+}
+
+function localRulesFingerprint(
+  source: SourceManifest,
+  rules: PublicHolidayRule[],
+): SourceFingerprint {
+  const relevantRules = rules.filter(
+    (rule) => rule.jurisdictions === "all" || rule.jurisdictions.includes(source.jurisdiction),
+  );
+  const body = stableStringify(relevantRules);
+  return {
+    sha256: sha256(body),
+    bytes: new TextEncoder().encode(body).byteLength,
+    contentType: "application/yaml+derived",
+    retrievedAt: "1970-01-01T00:00:00.000Z",
+    finalUrl: "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+  };
+}
+
+function compareKmkOfficialSources(
+  primary: HolidayRecord[],
+  crossCheck: HolidayRecord[],
+  source: SourceManifest,
+): ValidationIssue[] {
+  const ranges = (records: HolidayRecord[]) =>
+    records
+      .map((record) => `${record.startDate}/${record.endDate}`)
+      .sort()
+      .join(", ");
+  const primaryRanges = ranges(primary);
+  const crossCheckRanges = ranges(crossCheck);
+  if (primaryRanges === crossCheckRanges) {
+    return [];
+  }
+  return [
+    {
+      code: "KMK_OFFICIAL_SOURCES_CONFLICT",
+      severity: "blocker",
+      stage: "validated",
+      sourceId: source.id,
+      jurisdiction: source.jurisdiction,
+      periodId: source.period.id,
+      message: "The KMK ICS calendar and KMK annual PDF contain different holiday ranges.",
+      expected: crossCheckRanges || "At least one range in the KMK PDF",
+      actual: primaryRanges || "No ranges in the KMK ICS calendar",
+      suggestedAction:
+        "Inspect both official KMK documents and record a resolution or reviewed override.",
+      decisionRequired: true,
+    },
+  ];
 }
 
 export async function listRuns(workspaceRoot: string): Promise<DataRun[]> {
@@ -439,6 +691,9 @@ export async function previewPublish(
 ): Promise<{
   approvableSources: string[];
   blockedSources: string[];
+  retainedSources: string[];
+  missingRequiredSources: string[];
+  regionalRecordCount: number;
   files: string[];
   warnings: string[];
   suggestedCommitMessage: string;
@@ -447,6 +702,7 @@ export async function previewPublish(
   const paths = projectPaths(workspaceRoot);
   const approvableSources: string[] = [];
   const blockedSources: string[] = [];
+  let regionalRecordCount = 0;
 
   for (const source of run.sources) {
     try {
@@ -455,6 +711,10 @@ export async function previewPublish(
       );
       if (review.decision === "approved") {
         approvableSources.push(source.sourceId);
+        const artifacts = await getSourceRunArtifacts(workspaceRoot, runId, source.sourceId);
+        regionalRecordCount += artifacts.records.filter(
+          (record) => record.scope === "regional",
+        ).length;
       } else {
         blockedSources.push(source.sourceId);
       }
@@ -462,10 +722,46 @@ export async function previewPublish(
       blockedSources.push(source.sourceId);
     }
   }
+  const [accepted, release, configuredSources] = await Promise.all([
+    readAllAccepted(paths.accepted),
+    loadReleaseConfig(paths.releaseConfig),
+    loadSourceManifests(paths.sources),
+  ]);
+  const acceptedIds = new Set(accepted.map((batch) => batch.source.id));
+  const approvedIds = new Set(approvableSources);
+  const retainedSources = blockedSources.filter((sourceId) => acceptedIds.has(sourceId));
+  const missingRequiredSources = configuredSources
+    .filter(
+      (source) =>
+        source.enabled &&
+        release.jurisdictions.includes(source.jurisdiction) &&
+        release.categories.includes(source.category) &&
+        release.targetYears.some((year) => periodOverlapsYear(source, year)) &&
+        !acceptedIds.has(source.id) &&
+        !approvedIds.has(source.id),
+    )
+    .map((source) => source.id)
+    .sort();
+  regionalRecordCount += accepted
+    .filter((batch) => !approvedIds.has(batch.source.id))
+    .flatMap((batch) => batch.records)
+    .filter((record) => record.scope === "regional").length;
+  const warnings = [];
+  if (retainedSources.length > 0) {
+    warnings.push(`${retainedSources.length} source batch(es) will retain reviewed old data.`);
+  }
+  if (missingRequiredSources.length > 0) {
+    warnings.push(
+      `${missingRequiredSources.length} required source batch(es) have no approved data; publication is blocked.`,
+    );
+  }
 
   return {
     approvableSources,
     blockedSources,
+    retainedSources,
+    missingRequiredSources,
+    regionalRecordCount,
     files: [
       ...approvableSources.flatMap((sourceId) => [
         `data/accepted/batches/${sourceId}.json`,
@@ -474,10 +770,7 @@ export async function previewPublish(
       "apps/web/public/data/holidays.json",
       "apps/web/public/data/manifest.json",
     ],
-    warnings:
-      blockedSources.length > 0
-        ? [`${blockedSources.length} unapproved or blocked source batch(es) will retain old data.`]
-        : [],
+    warnings,
     suggestedCommitMessage: `Update reviewed holiday data from ${runId}`,
   };
 }
@@ -496,6 +789,28 @@ export async function publishRun(
     throw new Error("No approved source batches are available to publish.");
   }
 
+  const existingBatches = await readAllAccepted(paths.accepted);
+  const prospectiveBatches = new Map(
+    existingBatches.map((batch) => [batch.source.id, batch] as const),
+  );
+  for (const sourceId of preview.approvableSources) {
+    const artifacts = await getSourceRunArtifacts(workspaceRoot, runId, sourceId);
+    const review = BatchReviewDecisionSchema.parse(
+      await readJson(resolve(paths.runs, runId, sourceId, "review.json")),
+    );
+    prospectiveBatches.set(
+      sourceId,
+      AcceptedBatchSchema.parse({
+        schemaVersion: 1,
+        source: artifacts.source,
+        fingerprint: artifacts.fingerprint,
+        records: artifacts.records,
+        review,
+      }),
+    );
+  }
+  await assertReleaseReady(workspaceRoot, [...prospectiveBatches.values()]);
+
   for (const sourceId of preview.approvableSources) {
     const artifacts = await getSourceRunArtifacts(workspaceRoot, runId, sourceId);
     const review = BatchReviewDecisionSchema.parse(
@@ -512,8 +827,8 @@ export async function publishRun(
     await writeJsonAtomic(resolve(paths.reviews, `${sourceId}.json`), review);
 
     if (artifacts.source.license.redistribution === "allowed") {
-      const raw = await readFile(resolve(paths.runs, runId, sourceId, "raw.source"), "utf8");
-      await writeTextAtomic(
+      const raw = await readFile(resolve(paths.runs, runId, sourceId, "raw.source"));
+      await writeBytesAtomic(
         resolve(paths.snapshots, sourceId, `${artifacts.fingerprint.sha256}.source`),
         raw,
       );
@@ -541,9 +856,15 @@ export async function rebuildPublishedData(
   options: { check?: boolean; today?: string } = {},
 ): Promise<PublishedDatasetManifest> {
   const paths = projectPaths(workspaceRoot);
-  const batches = await readAllAccepted(paths.accepted);
+  const [batches, release] = await Promise.all([
+    readAllAccepted(paths.accepted),
+    loadReleaseConfig(paths.releaseConfig),
+  ]);
+  const windowStart = `${Math.min(...release.targetYears)}-01-01`;
+  const windowEnd = `${Math.max(...release.targetYears)}-12-31`;
   const records = batches
     .flatMap((batch) => batch.records)
+    .filter((record) => record.endDate >= windowStart && record.startDate <= windowEnd)
     .sort(
       (left, right) =>
         left.startDate.localeCompare(right.startDate) || left.id.localeCompare(right.id),
@@ -578,6 +899,11 @@ export async function rebuildPublishedData(
     recordsFile: "holidays.json",
     recordsSha256: sha256(recordsContent),
     recordCount: records.length,
+    targetYears: release.targetYears,
+    jurisdictions: release.jurisdictions,
+    categories: release.categories,
+    regionalRecordCount: records.filter((record) => record.scope === "regional").length,
+    coverageMatrix: buildCoverageMatrix(batches, release),
     coverage,
     warnings,
     overrideIds: [...new Set(batches.flatMap((batch) => batch.review.overrideIds))].sort(),
@@ -597,6 +923,71 @@ export async function rebuildPublishedData(
     await writeTextAtomic(resolve(paths.publicData, "manifest.json"), manifestContent);
   }
   return manifest;
+}
+
+async function assertReleaseReady(workspaceRoot: string, batches: AcceptedBatch[]): Promise<void> {
+  const paths = projectPaths(workspaceRoot);
+  const [release, sources] = await Promise.all([
+    loadReleaseConfig(paths.releaseConfig),
+    loadSourceManifests(paths.sources),
+  ]);
+  const expectedSources = sources.filter(
+    (source) =>
+      source.enabled &&
+      release.jurisdictions.includes(source.jurisdiction) &&
+      release.categories.includes(source.category) &&
+      release.targetYears.some((year) => periodOverlapsYear(source, year)),
+  );
+  const batchesById = new Map(batches.map((batch) => [batch.source.id, batch]));
+  const missing = expectedSources
+    .filter((source) => !batchesById.has(source.id))
+    .map((source) => source.id);
+  if (missing.length > 0) {
+    throw new Error(
+      `Publishing is blocked by ${missing.length} missing approved batch(es): ${missing.join(", ")}`,
+    );
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const stale = expectedSources.filter((source) => source.freshness.reviewBy < today);
+  if (stale.length > 0) {
+    throw new Error(
+      `Publishing is blocked by stale batches: ${stale.map((source) => source.id).join(", ")}`,
+    );
+  }
+
+  const incomplete = buildCoverageMatrix(batches, release).filter((cell) => !cell.covered);
+  if (incomplete.length > 0) {
+    throw new Error(
+      `Publishing is blocked by ${incomplete.length} incomplete release coverage cell(s).`,
+    );
+  }
+}
+
+function buildCoverageMatrix(
+  batches: AcceptedBatch[],
+  release: Awaited<ReturnType<typeof loadReleaseConfig>>,
+) {
+  return release.jurisdictions.flatMap((jurisdiction) =>
+    release.targetYears.flatMap((year) =>
+      release.categories.map((category) => {
+        const sourceIds = batches
+          .filter(
+            (batch) =>
+              batch.source.jurisdiction === jurisdiction &&
+              batch.source.category === category &&
+              periodOverlapsYear(batch.source, year),
+          )
+          .map((batch) => batch.source.id)
+          .sort();
+        return { jurisdiction, year, category, covered: sourceIds.length > 0, sourceIds };
+      }),
+    ),
+  );
+}
+
+function periodOverlapsYear(source: SourceManifest, year: number): boolean {
+  return source.period.startDate <= `${year}-12-31` && source.period.endDate >= `${year}-01-01`;
 }
 
 export async function monitorSources(workspaceRoot: string): Promise<{

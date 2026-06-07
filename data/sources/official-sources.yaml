@@ -1,0 +1,338 @@
+schemaVersion: 1
+documents:
+  - &kmkPdf2025
+    schemaVersion: 1
+    id: kmk-pdf-2025-26
+    name: KMK Ferienkalender 2025/2026 PDF
+    homepageUrl: https://www.kmk.org/service/ferien/ferienkalender.html
+    fetchUrl: https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2025_26.pdf
+    format: pdf
+    license: &kmkLicense
+      note: Official KMK publication; raw-file redistribution requires separate confirmation.
+      redistribution: unknown
+    fetch: &kmkPdfFetch
+      expectedContentTypes: [application/pdf]
+      allowedHosts: [www.kmk.org]
+      timeoutMs: 30000
+      maxBytes: 10000000
+      maxRedirects: 2
+    freshness: &schoolFreshness
+      retrievalCadenceDays: 90
+      reviewBy: 2027-01-31
+  - <<: *kmkPdf2025
+    id: kmk-pdf-2026-27
+    name: KMK Ferienkalender 2026/2027 PDF
+    fetchUrl: https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2026_27.pdf
+  - <<: *kmkPdf2025
+    id: kmk-pdf-2027-28
+    name: KMK Ferienkalender 2027/2028 PDF
+    fetchUrl: https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2027_28.pdf
+
+  - &kmkIcs
+    schemaVersion: 1
+    id: kmk-ics-de-bw
+    name: KMK iCalendar Baden-Württemberg
+    homepageUrl: https://www.kmk.org/service/ferien/ferienkalender.html
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=1&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=8cbe5c786dfadb313a206c0e29bba119
+    format: ics
+    license: *kmkLicense
+    fetch: &kmkIcsFetch
+      expectedContentTypes: [text/calendar, text/plain, application/octet-stream]
+      allowedHosts: [www.kmk.org]
+      timeoutMs: 20000
+      maxBytes: 2000000
+      maxRedirects: 2
+    freshness: *schoolFreshness
+  - <<: *kmkIcs
+    id: kmk-ics-de-by
+    name: KMK iCalendar Bayern
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=2&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=1312882ae474ed09807eb624bb91feac
+  - <<: *kmkIcs
+    id: kmk-ics-de-be
+    name: KMK iCalendar Berlin
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=3&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=01ec267d5351e7c6cbdb9144144b3ea5
+  - <<: *kmkIcs
+    id: kmk-ics-de-bb
+    name: KMK iCalendar Brandenburg
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=4&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=065f932e72d6bd0d4d8d7310b78a35dc
+  - <<: *kmkIcs
+    id: kmk-ics-de-hb
+    name: KMK iCalendar Bremen
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=5&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=31da1e65a7b754fdfe4772576a9b4f9e
+  - <<: *kmkIcs
+    id: kmk-ics-de-hh
+    name: KMK iCalendar Hamburg
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=6&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=7c0ecec5b72d105c297bf0146505bc19
+  - <<: *kmkIcs
+    id: kmk-ics-de-he
+    name: KMK iCalendar Hessen
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=7&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=24be63f20e161ee361924578cc4aebb2
+  - <<: *kmkIcs
+    id: kmk-ics-de-mv
+    name: KMK iCalendar Mecklenburg-Vorpommern
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=8&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=2c638d9f0a0abb11ba70dc1507d50f3a
+  - <<: *kmkIcs
+    id: kmk-ics-de-ni
+    name: KMK iCalendar Niedersachsen
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=9&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=51425feb0b4e76ef6986cfcda3b08609
+  - <<: *kmkIcs
+    id: kmk-ics-de-nw
+    name: KMK iCalendar Nordrhein-Westfalen
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=10&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=1329b8f6470270ce71a24682f2742423
+  - <<: *kmkIcs
+    id: kmk-ics-de-rp
+    name: KMK iCalendar Rheinland-Pfalz
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=11&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=c8a3136a18ae32a5bdd15246133b9029
+  - <<: *kmkIcs
+    id: kmk-ics-de-sl
+    name: KMK iCalendar Saarland
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=12&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=637231e1ce60c3e124e3fa5498686220
+  - <<: *kmkIcs
+    id: kmk-ics-de-sn
+    name: KMK iCalendar Sachsen
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=13&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=1baa8838d045289efdb45408c2f9a336
+  - <<: *kmkIcs
+    id: kmk-ics-de-st
+    name: KMK iCalendar Sachsen-Anhalt
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=14&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=9832027705d42bb473b7698da6473565
+  - <<: *kmkIcs
+    id: kmk-ics-de-sh
+    name: KMK iCalendar Schleswig-Holstein
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=15&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=8850bda74b695ddc399bf5199ca90a83
+  - <<: *kmkIcs
+    id: kmk-ics-de-th
+    name: KMK iCalendar Thüringen
+    fetchUrl: https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=16&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=5ac69a887e7b2aa7a4fcbe70ed91c0c5
+
+  - &lawBw
+    schemaVersion: 1
+    id: law-de-bw
+    name: Feiertagsgesetz Baden-Württemberg
+    homepageUrl: https://www.landesrecht-bw.de/
+    fetchUrl: https://www.landesrecht-bw.de/bsbw/document/jlr-FeiertGEBW1981rahmen
+    format: html
+    license: &lawLicense
+      note: Official state law portal; derived holiday facts are published, not raw pages.
+      redistribution: prohibited
+    fetch: &lawFetchBw
+      expectedContentTypes: [text/html]
+      allowedHosts: [www.landesrecht-bw.de]
+      timeoutMs: 20000
+      maxBytes: 5000000
+      maxRedirects: 3
+    freshness: &lawFreshness
+      retrievalCadenceDays: 90
+      reviewBy: 2027-01-31
+  - schemaVersion: 1
+    id: law-de-by
+    name: Feiertagsgesetz Bayern
+    homepageUrl: https://www.gesetze-bayern.de/
+    fetchUrl: https://www.gesetze-bayern.de/Content/Document/BayFTG
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [www.gesetze-bayern.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-be
+    name: Feiertagsgesetz Berlin
+    homepageUrl: https://gesetze.berlin.de/
+    fetchUrl: https://gesetze.berlin.de/bsbe/document/jlr-FeiertGBErahmen
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [gesetze.berlin.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-bb
+    name: Feiertagsgesetz Brandenburg
+    homepageUrl: https://bravors.brandenburg.de/
+    fetchUrl: https://bravors.brandenburg.de/gesetze/ftg_2015
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [bravors.brandenburg.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-hb
+    name: Feiertagsgesetz Bremen
+    homepageUrl: https://www.transparenz.bremen.de/
+    fetchUrl: https://www.transparenz.bremen.de/metainformationen/gesetz-ueber-die-sonn-gedenk-und-feiertage-vom-12-november-1954-145882?template=20_gp_ifg_meta_detail_d
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [www.transparenz.bremen.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-hh
+    name: Feiertagsgesetz Hamburg
+    homepageUrl: https://www.landesrecht-hamburg.de/
+    fetchUrl: https://www.landesrecht-hamburg.de/bsha/document/jlr-FeiertGHArahmen
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [www.landesrecht-hamburg.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-he
+    name: Feiertagsgesetz Hessen
+    homepageUrl: https://www.rv.hessenrecht.hessen.de/
+    fetchUrl: https://www.rv.hessenrecht.hessen.de/bshe/document/jlr-FeiertGHErahmen
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [www.rv.hessenrecht.hessen.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-mv
+    name: Feiertagsgesetz Mecklenburg-Vorpommern
+    homepageUrl: https://www.landesrecht-mv.de/
+    fetchUrl: https://www.landesrecht-mv.de/bsmv/document/jlr-FeiertGMVrahmen
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [www.landesrecht-mv.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-ni
+    name: Niedersächsisches Feiertagsgesetz
+    homepageUrl: https://voris.wolterskluwer-online.de/
+    fetchUrl: https://voris.wolterskluwer-online.de/browse/document/b724111b-6c20-3862-b111-589842acacba
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [voris.wolterskluwer-online.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-nw
+    name: Feiertagsgesetz Nordrhein-Westfalen
+    homepageUrl: https://recht.nrw.de/
+    fetchUrl: https://recht.nrw.de/lmi/owa/br_bes_detail?anw_nr=2&aufgehoben=N&bes_id=3367&det_id=144445&menu=1&sg=1
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [recht.nrw.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-rp
+    name: Feiertagsgesetz Rheinland-Pfalz
+    homepageUrl: https://landesrecht.rlp.de/
+    fetchUrl: https://landesrecht.rlp.de/bsrp/document/jlr-FeiertGRPrahmen
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [landesrecht.rlp.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-sl
+    name: Feiertagsgesetz Saarland
+    homepageUrl: https://recht.saarland.de/
+    fetchUrl: https://recht.saarland.de/bssl/document/jlr-FeiertGSLrahmen
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [recht.saarland.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-sn
+    name: Sächsisches Feiertagsgesetz
+    homepageUrl: https://www.revosax.sachsen.de/
+    fetchUrl: https://www.revosax.sachsen.de/vorschrift/3911-SaechsSFG
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [www.revosax.sachsen.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-st
+    name: Feiertagsgesetz Sachsen-Anhalt
+    homepageUrl: https://www.landesrecht.sachsen-anhalt.de/
+    fetchUrl: https://www.landesrecht.sachsen-anhalt.de/bsst/document/jlr-FeiertGSTrahmen
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [www.landesrecht.sachsen-anhalt.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-sh
+    name: Feiertagsgesetz Schleswig-Holstein
+    homepageUrl: https://www.gesetze-rechtsprechung.sh.juris.de/
+    fetchUrl: https://www.gesetze-rechtsprechung.sh.juris.de/bssh/document/jlr-FeiertGSHrahmen
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [www.gesetze-rechtsprechung.sh.juris.de]}
+    freshness: *lawFreshness
+  - schemaVersion: 1
+    id: law-de-th
+    name: Thüringer Feiertagsgesetz
+    homepageUrl: https://landesrecht.thueringen.de/
+    fetchUrl: https://landesrecht.thueringen.de/bsth/document/jlr-FeiertGTHrahmen
+    format: html
+    license: *lawLicense
+    fetch: {<<: *lawFetchBw, allowedHosts: [landesrecht.thueringen.de]}
+    freshness: *lawFreshness
+
+matrices:
+  - schemaVersion: 1
+    idPrefix: kmk-pdf
+    name: KMK school holidays
+    authority: official
+    category: school
+    adapter: kmk-pdf
+    documentId: kmk-pdf-2025-26
+    enabled: true
+    period: {kind: schoolYear, id: 2025-26, startDate: 2025-08-01, endDate: 2026-09-30}
+    jurisdictions: all
+  - schemaVersion: 1
+    idPrefix: kmk-ics
+    name: KMK school holidays
+    authority: official
+    category: school
+    adapter: kmk-ics
+    documentId: kmk-pdf-2026-27
+    crossCheckDocuments:
+      DE-BW: kmk-ics-de-bw
+      DE-BY: kmk-ics-de-by
+      DE-BE: kmk-ics-de-be
+      DE-BB: kmk-ics-de-bb
+      DE-HB: kmk-ics-de-hb
+      DE-HH: kmk-ics-de-hh
+      DE-HE: kmk-ics-de-he
+      DE-MV: kmk-ics-de-mv
+      DE-NI: kmk-ics-de-ni
+      DE-NW: kmk-ics-de-nw
+      DE-RP: kmk-ics-de-rp
+      DE-SL: kmk-ics-de-sl
+      DE-SN: kmk-ics-de-sn
+      DE-ST: kmk-ics-de-st
+      DE-SH: kmk-ics-de-sh
+      DE-TH: kmk-ics-de-th
+    enabled: true
+    period: {kind: schoolYear, id: 2026-27, startDate: 2026-08-01, endDate: 2027-09-30}
+    jurisdictions: all
+  - schemaVersion: 1
+    idPrefix: kmk-pdf
+    name: KMK school holidays
+    authority: official
+    category: school
+    adapter: kmk-pdf
+    documentId: kmk-pdf-2027-28
+    enabled: true
+    period: {kind: schoolYear, id: 2027-28, startDate: 2027-08-01, endDate: 2028-09-30}
+    jurisdictions: all
+  - &public2026
+    schemaVersion: 1
+    idPrefix: public-law
+    name: State public holidays
+    authority: official
+    category: public
+    adapter: public-rules
+    documents: &lawDocuments
+      DE-BW: law-de-bw
+      DE-BY: law-de-by
+      DE-BE: law-de-be
+      DE-BB: law-de-bb
+      DE-HB: law-de-hb
+      DE-HH: law-de-hh
+      DE-HE: law-de-he
+      DE-MV: law-de-mv
+      DE-NI: law-de-ni
+      DE-NW: law-de-nw
+      DE-RP: law-de-rp
+      DE-SL: law-de-sl
+      DE-SN: law-de-sn
+      DE-ST: law-de-st
+      DE-SH: law-de-sh
+      DE-TH: law-de-th
+    enabled: true
+    period: {kind: calendarYear, id: "2026", startDate: 2026-01-01, endDate: 2026-12-31}
+    jurisdictions: all
+  - <<: *public2026
+    period: {kind: calendarYear, id: "2027", startDate: 2027-01-01, endDate: 2027-12-31}

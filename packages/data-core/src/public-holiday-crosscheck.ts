@@ -43,6 +43,29 @@ export function crossCheckPublicHolidays(
     }
   }
 
+  for (const record of records.filter((item) => item.scope === "statewide")) {
+    const matched = expected.some((holiday) => {
+      const date = holiday.date.slice(0, 10);
+      return record.startDate <= date && record.endDate >= date;
+    });
+    if (!matched) {
+      issues.push({
+        code: "PUBLIC_HOLIDAY_CROSSCHECK_EXTRA",
+        severity: "warning",
+        stage: "validated",
+        sourceId: source.id,
+        jurisdiction: source.jurisdiction,
+        periodId: source.period.id,
+        recordId: record.id,
+        message: `${record.names.de} on ${record.startDate} is present in the official rules but not the read-only date-holidays cross-check.`,
+        actual: record.startDate,
+        suggestedAction:
+          "Confirm the official legal source. Third-party omissions must not remove an official rule automatically.",
+        decisionRequired: true,
+      });
+    }
+  }
+
   return issues;
 }
 

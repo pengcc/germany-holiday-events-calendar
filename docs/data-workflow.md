@@ -8,8 +8,8 @@ human records the review decision, and only an explicit publish command changes 
 Use the pinned Node and pnpm versions:
 
 ```sh
-mise exec -- pnpm install
-mise exec -- pnpm dev:studio
+mise exec -- corepack pnpm install
+mise exec -- corepack pnpm dev:studio
 ```
 
 The Data Studio is available only at `http://127.0.0.1:3010`. It has no deployment script and its
@@ -18,14 +18,21 @@ server functions accept source and run identifiers, never arbitrary paths or URL
 The CLI provides the same workflow:
 
 ```sh
-mise exec -- pnpm data:refresh
-mise exec -- pnpm data:resume -- <blocked-run-id>
-mise exec -- pnpm data:resolve -- <run-id> <source-id> <issue-key> \
+mise exec -- corepack pnpm data:refresh
+mise exec -- corepack pnpm data:resume <blocked-run-id>
+mise exec -- corepack pnpm data:resolve <run-id> <source-id> <issue-key> \
   --reviewer "Name" --rationale "Reason" --evidence "https://official.example/"
-mise exec -- pnpm data:review -- <run-id> <source-id> --reviewer "Name"
-mise exec -- pnpm data:publish -- <run-id> --preview
-mise exec -- pnpm data:publish -- <run-id>
+mise exec -- corepack pnpm data:review <run-id> <source-id> --reviewer "Name"
+mise exec -- corepack pnpm data:publish <run-id> --preview
+mise exec -- corepack pnpm data:publish <run-id>
 ```
+
+The configured 2026–2027 release contains 80 independently reviewed batches:
+
+- 48 school-holiday batches: 16 states across KMK school years 2025/26, 2026/27, and 2027/28.
+- 32 public-holiday batches: 16 states for calendar years 2026 and 2027.
+- KMK 2026/27 iCalendar data is compared with the official annual PDF before review.
+- State legal pages fingerprint the evidence used by the versioned public-holiday rules.
 
 ## Review Sequence
 
@@ -36,6 +43,8 @@ mise exec -- pnpm data:publish -- <run-id>
 4. Create an override draft only when normalized output needs a documented correction. Move a
    reviewed draft to `data/overrides/` and rerun the batch.
 5. Approve or reject each source/state/period batch.
+   Studio can bulk-approve selected batches only when each selected batch has no unresolved
+   blocker. It still writes one review decision per batch.
 6. Inspect the publish preview and confirm the listed files.
 7. Publish. The command refuses to run while `data/` or `apps/web/public/data/` already has
    uncommitted changes.
@@ -50,6 +59,17 @@ mise exec -- pnpm data:publish -- <run-id>
   action. Technical details are secondary and expandable in Studio.
 - Do not use `--allow-dirty` for normal publishing. It exists only for controlled repository
   recovery after inspecting the working tree.
+
+## Release Gate
+
+- The first release requires approved, current data for all 80 configured batches.
+- The publish preview identifies approved batches, valid old batches that would be retained,
+  missing required batches, and regional records.
+- A later refresh may retain a previously approved batch only while its `reviewBy` date remains
+  valid.
+- Published JSON is limited to records intersecting 2026–2027. Cross-year ranges remain intact.
+- `pnpm data:rebuild:check` proves that committed accepted batches reproduce the static JSON
+  exactly; normal web builds never fetch or regenerate upstream data.
 
 ## Source And License Rules
 

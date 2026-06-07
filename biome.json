@@ -15,6 +15,7 @@
       "!playwright-report",
       "!test-results",
       "!dev_locals",
+      "!apps/web/public/data/*.json",
       "!**/routeTree.gen.ts"
     ]
   },

@@ -1,0 +1,132 @@
+schemaVersion: 1
+rules:
+  - id: new-year
+    names: { de: Neujahr, en: New Year's Day, zh: 元旦 }
+    jurisdictions: all
+    scope: statewide
+    date: { kind: fixed, month: 1, day: 1 }
+  - id: epiphany
+    names: { de: Heilige Drei Könige, en: Epiphany, zh: 主显节 }
+    jurisdictions: [DE-BW, DE-BY, DE-ST]
+    scope: statewide
+    date: { kind: fixed, month: 1, day: 6 }
+  - id: international-womens-day
+    names: { de: Internationaler Frauentag, en: International Women's Day, zh: 国际妇女节 }
+    jurisdictions: [DE-BE, DE-MV]
+    scope: statewide
+    date: { kind: fixed, month: 3, day: 8 }
+  - id: good-friday
+    names: { de: Karfreitag, en: Good Friday, zh: 耶稣受难日 }
+    jurisdictions: all
+    scope: statewide
+    date: { kind: easterOffset, days: -2 }
+  - id: easter-sunday
+    names: { de: Ostersonntag, en: Easter Sunday, zh: 复活节星期日 }
+    jurisdictions: [DE-BB]
+    scope: statewide
+    date: { kind: easterOffset, days: 0 }
+  - id: easter-monday
+    names: { de: Ostermontag, en: Easter Monday, zh: 复活节星期一 }
+    jurisdictions: all
+    scope: statewide
+    date: { kind: easterOffset, days: 1 }
+  - id: labour-day
+    names: { de: Tag der Arbeit, en: Labour Day, zh: 劳动节 }
+    jurisdictions: all
+    scope: statewide
+    date: { kind: fixed, month: 5, day: 1 }
+  - id: ascension-day
+    names: { de: Christi Himmelfahrt, en: Ascension Day, zh: 耶稣升天节 }
+    jurisdictions: all
+    scope: statewide
+    date: { kind: easterOffset, days: 39 }
+  - id: pentecost-sunday
+    names: { de: Pfingstsonntag, en: Pentecost Sunday, zh: 圣灵降临节星期日 }
+    jurisdictions: [DE-BB]
+    scope: statewide
+    date: { kind: easterOffset, days: 49 }
+  - id: pentecost-monday
+    names: { de: Pfingstmontag, en: Pentecost Monday, zh: 圣灵降临节星期一 }
+    jurisdictions: all
+    scope: statewide
+    date: { kind: easterOffset, days: 50 }
+  - id: corpus-christi
+    names: { de: Fronleichnam, en: Corpus Christi, zh: 基督圣体节 }
+    jurisdictions: [DE-BW, DE-BY, DE-HE, DE-NW, DE-RP, DE-SL]
+    scope: statewide
+    date: { kind: easterOffset, days: 60 }
+  - id: corpus-christi-saxony
+    names: { de: Fronleichnam, en: Corpus Christi, zh: 基督圣体节 }
+    jurisdictions: [DE-SN]
+    scope: regional
+    regions: [DE-SN-CORPUS-CHRISTI-MUNICIPALITIES]
+    date: { kind: easterOffset, days: 60 }
+    evidenceUrl: https://www.revosax.sachsen.de/vorschrift/3911-SaechsSFG
+    regionReviewStatus: requires-review
+  - id: corpus-christi-thuringia
+    names: { de: Fronleichnam, en: Corpus Christi, zh: 基督圣体节 }
+    jurisdictions: [DE-TH]
+    scope: regional
+    regions: [DE-TH-CORPUS-CHRISTI-MUNICIPALITIES]
+    date: { kind: easterOffset, days: 60 }
+    evidenceUrl: https://landesrecht.thueringen.de/bsth/document/jlr-FeiertGTHrahmen
+    regionReviewStatus: requires-review
+  - id: augsburg-peace-festival
+    names:
+      de: Augsburger Hohes Friedensfest
+      en: Augsburg Peace Festival
+      zh: 奥格斯堡和平节
+    jurisdictions: [DE-BY]
+    scope: regional
+    regions: [DE-BY-09761000]
+    date: { kind: fixed, month: 8, day: 8 }
+    evidenceUrl: https://www.gesetze-bayern.de/Content/Document/BayFTG
+    regionReviewStatus: verified
+  - id: assumption-day
+    names: { de: Mariä Himmelfahrt, en: Assumption Day, zh: 圣母升天节 }
+    jurisdictions: [DE-SL]
+    scope: statewide
+    date: { kind: fixed, month: 8, day: 15 }
+  - id: assumption-day-bavaria
+    names: { de: Mariä Himmelfahrt, en: Assumption Day, zh: 圣母升天节 }
+    jurisdictions: [DE-BY]
+    scope: regional
+    regions: [DE-BY-ASSUMPTION-MUNICIPALITIES]
+    date: { kind: fixed, month: 8, day: 15 }
+    evidenceUrl: https://www.gesetze-bayern.de/Content/Document/BayFTG
+    regionReviewStatus: requires-review
+  - id: world-childrens-day
+    names: { de: Weltkindertag, en: World Children's Day, zh: 世界儿童日 }
+    jurisdictions: [DE-TH]
+    scope: statewide
+    date: { kind: fixed, month: 9, day: 20 }
+  - id: german-unity-day
+    names: { de: Tag der Deutschen Einheit, en: German Unity Day, zh: 德国统一日 }
+    jurisdictions: all
+    scope: statewide
+    date: { kind: fixed, month: 10, day: 3 }
+  - id: reformation-day
+    names: { de: Reformationstag, en: Reformation Day, zh: 宗教改革日 }
+    jurisdictions: [DE-BB, DE-HB, DE-HH, DE-MV, DE-NI, DE-SN, DE-ST, DE-SH, DE-TH]
+    scope: statewide
+    date: { kind: fixed, month: 10, day: 31 }
+  - id: all-saints-day
+    names: { de: Allerheiligen, en: All Saints' Day, zh: 万圣节 }
+    jurisdictions: [DE-BW, DE-BY, DE-NW, DE-RP, DE-SL]
+    scope: statewide
+    date: { kind: fixed, month: 11, day: 1 }
+  - id: repentance-day
+    names: { de: Buß- und Bettag, en: Day of Repentance and Prayer, zh: 忏悔祈祷日 }
+    jurisdictions: [DE-SN]
+    scope: statewide
+    date: { kind: weekdayBefore, month: 11, day: 23, weekday: 3 }
+  - id: christmas-day
+    names: { de: 1. Weihnachtsfeiertag, en: Christmas Day, zh: 圣诞节 }
+    jurisdictions: all
+    scope: statewide
+    date: { kind: fixed, month: 12, day: 25 }
+  - id: second-christmas-day
+    names: { de: 2. Weihnachtsfeiertag, en: Second Day of Christmas, zh: 圣诞节第二天 }
+    jurisdictions: all
+    scope: statewide
+    date: { kind: fixed, month: 12, day: 26 }

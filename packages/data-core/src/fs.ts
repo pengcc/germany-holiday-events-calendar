@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname, relative, resolve } from "node:path";
 
@@ -7,6 +7,8 @@ export function projectPaths(workspaceRoot: string) {
   return {
     root,
     sources: resolve(root, "data/sources"),
+    releaseConfig: resolve(root, "data/release.yaml"),
+    publicRules: resolve(root, "data/public-holiday-rules.yaml"),
     overrides: resolve(root, "data/overrides"),
     accepted: resolve(root, "data/accepted/batches"),
     reviews: resolve(root, "data/reviews"),
@@ -35,7 +37,7 @@ export async function readJson<T>(path: string): Promise<T> {
 
 export async function writeJsonAtomic(path: string, value: unknown): Promise<void> {
   await mkdir(dirname(path), { recursive: true });
-  const temporary = `${path}.tmp-${process.pid}`;
+  const temporary = `${path}.tmp-${process.pid}-${randomUUID()}`;
   const serialized = `${stableStringify(value)}\n`;
   await writeFile(temporary, serialized, "utf8");
   await rename(temporary, path);
@@ -43,8 +45,15 @@ export async function writeJsonAtomic(path: string, value: unknown): Promise<voi
 
 export async function writeTextAtomic(path: string, value: string): Promise<void> {
   await mkdir(dirname(path), { recursive: true });
-  const temporary = `${path}.tmp-${process.pid}`;
+  const temporary = `${path}.tmp-${process.pid}-${randomUUID()}`;
   await writeFile(temporary, value, "utf8");
+  await rename(temporary, path);
+}
+
+export async function writeBytesAtomic(path: string, value: Uint8Array): Promise<void> {
+  await mkdir(dirname(path), { recursive: true });
+  const temporary = `${path}.tmp-${process.pid}-${randomUUID()}`;
+  await writeFile(temporary, value);
   await rename(temporary, path);
 }
 

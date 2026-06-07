@@ -238,6 +238,38 @@ button svg,
   font-size: 17px;
 }
 
+.batch-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 10px;
+  width: min(820px, 100%);
+}
+
+.batch-selection {
+  display: grid;
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid #dbe2ea;
+}
+
+.batch-select-row {
+  display: grid;
+  grid-template-columns: 24px 72px 90px 70px minmax(120px, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  border-bottom: 1px solid #eef2f6;
+  padding: 6px 10px;
+}
+
+.batch-select-row:last-child {
+  border-bottom: 0;
+}
+
+.batch-select-row input {
+  width: 16px;
+}
+
 label {
   display: grid;
   gap: 6px;
@@ -528,6 +560,15 @@ th {
   .review-grid {
     grid-template-columns: 1fr;
   }
+
+  .batch-toolbar {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .batch-filters {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
 }
 
 @media (max-width: 680px) {
@@ -556,6 +597,18 @@ th {
   .issue {
     display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .batch-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .batch-select-row {
+    grid-template-columns: 24px 64px 76px minmax(70px, 1fr);
+  }
+
+  .batch-select-row .status {
+    grid-column: 2 / -1;
   }
 
   .form-grid {
