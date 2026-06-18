@@ -1,6 +1,10 @@
-# Holiday Sync Germany
+# Germany Holiday & Events Calendar
 
-Holiday Sync Germany is a static-first trilingual web product for comparing German public holidays and school holidays across federal states. The product should help Chinese-speaking families and travel planners in Germany identify overlapping holiday periods and plan travel with better timing.
+Germany Holiday & Events Calendar (德国假期与重要活动日历) is a static-first,
+trilingual product for browsing and comparing German public holidays and school holidays across
+federal states. It helps families and travel planners understand important dates and overlapping
+holiday periods. A selected major-events layer is planned after the holiday MVP and will present
+events neutrally for users who want to attend, avoid, or plan around them.
 
 ## Product Direction
 
@@ -9,10 +13,13 @@ Holiday Sync Germany is a static-first trilingual web product for comparing Germ
 - Require human review before fetched or parsed holiday data becomes publishable static data.
 - Keep the product UI available in Chinese, German, and English through explicit `/zh`, `/de`, and `/en` routes.
 - Use `YYYY-MM-DD` German local all-day dates and inclusive date ranges for all holiday logic.
+- Keep selected Berlin major events outside the holiday MVP and preserve neutral event positioning.
 
 ## Non-Goals
 
-The project must not introduce accounts, saved trips, alerts, personal data storage, telemetry, API keys, paid APIs, backend runtime services, or recurring-cost infrastructure without explicit approval.
+The project must not introduce accounts, saved trips, alerts, personal data storage, telemetry,
+API keys, paid APIs, backend runtime services, recurring-cost infrastructure, a deployed Data
+Studio, or major-event implementation in the holiday MVP without explicit approval.
 
 ## Foundation Stack
 
@@ -56,4 +63,7 @@ See [docs/data-workflow.md](docs/data-workflow.md) for refresh, review, recovery
 
 ## Working Rules
 
-Before implementation work, read [AGENTS.md](AGENTS.md) and the project guideline skill it references. Every task must save a plan under `dev_locals/plans/` before execution. Checkpoint commits should be made after coherent work units pass their relevant checks.
+Before implementation work, read [AGENTS.md](AGENTS.md), pass the installed Project Memory Context
+Gate, and use the workflow skill matching the task. Save approved executable plans under
+`dev_locals/plans/` before execution. Checkpoint commits should be made only when the approved
+workflow includes them and the relevant checks pass.
