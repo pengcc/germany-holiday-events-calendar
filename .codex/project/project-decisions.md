@@ -1,16 +1,75 @@
 # Project Decisions
 
-Use this file for important, durable decisions that future agents should not re-litigate accidentally.
+This file records durable decisions that future work should not re-litigate accidentally.
 
-Do not record every small implementation detail. Record decisions that affect architecture, workflow, data model, dependencies, deployment, security, project scope, or agent behavior.
+### Decision 2026-06-18: Adopt Germany Holiday & Events Calendar product direction
 
-## Decision Template
+- Status: Accepted
+- Context: The previous Holiday Sync Germany framing covered holiday overlap comparison but not the
+  broader neutral planning use case in the current PRD.
+- Decision: Use **Germany Holiday & Events Calendar** as the product name,
+  **德国假期与重要活动日历** as the Chinese name, and `germany-holiday-events-calendar` as the
+  repository name. Build the MVP around German public and school holiday browsing and comparison.
+- Reason: The name and scope describe the current product clearly while leaving room for selected
+  major events after the holiday MVP.
+- Impact: Product documentation and future visible copy should use the new identity. Existing
+  internal `@hsg/*` package names may remain until a separately justified cleanup avoids broad
+  churn.
+- Related files: `docs/product-prd.md`, `README.md`, `.codex/project/project-guideline.md`
 
-### Decision YYYY-MM-DD: <title>
+### Decision 2026-06-18: Preserve static public and local-only data architecture
 
-- Status: Accepted | Superseded | Rejected
-- Context:
-- Decision:
-- Reason:
-- Impact:
-- Related files:
+- Status: Accepted
+- Context: The product must remain deployable without a hosted backend, secrets, or recurring-cost
+  runtime while preserving reviewed data quality.
+- Decision: Keep one monorepo. Deploy only the Vite public frontend as static assets. Keep Data
+  Studio, server functions, source fetching, filesystem access, review, and publishing local. The
+  public frontend consumes reviewed generated JSON only.
+- Reason: This boundary supports the Cloudflare Pages free-tier target, minimizes privacy and cost
+  risk, and preserves the existing human-review data workflow.
+- Impact: Public runtime code must not add server functions or upstream fetching. Data Studio must
+  remain bound to local use and excluded from deployment.
+- Related files: `apps/web/`, `apps/data-studio/`, `packages/data-core/`, `tools/data-cli/`,
+  `docs/data-workflow.md`
+
+### Decision 2026-06-18: Treat major events as neutral planning information
+
+- Status: Accepted
+- Context: Users may want to attend selected major events or avoid crowded, expensive, or
+  traffic-affected periods.
+- Decision: Describe future selected major events as planning-relevant information, not solely as
+  impacts, risks, warnings, or disruptions. Use neutral names such as `PlanningEventRecord` or
+  `MajorEventRecord`.
+- Reason: Neutral positioning supports both attendance and avoidance use cases and matches the
+  product identity.
+- Impact: Berlin major events remain post-MVP and require a separate approved plan. Future data,
+  copy, and UI must preserve neutral presentation and source confidence.
+- Related files: `docs/product-prd.md`, `.codex/project/project-guideline.md`
+
+### Decision 2026-06-18: Use evidence-based existing-code classification
+
+- Status: Accepted
+- Context: Existing code and tooling contain both aligned working systems and stale naming or
+  workflow duplication.
+- Decision: Classify each relevant area as keep as-is, keep with cleanup, refactor, or replace based
+  on safety, usefulness, clarity, maintainability, data quality, and compatibility with the PRD.
+- Reason: This permits justified refactoring without discarding reliable tooling or preserving
+  unsuitable architecture by default.
+- Impact: Changes should take the smallest useful, reversible path. Legacy `codex-skills/` files
+  remain until useful guidance is migrated or confirmed redundant.
+- Related files: `docs/product-prd.md`, `AGENTS.md`,
+  `.codex/rules/engineering-quality-principles.md`
+
+### Decision 2026-06-18: Preserve internal holiday schema version 1 during frontend refactoring
+
+- Status: Accepted
+- Context: The current schema and publishing pipeline already preserve provenance, applicability,
+  review, and accepted-batch behavior across the local data workflow.
+- Decision: Do not migrate accepted holiday data or rewrite the internal `HolidayRecord` schema as
+  part of the frontend holiday-explorer refactor.
+- Reason: A schema rewrite would create broad data and pipeline risk without being required for the
+  holiday MVP.
+- Impact: Frontend-facing contracts may be added compatibly in a later approved slice. Reconsider a
+  breaking schema only when a demonstrated requirement, such as combined event publication,
+  justifies it.
+- Related files: `packages/data-core/src/schemas.ts`, `docs/data-workflow.md`

@@ -9,6 +9,9 @@
     "pnpm": "11.5.2"
   },
   "scripts": {
+    "publish:changes": "node .codex/scripts/publish-changes.mjs",
+    "publish:pr-only": "node .codex/scripts/publish-changes.mjs --mode pr-only",
+    "publish:merge-pr": "node .codex/scripts/publish-changes.mjs --mode merge-pr",
     "dev": "corepack pnpm dev:web",
     "dev:web": "corepack pnpm --filter @hsg/web dev",
     "dev:studio": "corepack pnpm --filter @hsg/data-studio dev",

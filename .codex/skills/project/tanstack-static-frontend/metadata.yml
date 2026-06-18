@@ -1,0 +1,16 @@
+name: tanstack-static-frontend
+description: >-
+  Apply Germany Holiday & Events Calendar constraints when planning, implementing, or reviewing
+  TanStack Router static routes, validated URL filters, generated JSON loading, locale navigation,
+  Vite output, or the public frontend and local Data Studio boundary.
+category: project
+version: 0.1.0
+triggers:
+  - TanStack static frontend
+  - public route filters
+  - TanStack Router search params
+  - generated JSON loading
+  - locale routes
+  - Vite static build
+  - Cloudflare Pages fallback
+  - Data Studio boundary
