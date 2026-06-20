@@ -1,0 +1,7 @@
+name: agent-roles-and-capabilities
+version: 0.1.1
+category: meta
+required: true
+invocation: support
+depends_on: []
+description: Route tasks to the correct role, workflow, and capability boundary.

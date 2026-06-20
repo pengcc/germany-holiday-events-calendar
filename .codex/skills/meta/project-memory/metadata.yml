@@ -1,0 +1,7 @@
+name: project-memory
+version: 0.1.0
+category: meta
+required: true
+invocation: support
+depends_on: []
+description: Read and apply durable project memory before project-state work.

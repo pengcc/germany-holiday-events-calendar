@@ -1,0 +1,7 @@
+name: docs-first-research
+version: 0.1.0
+category: meta
+required: true
+invocation: model
+depends_on: []
+description: Verify consequential technical claims against project evidence and authoritative documentation.
