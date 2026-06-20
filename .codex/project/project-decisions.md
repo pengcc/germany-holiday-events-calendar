@@ -73,3 +73,18 @@ This file records durable decisions that future work should not re-litigate acci
   breaking schema only when a demonstrated requirement, such as combined event publication,
   justifies it.
 - Related files: `packages/data-core/src/schemas.ts`, `docs/data-workflow.md`
+
+### Decision 2026-06-20: Adopt the current reusable foundation-kit operating baseline
+
+- Status: Accepted
+- Context: The project manually adopted the current foundation-kit meta skills, core workflows,
+  and reusable rules while retaining project-specific operating context and memory.
+- Decision: Keep reusable meta/core/rules content aligned with the current foundation-kit
+  baseline. Preserve project-owned memory and adopt generic `AGENTS.md` improvements through
+  targeted manual merges instead of template replacement.
+- Reason: This receives current shared workflow and safety improvements without losing product,
+  architecture, data-workflow, validation, or deployment constraints owned by this project.
+- Impact: Future foundation-kit updates must use dry-run comparison and manual review for
+  project-owned entrypoint or memory differences.
+- Related files: `AGENTS.md`, `.codex/rules/`, `.codex/skills/meta/`, `.codex/skills/core/`,
+  `.codex/project/project-guideline.md`
