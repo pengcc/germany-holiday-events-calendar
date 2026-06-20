@@ -153,6 +153,9 @@ installation, stop and obtain approval rather than changing the environment impl
 ## 10. Development Workflow
 
 - Read `AGENTS.md` and pass the Project Memory Context Gate before project work.
+- Installed reusable foundation content follows the current foundation-kit meta/core/rules
+  baseline. Project memory remains project-owned, and generic `AGENTS.md` changes are adopted
+  through targeted manual merges.
 - Route work through the installed workflow skill that matches the task.
 - Store approved executable plans under `dev_locals/plans/` and use `execute-plan` only after
   explicit approval.
