@@ -1,0 +1,8 @@
+name: update-project-memory
+version: 0.1.0
+category: meta
+required: true
+invocation: user
+depends_on:
+  - project-memory
+description: Update confirmed durable project facts, decisions, or reusable lessons.
