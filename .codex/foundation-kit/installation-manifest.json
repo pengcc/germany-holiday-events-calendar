@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "payloadSha256": "1a85cc0c1510355f2b234776d13d719786379b31b33b4ff7473bba09a4939190",
+  "files": {
+    ".codex/github-settings/general-settings.required.json": {
+      "source": "github-settings/general-settings.required.json",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "328668bf8ae846fdb084cb5d3d0e8d7c7c733e196cdd71808e43554a7f2a4a3d"
+    },
+    ".codex/github-settings/protect-default-branch.ruleset.json": {
+      "source": "github-settings/protect-default-branch.ruleset.json",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "7fdec94a3d2bd5f475dafc2b14ea75baea1561fb39310aa76d23593433ba2fe6"
+    },
+    ".codex/github-settings/README.md": {
+      "source": "github-settings/README.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "a18e6cdca9631c15e6fb1480b973588d78ce43b1b2c016b75282aeeb5562dd15"
+    },
+    ".codex/github-settings/repository-settings-checklist.md": {
+      "source": "github-settings/repository-settings-checklist.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "3a4707efaf5fdfa0a35c4dff67f4d8118bb6ba3eb2aedbc149fd427b7339d78a"
+    },
+    ".codex/prompts/force-code-review.md": {
+      "source": "prompts/force-code-review.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "19cd3b8adc256d46034f8842abc77e179df002349a1805396bc2155a7ee37a0e"
+    },
+    ".codex/prompts/force-codebase-audit.md": {
+      "source": "prompts/force-codebase-audit.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "f18ad022af9796968f4d49d5644412ea805aa1950d260ff10f45141f7ae0c012"
+    },
+    ".codex/prompts/force-execute-plan.md": {
+      "source": "prompts/force-execute-plan.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "0036c99c8561d96ecf72fcf5c062843dc5fb4e53c92afa953c3b8ee857b758fa"
+    },
+    ".codex/prompts/force-grill-me.md": {
+      "source": "prompts/force-grill-me.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "b0660b9644f581e3642ccd0a008a6b03c3feafedc6b8430c0570d153377558f6"
+    },
+    ".codex/prompts/force-handoff.md": {
+      "source": "prompts/force-handoff.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "67efdf7b21643972525bf6b15ef5286870d6f6abca05a8d5b5be07901d889e0c"
+    },
+    ".codex/prompts/force-initialize-project-context.md": {
+      "source": "prompts/force-initialize-project-context.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "c769ed71f1c91c5c7c6021189497a405145701ebfefd9e5cfbb804a330810a3b"
+    },
+    ".codex/prompts/force-plan-with-context.md": {
+      "source": "prompts/force-plan-with-context.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "c22ea3bda75327d5dacb0ff4b88256352572197ca8e97ed71ae271451e606034"
+    },
+    ".codex/prompts/force-project-architecture-plan.md": {
+      "source": "prompts/force-project-architecture-plan.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "49cf7074131926eb51743262e3a70377fabf9bd8e8c7ed6cbe69201ee28a5fef"
+    },
+    ".codex/prompts/force-publish-current-branch.md": {
+      "source": "prompts/force-publish-current-branch.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "a91b4bc2441a42a8b5ed3168a55a86e5b2422fca67854820dc1966a3107b6d97"
+    },
+    ".codex/prompts/force-ui-design-basics.md": {
+      "source": "prompts/force-ui-design-basics.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "9297ece30f8a4cbca109d0559cee0e3b6f0b0539be913c8de50eef73674952d4"
+    },
+    ".codex/prompts/force-writing-great-skills.md": {
+      "source": "prompts/force-writing-great-skills.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "25c47c8554c71a37543b34bf2dda255c6cefa4dbcbdafc15ea63aefda576c8fc"
+    },
+    ".codex/rules/docs-first-policy.md": {
+      "source": "rules/docs-first-policy.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "7f58bf98c68a402521635898b995eb5e23445dcdd893942817524bbc7de486d1"
+    },
+    ".codex/rules/skill-and-output-efficiency.md": {
+      "source": "rules/skill-and-output-efficiency.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "29ab3dd1fe78204f8516948dd80945a8aa4be665ae9ffa63f5f92b5061008bab"
+    },
+    ".codex/rules/skill-invocation-and-dependency-boundaries.md": {
+      "source": "rules/skill-invocation-and-dependency-boundaries.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "51b2c7f63a2c77c564555f2ebc61ed020a3bac8911630b9b9d0735e49c629586"
+    },
+    ".codex/rules/task-and-change-safety-principles.md": {
+      "source": "rules/task-and-change-safety-principles.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "05b649ebb0f46f7606a2330463ff314c84338fdebe5500739e21856453a8c3a7"
+    },
+    ".codex/rules/task-execution-classification.md": {
+      "source": "rules/task-execution-classification.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "c9414f9532b5d42600428eaa8d30ab7cad6a68bcfc3fadabba17e9cb2a172f70"
+    },
+    ".codex/skills/core/code-review/metadata.yml": {
+      "source": "skills/core/code-review/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "a1ed928abafc099bf783dfdc0351a68a54bb5844fab3b82d5fd9b734421c9677"
+    },
+    ".codex/skills/core/code-review/SKILL.md": {
+      "source": "skills/core/code-review/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "c92e7880fc3098112f00a0398005cc0dc9c728c656f70761c489a023c715de00"
+    },
+    ".codex/skills/core/codebase-audit/metadata.yml": {
+      "source": "skills/core/codebase-audit/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "1f6886696b8e96f1dd9b824a3d3549f9ce84e29099b6be53115da6f5356a191c"
+    },
+    ".codex/skills/core/codebase-audit/SKILL.md": {
+      "source": "skills/core/codebase-audit/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "7d93019dac4cbd59efb72a0017054101c858f376eae27309dd73d9fce6b97bff"
+    },
+    ".codex/skills/core/diagnose/metadata.yml": {
+      "source": "skills/core/diagnose/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "31275b9c2023f13259842e5b5f19165ea50fd3df26491c04ae87bd21767338b1"
+    },
+    ".codex/skills/core/diagnose/SKILL.md": {
+      "source": "skills/core/diagnose/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "1fafc064f6f411e233e59df8d10e097e9982ba35c9e4caa3d0ae027d6a6f8da1"
+    },
+    ".codex/skills/core/execute-plan/metadata.yml": {
+      "source": "skills/core/execute-plan/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "1862dede703b8541a42fe57405ad82bd8fa4f2e795f9cde05e20225190adbe03"
+    },
+    ".codex/skills/core/execute-plan/SKILL.md": {
+      "source": "skills/core/execute-plan/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "eb3956572921f5c8f6a854ff0ff57e8eb5488fc923fe9ef279d0b0fc5408a00f"
+    },
+    ".codex/skills/core/project-architecture-plan/metadata.yml": {
+      "source": "skills/core/project-architecture-plan/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "a075087067223d10a52ef19e32277ad08689b85f2ac97f9ffda54c6fc3aea9f5"
+    },
+    ".codex/skills/core/project-architecture-plan/SKILL.md": {
+      "source": "skills/core/project-architecture-plan/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "c408befc9be9546fab86984b980206f41e6acbb9d879822b8c3a1e2e21af5ec4"
+    },
+    ".codex/skills/core/publish-current-branch/metadata.yml": {
+      "source": "skills/core/publish-current-branch/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "dd7725914a01a94e0ee92b216215b2e46865d3fc12fdbef5fc6db9a6ed6cac4b"
+    },
+    ".codex/skills/core/publish-current-branch/SKILL.md": {
+      "source": "skills/core/publish-current-branch/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "da970eb292c32c965819ec499491e842591b69cb86405d837c8657b534f3b692"
+    },
+    ".codex/skills/core/to-work-items/metadata.yml": {
+      "source": "skills/core/to-work-items/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "7873a5ea9ebe682bc9381d7dbf7e657ad43d23073ddf4fb8682321991cbf267e"
+    },
+    ".codex/skills/core/to-work-items/SKILL.md": {
+      "source": "skills/core/to-work-items/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "448c18c32a59cb2bc61029991de347b3ef466df79ae85c52716b153cbe955cc9"
+    },
+    ".codex/skills/core/ui-design-basics/metadata.yml": {
+      "source": "skills/core/ui-design-basics/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "587966e1d7d44d46ccb042702577e53172842ee8089d05034ccb5a98b00a7bfe"
+    },
+    ".codex/skills/core/ui-design-basics/SKILL.md": {
+      "source": "skills/core/ui-design-basics/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "188242e61d43e217ec76b788e6c9f7afc9c45857385f1b83e7df35f8130bd273"
+    },
+    ".codex/skills/meta/agent-roles-and-capabilities/metadata.yml": {
+      "source": "skills/meta/agent-roles-and-capabilities/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "75bf6975b1b7892839e635c7c7fc399ff386e282f8d7421247076f99de23b5af"
+    },
+    ".codex/skills/meta/agent-roles-and-capabilities/SKILL.md": {
+      "source": "skills/meta/agent-roles-and-capabilities/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "51b4e54fd99ab932c142e762a758e1aa2d83e8d923176c0dc7f280483292e172"
+    },
+    ".codex/skills/meta/docs-first-research/metadata.yml": {
+      "source": "skills/meta/docs-first-research/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "6d70a03d94113d648f426b4e9568d47b50484daeb1c392504aab50fcd65658bc"
+    },
+    ".codex/skills/meta/docs-first-research/SKILL.md": {
+      "source": "skills/meta/docs-first-research/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "367533c314f5d9abe150971d3729e3752a8a1dd34922ea0087c706e32bc19e92"
+    },
+    ".codex/skills/meta/grill-me/metadata.yml": {
+      "source": "skills/meta/grill-me/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "b693d0cf6073c80630694313b18dc41c8da02b9d822ddcb1d5e7629ab9400ad6"
+    },
+    ".codex/skills/meta/grill-me/SKILL.md": {
+      "source": "skills/meta/grill-me/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "8b4c5e6d6fc4bf6f7a90d8616b39ee24f9239495f4fe2821d3a9953716bdcc17"
+    },
+    ".codex/skills/meta/grilling/metadata.yml": {
+      "source": "skills/meta/grilling/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "825929d2060965d9bd15283edcee186f668ff81b5299ff3b3555df80d2a41b38"
+    },
+    ".codex/skills/meta/grilling/SKILL.md": {
+      "source": "skills/meta/grilling/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "6aeaa529e265995a97ad5fb223216227e839b8a9836db502be07157f28f44f27"
+    },
+    ".codex/skills/meta/handoff/metadata.yml": {
+      "source": "skills/meta/handoff/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "baf2de5da890e6e32ee6ad8d506e122544b6da4a770d68f455946cea003c2397"
+    },
+    ".codex/skills/meta/handoff/SKILL.md": {
+      "source": "skills/meta/handoff/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "bc0326937bf94f2687450b541eb6e1b30ecfc9394086cd423c5b72b6b6903c1f"
+    },
+    ".codex/skills/meta/initialize-project-context/metadata.yml": {
+      "source": "skills/meta/initialize-project-context/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "91181417cf9663796ec5879f34c5beef7c45f74cb418f365bcdd8c3a93ba1fd4"
+    },
+    ".codex/skills/meta/initialize-project-context/SKILL.md": {
+      "source": "skills/meta/initialize-project-context/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "3e7d9f3557fd2fdd5134cd1bbc6171d1dc3f0d23a97d6014b50a3a5ae40c649e"
+    },
+    ".codex/skills/meta/plan-with-context/metadata.yml": {
+      "source": "skills/meta/plan-with-context/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "42c0aec52139dfd266761487b83a3424ea4d9257fe615abea002d3e6a83f5ccb"
+    },
+    ".codex/skills/meta/plan-with-context/SKILL.md": {
+      "source": "skills/meta/plan-with-context/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "594a4b089b7eee9035246cfb232d32674958d2663ba82ca46d344686b4d3a697"
+    },
+    ".codex/skills/meta/project-memory/metadata.yml": {
+      "source": "skills/meta/project-memory/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "c1daf3338d082464750ffae7d7c9733461ae569d2efd3dd6d2af9e4a92676b93"
+    },
+    ".codex/skills/meta/project-memory/SKILL.md": {
+      "source": "skills/meta/project-memory/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "21cda94097e34f6f5e2da3a9f54f1e447032cdf33a492b2646db33b731b2c2cf"
+    },
+    ".codex/skills/meta/update-project-memory/metadata.yml": {
+      "source": "skills/meta/update-project-memory/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "cd92687ad052f475d5f10a9150b19eff721e9f19c2c2c4b61739f46912c3c9d3"
+    },
+    ".codex/skills/meta/update-project-memory/SKILL.md": {
+      "source": "skills/meta/update-project-memory/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "7ab5538e30ee11226f1767617b4ca8cb7e767d03ff9fee2a15d649d5ef8d3984"
+    },
+    ".codex/skills/meta/writing-great-skills/metadata.yml": {
+      "source": "skills/meta/writing-great-skills/metadata.yml",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "2a41f974103539ef1eb11be323de4598e83e8405b3778e0215efbaa1ab30d6ed"
+    },
+    ".codex/skills/meta/writing-great-skills/SKILL.md": {
+      "source": "skills/meta/writing-great-skills/SKILL.md",
+      "ownership": "kit-managed",
+      "mode": "full-file",
+      "baselineSha256": "89dd49b1099ba6a61265b5aa0932bb1ea3414a5e32efe9b40ae378a5d3d3c84a"
+    }
+  }
+}
