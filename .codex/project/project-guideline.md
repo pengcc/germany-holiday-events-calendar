@@ -13,8 +13,9 @@ Plans, handoffs, and scratch notes are process documents. They may become outdat
   holidays, school holidays, and, after the holiday MVP, selected planning-relevant major events.
 - Primary users include Chinese-speaking families in Germany and travel planners comparing dates
   across federal states. German and English readers are also supported.
-- Current phase: project context is aligned; the next approved product work is the
-  holiday-explorer refactor. Berlin major events are post-MVP.
+- Current phase: the Holiday Explorer frontend MVP is accepted. P1-DATA remains required before
+  release because the committed generated dataset has no reviewed coverage. Berlin major events
+  are post-MVP.
 
 ## 2. Current Scope
 
@@ -178,21 +179,31 @@ installation, stop and obtain approval rather than changing the environment impl
 
 ## 12. Current Implementation Status
 
-As of 2026-06-18:
+As of 2026-06-30:
 
 - The foundation-kit workflow is the active operating standard, project memory is populated, and
   the project-local `tanstack-static-frontend` skill is installed.
 - The monorepo structure and static/local application boundary are implemented.
-- The public app has explicit `/zh`, `/de`, and `/en` routes and currently supports year and
-  multi-state selection with a yearly holiday heatmap.
-- Month/quarter modes, explicit region modes, layer filters, URL-backed filter state, selectable
-  dates, and date details are not implemented yet.
+- The public app has explicit `/zh`, `/de`, and `/en` routes with URL-backed all-Germany,
+  single-state, and multi-state selection; year, quarter, and month periods; and public-holiday
+  and school-holiday layers.
+- The static frontend validates schema-version-1 generated JSON in the browser, derives inclusive
+  date ranges and statewide overlap/activity, and excludes regional and school-specific records
+  from statewide overlap counts.
+- The calendar provides semantic date selection, URL-backed selected-date recovery, localized
+  date details, source/applicability labels, honest empty/error/coverage states, and responsive
+  filter and state-selection controls.
+- P1-06 acceptance validation passed formatting/lint checks, type checking, unit tests, data
+  validation, deterministic rebuild verification, production builds, and desktop/mobile browser
+  smoke tests. The frontend MVP is accepted, with two non-blocking document-metadata polish items:
+  the static page title uses legacy naming and the document language is not route-specific.
 - Data Studio and the CLI implement local source refresh, validation, comparison, review,
   recovery, deterministic rebuild, and explicit publishing workflows.
 - The release configuration covers all 16 states for 2026 and 2027 and defines an 80-batch review
   gate.
 - The committed generated manifest currently reports zero published holiday records and no
-  accepted coverage.
+  accepted coverage for 2026 or 2027. P1-DATA is therefore a hard blocker for public release even
+  though the frontend MVP is accepted.
 - Berlin major-event schemas, sources, tooling, data, and UI are not implemented.
 
 ## 13. Known Constraints and Risks
