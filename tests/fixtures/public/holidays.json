@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "schemaVersion": 1,
+      "id": "public-de-be-2026-05-01",
+      "jurisdiction": "DE-BE",
+      "category": "public",
+      "scope": "statewide",
+      "regions": [],
+      "startDate": "2026-05-01",
+      "endDate": "2026-05-01",
+      "names": { "de": "Tag der Arbeit", "en": "Labour Day", "zh": "劳动节" },
+      "periodId": "2026",
+      "source": { "sourceId": "public-de-be-2026" }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "public-de-bb-2026-05-01",
+      "jurisdiction": "DE-BB",
+      "category": "public",
+      "scope": "statewide",
+      "regions": [],
+      "startDate": "2026-05-01",
+      "endDate": "2026-05-01",
+      "names": { "de": "Tag der Arbeit", "en": "Labour Day", "zh": "劳动节" },
+      "periodId": "2026",
+      "source": { "sourceId": "public-de-bb-2026" }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "school-de-be-2026-summer",
+      "jurisdiction": "DE-BE",
+      "category": "school",
+      "scope": "statewide",
+      "regions": [],
+      "startDate": "2026-07-09",
+      "endDate": "2026-08-22",
+      "names": { "de": "Sommerferien", "en": "Summer holidays", "zh": "暑假" },
+      "periodId": "2026-27",
+      "source": { "sourceId": "school-de-be-2026-27" }
+    }
+  ]
+}

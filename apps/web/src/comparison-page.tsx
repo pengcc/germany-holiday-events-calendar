@@ -1,47 +1,69 @@
-import type { HolidayRecord, PublishedDatasetManifest } from "@hsg/data-core";
+import type { HolidayRecord, PublishedDatasetManifest, StateCode } from "@hsg/data-core/schemas";
 import { Link } from "@tanstack/react-router";
 import { CalendarDays, Check, DatabaseZap, Languages } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { buildMonth } from "./calendar";
 import { Button } from "./components/button";
 import { loadPublishedData } from "./data";
+import {
+  type ExplorerSearch,
+  getSelectedLayers,
+  getSelectedStates,
+  getVisibleMonths,
+  holidayLayers,
+  periodModes,
+  regionModes,
+  searchValuesEqual,
+  updateExplorerSearch,
+} from "./explorer-search";
 import { copy, type Locale, stateNames } from "./i18n";
 import { cn } from "./lib/cn";
 
 interface ComparisonPageProps {
   locale: Locale;
+  search: ExplorerSearch;
+  onSearchChange: (search: ExplorerSearch, options?: { replace?: boolean }) => void;
 }
 
 const stateCodes = Object.keys(stateNames);
-const defaultStates = ["DE-BW", "DE-TH"];
-const calendarMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const leadingCellKeys = ["mon", "tue", "wed", "thu", "fri", "sat"];
 
-export function ComparisonPage({ locale }: ComparisonPageProps) {
+export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPageProps) {
   const text = copy[locale];
   const [records, setRecords] = useState<HolidayRecord[]>([]);
   const [manifest, setManifest] = useState<PublishedDatasetManifest>();
   const [error, setError] = useState<string>();
-  const [selectedStates, setSelectedStates] = useState(defaultStates);
-  const [year, setYear] = useState(new Date().getFullYear());
+  const selectedStates = getSelectedStates(search);
+  const selectedLayers = getSelectedLayers(search);
+  const visibleMonths = getVisibleMonths(search);
+  const year = search.year ?? manifest?.targetYears[0] ?? new Date().getFullYear();
 
   useEffect(() => {
     loadPublishedData()
       .then(({ records: loadedRecords, manifest: loadedManifest }) => {
         setRecords(loadedRecords);
         setManifest(loadedManifest);
-        if (loadedManifest.targetYears.length > 0) {
-          setYear((current) =>
-            loadedManifest.targetYears.includes(current)
-              ? current
-              : (loadedManifest.targetYears[0] ?? current),
-          );
-        }
       })
       .catch((loadError: unknown) => {
         setError(loadError instanceof Error ? loadError.message : String(loadError));
       });
   }, []);
+
+  useEffect(() => {
+    if (!manifest) {
+      return;
+    }
+    const fallbackYear = manifest.targetYears[0] ?? new Date().getFullYear();
+    const canonicalSearch = updateExplorerSearch(search, {
+      year:
+        search.year !== undefined && manifest.targetYears.includes(search.year)
+          ? search.year
+          : fallbackYear,
+    });
+    if (!searchValuesEqual(search, canonicalSearch)) {
+      onSearchChange(canonicalSearch, { replace: true });
+    }
+  }, [manifest, onSearchChange, search]);
 
   const availableYears = useMemo(() => {
     if (manifest?.targetYears.length) {
@@ -55,12 +77,42 @@ export function ComparisonPage({ locale }: ComparisonPageProps) {
     return [...years].sort();
   }, [manifest, records]);
 
-  function toggleState(stateCode: string): void {
-    setSelectedStates((current) =>
-      current.includes(stateCode)
-        ? current.filter((item) => item !== stateCode)
-        : [...current, stateCode],
-    );
+  const visibleRecords = useMemo(
+    () => records.filter((record) => selectedLayers.includes(record.category)),
+    [records, selectedLayers],
+  );
+
+  function changeSearch(updates: Partial<Record<keyof ExplorerSearch, unknown>>): void {
+    onSearchChange(updateExplorerSearch(search, updates));
+  }
+
+  function toggleState(stateCode: StateCode): void {
+    if (search.region === "all") {
+      return;
+    }
+    if (search.region === "single") {
+      changeSearch({ states: stateCode });
+      return;
+    }
+    if (selectedStates.includes(stateCode) && selectedStates.length <= 2) {
+      return;
+    }
+    changeSearch({
+      states: selectedStates.includes(stateCode)
+        ? selectedStates.filter((item) => item !== stateCode).join(",")
+        : [...selectedStates, stateCode].join(","),
+    });
+  }
+
+  function toggleLayer(layer: (typeof holidayLayers)[number]): void {
+    if (selectedLayers.includes(layer) && selectedLayers.length === 1) {
+      return;
+    }
+    changeSearch({
+      layers: selectedLayers.includes(layer)
+        ? selectedLayers.filter((item) => item !== layer).join(",")
+        : [...selectedLayers, layer].join(","),
+    });
   }
 
   return (
@@ -82,7 +134,9 @@ export function ComparisonPage({ locale }: ComparisonPageProps) {
                 className="h-8 px-2.5 uppercase"
                 variant={item === locale ? "primary" : "ghost"}
               >
-                <Link to={`/${item}`}>{item}</Link>
+                <Link search={search} to={`/${item}`}>
+                  {item}
+                </Link>
               </Button>
             ))}
           </nav>
@@ -99,29 +153,124 @@ export function ComparisonPage({ locale }: ComparisonPageProps) {
 
       <div className="mx-auto grid max-w-[1480px] gap-0 lg:grid-cols-[300px_1fr]">
         <aside className="border-b border-slate-200 bg-white p-4 sm:p-6 lg:border-r lg:border-b-0">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <h2 className="font-semibold">{text.selectStates}</h2>
-              <p className="mt-1 text-sm text-slate-500">
-                {selectedStates.length} {text.selected}
-              </p>
-            </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
             <label className="text-sm font-medium text-slate-600">
-              <span className="mb-1 block">{text.year}</span>
+              <span className="mb-1 block">{text.region}</span>
               <select
-                className="h-9 rounded-md border border-slate-300 bg-white px-3"
-                value={year}
-                onChange={(event) => setYear(Number(event.target.value))}
+                aria-label={text.region}
+                className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
+                value={search.region}
+                onChange={(event) => changeSearch({ region: event.target.value })}
               >
-                {availableYears.map((item) => (
-                  <option key={item}>{item}</option>
+                {regionModes.map((mode) => (
+                  <option key={mode} value={mode}>
+                    {mode === "all"
+                      ? text.allGermany
+                      : mode === "single"
+                        ? text.singleState
+                        : text.multipleStates}
+                  </option>
                 ))}
               </select>
             </label>
+            <label className="text-sm font-medium text-slate-600">
+              <span className="mb-1 block">{text.year}</span>
+              <select
+                aria-label={text.year}
+                className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
+                value={year}
+                onChange={(event) => changeSearch({ year: Number(event.target.value) })}
+              >
+                {availableYears.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="text-sm font-medium text-slate-600">
+              <span className="mb-1 block">{text.period}</span>
+              <select
+                aria-label={text.period}
+                className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
+                value={search.period}
+                onChange={(event) => changeSearch({ period: event.target.value })}
+              >
+                {periodModes.map((mode) => (
+                  <option key={mode} value={mode}>
+                    {mode === "year"
+                      ? text.yearView
+                      : mode === "quarter"
+                        ? text.quarterView
+                        : text.monthView}
+                  </option>
+                ))}
+              </select>
+            </label>
+            {search.period === "quarter" ? (
+              <label className="text-sm font-medium text-slate-600">
+                <span className="mb-1 block">{text.quarter}</span>
+                <select
+                  aria-label={text.quarter}
+                  className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
+                  value={search.quarter}
+                  onChange={(event) => changeSearch({ quarter: Number(event.target.value) })}
+                >
+                  {[1, 2, 3, 4].map((quarter) => (
+                    <option key={quarter} value={quarter}>
+                      Q{quarter}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : null}
+            {search.period === "month" ? (
+              <label className="text-sm font-medium text-slate-600">
+                <span className="mb-1 block">{text.month}</span>
+                <select
+                  aria-label={text.month}
+                  className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
+                  value={search.month}
+                  onChange={(event) => changeSearch({ month: Number(event.target.value) })}
+                >
+                  {Array.from({ length: 12 }, (_, index) => index + 1).map((month) => (
+                    <option key={month} value={month}>
+                      {new Intl.DateTimeFormat(locale, { month: "long", timeZone: "UTC" }).format(
+                        new Date(Date.UTC(year, month - 1, 1)),
+                      )}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : null}
+          </div>
+
+          <fieldset className="mt-5">
+            <legend className="text-sm font-semibold text-slate-700">{text.layers}</legend>
+            <div className="mt-2 flex flex-wrap gap-4 text-sm">
+              {holidayLayers.map((layer) => (
+                <label key={layer} className="flex items-center gap-2">
+                  <input
+                    checked={selectedLayers.includes(layer)}
+                    type="checkbox"
+                    onChange={() => toggleLayer(layer)}
+                  />
+                  {layer === "public" ? text.public : text.school}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div className="mt-5">
+            <h2 className="font-semibold">{text.selectStates}</h2>
+            <p className="mt-1 text-sm text-slate-500">
+              {selectedStates.length} {text.selected}
+            </p>
           </div>
 
           <div className="mt-5 grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
-            {stateCodes.map((stateCode) => {
+            {stateCodes.map((stateCodeValue) => {
+              const stateCode = stateCodeValue as StateCode;
               const selected = selectedStates.includes(stateCode);
               return (
                 <label
@@ -136,7 +285,9 @@ export function ComparisonPage({ locale }: ComparisonPageProps) {
                   <input
                     checked={selected}
                     className="sr-only"
-                    type="checkbox"
+                    disabled={search.region === "all"}
+                    name={search.region === "single" ? "state" : undefined}
+                    type={search.region === "single" ? "radio" : "checkbox"}
                     onChange={() => toggleState(stateCode)}
                   />
                   <span
@@ -173,9 +324,11 @@ export function ComparisonPage({ locale }: ComparisonPageProps) {
             <div className="mt-6 border-l-4 border-red-700 bg-red-50 p-4 text-sm text-red-950">
               {error}
             </div>
-          ) : null}
-
-          {manifest && manifest.recordCount === 0 ? (
+          ) : !manifest ? (
+            <div className="mt-6 border border-slate-200 bg-white p-4 text-sm text-slate-700">
+              {text.loading}
+            </div>
+          ) : manifest.recordCount === 0 ? (
             <div className="mt-6 flex min-h-64 flex-col items-center justify-center border border-dashed border-slate-300 bg-white px-6 py-10 text-center">
               <DatabaseZap aria-hidden="true" className="size-9 text-sky-800" />
               <h3 className="mt-4 text-lg font-semibold">{text.noDataTitle}</h3>
@@ -183,12 +336,12 @@ export function ComparisonPage({ locale }: ComparisonPageProps) {
             </div>
           ) : (
             <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {calendarMonths.map((month) => (
+              {visibleMonths.map((month) => (
                 <Month
                   key={`${year}-${month}`}
                   locale={locale}
                   month={month}
-                  records={records}
+                  records={visibleRecords}
                   selectedStates={selectedStates}
                   year={year}
                 />
