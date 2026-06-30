@@ -1,9 +1,9 @@
-import type { HolidayRecord, PublishedDatasetManifest } from "@hsg/data-core";
-
-export interface PublishedRecords {
-  schemaVersion: 1;
-  records: HolidayRecord[];
-}
+import {
+  type HolidayRecord,
+  type PublishedDatasetManifest,
+  PublishedDatasetManifestSchema,
+  PublishedHolidayRecordsSchema,
+} from "@hsg/data-core/schemas";
 
 export async function loadPublishedData(): Promise<{
   records: HolidayRecord[];
@@ -16,7 +16,23 @@ export async function loadPublishedData(): Promise<{
   if (!recordsResponse.ok || !manifestResponse.ok) {
     throw new Error("Published holiday data could not be loaded.");
   }
-  const records = (await recordsResponse.json()) as PublishedRecords;
-  const manifest = (await manifestResponse.json()) as PublishedDatasetManifest;
-  return { records: records.records, manifest };
+  return parsePublishedData(await recordsResponse.json(), await manifestResponse.json());
+}
+
+export function parsePublishedData(
+  recordsValue: unknown,
+  manifestValue: unknown,
+): {
+  records: HolidayRecord[];
+  manifest: PublishedDatasetManifest;
+} {
+  const recordsResult = PublishedHolidayRecordsSchema.safeParse(recordsValue);
+  const manifestResult = PublishedDatasetManifestSchema.safeParse(manifestValue);
+  if (!recordsResult.success || !manifestResult.success) {
+    throw new Error("Published holiday data is invalid.");
+  }
+  if (manifestResult.data.recordCount !== recordsResult.data.records.length) {
+    throw new Error("Published holiday data does not match its manifest.");
+  }
+  return { records: recordsResult.data.records, manifest: manifestResult.data };
 }

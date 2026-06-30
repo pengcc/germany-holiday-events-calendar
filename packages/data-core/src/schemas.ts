@@ -162,6 +162,12 @@ export const HolidayRecordSchema = z.object({
 });
 export type HolidayRecord = z.infer<typeof HolidayRecordSchema>;
 
+export const PublishedHolidayRecordsSchema = z.object({
+  schemaVersion: z.literal(1),
+  records: z.array(HolidayRecordSchema),
+});
+export type PublishedHolidayRecords = z.infer<typeof PublishedHolidayRecordsSchema>;
+
 export const SourceFingerprintSchema = z.object({
   sha256: z.string().length(64),
   bytes: z.number().int().nonnegative(),
