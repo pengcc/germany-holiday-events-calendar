@@ -2,7 +2,7 @@ import type { HolidayRecord, PublishedDatasetManifest, StateCode } from "@hsg/da
 import { Link } from "@tanstack/react-router";
 import { CalendarDays, Check, DatabaseZap, Languages } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { buildMonth } from "./calendar";
+import { buildMonth, type CalendarDay, deriveHolidayCalendar } from "./calendar";
 import { Button } from "./components/button";
 import { loadPublishedData } from "./data";
 import {
@@ -33,10 +33,26 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
   const [records, setRecords] = useState<HolidayRecord[]>([]);
   const [manifest, setManifest] = useState<PublishedDatasetManifest>();
   const [error, setError] = useState<string>();
-  const selectedStates = getSelectedStates(search);
-  const selectedLayers = getSelectedLayers(search);
   const visibleMonths = getVisibleMonths(search);
   const year = search.year ?? manifest?.targetYears[0] ?? new Date().getFullYear();
+  const calendar = useMemo(
+    () =>
+      deriveHolidayCalendar({
+        records,
+        selectedStates: getSelectedStates(search),
+        layers: getSelectedLayers(search),
+        period: {
+          year,
+          mode: search.period,
+          quarter: search.quarter,
+          month: search.month,
+        },
+        coverageMatrix: manifest?.coverageMatrix,
+      }),
+    [manifest?.coverageMatrix, records, search, year],
+  );
+  const selectedStates = calendar.selectedStates;
+  const selectedLayers = calendar.layers;
 
   useEffect(() => {
     loadPublishedData()
@@ -76,11 +92,6 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
     }
     return [...years].sort();
   }, [manifest, records]);
-
-  const visibleRecords = useMemo(
-    () => records.filter((record) => selectedLayers.includes(record.category)),
-    [records, selectedLayers],
-  );
 
   function changeSearch(updates: Partial<Record<keyof ExplorerSearch, unknown>>): void {
     onSearchChange(updateExplorerSearch(search, updates));
@@ -339,10 +350,9 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
               {visibleMonths.map((month) => (
                 <Month
                   key={`${year}-${month}`}
+                  dayIndex={calendar.days}
                   locale={locale}
                   month={month}
-                  records={visibleRecords}
-                  selectedStates={selectedStates}
                   year={year}
                 />
               ))}
@@ -367,16 +377,14 @@ function Month({
   year,
   month,
   locale,
-  records,
-  selectedStates,
+  dayIndex,
 }: {
   year: number;
   month: number;
   locale: Locale;
-  records: HolidayRecord[];
-  selectedStates: string[];
+  dayIndex: ReadonlyMap<string, CalendarDay>;
 }) {
-  const monthData = buildMonth(year, month, selectedStates, records, locale);
+  const monthData = buildMonth(year, month, dayIndex, locale);
   const monthName = new Intl.DateTimeFormat(locale, { month: "long", timeZone: "UTC" }).format(
     new Date(Date.UTC(year, month - 1, 1)),
   );
@@ -398,10 +406,11 @@ function Month({
           <span key={`${year}-${month}-${key}`} />
         ))}
         {monthData.cells.map((cell) => {
-          const allSelected =
-            selectedStates.length >= 2 && cell.matchedStates.length === selectedStates.length;
-          const someSelected = cell.matchedStates.length > 0;
-          const names = [...new Set(cell.records.map((record) => record.names[locale]))].join(", ");
+          const allSelected = cell.overlap === "full";
+          const someSelected = cell.hasStatewideActivity;
+          const names = [
+            ...new Set(cell.statewideRecords.map((record) => record.names[locale])),
+          ].join(", ");
           return (
             <time
               key={cell.date}
