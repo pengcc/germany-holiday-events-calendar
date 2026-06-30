@@ -76,6 +76,28 @@ describe("explorer search state", () => {
     expect(getVisibleMonths(month)).toEqual([5]);
   });
 
+  it("composes year, quarter, and month views and retains only visible selected dates", () => {
+    const year = parseExplorerSearch({ year: 2026, period: "year", date: "2026-12-31" });
+    const quarter = parseExplorerSearch({
+      year: 2026,
+      period: "quarter",
+      quarter: 3,
+      date: "2026-07-09",
+    });
+    const month = parseExplorerSearch({
+      year: 2026,
+      period: "month",
+      month: 7,
+      date: "2026-08-01",
+    });
+
+    expect(getVisibleMonths(year)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+    expect(getVisibleMonths(quarter)).toEqual([7, 8, 9]);
+    expect(quarter.date).toBe("2026-07-09");
+    expect(getVisibleMonths(month)).toEqual([7]);
+    expect(month.date).toBeUndefined();
+  });
+
   it("normalizes updates through the same trust boundary", () => {
     const current = parseExplorerSearch({ year: 2026 });
     const updated = updateExplorerSearch(current, {

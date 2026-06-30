@@ -29,6 +29,26 @@
     },
     {
       "schemaVersion": 1,
+      "id": "school-de-be-2026-school-specific",
+      "jurisdiction": "DE-BE",
+      "category": "school",
+      "scope": "schoolSpecific",
+      "regions": ["Fixture schools"],
+      "startDate": "2026-05-01",
+      "endDate": "2026-05-02",
+      "names": {
+        "de": "Schulspezifische Schließzeit",
+        "en": "School-specific closure",
+        "zh": "特定学校停课"
+      },
+      "periodId": "2026-27",
+      "source": {
+        "sourceId": "school-de-be-2026-27",
+        "sourceEventId": "fixture-school-closure"
+      }
+    },
+    {
+      "schemaVersion": 1,
       "id": "school-de-be-2026-summer",
       "jurisdiction": "DE-BE",
       "category": "school",

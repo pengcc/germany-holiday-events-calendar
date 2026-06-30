@@ -2,9 +2,10 @@ import type { HolidayRecord, PublishedDatasetManifest, StateCode } from "@hsg/da
 import { Link } from "@tanstack/react-router";
 import { CalendarDays, Check, DatabaseZap, Languages } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { buildMonth, type CalendarDay, deriveHolidayCalendar } from "./calendar";
+import { deriveHolidayCalendar } from "./calendar";
 import { Button } from "./components/button";
 import { loadPublishedData } from "./data";
+import { DateDetails } from "./date-details";
 import {
   type ExplorerSearch,
   getSelectedLayers,
@@ -16,7 +17,9 @@ import {
   searchValuesEqual,
   updateExplorerSearch,
 } from "./explorer-search";
+import { HolidayCalendar } from "./holiday-calendar";
 import { copy, type Locale, stateNames } from "./i18n";
+import { HolidayLegend } from "./legend";
 import { cn } from "./lib/cn";
 
 interface ComparisonPageProps {
@@ -26,7 +29,6 @@ interface ComparisonPageProps {
 }
 
 const stateCodes = Object.keys(stateNames);
-const leadingCellKeys = ["mon", "tue", "wed", "thu", "fri", "sat"];
 
 export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPageProps) {
   const text = copy[locale];
@@ -324,11 +326,7 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
               <h2 className="text-xl font-semibold">{text.calendar}</h2>
               <p className="mt-1 text-sm text-slate-600">{text.statewideOnly}</p>
             </div>
-            <div className="flex flex-wrap gap-3 text-xs text-slate-700">
-              <Legend swatch="bg-emerald-700" text={text.overlap} />
-              <Legend swatch="bg-amber-400" text={text.some} />
-              <Legend swatch="bg-white" text={text.none} bordered />
-            </div>
+            <HolidayLegend text={text} />
           </div>
 
           {error ? (
@@ -346,96 +344,27 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
               <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">{text.noDataBody}</p>
             </div>
           ) : (
-            <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {visibleMonths.map((month) => (
-                <Month
-                  key={`${year}-${month}`}
-                  dayIndex={calendar.days}
-                  locale={locale}
-                  month={month}
-                  year={year}
-                />
-              ))}
+            <div className="mt-6 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
+              <HolidayCalendar
+                dayIndex={calendar.days}
+                locale={locale}
+                months={visibleMonths}
+                selectedDate={search.date}
+                selectedStateCount={selectedStates.length}
+                text={text}
+                year={year}
+                onSelectDate={(date) => changeSearch({ date })}
+              />
+              <DateDetails
+                day={search.date ? calendar.days.get(search.date) : undefined}
+                locale={locale}
+                selectedDate={search.date}
+                text={text}
+              />
             </div>
           )}
         </section>
       </div>
     </main>
-  );
-}
-
-function Legend({ swatch, text, bordered }: { swatch: string; text: string; bordered?: boolean }) {
-  return (
-    <span className="inline-flex items-center gap-2">
-      <span className={cn("size-3 rounded-sm", swatch, bordered && "border border-slate-300")} />
-      {text}
-    </span>
-  );
-}
-
-function Month({
-  year,
-  month,
-  locale,
-  dayIndex,
-}: {
-  year: number;
-  month: number;
-  locale: Locale;
-  dayIndex: ReadonlyMap<string, CalendarDay>;
-}) {
-  const monthData = buildMonth(year, month, dayIndex, locale);
-  const monthName = new Intl.DateTimeFormat(locale, { month: "long", timeZone: "UTC" }).format(
-    new Date(Date.UTC(year, month - 1, 1)),
-  );
-  const weekdays =
-    locale === "zh"
-      ? ["一", "二", "三", "四", "五", "六", "日"]
-      : locale === "de"
-        ? ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
-        : ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
-
-  return (
-    <section className="border border-slate-200 bg-white p-3" aria-label={`${monthName} ${year}`}>
-      <h3 className="mb-3 text-sm font-semibold capitalize">{monthName}</h3>
-      <div className="grid grid-cols-7 gap-1 text-center text-[11px] text-slate-500">
-        {weekdays.map((weekday) => (
-          <span key={weekday}>{weekday}</span>
-        ))}
-        {leadingCellKeys.slice(0, monthData.leading).map((key) => (
-          <span key={`${year}-${month}-${key}`} />
-        ))}
-        {monthData.cells.map((cell) => {
-          const allSelected = cell.overlap === "full";
-          const someSelected = cell.hasStatewideActivity;
-          const names = [
-            ...new Set(cell.statewideRecords.map((record) => record.names[locale])),
-          ].join(", ");
-          return (
-            <time
-              key={cell.date}
-              dateTime={cell.date}
-              className={cn(
-                "relative flex aspect-square min-w-0 items-center justify-center rounded-sm border text-xs font-medium",
-                allSelected && "border-emerald-700 bg-emerald-700 text-white",
-                !allSelected && someSelected && "border-amber-400 bg-amber-300 text-slate-950",
-                !someSelected && "border-slate-200 bg-white text-slate-700",
-              )}
-              title={names || cell.date}
-            >
-              {cell.day}
-              <span className="sr-only">
-                {cell.date}: {names || "No holiday"}; {cell.matchedStates.length} selected states
-              </span>
-              {someSelected ? (
-                <span className="absolute right-0.5 bottom-0 text-[8px] font-bold">
-                  {cell.matchedStates.length}
-                </span>
-              ) : null}
-            </time>
-          );
-        })}
-      </div>
-    </section>
   );
 }
