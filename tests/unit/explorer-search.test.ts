@@ -117,4 +117,20 @@ describe("explorer search state", () => {
       layers: "school",
     });
   });
+
+  it("preserves visible dates for filter changes and clears them for a new period", () => {
+    const current = parseExplorerSearch({
+      year: 2026,
+      period: "month",
+      month: 5,
+      region: "multiple",
+      states: "DE-BB,DE-BE",
+      layers: "public,school",
+      date: "2026-05-01",
+    });
+
+    expect(updateExplorerSearch(current, { layers: "public" }).date).toBe("2026-05-01");
+    expect(updateExplorerSearch(current, { region: "single" }).date).toBe("2026-05-01");
+    expect(updateExplorerSearch(current, { month: 6 }).date).toBeUndefined();
+  });
 });
