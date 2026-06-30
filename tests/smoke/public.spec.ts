@@ -12,13 +12,32 @@ async function usePublishedDataFixture(page: Page): Promise<void> {
   );
 }
 
-for (const locale of ["zh", "de", "en"]) {
+const localeExpectations = {
+  zh: {
+    appName: "德国假期与重要活动日历",
+    language: "语言",
+    allStates: "已包含全部 16 个联邦州，无需逐一选择。",
+  },
+  de: {
+    appName: "Germany Holiday & Events Calendar",
+    language: "Sprache",
+    allStates: "Alle 16 Bundesländer sind enthalten; eine Einzelauswahl ist nicht nötig.",
+  },
+  en: {
+    appName: "Germany Holiday & Events Calendar",
+    language: "Language",
+    allStates: "All 16 federal states are included; no individual selection is needed.",
+  },
+} as const;
+
+for (const [locale, expected] of Object.entries(localeExpectations)) {
   test(`${locale} comparison route renders`, async ({ page }) => {
     await page.goto(`/${locale}`);
     await expect(page.locator("h1")).toBeVisible();
-    await expect(page.getByRole("navigation", { name: "Language" })).toBeVisible();
-    await expect(page.getByText("DE-BW").or(page.getByText("BW", { exact: true }))).toBeVisible();
-    await expect(page.getByText("DE-TH").or(page.getByText("TH", { exact: true }))).toBeVisible();
+    await expect(page.getByRole("navigation", { name: expected.language })).toBeVisible();
+    await expect(page.locator("header")).toContainText(expected.appName);
+    await expect(page.getByText(expected.allStates)).toBeVisible();
+    await expect(page.getByText("Holiday Sync Germany")).toHaveCount(0);
     await expect(page.locator("main")).toContainText(/reviewed|审核|geprüft/i);
   });
 }
@@ -31,7 +50,7 @@ test("validated explorer filters drive the visible period and survive locale nav
     "/en?year=2026&period=quarter&quarter=2&region=multiple&states=DE-BE,DE-BB&layers=public,school",
   );
 
-  await expect(page.getByLabel("Region scope")).toHaveValue("multiple");
+  await expect(page.getByRole("radio", { name: "Multiple states" })).toBeChecked();
   await expect(page.getByLabel("Period")).toHaveValue("quarter");
   await expect(page.getByLabel("Quarter", { exact: true })).toHaveValue("2");
   await expect(page.getByText("2 states selected")).toBeVisible();
@@ -49,10 +68,12 @@ test("region and period controls update the route-backed calendar", async ({ pag
   await usePublishedDataFixture(page);
   await page.goto("/en?year=2026");
 
-  await expect(page.getByText("16 states selected")).toBeVisible();
-  await page.getByLabel("Region scope").selectOption("single");
-  await expect(page.getByText("1 states selected")).toBeVisible();
-  await page.getByLabel("Region scope").selectOption("multiple");
+  await expect(
+    page.getByText("All 16 federal states are included; no individual selection is needed."),
+  ).toBeVisible();
+  await page.getByRole("radio", { name: "One state" }).check();
+  await expect(page.getByLabel("Federal state")).toBeVisible();
+  await page.getByRole("radio", { name: "Multiple states" }).check();
   await expect(page.getByText("2 states selected")).toBeVisible();
 
   await page.getByLabel("Period").selectOption("month");
@@ -140,9 +161,78 @@ test("dates outside the active period are ignored and layer and activity labels 
 
   await page.goto("/en?year=2026&period=month&month=7&region=single&states=DE-BE&layers=school");
   await expect(page.getByRole("button", { name: /July 9, 2026/ })).toHaveAccessibleName(
-    /Activity in selected state/,
+    /Holiday activity in one state/,
   );
   await expect(page.getByText("Full overlap")).toBeVisible();
   await expect(page.getByText("Partial overlap")).toBeVisible();
-  await expect(page.getByText("Activity in selected state")).toBeVisible();
+  await expect(page.getByText("Holiday activity in one state")).toBeVisible();
+});
+
+test("state selection stays compact and native controls have usable hit targets", async ({
+  page,
+}) => {
+  await usePublishedDataFixture(page);
+  await page.goto("/en?year=2026");
+
+  await page.getByRole("radio", { name: "Multiple states" }).check();
+  const stateDisclosure = page.locator("summary").filter({ hasText: "Choose states" });
+  await expect(stateDisclosure).toContainText("2 states selected");
+  await expect(page.getByRole("checkbox", { name: /Berlin/ })).toBeHidden();
+
+  await stateDisclosure.click();
+  const berlin = page.getByRole("checkbox", { name: /Berlin/ });
+  await expect(berlin).toBeVisible();
+  await berlin.check();
+  await expect(berlin).toBeChecked();
+  expect(new URL(page.url()).searchParams.get("states")).toContain("DE-BE");
+
+  await stateDisclosure.click();
+  await expect(berlin).toBeHidden();
+  await expect(page.getByRole("heading", { name: "Holiday calendar" })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
+    true,
+  );
+});
+
+test("localized filters fit a 320px viewport without expanding all states", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto("/zh?year=2026");
+
+  await expect(page.getByRole("heading", { name: "筛选条件" })).toBeVisible();
+  await expect(page.getByText("已包含全部 16 个联邦州，无需逐一选择。")).toBeVisible();
+  await expect(page.locator("summary").filter({ hasText: "选择联邦州" })).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
+    true,
+  );
+});
+
+test("layer and region changes preserve a visible selected date in URL state", async ({ page }) => {
+  await usePublishedDataFixture(page);
+  await page.goto(
+    "/en?year=2026&period=month&month=5&region=multiple&states=DE-BE,DE-BB&layers=public,school",
+  );
+
+  await page.getByRole("button", { name: /May 1, 2026/ }).click();
+  const publicLayer = page.getByRole("checkbox", { name: "Public holiday" });
+  const schoolLayer = page.getByRole("checkbox", { name: "School holiday" });
+  await schoolLayer.uncheck();
+
+  let search = new URL(page.url()).searchParams;
+  expect(search.get("date")).toBe("2026-05-01");
+  expect(search.get("layers")).toBe("public");
+  await expect(publicLayer).toBeDisabled();
+
+  await page.getByRole("radio", { name: "One state" }).check();
+  await page.getByLabel("Federal state").selectOption("DE-BE");
+  search = new URL(page.url()).searchParams;
+  expect(search.get("date")).toBe("2026-05-01");
+  expect(search.get("region")).toBe("single");
+  expect(search.get("states")).toBe("DE-BE");
+  await expect(page.getByRole("button", { name: /May 1, 2026/ })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+
+  await schoolLayer.check();
+  expect(new URL(page.url()).searchParams.get("layers")).toBe("public,school");
 });

@@ -1,34 +1,30 @@
 import type { HolidayRecord, PublishedDatasetManifest, StateCode } from "@hsg/data-core/schemas";
 import { Link } from "@tanstack/react-router";
-import { CalendarDays, Check, DatabaseZap, Languages } from "lucide-react";
+import { CalendarDays, DatabaseZap, Languages } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { deriveHolidayCalendar } from "./calendar";
 import { Button } from "./components/button";
 import { loadPublishedData } from "./data";
 import { DateDetails } from "./date-details";
+import { ExplorerFilters } from "./explorer-filters";
 import {
   type ExplorerSearch,
   getSelectedLayers,
   getSelectedStates,
   getVisibleMonths,
-  holidayLayers,
-  periodModes,
-  regionModes,
+  type HolidayLayer,
   searchValuesEqual,
   updateExplorerSearch,
 } from "./explorer-search";
 import { HolidayCalendar } from "./holiday-calendar";
-import { copy, type Locale, stateNames } from "./i18n";
+import { copy, type Locale } from "./i18n";
 import { HolidayLegend } from "./legend";
-import { cn } from "./lib/cn";
 
 interface ComparisonPageProps {
   locale: Locale;
   search: ExplorerSearch;
   onSearchChange: (search: ExplorerSearch, options?: { replace?: boolean }) => void;
 }
-
-const stateCodes = Object.keys(stateNames);
 
 export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPageProps) {
   const text = copy[locale];
@@ -117,7 +113,7 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
     });
   }
 
-  function toggleLayer(layer: (typeof holidayLayers)[number]): void {
+  function toggleLayer(layer: HolidayLayer): void {
     if (selectedLayers.includes(layer) && selectedLayers.length === 1) {
       return;
     }
@@ -138,7 +134,7 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
             </span>
             <span className="font-semibold">{text.appName}</span>
           </div>
-          <nav aria-label="Language" className="flex items-center gap-1">
+          <nav aria-label={text.language} className="flex items-center gap-1">
             <Languages aria-hidden="true" className="mr-1 size-4 text-slate-500" />
             {(["zh", "de", "en"] as const).map((item) => (
               <Button
@@ -166,158 +162,18 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
 
       <div className="mx-auto grid max-w-[1480px] gap-0 lg:grid-cols-[300px_1fr]">
         <aside className="border-b border-slate-200 bg-white p-4 sm:p-6 lg:border-r lg:border-b-0">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            <label className="text-sm font-medium text-slate-600">
-              <span className="mb-1 block">{text.region}</span>
-              <select
-                aria-label={text.region}
-                className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
-                value={search.region}
-                onChange={(event) => changeSearch({ region: event.target.value })}
-              >
-                {regionModes.map((mode) => (
-                  <option key={mode} value={mode}>
-                    {mode === "all"
-                      ? text.allGermany
-                      : mode === "single"
-                        ? text.singleState
-                        : text.multipleStates}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="text-sm font-medium text-slate-600">
-              <span className="mb-1 block">{text.year}</span>
-              <select
-                aria-label={text.year}
-                className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
-                value={year}
-                onChange={(event) => changeSearch({ year: Number(event.target.value) })}
-              >
-                {availableYears.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="text-sm font-medium text-slate-600">
-              <span className="mb-1 block">{text.period}</span>
-              <select
-                aria-label={text.period}
-                className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
-                value={search.period}
-                onChange={(event) => changeSearch({ period: event.target.value })}
-              >
-                {periodModes.map((mode) => (
-                  <option key={mode} value={mode}>
-                    {mode === "year"
-                      ? text.yearView
-                      : mode === "quarter"
-                        ? text.quarterView
-                        : text.monthView}
-                  </option>
-                ))}
-              </select>
-            </label>
-            {search.period === "quarter" ? (
-              <label className="text-sm font-medium text-slate-600">
-                <span className="mb-1 block">{text.quarter}</span>
-                <select
-                  aria-label={text.quarter}
-                  className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
-                  value={search.quarter}
-                  onChange={(event) => changeSearch({ quarter: Number(event.target.value) })}
-                >
-                  {[1, 2, 3, 4].map((quarter) => (
-                    <option key={quarter} value={quarter}>
-                      Q{quarter}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ) : null}
-            {search.period === "month" ? (
-              <label className="text-sm font-medium text-slate-600">
-                <span className="mb-1 block">{text.month}</span>
-                <select
-                  aria-label={text.month}
-                  className="h-9 w-full rounded-md border border-slate-300 bg-white px-3"
-                  value={search.month}
-                  onChange={(event) => changeSearch({ month: Number(event.target.value) })}
-                >
-                  {Array.from({ length: 12 }, (_, index) => index + 1).map((month) => (
-                    <option key={month} value={month}>
-                      {new Intl.DateTimeFormat(locale, { month: "long", timeZone: "UTC" }).format(
-                        new Date(Date.UTC(year, month - 1, 1)),
-                      )}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ) : null}
-          </div>
-
-          <fieldset className="mt-5">
-            <legend className="text-sm font-semibold text-slate-700">{text.layers}</legend>
-            <div className="mt-2 flex flex-wrap gap-4 text-sm">
-              {holidayLayers.map((layer) => (
-                <label key={layer} className="flex items-center gap-2">
-                  <input
-                    checked={selectedLayers.includes(layer)}
-                    type="checkbox"
-                    onChange={() => toggleLayer(layer)}
-                  />
-                  {layer === "public" ? text.public : text.school}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          <div className="mt-5">
-            <h2 className="font-semibold">{text.selectStates}</h2>
-            <p className="mt-1 text-sm text-slate-500">
-              {selectedStates.length} {text.selected}
-            </p>
-          </div>
-
-          <div className="mt-5 grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
-            {stateCodes.map((stateCodeValue) => {
-              const stateCode = stateCodeValue as StateCode;
-              const selected = selectedStates.includes(stateCode);
-              return (
-                <label
-                  key={stateCode}
-                  className={cn(
-                    "flex min-h-10 cursor-pointer items-center gap-3 rounded-md border px-3 py-2 text-sm",
-                    selected
-                      ? "border-sky-700 bg-sky-50 text-sky-950"
-                      : "border-transparent hover:bg-slate-100",
-                  )}
-                >
-                  <input
-                    checked={selected}
-                    className="sr-only"
-                    disabled={search.region === "all"}
-                    name={search.region === "single" ? "state" : undefined}
-                    type={search.region === "single" ? "radio" : "checkbox"}
-                    onChange={() => toggleState(stateCode)}
-                  />
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      "flex size-5 shrink-0 items-center justify-center rounded border",
-                      selected ? "border-sky-700 bg-sky-800 text-white" : "border-slate-300",
-                    )}
-                  >
-                    {selected ? <Check className="size-3.5" /> : null}
-                  </span>
-                  <span className="min-w-0 flex-1">{stateNames[stateCode]?.[locale]}</span>
-                  <span className="text-xs text-slate-500">{stateCode.slice(3)}</span>
-                </label>
-              );
-            })}
-          </div>
+          <ExplorerFilters
+            availableYears={availableYears}
+            locale={locale}
+            search={search}
+            selectedLayers={selectedLayers}
+            selectedStates={selectedStates}
+            text={text}
+            year={year}
+            onChange={changeSearch}
+            onToggleLayer={toggleLayer}
+            onToggleState={toggleState}
+          />
         </aside>
 
         <section className="min-w-0 p-4 sm:p-6 lg:p-8">
