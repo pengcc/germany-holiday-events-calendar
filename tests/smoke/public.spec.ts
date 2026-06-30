@@ -80,3 +80,69 @@ test("invalid explorer filters are replaced with safe canonical values", async (
   expect(search.get("layers")).toBe("public,school");
   expect(search.has("date")).toBe(false);
 });
+
+test("visible dates update the URL and recover populated and empty details", async ({ page }) => {
+  await usePublishedDataFixture(page);
+  await page.goto(
+    "/en?year=2026&period=month&month=5&region=multiple&states=DE-BE,DE-BB&layers=public,school",
+  );
+
+  const mayFirst = page.getByRole("button", { name: /May 1, 2026/ });
+  await expect(mayFirst).toContainText("P");
+  await expect(mayFirst).toContainText("S");
+  await expect(mayFirst).toContainText("2/2");
+  await mayFirst.click();
+
+  await expect(page).toHaveURL(/date=2026-05-01/);
+  await expect(mayFirst).toHaveAttribute("aria-pressed", "true");
+  const details = page.getByRole("region", { name: "Date details" });
+  await expect(details).toContainText("Labour Day");
+  await expect(details).toContainText("School-specific closure");
+  await expect(details).toContainText("School-specific: Fixture schools");
+  await expect(details).toContainText("May 1, 2026 – May 2, 2026");
+  await expect(details).toContainText("public-de-be-2026");
+  await expect(details).toContainText("school-de-be-2026-27 · fixture-school-closure");
+
+  await page.reload();
+  await expect(page.getByRole("button", { name: /May 1, 2026/ })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await expect(page.getByRole("region", { name: "Date details" })).toContainText("Labour Day");
+
+  const mayThird = page.getByRole("button", { name: /May 3, 2026/ });
+  await mayThird.focus();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/date=2026-05-03/);
+  await expect(details).toContainText("No holiday records match the current filters on this date.");
+});
+
+test("dates outside the active period are ignored and layer and activity labels are explicit", async ({
+  page,
+}) => {
+  await usePublishedDataFixture(page);
+  await page.goto(
+    "/en?year=2026&period=month&month=7&region=multiple&states=DE-BE,DE-BB&layers=school&date=2026-05-01",
+  );
+
+  await expect(page.getByText("Select a date in the calendar to view details.")).toBeVisible();
+  const julyNinth = page.getByRole("button", { name: /July 9, 2026/ });
+  await expect(julyNinth).toHaveAccessibleName(/School holiday/);
+  await expect(julyNinth).toHaveAccessibleName(/Partial overlap/);
+  await expect(julyNinth).toContainText("S");
+  await expect(julyNinth).toContainText("1/2");
+  await julyNinth.click();
+  const details = page.getByRole("region", { name: "Date details" });
+  await expect(details).toContainText("Summer holidays");
+  await expect(details).toContainText("July 9, 2026 – August 22, 2026");
+  await expect(details).toContainText("Statewide");
+  await expect(details).toContainText("school-de-be-2026-27");
+
+  await page.goto("/en?year=2026&period=month&month=7&region=single&states=DE-BE&layers=school");
+  await expect(page.getByRole("button", { name: /July 9, 2026/ })).toHaveAccessibleName(
+    /Activity in selected state/,
+  );
+  await expect(page.getByText("Full overlap")).toBeVisible();
+  await expect(page.getByText("Partial overlap")).toBeVisible();
+  await expect(page.getByText("Activity in selected state")).toBeVisible();
+});

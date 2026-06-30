@@ -4,7 +4,7 @@
   "generatedAt": "2026-06-30T00:00:00.000Z",
   "recordsFile": "holidays.json",
   "recordsSha256": "0000000000000000000000000000000000000000000000000000000000000000",
-  "recordCount": 3,
+  "recordCount": 4,
   "targetYears": [2026],
   "jurisdictions": ["DE-BE", "DE-BB"],
   "categories": ["school", "public"],
