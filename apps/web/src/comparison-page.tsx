@@ -186,8 +186,12 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
           </div>
 
           {error ? (
-            <div className="mt-6 border-l-4 border-red-700 bg-red-50 p-4 text-sm text-red-950">
-              {error}
+            <div
+              className="mt-6 border-l-4 border-red-700 bg-red-50 p-4 text-sm text-red-950"
+              role="alert"
+            >
+              <h3 className="font-semibold">{text.dataErrorTitle}</h3>
+              <p className="mt-1 leading-6">{text.dataErrorBody}</p>
             </div>
           ) : !manifest ? (
             <div className="mt-6 border border-slate-200 bg-white p-4 text-sm text-slate-700">
@@ -200,24 +204,37 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
               <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">{text.noDataBody}</p>
             </div>
           ) : (
-            <div className="mt-6 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
-              <HolidayCalendar
-                dayIndex={calendar.days}
-                locale={locale}
-                months={visibleMonths}
-                selectedDate={search.date}
-                selectedStateCount={selectedStates.length}
-                text={text}
-                year={year}
-                onSelectDate={(date) => changeSearch({ date })}
-              />
-              <DateDetails
-                day={search.date ? calendar.days.get(search.date) : undefined}
-                locale={locale}
-                selectedDate={search.date}
-                text={text}
-              />
-            </div>
+            <>
+              {!calendar.coverage.complete ? (
+                <div className="mt-6 border-l-4 border-amber-500 bg-amber-50 p-4 text-sm text-amber-950">
+                  <h3 className="font-semibold">{text.incompleteCoverageTitle}</h3>
+                  <p className="mt-1 leading-6">{text.incompleteCoverageBody}</p>
+                </div>
+              ) : null}
+              {calendar.days.size === 0 ? (
+                <p className="mt-4 border border-slate-200 bg-white p-4 text-sm text-slate-700">
+                  {text.noMatchingPeriod}
+                </p>
+              ) : null}
+              <div className="mt-6 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
+                <HolidayCalendar
+                  dayIndex={calendar.days}
+                  locale={locale}
+                  months={visibleMonths}
+                  selectedDate={search.date}
+                  selectedStateCount={selectedStates.length}
+                  text={text}
+                  year={year}
+                  onSelectDate={(date) => changeSearch({ date })}
+                />
+                <DateDetails
+                  day={search.date ? calendar.days.get(search.date) : undefined}
+                  locale={locale}
+                  selectedDate={search.date}
+                  text={text}
+                />
+              </div>
+            </>
           )}
         </section>
       </div>

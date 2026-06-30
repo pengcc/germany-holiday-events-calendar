@@ -12,6 +12,19 @@ async function usePublishedDataFixture(page: Page): Promise<void> {
   );
 }
 
+async function useInvalidPublishedDataFixture(page: Page): Promise<void> {
+  await page.route("**/data/holidays.json", (route) =>
+    route.fulfill({
+      body: JSON.stringify({ schemaVersion: 1, records: [{ invalid: true }] }),
+      contentType: "application/json",
+      status: 200,
+    }),
+  );
+  await page.route("**/data/manifest.json", (route) =>
+    route.fulfill({ path: resolve(publicFixtureRoot, "manifest.json") }),
+  );
+}
+
 const localeExpectations = {
   zh: {
     appName: "德国假期与重要活动日历",
@@ -47,7 +60,7 @@ test("validated explorer filters drive the visible period and survive locale nav
 }) => {
   await usePublishedDataFixture(page);
   await page.goto(
-    "/en?year=2026&period=quarter&quarter=2&region=multiple&states=DE-BE,DE-BB&layers=public,school",
+    "/en?year=2026&period=quarter&quarter=2&region=multiple&states=DE-BE,DE-BB&layers=public,school&date=2026-05-01",
   );
 
   await expect(page.getByRole("radio", { name: "Multiple states" })).toBeChecked();
@@ -57,11 +70,18 @@ test("validated explorer filters drive the visible period and survive locale nav
   await expect(page.getByRole("region", { name: "April 2026" })).toBeVisible();
   await expect(page.getByRole("region", { name: "June 2026" })).toBeVisible();
   await expect(page.getByRole("region", { name: "July 2026" })).toHaveCount(0);
+  await expect(page.getByRole("region", { name: "Date details" })).toContainText("Labour Day");
+  await expect(page.getByText("Data coverage is incomplete for this selection")).toBeVisible();
 
   await page.getByRole("link", { name: "de" }).click();
   await expect(page).toHaveURL(/\/de\?/);
-  expect(new URL(page.url()).searchParams.get("region")).toBe("multiple");
-  expect(new URL(page.url()).searchParams.get("states")).toBe("DE-BB,DE-BE");
+  const localizedSearch = new URL(page.url()).searchParams;
+  expect(localizedSearch.get("region")).toBe("multiple");
+  expect(localizedSearch.get("states")).toBe("DE-BB,DE-BE");
+  expect(localizedSearch.get("date")).toBe("2026-05-01");
+  await expect(page.getByRole("region", { name: "Details zum Datum" })).toContainText(
+    "Tag der Arbeit",
+  );
 });
 
 test("region and period controls update the route-backed calendar", async ({ page }) => {
@@ -135,7 +155,9 @@ test("visible dates update the URL and recover populated and empty details", asy
   await mayThird.focus();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/date=2026-05-03/);
-  await expect(details).toContainText("No holiday records match the current filters on this date.");
+  await expect(details).toContainText(
+    "No published holiday records match the current filters on this date.",
+  );
 });
 
 test("dates outside the active period are ignored and layer and activity labels are explicit", async ({
@@ -235,4 +257,31 @@ test("layer and region changes preserve a visible selected date in URL state", a
 
   await schoolLayer.check();
   expect(new URL(page.url()).searchParams.get("layers")).toBe("public,school");
+});
+
+test("invalid runtime JSON shows a localized unavailable state", async ({ page }) => {
+  await useInvalidPublishedDataFixture(page);
+  await page.goto("/de?year=2026");
+
+  const alert = page.getByRole("alert");
+  await expect(alert).toContainText("Ferientermine derzeit nicht verfügbar");
+  await expect(alert).toContainText(
+    "Die veröffentlichten Ferientermine konnten nicht geladen oder validiert werden.",
+  );
+  await expect(page.getByRole("region", { name: "Januar 2026" })).toHaveCount(0);
+});
+
+test("an empty filtered period remains browsable and explains coverage", async ({ page }) => {
+  await usePublishedDataFixture(page);
+  await page.goto("/en?year=2026&period=month&month=2&region=single&states=DE-BE&layers=public");
+
+  await expect(page.getByText("Data coverage is incomplete for this selection")).toBeVisible();
+  await expect(
+    page.getByText("No published holiday records match the current period and filters."),
+  ).toBeVisible();
+  await expect(page.getByRole("region", { name: "February 2026" })).toBeVisible();
+  await page.getByRole("button", { name: /February 1, 2026/ }).click();
+  await expect(page.getByRole("region", { name: "Date details" })).toContainText(
+    "No published holiday records match the current filters on this date.",
+  );
 });
