@@ -1,5 +1,5 @@
-import type { HolidayRecord } from "@hsg/data-core/schemas";
 import { buildMonth, type CalendarCell, type CalendarDay } from "./calendar";
+import { HolidayMarker } from "./holiday-marker";
 import type { ExplorerCopy, Locale } from "./i18n";
 import { cn } from "./lib/cn";
 
@@ -118,10 +118,10 @@ function DateButton({
       {categories.size > 0 ? (
         <span className="absolute bottom-0.5 left-0.5 flex gap-0.5" aria-hidden="true">
           {categories.has("public") ? (
-            <Marker label={text.publicMarker} recordType="public" />
+            <HolidayMarker category="public" className="border-white/80" />
           ) : null}
           {categories.has("school") ? (
-            <Marker label={text.schoolMarker} recordType="school" />
+            <HolidayMarker category="school" className="border-white/80" />
           ) : null}
         </span>
       ) : null}
@@ -133,19 +133,6 @@ function DateButton({
         </span>
       ) : null}
     </button>
-  );
-}
-
-function Marker({ label, recordType }: { label: string; recordType: HolidayRecord["category"] }) {
-  return (
-    <span
-      className={cn(
-        "flex size-3 items-center justify-center rounded-sm text-[7px] font-bold leading-none",
-        recordType === "public" ? "bg-violet-800 text-white" : "bg-cyan-800 text-white",
-      )}
-    >
-      {label}
-    </span>
   );
 }
 

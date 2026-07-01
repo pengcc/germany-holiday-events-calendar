@@ -30,16 +30,22 @@ const localeExpectations = {
     appName: "德国假期与重要活动日历",
     language: "语言",
     allStates: "已包含全部 16 个联邦州，无需逐一选择。",
+    publicMarkerLegend: "圆点：公共假日",
+    schoolMarkerLegend: "菱形：学校假期",
   },
   de: {
     appName: "Germany Holiday & Events Calendar",
     language: "Sprache",
     allStates: "Alle 16 Bundesländer sind enthalten; eine Einzelauswahl ist nicht nötig.",
+    publicMarkerLegend: "Kreis: Feiertag",
+    schoolMarkerLegend: "Raute: Schulferien",
   },
   en: {
     appName: "Germany Holiday & Events Calendar",
     language: "Language",
     allStates: "All 16 federal states are included; no individual selection is needed.",
+    publicMarkerLegend: "Circle: Public holiday",
+    schoolMarkerLegend: "Diamond: School holiday",
   },
 } as const;
 
@@ -50,6 +56,8 @@ for (const [locale, expected] of Object.entries(localeExpectations)) {
     await expect(page.getByRole("navigation", { name: expected.language })).toBeVisible();
     await expect(page.locator("header")).toContainText(expected.appName);
     await expect(page.getByText(expected.allStates)).toBeVisible();
+    await expect(page.getByText(expected.publicMarkerLegend, { exact: true })).toBeVisible();
+    await expect(page.getByText(expected.schoolMarkerLegend, { exact: true })).toBeVisible();
     await expect(page.getByText("Holiday Sync Germany")).toHaveCount(0);
     await expect(page.locator("main")).toContainText(/reviewed|审核|geprüft/i);
   });
@@ -129,8 +137,8 @@ test("visible dates update the URL and recover populated and empty details", asy
   );
 
   const mayFirst = page.getByRole("button", { name: /May 1, 2026/ });
-  await expect(mayFirst).toContainText("P");
-  await expect(mayFirst).toContainText("S");
+  await expect(mayFirst.locator('[data-holiday-marker="public"]')).toBeVisible();
+  await expect(mayFirst.locator('[data-holiday-marker="school"]')).toBeVisible();
   await expect(mayFirst).toContainText("2/2");
   await mayFirst.click();
 
@@ -172,7 +180,8 @@ test("dates outside the active period are ignored and layer and activity labels 
   const julyNinth = page.getByRole("button", { name: /July 9, 2026/ });
   await expect(julyNinth).toHaveAccessibleName(/School holiday/);
   await expect(julyNinth).toHaveAccessibleName(/Partial overlap/);
-  await expect(julyNinth).toContainText("S");
+  await expect(julyNinth.locator('[data-holiday-marker="school"]')).toBeVisible();
+  await expect(julyNinth.locator('[data-holiday-marker="public"]')).toHaveCount(0);
   await expect(julyNinth).toContainText("1/2");
   await julyNinth.click();
   const details = page.getByRole("region", { name: "Date details" });
