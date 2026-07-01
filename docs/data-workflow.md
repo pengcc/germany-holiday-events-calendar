@@ -25,6 +25,8 @@ mise exec -- corepack pnpm data:resolve <run-id> <source-id> <issue-key> \
 mise exec -- corepack pnpm data:review <run-id> <source-id> --reviewer "Name"
 mise exec -- corepack pnpm data:publish <run-id> --preview
 mise exec -- corepack pnpm data:publish <run-id>
+mise exec -- corepack pnpm data:publish <run-id> --approved-partial
+mise exec -- corepack pnpm data:release:check
 ```
 
 The configured 2026–2027 release contains 80 independently reviewed batches:
@@ -46,8 +48,10 @@ The configured 2026–2027 release contains 80 independently reviewed batches:
    Studio can bulk-approve selected batches only when each selected batch has no unresolved
    blocker. It still writes one review decision per batch.
 6. Inspect the publish preview and confirm the listed files.
-7. Publish. The command refuses to run while `data/` or `apps/web/public/data/` already has
-   uncommitted changes.
+7. Publish. Strict `data:publish` requires complete release coverage. Use the explicit
+   `--approved-partial` mode only to write approved data for local frontend review while coverage
+   remains incomplete. Both modes refuse to run while `data/` or `apps/web/public/data/` already
+   has uncommitted changes.
 8. Inspect `git diff`, run the quality gates, and commit manually. Studio never commits or pushes.
 
 ## Failure Recovery
@@ -63,8 +67,17 @@ The configured 2026–2027 release contains 80 independently reviewed batches:
 ## Release Gate
 
 - The first release requires approved, current data for all 80 configured batches.
+- `data:publish <run-id>` remains strict and fails before writing when required batches, freshness,
+  or release coverage are incomplete.
+- `data:publish <run-id> --approved-partial` writes only approved current-run batches together with
+  still-current previously accepted batches. Blocked, rejected, unresolved, and unapproved run
+  records are excluded. Missing coverage remains `covered: false` in the generated manifest.
+- Approved-partial output exists for frontend review of incomplete data. It is not public release
+  approval and must not be released or deployed as a complete dataset.
+- `data:release:check` assesses the currently published manifest against required source batches,
+  freshness, and coverage. It exits unsuccessfully until the complete release gate passes.
 - The publish preview identifies approved batches, valid old batches that would be retained,
-  missing required batches, and regional records.
+  missing required batches, regional records, and release readiness.
 - A later refresh may retain a previously approved batch only while its `reviewBy` date remains
   valid.
 - Published JSON is limited to records intersecting 2026–2027. Cross-year ranges remain intact.

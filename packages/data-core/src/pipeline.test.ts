@@ -2,9 +2,26 @@ import { mkdir, mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { resolve } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { writeJsonAtomic } from "./fs";
-import { getSourceRunArtifacts, resolveDecision, resumeRun, reviewBatch } from "./pipeline";
-import type { DataRun, SourceFingerprint, SourceManifest, SourceRunArtifacts } from "./schemas";
+import { readJson, writeJsonAtomic } from "./fs";
+import {
+  assessPublishedReleaseReadiness,
+  getSourceRunArtifacts,
+  previewPublish,
+  publishRun,
+  resolveDecision,
+  resumeRun,
+  reviewBatch,
+} from "./pipeline";
+import {
+  type BatchReviewDecision,
+  type DataRun,
+  type HolidayRecord,
+  PublishedDatasetManifestSchema,
+  PublishedHolidayRecordsSchema,
+  type SourceFingerprint,
+  type SourceManifest,
+  type SourceRunArtifacts,
+} from "./schemas";
 
 const temporaryRoots: string[] = [];
 
@@ -120,6 +137,83 @@ describe("review and recovery pipeline", () => {
     expect(resumed.sources[0]).toMatchObject({ status: "completed", recordCount: 1 });
     const artifacts = await getSourceRunArtifacts(root, resumed.id, source.id);
     expect(artifacts.records[0]?.endDate).toBe("2026-10-24");
+  });
+});
+
+describe("approved publication and release readiness", () => {
+  it("keeps strict publish blocked while approved-partial excludes unresolved batches", async () => {
+    const { root, runId, approvedSource, blockedSource } = await makePublishWorkspace({
+      blockedPublicSource: true,
+    });
+    await reviewBatch(root, {
+      runId,
+      sourceId: approvedSource.id,
+      reviewer: "Reviewer",
+      decision: "approved",
+    });
+    await writeJsonAtomic(
+      resolve(root, "dev_locals/data-runs", runId, blockedSource.id, "review.json"),
+      makeReview(runId, blockedSource, "approved"),
+    );
+
+    const preview = await previewPublish(root, runId);
+    expect(preview.approvableSources).toEqual([approvedSource.id]);
+    expect(preview.blockedSources).toContain(blockedSource.id);
+    expect(preview.releaseReadiness).toMatchObject({
+      releaseReady: false,
+      missingSourceIds: [blockedSource.id],
+    });
+    await expect(publishRun(root, runId, { allowDirty: true })).rejects.toThrow(
+      "1 missing approved batch",
+    );
+
+    await publishRun(root, runId, { allowDirty: true, approvedPartial: true });
+    const records = PublishedHolidayRecordsSchema.parse(
+      await readJson(resolve(root, "apps/web/public/data/holidays.json")),
+    );
+    const manifest = PublishedDatasetManifestSchema.parse(
+      await readJson(resolve(root, "apps/web/public/data/manifest.json")),
+    );
+    expect(records.records.map((record) => record.source.sourceId)).toEqual([approvedSource.id]);
+    expect(records.records.some((record) => record.source.sourceId === blockedSource.id)).toBe(
+      false,
+    );
+    expect(
+      manifest.coverageMatrix.find(
+        (cell) => cell.jurisdiction === "DE-TH" && cell.category === "public",
+      ),
+    ).toMatchObject({ covered: false, sourceIds: [] });
+    await expect(
+      assessPublishedReleaseReadiness(root, { today: "2026-07-01" }),
+    ).resolves.toMatchObject({
+      releaseReady: false,
+      missingSourceIds: [blockedSource.id],
+    });
+  });
+
+  it("passes release readiness only when every required batch is approved and covered", async () => {
+    const { root, runId, approvedSource, blockedSource } = await makePublishWorkspace({
+      blockedPublicSource: false,
+    });
+    for (const source of [approvedSource, blockedSource]) {
+      await reviewBatch(root, {
+        runId,
+        sourceId: source.id,
+        reviewer: "Reviewer",
+        decision: "approved",
+      });
+    }
+
+    await publishRun(root, runId, { allowDirty: true });
+    const readiness = await assessPublishedReleaseReadiness(root, { today: "2026-07-01" });
+    expect(readiness).toMatchObject({
+      releaseReady: true,
+      requiredSourceCount: 2,
+      approvedSourceCount: 2,
+      missingSourceIds: [],
+      staleSourceIds: [],
+      incompleteCoverage: [],
+    });
   });
 });
 
@@ -250,5 +344,162 @@ function makeFingerprint(): SourceFingerprint {
     contentType: "text/calendar",
     retrievedAt: "2026-06-06T00:00:00.000Z",
     finalUrl: "https://www.kmk.org/source.ics",
+  };
+}
+
+async function makePublishWorkspace(options: { blockedPublicSource: boolean }): Promise<{
+  root: string;
+  runId: string;
+  approvedSource: SourceManifest;
+  blockedSource: SourceManifest;
+}> {
+  const root = await mkdtemp(resolve(tmpdir(), "hsg-publish-"));
+  temporaryRoots.push(root);
+  await Promise.all(
+    [
+      "data/sources",
+      "data/overrides",
+      "data/accepted/batches",
+      "data/reviews",
+      "data/snapshots/accepted",
+      "apps/web/public/data",
+      "dev_locals/data-runs",
+    ].map((directory) => mkdir(resolve(root, directory), { recursive: true })),
+  );
+  const approvedSource: SourceManifest = {
+    ...makeSource(),
+    id: "school-de-th-2026",
+    name: "School holidays Thuringia 2026",
+    freshness: { retrievalCadenceDays: 90, reviewBy: "2099-12-31" },
+  };
+  const blockedSource: SourceManifest = {
+    ...makeSource(),
+    id: "public-de-th-2026",
+    name: "Public holidays Thuringia 2026",
+    category: "public",
+    format: "html",
+    adapter: "public-rules",
+    period: {
+      kind: "calendarYear",
+      id: "2026",
+      startDate: "2026-01-01",
+      endDate: "2026-12-31",
+    },
+    freshness: { retrievalCadenceDays: 90, reviewBy: "2099-12-31" },
+  };
+  await Promise.all(
+    [approvedSource, blockedSource].map((source) =>
+      writeFile(
+        resolve(root, "data/sources", `${source.id}.yaml`),
+        `${JSON.stringify(source, null, 2)}\n`,
+        "utf8",
+      ),
+    ),
+  );
+  await writeFile(
+    resolve(root, "data/release.yaml"),
+    [
+      "schemaVersion: 1",
+      "targetYears: [2026]",
+      "jurisdictions: [DE-TH]",
+      "categories: [school, public]",
+      "",
+    ].join("\n"),
+    "utf8",
+  );
+  await writeFile(
+    resolve(root, "data/public-holiday-rules.yaml"),
+    "schemaVersion: 1\nrules: []\n",
+    "utf8",
+  );
+  const runId = "run-publish";
+  const sources = [approvedSource, blockedSource];
+  for (const source of sources) {
+    const blocked = source.id === blockedSource.id && options.blockedPublicSource;
+    const artifacts: SourceRunArtifacts = {
+      schemaVersion: 1,
+      source,
+      fingerprint: makeFingerprint(),
+      records: [makeRecord(source)],
+      issues: blocked
+        ? [
+            {
+              code: "REGIONAL_SCOPE_REVIEW_REQUIRED",
+              severity: "blocker",
+              stage: "validated",
+              sourceId: source.id,
+              jurisdiction: source.jurisdiction,
+              periodId: source.period.id,
+              recordId: `${source.id}:holiday`,
+              message: "Regional applicability requires review.",
+              suggestedAction: "Review official evidence.",
+              decisionRequired: true,
+            },
+          ]
+        : [],
+      diff: [],
+      overrideIds: [],
+    };
+    const sourceDirectory = resolve(root, "dev_locals/data-runs", runId, source.id);
+    await mkdir(sourceDirectory, { recursive: true });
+    await writeJsonAtomic(resolve(sourceDirectory, "artifacts.json"), artifacts);
+  }
+  await writeJsonAtomic(resolve(root, "dev_locals/data-runs", runId, "run.json"), {
+    schemaVersion: 1,
+    id: runId,
+    createdAt: "2026-07-01T00:00:00.000Z",
+    updatedAt: "2026-07-01T00:00:00.000Z",
+    stage: "compared",
+    sources: sources.map((source) => {
+      const blocked = source.id === blockedSource.id && options.blockedPublicSource;
+      return {
+        sourceId: source.id,
+        jurisdiction: source.jurisdiction,
+        periodId: source.period.id,
+        status: blocked ? "blocked" : "completed",
+        stage: "compared",
+        recordCount: 1,
+        issueCount: blocked ? 1 : 0,
+        decisionRequiredCount: blocked ? 1 : 0,
+      };
+    }),
+  } satisfies DataRun);
+  return { root, runId, approvedSource, blockedSource };
+}
+
+function makeRecord(source: SourceManifest): HolidayRecord {
+  return {
+    schemaVersion: 1,
+    id: `${source.id}:holiday`,
+    jurisdiction: source.jurisdiction,
+    category: source.category,
+    scope: source.category === "public" ? "regional" : "statewide",
+    regions: source.category === "public" ? ["fixture-region"] : [],
+    startDate: "2026-10-01",
+    endDate: "2026-10-01",
+    names: { de: source.name, en: source.name, zh: source.name },
+    periodId: source.period.id,
+    source: { sourceId: source.id, sourceEventId: "holiday" },
+  };
+}
+
+function makeReview(
+  runId: string,
+  source: SourceManifest,
+  decision: BatchReviewDecision["decision"],
+): BatchReviewDecision {
+  return {
+    schemaVersion: 1,
+    runId,
+    sourceId: source.id,
+    jurisdiction: source.jurisdiction,
+    periodId: source.period.id,
+    decision,
+    reviewer: "Reviewer",
+    reviewedAt: "2026-07-01T00:00:00.000Z",
+    notes: "Fixture review",
+    fingerprintSha256: makeFingerprint().sha256,
+    overrideIds: [],
+    resolutionIds: [],
   };
 }

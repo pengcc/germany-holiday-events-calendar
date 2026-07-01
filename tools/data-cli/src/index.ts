@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import {
+  assessPublishedReleaseReadiness,
   getRun,
   loadOverrides,
   loadSourceManifests,
@@ -140,18 +141,53 @@ program
   .description("Publish approved batches and preserve old data for blocked batches")
   .argument("<runId>")
   .option("--preview", "Show planned files without writing")
+  .option(
+    "--approved-partial",
+    "Write approved data with incomplete coverage for frontend review only",
+  )
   .option("--allow-dirty", "Bypass the publish-path clean check for controlled recovery")
-  .action(async (runId: string, options: { preview?: boolean; allowDirty?: boolean }) => {
-    const preview = await previewPublish(process.cwd(), runId);
-    console.log(JSON.stringify(preview, null, 2));
-    if (!options.preview) {
-      const manifest = await publishRun(process.cwd(), runId, {
-        allowDirty: options.allowDirty,
-      });
-      console.log(
-        `Published ${manifest.recordCount} records as dataset ${manifest.datasetVersion}.`,
+  .action(
+    async (
+      runId: string,
+      options: { preview?: boolean; approvedPartial?: boolean; allowDirty?: boolean },
+    ) => {
+      const preview = await previewPublish(process.cwd(), runId);
+      console.log(JSON.stringify(preview, null, 2));
+      if (!options.preview) {
+        const manifest = await publishRun(process.cwd(), runId, {
+          allowDirty: options.allowDirty,
+          approvedPartial: options.approvedPartial,
+        });
+        const readiness = await assessPublishedReleaseReadiness(process.cwd());
+        if (!readiness.releaseReady) {
+          console.warn(
+            `Published ${manifest.recordCount} approved records as dataset ${manifest.datasetVersion}. This dataset is NOT RELEASE-READY: ${readiness.missingSourceIds.length} required batch(es) are missing and ${readiness.incompleteCoverage.length} coverage cell(s) are incomplete.`,
+          );
+        } else {
+          console.log(
+            `Published ${manifest.recordCount} records as release-ready dataset ${manifest.datasetVersion}.`,
+          );
+        }
+      }
+    },
+  );
+
+program
+  .command("release-check")
+  .description("Check whether the currently published static dataset is release-ready")
+  .action(async () => {
+    const readiness = await assessPublishedReleaseReadiness(process.cwd());
+    console.log(JSON.stringify(readiness, null, 2));
+    if (!readiness.releaseReady) {
+      console.error(
+        `Release readiness failed: ${readiness.missingSourceIds.length} required batch(es) are missing, ${readiness.staleSourceIds.length} are stale, and ${readiness.incompleteCoverage.length} coverage cell(s) are incomplete.`,
       );
+      process.exitCode = 1;
+      return;
     }
+    console.log(
+      `Release readiness passed for all ${readiness.requiredSourceCount} required batches.`,
+    );
   });
 
 program

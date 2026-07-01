@@ -34,6 +34,7 @@
     "data:resolve": "node --import tsx tools/data-cli/src/index.ts resolve",
     "data:review": "node --import tsx tools/data-cli/src/index.ts review",
     "data:publish": "node --import tsx tools/data-cli/src/index.ts publish",
+    "data:release:check": "node --import tsx tools/data-cli/src/index.ts release-check",
     "data:rebuild": "node --import tsx tools/data-cli/src/index.ts rebuild",
     "data:rebuild:check": "node --import tsx tools/data-cli/src/index.ts rebuild --check",
     "data:monitor": "node --import tsx tools/data-cli/src/index.ts monitor"
