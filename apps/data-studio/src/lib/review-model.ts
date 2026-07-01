@@ -32,6 +32,8 @@ export type BatchReviewSummary = {
   decisionRequiredCount: number;
 };
 
+export type BatchSelectionMode = "all" | "none" | "readyWithoutIssues";
+
 export type RecordFilters = {
   query: string;
   category: "all" | HolidayRecord["category"];
@@ -104,6 +106,42 @@ export function isReadyWithoutIssues(batch: ReviewBatch): boolean {
     summary.decisionRequiredCount === 0 &&
     batch.sourceRun.decisionRequiredCount === 0
   );
+}
+
+export function batchIdsForSelection(
+  visibleBatches: ReviewBatch[],
+  mode: BatchSelectionMode,
+): string[] {
+  if (mode === "none") {
+    return [];
+  }
+  const batches =
+    mode === "readyWithoutIssues" ? visibleBatches.filter(isReadyWithoutIssues) : visibleBatches;
+  return batches.map((batch) => batch.sourceRun.sourceId);
+}
+
+export function bulkApprovalDisabledReason(
+  selectedBatches: ReviewBatch[],
+  selectedBatchIdCount: number,
+  reviewer: string,
+  busy: boolean,
+): string | undefined {
+  if (selectedBatchIdCount === 0) {
+    return "Select at least one READY · 0 issues batch.";
+  }
+  if (
+    selectedBatches.length !== selectedBatchIdCount ||
+    selectedBatches.some((batch) => batchReviewSummary(batch).status !== "ready")
+  ) {
+    return "Selected batches include blocked or already approved items.";
+  }
+  if (!reviewer.trim()) {
+    return "Enter reviewer name before approving.";
+  }
+  if (busy) {
+    return "Another Studio action is in progress.";
+  }
+  return undefined;
 }
 
 export function buildReviewCoverageMatrix(
