@@ -26,6 +26,12 @@ export type CoverageCell = {
   sourceIds: string[];
 };
 
+export type BatchReviewSummary = {
+  status: CoverageStatus;
+  issueCount: number;
+  decisionRequiredCount: number;
+};
+
 export type RecordFilters = {
   query: string;
   category: "all" | HolidayRecord["category"];
@@ -58,20 +64,46 @@ export function filterHolidayRecords(
   });
 }
 
-export function batchReviewStatus(batch: ReviewBatch): CoverageStatus {
+export function batchReviewSummary(batch: ReviewBatch): BatchReviewSummary {
   if (batch.review?.decision === "approved") {
-    return "approved";
+    return {
+      status: "approved",
+      issueCount: batch.artifacts?.issues.length ?? batch.sourceRun.issueCount,
+      decisionRequiredCount: 0,
+    };
   }
   const resolved = new Set(batch.resolutions.map((resolution) => resolution.issueKey));
-  const unresolved = batch.artifacts?.issues.some(
-    (issue) =>
-      (issue.severity === "blocker" || issue.decisionRequired) &&
-      !resolved.has(`${issue.code}:${issue.recordId ?? "batch"}`),
+  const unresolvedIssues =
+    batch.artifacts?.issues.filter(
+      (issue) =>
+        (issue.severity === "blocker" || issue.decisionRequired) &&
+        !resolved.has(`${issue.code}:${issue.recordId ?? "batch"}`),
+    ) ?? [];
+  const decisionRequiredCount = unresolvedIssues.filter((issue) => issue.decisionRequired).length;
+  return {
+    status:
+      batch.sourceRun.status === "blocked" || unresolvedIssues.length > 0 || !batch.artifacts
+        ? "blocked"
+        : "ready",
+    issueCount: batch.artifacts?.issues.length ?? batch.sourceRun.issueCount,
+    decisionRequiredCount:
+      batch.artifacts === undefined ? batch.sourceRun.decisionRequiredCount : decisionRequiredCount,
+  };
+}
+
+export function batchReviewStatus(batch: ReviewBatch): CoverageStatus {
+  return batchReviewSummary(batch).status;
+}
+
+export function isReadyWithoutIssues(batch: ReviewBatch): boolean {
+  const summary = batchReviewSummary(batch);
+  return (
+    summary.status === "ready" &&
+    summary.issueCount === 0 &&
+    batch.sourceRun.issueCount === 0 &&
+    summary.decisionRequiredCount === 0 &&
+    batch.sourceRun.decisionRequiredCount === 0
   );
-  if (batch.sourceRun.status === "blocked" || unresolved || !batch.artifacts) {
-    return "blocked";
-  }
-  return "ready";
 }
 
 export function buildReviewCoverageMatrix(

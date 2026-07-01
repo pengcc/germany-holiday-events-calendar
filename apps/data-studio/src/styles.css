@@ -252,6 +252,13 @@ button svg,
   border: 1px solid #dbe2ea;
 }
 
+.selection-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
 .batch-select-row {
   display: grid;
   grid-template-columns: 24px 72px 90px 70px minmax(120px, 1fr);

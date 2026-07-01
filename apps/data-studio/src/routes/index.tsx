@@ -18,7 +18,11 @@ import { BatchSummary } from "../components/batch-summary";
 import { CoverageMatrix } from "../components/coverage-matrix";
 import { DiffTable } from "../components/diff-table";
 import { HolidayRecordTable } from "../components/holiday-record-table";
-import { buildReviewCoverageMatrix } from "../lib/review-model";
+import {
+  batchReviewSummary,
+  buildReviewCoverageMatrix,
+  isReadyWithoutIssues,
+} from "../lib/review-model";
 import {
   getDashboard,
   makeOverrideDraft,
@@ -91,6 +95,14 @@ function StudioPage() {
         (issue.severity === "blocker" || issue.decisionRequired) &&
         !resolvedKeys.has(issueKey(issue)),
     ) ?? [];
+  const selectedBatchSummary = selectedBatch ? batchReviewSummary(selectedBatch) : undefined;
+  const selectedBatchIdSet = new Set(selectedBatchIds);
+  const selectedBatches = dashboard.batches.filter((batch) =>
+    selectedBatchIdSet.has(batch.sourceRun.sourceId),
+  );
+  const selectedBatchesAreReviewable = selectedBatches.every(
+    (batch) => batchReviewSummary(batch).status === "ready",
+  );
 
   async function runAction(name: string, action: () => Promise<unknown>, success: string) {
     setBusy(name);
@@ -302,11 +314,14 @@ function StudioPage() {
                     <p className="eyebrow">Selected batch</p>
                     <h2>Batch summary</h2>
                   </div>
-                  <StatusText
-                    blocked={unresolvedBlockers.length > 0}
-                    count={selectedBatch.sourceRun.issueCount}
-                  />
+                  <StatusText summary={selectedBatchSummary} />
                 </div>
+                {selectedBatchSummary?.status === "blocked" ? (
+                  <p className="blocking-note">
+                    Blocked batches require resolving issues before approval. Review Validation and
+                    decisions below for available actions.
+                  </p>
+                ) : null}
                 {selectedBatch.artifacts ? (
                   <BatchSummary artifacts={selectedBatch.artifacts} />
                 ) : (
@@ -359,23 +374,39 @@ function StudioPage() {
                   </div>
                   <span>{filteredBatches.length} visible batches</span>
                 </div>
+                <div className="selection-actions">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setSelectedBatchIds(filteredBatches.map((batch) => batch.sourceRun.sourceId))
+                    }
+                  >
+                    Select all visible
+                  </button>
+                  <button type="button" onClick={() => setSelectedBatchIds([])}>
+                    Select none
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setSelectedBatchIds(
+                        filteredBatches
+                          .filter(isReadyWithoutIssues)
+                          .map((batch) => batch.sourceRun.sourceId),
+                      )
+                    }
+                  >
+                    Select READY · 0 issues
+                  </button>
+                </div>
                 <div className="batch-selection">
                   {filteredBatches.map((batch) => {
-                    const keys = new Set(
-                      batch.resolutions.map((resolution) => resolution.issueKey),
-                    );
-                    const blocked = Boolean(
-                      batch.artifacts?.issues.some(
-                        (issue) =>
-                          (issue.severity === "blocker" || issue.decisionRequired) &&
-                          !keys.has(issueKey(issue)),
-                      ),
-                    );
+                    const summary = batchReviewSummary(batch);
                     return (
                       <label key={batch.sourceRun.sourceId} className="batch-select-row">
                         <input
                           checked={selectedBatchIds.includes(batch.sourceRun.sourceId)}
-                          disabled={blocked || batch.review?.decision === "approved"}
+                          disabled={summary.status === "blocked" || summary.status === "approved"}
                           type="checkbox"
                           onChange={(event) =>
                             setSelectedBatchIds((current) =>
@@ -388,7 +419,7 @@ function StudioPage() {
                         <span>{batch.sourceRun.jurisdiction}</span>
                         <span>{batch.sourceRun.periodId}</span>
                         <span>{batch.artifacts?.source.category}</span>
-                        <StatusText blocked={blocked} count={batch.sourceRun.issueCount} />
+                        <StatusText summary={summary} />
                       </label>
                     );
                   })}
@@ -396,7 +427,12 @@ function StudioPage() {
                 <div className="button-row">
                   <button
                     className="primary-action"
-                    disabled={!reviewer || selectedBatchIds.length === 0 || Boolean(busy)}
+                    disabled={
+                      !reviewer ||
+                      selectedBatchIds.length === 0 ||
+                      !selectedBatchesAreReviewable ||
+                      Boolean(busy)
+                    }
                     type="button"
                     onClick={() =>
                       runAction(
@@ -418,6 +454,12 @@ function StudioPage() {
                     Approve selected
                   </button>
                 </div>
+                {selectedBatchIds.length > 0 && !selectedBatchesAreReviewable ? (
+                  <p className="blocking-note">
+                    Blocked or already approved batches are selected. Resolve issues or use Select
+                    READY · 0 issues before approval.
+                  </p>
+                ) : null}
               </section>
 
               <section className="section">
@@ -426,10 +468,7 @@ function StudioPage() {
                     <p className="eyebrow">Validation and decisions</p>
                     <h2>Issues</h2>
                   </div>
-                  <StatusText
-                    blocked={unresolvedBlockers.length > 0}
-                    count={selectedBatch.sourceRun.issueCount}
-                  />
+                  <StatusText summary={selectedBatchSummary} />
                 </div>
                 {selectedBatch.artifacts?.issues.length ? (
                   <div className="issue-list">
@@ -710,10 +749,14 @@ function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; 
   );
 }
 
-function StatusText({ blocked, count }: { blocked: boolean; count: number }) {
+function StatusText({ summary }: { summary: ReturnType<typeof batchReviewSummary> | undefined }) {
+  if (!summary) {
+    return null;
+  }
   return (
-    <span className={`status ${blocked ? "status-blocked" : "status-ready"}`}>
-      {blocked ? "Blocked" : "Ready"} · {count} issues
+    <span className={`status status-${summary.status}`}>
+      {summary.status} · {summary.issueCount} issues
+      {summary.decisionRequiredCount > 0 ? ` · ${summary.decisionRequiredCount} decisions` : ""}
     </span>
   );
 }
