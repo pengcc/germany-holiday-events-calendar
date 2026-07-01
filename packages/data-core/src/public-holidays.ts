@@ -96,21 +96,27 @@ export function regionalRuleReviewIssues(
         rule.regionReviewStatus === "requires-review" &&
         appliesTo(rule, source.jurisdiction, year),
     )
-    .map((rule) => ({
-      code: "REGIONAL_SCOPE_REVIEW_REQUIRED",
-      severity: "blocker" as const,
-      stage: "validated" as const,
-      sourceId: source.id,
-      jurisdiction: source.jurisdiction,
-      periodId: source.period.id,
-      recordId: `${source.id}:${rule.id}`,
-      message: `${rule.names.de} uses a regional municipality set that requires human verification.`,
-      actual: rule.regions.join(", "),
-      suggestedAction:
-        "Check the official municipality list for the target year and record a resolution or versioned override.",
-      decisionRequired: true,
-      technicalDetails: rule.evidenceUrl,
-    }));
+    .map((rule) => {
+      const advisorySafe = Boolean(rule.evidenceUrl) && rule.regions.length > 0;
+      return {
+        code: advisorySafe ? "REGIONAL_APPLICABILITY_ADVISORY" : "REGIONAL_SCOPE_REVIEW_REQUIRED",
+        severity: advisorySafe ? ("warning" as const) : ("blocker" as const),
+        stage: "validated" as const,
+        sourceId: source.id,
+        jurisdiction: source.jurisdiction,
+        periodId: source.period.id,
+        recordId: `${source.id}:${rule.id}`,
+        message: advisorySafe
+          ? `${rule.names.de} has limited regional applicability; the exact municipality set remains advisory.`
+          : `${rule.names.de} has unresolved regional applicability without enough evidence for safe advisory publication.`,
+        actual: rule.regions.join(", ") || undefined,
+        suggestedAction: advisorySafe
+          ? "Keep this record regional and advise users to verify municipality applicability with the official source."
+          : "Add official regional evidence and an applicability set, or record a reviewed resolution or versioned override.",
+        decisionRequired: !advisorySafe,
+        technicalDetails: rule.evidenceUrl,
+      };
+    });
 }
 
 export function gregorianEaster(year: number): string {

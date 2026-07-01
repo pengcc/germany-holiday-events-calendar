@@ -1042,13 +1042,31 @@ function buildCoverageMatrix(
             (batch) =>
               batch.source.jurisdiction === jurisdiction &&
               batch.source.category === category &&
-              periodOverlapsYear(batch.source, year),
+              periodOverlapsYear(batch.source, year) &&
+              batchEstablishesCoverage(batch, category, year),
           )
           .map((batch) => batch.source.id)
           .sort();
         return { jurisdiction, year, category, covered: sourceIds.length > 0, sourceIds };
       }),
     ),
+  );
+}
+
+function batchEstablishesCoverage(
+  batch: AcceptedBatch,
+  category: PublishedDatasetManifest["coverageMatrix"][number]["category"],
+  year: number,
+): boolean {
+  if (category !== "public") {
+    return true;
+  }
+  return batch.records.some(
+    (record) =>
+      record.category === "public" &&
+      record.scope === "statewide" &&
+      record.startDate <= `${year}-12-31` &&
+      record.endDate >= `${year}-01-01`,
   );
 }
 

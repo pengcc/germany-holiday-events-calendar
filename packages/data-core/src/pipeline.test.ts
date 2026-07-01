@@ -194,6 +194,7 @@ describe("approved publication and release readiness", () => {
   it("passes release readiness only when every required batch is approved and covered", async () => {
     const { root, runId, approvedSource, blockedSource } = await makePublishWorkspace({
       blockedPublicSource: false,
+      advisoryPublicSource: true,
     });
     for (const source of [approvedSource, blockedSource]) {
       await reviewBatch(root, {
@@ -205,6 +206,13 @@ describe("approved publication and release readiness", () => {
     }
 
     await publishRun(root, runId, { allowDirty: true });
+    const records = PublishedHolidayRecordsSchema.parse(
+      await readJson(resolve(root, "apps/web/public/data/holidays.json")),
+    );
+    const publicRecords = records.records.filter(
+      (record) => record.source.sourceId === blockedSource.id,
+    );
+    expect(publicRecords.map((record) => record.scope).sort()).toEqual(["regional", "statewide"]);
     const readiness = await assessPublishedReleaseReadiness(root, { today: "2026-07-01" });
     expect(readiness).toMatchObject({
       releaseReady: true,
@@ -213,6 +221,56 @@ describe("approved publication and release readiness", () => {
       missingSourceIds: [],
       staleSourceIds: [],
       incompleteCoverage: [],
+    });
+    await expect(
+      assessPublishedReleaseReadiness(root, { today: "2100-01-01" }),
+    ).resolves.toMatchObject({
+      releaseReady: false,
+      staleSourceIds: [approvedSource.id, blockedSource.id].sort(),
+    });
+  });
+
+  it("does not let a regional-only public record establish statewide coverage", async () => {
+    const { root, runId, approvedSource, blockedSource } = await makePublishWorkspace({
+      blockedPublicSource: false,
+      regionalOnlyPublicSource: true,
+    });
+    for (const source of [approvedSource, blockedSource]) {
+      await reviewBatch(root, {
+        runId,
+        sourceId: source.id,
+        reviewer: "Reviewer",
+        decision: "approved",
+      });
+    }
+
+    const preview = await previewPublish(root, runId);
+    expect(preview.releaseReadiness).toMatchObject({
+      releaseReady: false,
+      missingSourceIds: [],
+    });
+    expect(preview.releaseReadiness.incompleteCoverage).toContainEqual(
+      expect.objectContaining({
+        jurisdiction: "DE-TH",
+        year: 2026,
+        category: "public",
+        covered: false,
+        sourceIds: [],
+      }),
+    );
+    await expect(publishRun(root, runId, { allowDirty: true })).rejects.toThrow(
+      "1 incomplete release coverage cell",
+    );
+
+    await publishRun(root, runId, { allowDirty: true, approvedPartial: true });
+    await expect(
+      assessPublishedReleaseReadiness(root, { today: "2026-07-01" }),
+    ).resolves.toMatchObject({
+      releaseReady: false,
+      missingSourceIds: [],
+      incompleteCoverage: [
+        expect.objectContaining({ jurisdiction: "DE-TH", category: "public", covered: false }),
+      ],
     });
   });
 });
@@ -347,7 +405,11 @@ function makeFingerprint(): SourceFingerprint {
   };
 }
 
-async function makePublishWorkspace(options: { blockedPublicSource: boolean }): Promise<{
+async function makePublishWorkspace(options: {
+  blockedPublicSource: boolean;
+  advisoryPublicSource?: boolean;
+  regionalOnlyPublicSource?: boolean;
+}): Promise<{
   root: string;
   runId: string;
   approvedSource: SourceManifest;
@@ -416,11 +478,12 @@ async function makePublishWorkspace(options: { blockedPublicSource: boolean }): 
   const sources = [approvedSource, blockedSource];
   for (const source of sources) {
     const blocked = source.id === blockedSource.id && options.blockedPublicSource;
+    const records = makeRecords(source, options.regionalOnlyPublicSource ?? false);
     const artifacts: SourceRunArtifacts = {
       schemaVersion: 1,
       source,
       fingerprint: makeFingerprint(),
-      records: [makeRecord(source)],
+      records,
       issues: blocked
         ? [
             {
@@ -430,13 +493,29 @@ async function makePublishWorkspace(options: { blockedPublicSource: boolean }): 
               sourceId: source.id,
               jurisdiction: source.jurisdiction,
               periodId: source.period.id,
-              recordId: `${source.id}:holiday`,
+              recordId: `${source.id}:regional-holiday`,
               message: "Regional applicability requires review.",
               suggestedAction: "Review official evidence.",
               decisionRequired: true,
             },
           ]
-        : [],
+        : source.id === blockedSource.id && options.advisoryPublicSource
+          ? [
+              {
+                code: "REGIONAL_APPLICABILITY_ADVISORY",
+                severity: "warning",
+                stage: "validated",
+                sourceId: source.id,
+                jurisdiction: source.jurisdiction,
+                periodId: source.period.id,
+                recordId: `${source.id}:regional-holiday`,
+                message: "Regional applicability remains advisory.",
+                suggestedAction: "Keep the record regional.",
+                decisionRequired: false,
+                technicalDetails: "https://example.com/official-law",
+              },
+            ]
+          : [],
       diff: [],
       overrideIds: [],
     };
@@ -458,8 +537,9 @@ async function makePublishWorkspace(options: { blockedPublicSource: boolean }): 
         periodId: source.period.id,
         status: blocked ? "blocked" : "completed",
         stage: "compared",
-        recordCount: 1,
-        issueCount: blocked ? 1 : 0,
+        recordCount: makeRecords(source, options.regionalOnlyPublicSource ?? false).length,
+        issueCount:
+          blocked || (source.id === blockedSource.id && options.advisoryPublicSource) ? 1 : 0,
         decisionRequiredCount: blocked ? 1 : 0,
       };
     }),
@@ -467,20 +547,47 @@ async function makePublishWorkspace(options: { blockedPublicSource: boolean }): 
   return { root, runId, approvedSource, blockedSource };
 }
 
-function makeRecord(source: SourceManifest): HolidayRecord {
-  return {
+function makeRecords(source: SourceManifest, regionalOnlyPublicSource: boolean): HolidayRecord[] {
+  const base = {
     schemaVersion: 1,
-    id: `${source.id}:holiday`,
     jurisdiction: source.jurisdiction,
     category: source.category,
-    scope: source.category === "public" ? "regional" : "statewide",
-    regions: source.category === "public" ? ["fixture-region"] : [],
     startDate: "2026-10-01",
     endDate: "2026-10-01",
     names: { de: source.name, en: source.name, zh: source.name },
     periodId: source.period.id,
-    source: { sourceId: source.id, sourceEventId: "holiday" },
+  } as const;
+  if (source.category !== "public") {
+    return [
+      {
+        ...base,
+        id: `${source.id}:holiday`,
+        scope: "statewide",
+        regions: [],
+        source: { sourceId: source.id, sourceEventId: "holiday" },
+      },
+    ];
+  }
+  const regional: HolidayRecord = {
+    ...base,
+    id: `${source.id}:regional-holiday`,
+    scope: "regional",
+    regions: ["fixture-region"],
+    source: { sourceId: source.id, sourceEventId: "regional-holiday" },
   };
+  if (regionalOnlyPublicSource) {
+    return [regional];
+  }
+  return [
+    {
+      ...base,
+      id: `${source.id}:statewide-holiday`,
+      scope: "statewide",
+      regions: [],
+      source: { sourceId: source.id, sourceEventId: "statewide-holiday" },
+    },
+    regional,
+  ];
 }
 
 function makeReview(

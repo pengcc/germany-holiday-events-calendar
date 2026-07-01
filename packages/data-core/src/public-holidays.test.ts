@@ -26,7 +26,7 @@ describe("public holiday legal rules", () => {
     });
   });
 
-  it("requires a human decision for unverified regional municipality sets", () => {
+  it("emits a nonblocking advisory for an evidence-backed unresolved municipality set", () => {
     const regionalRule = rules[2];
     if (!regionalRule) {
       throw new Error("Expected a regional test rule.");
@@ -41,6 +41,44 @@ describe("public holiday legal rules", () => {
 
     expect(issues).toHaveLength(1);
     expect(issues[0]).toMatchObject({
+      code: "REGIONAL_APPLICABILITY_ADVISORY",
+      severity: "warning",
+      decisionRequired: false,
+      recordId: `${source.id}:augsburg-peace-festival`,
+      technicalDetails: "https://www.gesetze-bayern.de/Content/Document/BayFTG",
+    });
+  });
+
+  it("keeps regional applicability blocking without safe advisory evidence", () => {
+    const regionalRule = rules[2];
+    if (!regionalRule) {
+      throw new Error("Expected a regional test rule.");
+    }
+
+    const issues = regionalRuleReviewIssues(source, [
+      {
+        ...regionalRule,
+        regionReviewStatus: "requires-review",
+      },
+    ]);
+
+    expect(issues).toHaveLength(1);
+    expect(issues[0]).toMatchObject({
+      code: "REGIONAL_SCOPE_REVIEW_REQUIRED",
+      severity: "blocker",
+      decisionRequired: true,
+      recordId: `${source.id}:augsburg-peace-festival`,
+    });
+
+    const missingApplicability = regionalRuleReviewIssues(source, [
+      {
+        ...regionalRule,
+        regions: [],
+        regionReviewStatus: "requires-review",
+        evidenceUrl: "https://www.gesetze-bayern.de/Content/Document/BayFTG",
+      },
+    ]);
+    expect(missingApplicability[0]).toMatchObject({
       code: "REGIONAL_SCOPE_REVIEW_REQUIRED",
       severity: "blocker",
       decisionRequired: true,
