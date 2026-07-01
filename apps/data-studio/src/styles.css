@@ -259,6 +259,25 @@ button svg,
   margin-bottom: 10px;
 }
 
+.bulk-review-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.bulk-review-controls p,
+.bulk-approval-reason {
+  margin: 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.bulk-approval-reason {
+  margin-top: 8px;
+}
+
 .batch-select-row {
   display: grid;
   grid-template-columns: 24px 72px 90px 70px minmax(120px, 1fr);
@@ -283,6 +302,10 @@ label {
   color: #475569;
   font-size: 12px;
   font-weight: 650;
+}
+
+.bulk-review-controls label {
+  width: min(320px, 100%);
 }
 
 input,

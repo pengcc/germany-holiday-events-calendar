@@ -39,12 +39,22 @@ test("record filters narrow the selected batch without hiding review context", a
 test("bulk review helpers select only the current visible batch set", async ({ page }) => {
   await page.goto("http://127.0.0.1:3010/");
   const selection = page.locator(".batch-selection");
+  const approveSelected = page.getByRole("button", { name: "Approve selected" });
 
-  await page.getByRole("button", { name: "Select all visible" }).click();
+  await page.getByRole("button", { name: "Select READY · 0 issues" }).click();
   await expect(selection.locator('input[type="checkbox"]:checked')).toHaveCount(2);
+  await expect(approveSelected).toBeDisabled();
+  await expect(page.getByText("Enter reviewer name before approving.")).toBeVisible();
 
+  await page.getByLabel("Bulk reviewer").fill("Fixture Reviewer");
+  await expect(approveSelected).toBeEnabled();
+
+  await page.getByLabel("Category").selectOption("school");
   await page.getByRole("button", { name: "Select none" }).click();
+  await page.getByLabel("Category").selectOption("all");
   await expect(selection.locator('input[type="checkbox"]:checked')).toHaveCount(0);
+  await expect(approveSelected).toBeDisabled();
+  await expect(page.getByText("Select at least one READY · 0 issues batch.")).toBeVisible();
 
   await page.getByLabel("Category").selectOption("school");
   await page.getByRole("button", { name: "Select READY · 0 issues" }).click();

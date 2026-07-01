@@ -19,9 +19,10 @@ import { CoverageMatrix } from "../components/coverage-matrix";
 import { DiffTable } from "../components/diff-table";
 import { HolidayRecordTable } from "../components/holiday-record-table";
 import {
+  batchIdsForSelection,
   batchReviewSummary,
   buildReviewCoverageMatrix,
-  isReadyWithoutIssues,
+  bulkApprovalDisabledReason,
 } from "../lib/review-model";
 import {
   getDashboard,
@@ -100,8 +101,11 @@ function StudioPage() {
   const selectedBatches = dashboard.batches.filter((batch) =>
     selectedBatchIdSet.has(batch.sourceRun.sourceId),
   );
-  const selectedBatchesAreReviewable = selectedBatches.every(
-    (batch) => batchReviewSummary(batch).status === "ready",
+  const bulkApprovalReason = bulkApprovalDisabledReason(
+    selectedBatches,
+    selectedBatchIds.length,
+    reviewer,
+    Boolean(busy),
   );
 
   async function runAction(name: string, action: () => Promise<unknown>, success: string) {
@@ -378,26 +382,43 @@ function StudioPage() {
                   <button
                     type="button"
                     onClick={() =>
-                      setSelectedBatchIds(filteredBatches.map((batch) => batch.sourceRun.sourceId))
+                      setSelectedBatchIds(batchIdsForSelection(filteredBatches, "all"))
                     }
                   >
                     Select all visible
                   </button>
-                  <button type="button" onClick={() => setSelectedBatchIds([])}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setSelectedBatchIds(batchIdsForSelection(filteredBatches, "none"))
+                    }
+                  >
                     Select none
                   </button>
                   <button
                     type="button"
                     onClick={() =>
                       setSelectedBatchIds(
-                        filteredBatches
-                          .filter(isReadyWithoutIssues)
-                          .map((batch) => batch.sourceRun.sourceId),
+                        batchIdsForSelection(filteredBatches, "readyWithoutIssues"),
                       )
                     }
                   >
                     Select READY · 0 issues
                   </button>
+                </div>
+                <div className="bulk-review-controls">
+                  <label>
+                    Bulk reviewer
+                    <input
+                      placeholder="Reviewer name for selected batches"
+                      value={reviewer}
+                      onChange={(event) => setReviewer(event.target.value)}
+                    />
+                  </label>
+                  <p>
+                    Shared with the individual batch review form. Notes remain optional for bulk
+                    approval.
+                  </p>
                 </div>
                 <div className="batch-selection">
                   {filteredBatches.map((batch) => {
@@ -427,12 +448,7 @@ function StudioPage() {
                 <div className="button-row">
                   <button
                     className="primary-action"
-                    disabled={
-                      !reviewer ||
-                      selectedBatchIds.length === 0 ||
-                      !selectedBatchesAreReviewable ||
-                      Boolean(busy)
-                    }
+                    disabled={Boolean(bulkApprovalReason)}
                     type="button"
                     onClick={() =>
                       runAction(
@@ -454,10 +470,9 @@ function StudioPage() {
                     Approve selected
                   </button>
                 </div>
-                {selectedBatchIds.length > 0 && !selectedBatchesAreReviewable ? (
-                  <p className="blocking-note">
-                    Blocked or already approved batches are selected. Resolve issues or use Select
-                    READY · 0 issues before approval.
+                {bulkApprovalReason ? (
+                  <p className="bulk-approval-reason" aria-live="polite">
+                    {bulkApprovalReason}
                   </p>
                 ) : null}
               </section>

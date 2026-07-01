@@ -9,9 +9,11 @@ import type {
 } from "@hsg/data-core";
 import { describe, expect, it } from "vitest";
 import {
+  batchIdsForSelection,
   batchReviewStatus,
   batchReviewSummary,
   buildReviewCoverageMatrix,
+  bulkApprovalDisabledReason,
   filterHolidayRecords,
   inclusiveDayCount,
   isReadyWithoutIssues,
@@ -163,6 +165,32 @@ describe("record review model", () => {
       issueCount: 1,
       decisionRequiredCount: 1,
     });
+    expect(batchIdsForSelection([ready, blocked], "readyWithoutIssues")).toEqual([
+      ready.sourceRun.sourceId,
+    ]);
+    expect(batchIdsForSelection([ready, blocked], "none")).toEqual([]);
+
+    expect(bulkApprovalDisabledReason([], 0, "Reviewer", false)).toBe(
+      "Select at least one READY · 0 issues batch.",
+    );
+    expect(bulkApprovalDisabledReason([ready], 1, "", false)).toBe(
+      "Enter reviewer name before approving.",
+    );
+    expect(bulkApprovalDisabledReason([ready], 1, "Reviewer", false)).toBeUndefined();
+    expect(bulkApprovalDisabledReason([blocked], 1, "Reviewer", false)).toBe(
+      "Selected batches include blocked or already approved items.",
+    );
+    expect(
+      bulkApprovalDisabledReason(
+        [{ ...ready, review: { decision: "approved" } as BatchReviewDecision }],
+        1,
+        "Reviewer",
+        false,
+      ),
+    ).toBe("Selected batches include blocked or already approved items.");
+    expect(bulkApprovalDisabledReason([ready], 2, "Reviewer", false)).toBe(
+      "Selected batches include blocked or already approved items.",
+    );
   });
 });
 
