@@ -10,6 +10,7 @@ interface HolidayCalendarProps {
   dayIndex: ReadonlyMap<string, CalendarDay>;
   selectedDate?: string;
   selectedStateCount: number;
+  showFractions: boolean;
   text: ExplorerCopy;
   onSelectDate: (date: string) => void;
 }
@@ -21,6 +22,7 @@ export function HolidayCalendar({
   dayIndex,
   selectedDate,
   selectedStateCount,
+  showFractions,
   text,
   onSelectDate,
 }: HolidayCalendarProps) {
@@ -41,6 +43,7 @@ export function HolidayCalendar({
           month={month}
           selectedDate={selectedDate}
           selectedStateCount={selectedStateCount}
+          showFractions={showFractions}
           text={text}
           year={year}
           onSelectDate={onSelectDate}

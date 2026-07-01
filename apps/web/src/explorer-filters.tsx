@@ -5,7 +5,7 @@ import {
   type HolidayLayer,
   holidayLayers,
   periodModes,
-  regionModes,
+  viewModes,
 } from "./explorer-search";
 import type { ExplorerCopy, Locale } from "./i18n";
 import { stateNames } from "./i18n";
@@ -47,32 +47,32 @@ export function ExplorerFilters({
       </div>
 
       <fieldset className="mt-5">
-        <legend className="text-sm font-semibold text-slate-700">{text.region}</legend>
-        <p className="mt-1 text-xs leading-5 text-slate-500">{text.regionHelp}</p>
+        <legend className="text-sm font-semibold text-slate-700">{text.viewMode}</legend>
+        <p className="mt-1 text-xs leading-5 text-slate-500">{text.viewModeHelp}</p>
         <div className="mt-2 grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
-          {regionModes.map((mode) => (
+          {viewModes.map((mode) => (
             <label
               key={mode}
               className={cn(
                 "flex min-h-10 cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm",
-                search.region === mode
+                search.view === mode
                   ? "border-sky-700 bg-sky-50 text-sky-950"
                   : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
               )}
             >
               <input
-                checked={search.region === mode}
+                checked={search.view === mode}
                 className="size-4 shrink-0 accent-sky-800"
-                name="region"
+                name="view"
                 type="radio"
-                onChange={() => onChange({ region: mode })}
+                onChange={() => onChange({ view: mode })}
               />
               <span>
-                {mode === "all"
-                  ? text.allGermany
-                  : mode === "single"
-                    ? text.singleState
-                    : text.multipleStates}
+                {mode === "state"
+                  ? text.stateView
+                  : mode === "nationwide"
+                    ? text.nationwideView
+                    : text.compareView}
               </span>
             </label>
           ))}
@@ -157,6 +157,7 @@ export function ExplorerFilters({
         <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
           {holidayLayers.map((layer) => {
             const selected = selectedLayers.includes(layer);
+            const unavailable = search.view === "nationwide" && layer === "school";
             return (
               <label
                 key={layer}
@@ -170,7 +171,7 @@ export function ExplorerFilters({
                 <input
                   checked={selected}
                   className="size-4 shrink-0 accent-sky-800"
-                  disabled={selected && selectedLayers.length === 1}
+                  disabled={unavailable || (selected && selectedLayers.length === 1)}
                   type="checkbox"
                   onChange={() => onToggleLayer(layer)}
                 />
@@ -179,15 +180,18 @@ export function ExplorerFilters({
             );
           })}
         </div>
+        {search.view === "nationwide" ? (
+          <p className="mt-2 text-xs leading-5 text-slate-500">{text.nationwidePublicOnly}</p>
+        ) : null}
       </fieldset>
 
       <StateSelection
         locale={locale}
-        region={search.region}
+        view={search.view}
         selectedStates={selectedStates}
         text={text}
         onChange={(stateCode) =>
-          search.region === "single" ? onChange({ states: stateCode }) : onToggleState(stateCode)
+          search.view === "state" ? onChange({ states: stateCode }) : onToggleState(stateCode)
         }
       />
     </div>
@@ -196,18 +200,18 @@ export function ExplorerFilters({
 
 function StateSelection({
   locale,
-  region,
+  view,
   selectedStates,
   text,
   onChange,
 }: {
   locale: Locale;
-  region: ExplorerSearch["region"];
+  view: ExplorerSearch["view"];
   selectedStates: readonly StateCode[];
   text: ExplorerCopy;
   onChange: (stateCode: StateCode) => void;
 }) {
-  if (region === "all") {
+  if (view === "nationwide") {
     return (
       <section className="mt-5 rounded-md border border-slate-200 bg-slate-50 p-3">
         <h3 className="text-sm font-semibold text-slate-700">{text.selectStates}</h3>
@@ -216,7 +220,7 @@ function StateSelection({
     );
   }
 
-  if (region === "single") {
+  if (view === "state") {
     return (
       <label className="mt-5 block text-sm font-semibold text-slate-700">
         <span className="mb-1 block">{text.singleStateChoice}</span>
@@ -254,6 +258,14 @@ function StateSelection({
           </li>
         ) : null}
       </ul>
+      {selectedStates.length < 2 ? (
+        <p
+          className="mt-2 border-l-4 border-amber-500 bg-amber-50 p-2 text-xs leading-5 text-amber-950"
+          role="alert"
+        >
+          {text.compareValidation}
+        </p>
+      ) : null}
       <details className="mt-2 rounded-md border border-slate-200 bg-white">
         <summary className="cursor-pointer px-3 py-2 text-sm font-medium text-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700">
           {text.chooseStates} · {formatStateCount(selectedStates.length, text)}
@@ -271,7 +283,6 @@ function StateSelection({
                   <input
                     checked={selected}
                     className="size-4 shrink-0 accent-sky-800"
-                    disabled={selected && selectedStates.length <= 2}
                     type="checkbox"
                     onChange={() => onChange(stateCode)}
                   />

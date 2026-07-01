@@ -13,6 +13,7 @@ import {
   getSelectedStates,
   getVisibleMonths,
   type HolidayLayer,
+  isComparisonValid,
   searchValuesEqual,
   updateExplorerSearch,
 } from "./explorer-search";
@@ -46,11 +47,13 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
           month: search.month,
         },
         coverageMatrix: manifest?.coverageMatrix,
+        viewMode: search.view,
       }),
     [manifest?.coverageMatrix, records, search, year],
   );
   const selectedStates = calendar.selectedStates;
   const selectedLayers = calendar.layers;
+  const comparisonValid = isComparisonValid(search);
 
   useEffect(() => {
     loadPublishedData()
@@ -96,14 +99,11 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
   }
 
   function toggleState(stateCode: StateCode): void {
-    if (search.region === "all") {
+    if (search.view === "nationwide") {
       return;
     }
-    if (search.region === "single") {
+    if (search.view === "state") {
       changeSearch({ states: stateCode });
-      return;
-    }
-    if (selectedStates.includes(stateCode) && selectedStates.length <= 2) {
       return;
     }
     changeSearch({
@@ -114,6 +114,9 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
   }
 
   function toggleLayer(layer: HolidayLayer): void {
+    if (search.view === "nationwide") {
+      return;
+    }
     if (selectedLayers.includes(layer) && selectedLayers.length === 1) {
       return;
     }
@@ -180,9 +183,15 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <h2 className="text-xl font-semibold">{text.calendar}</h2>
-              <p className="mt-1 text-sm text-slate-600">{text.statewideOnly}</p>
+              <p className="mt-1 text-sm text-slate-600">
+                {search.view === "state"
+                  ? text.stateModeSummary
+                  : search.view === "nationwide"
+                    ? text.nationwideModeSummary
+                    : text.compareModeSummary}
+              </p>
             </div>
-            <HolidayLegend text={text} />
+            <HolidayLegend compareMode={search.view === "compare" && comparisonValid} text={text} />
           </div>
 
           {error ? (
@@ -205,13 +214,19 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
             </div>
           ) : (
             <>
-              {!calendar.coverage.complete ? (
+              {!calendar.coverage.complete && comparisonValid ? (
                 <div className="mt-6 border-l-4 border-amber-500 bg-amber-50 p-4 text-sm text-amber-950">
                   <h3 className="font-semibold">{text.incompleteCoverageTitle}</h3>
-                  <p className="mt-1 leading-6">{text.incompleteCoverageBody}</p>
+                  <p className="mt-1 leading-6">
+                    {search.view === "state"
+                      ? text.incompleteStateCoverage
+                      : search.view === "nationwide"
+                        ? text.incompleteNationwideCoverage
+                        : text.incompleteCompareCoverage}
+                  </p>
                 </div>
               ) : null}
-              {calendar.days.size === 0 ? (
+              {calendar.days.size === 0 && comparisonValid ? (
                 <p className="mt-4 border border-slate-200 bg-white p-4 text-sm text-slate-700">
                   {text.noMatchingPeriod}
                 </p>
@@ -223,6 +238,7 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
                   months={visibleMonths}
                   selectedDate={search.date}
                   selectedStateCount={selectedStates.length}
+                  showFractions={search.view === "compare" && comparisonValid}
                   text={text}
                   year={year}
                   onSelectDate={(date) => changeSearch({ date })}

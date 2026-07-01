@@ -12,6 +12,7 @@ interface MonthGridProps {
   dayIndex: ReadonlyMap<string, CalendarDay>;
   selectedDate?: string;
   selectedStateCount: number;
+  showFractions: boolean;
   text: ExplorerCopy;
   onSelectDate: (date: string) => void;
 }
@@ -23,6 +24,7 @@ export function MonthGrid({
   dayIndex,
   selectedDate,
   selectedStateCount,
+  showFractions,
   text,
   onSelectDate,
 }: MonthGridProps) {
@@ -54,6 +56,7 @@ export function MonthGrid({
             locale={locale}
             selected={cell.date === selectedDate}
             selectedStateCount={selectedStateCount}
+            showFractions={showFractions}
             text={text}
             onSelectDate={onSelectDate}
           />
@@ -68,6 +71,7 @@ function DateButton({
   locale,
   selected,
   selectedStateCount,
+  showFractions,
   text,
   onSelectDate,
 }: {
@@ -75,20 +79,22 @@ function DateButton({
   locale: Locale;
   selected: boolean;
   selectedStateCount: number;
+  showFractions: boolean;
   text: ExplorerCopy;
   onSelectDate: (date: string) => void;
 }) {
   const categories = new Set(cell.records.map((record) => record.category));
   const fullOverlap = cell.overlap === "full";
   const partialOverlap = cell.overlap === "partial";
-  const oneStateActivity = selectedStateCount === 1 && cell.hasStatewideActivity;
-  const activityText = fullOverlap
-    ? text.fullOverlap
-    : partialOverlap
-      ? text.partialOverlap
-      : oneStateActivity
-        ? text.singleStateActivity
-        : undefined;
+  const hasPublic = categories.has("public");
+  const hasSchool = categories.has("school");
+  const activityText = showFractions
+    ? fullOverlap
+      ? text.fullOverlap
+      : partialOverlap
+        ? text.partialOverlap
+        : undefined
+    : undefined;
   const dateLabel = formatDate(cell.date, locale);
   const layerLabels: string[] = [];
   if (categories.has("public")) {
@@ -97,7 +103,11 @@ function DateButton({
   if (categories.has("school")) {
     layerLabels.push(text.school);
   }
-  const ariaLabel = [dateLabel, ...layerLabels, activityText ?? text.none].join("; ");
+  const ariaLabel = [
+    dateLabel,
+    ...layerLabels,
+    ...(activityText ? [activityText] : categories.size === 0 ? [text.none] : []),
+  ].join("; ");
 
   return (
     <button
@@ -105,10 +115,9 @@ function DateButton({
       aria-pressed={selected}
       className={cn(
         "relative flex aspect-square min-w-0 items-center justify-center rounded-sm border text-xs font-medium focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700",
-        fullOverlap && "border-emerald-700 bg-emerald-700 text-white",
-        partialOverlap && "border-amber-400 bg-amber-300 text-slate-950",
-        oneStateActivity && "border-sky-700 bg-sky-100 text-sky-950",
-        !cell.hasStatewideActivity && "border-slate-200 bg-white text-slate-700",
+        hasPublic && "border-amber-500 bg-amber-200 text-slate-950",
+        !hasPublic && hasSchool && "border-emerald-600 bg-emerald-100 text-emerald-950",
+        !hasPublic && !hasSchool && "border-slate-200 bg-white text-slate-700",
         selected && "ring-2 ring-sky-950 ring-offset-1",
       )}
       type="button"
@@ -125,11 +134,9 @@ function DateButton({
           ) : null}
         </span>
       ) : null}
-      {cell.hasStatewideActivity ? (
+      {showFractions && cell.hasStatewideActivity ? (
         <span className="absolute right-0.5 bottom-0.5 text-[8px] font-bold" aria-hidden="true">
-          {selectedStateCount > 1
-            ? `${cell.matchedStates.length}/${selectedStateCount}`
-            : cell.matchedStates.length}
+          {`${cell.matchedStates.length}/${selectedStateCount}`}
         </span>
       ) : null}
     </button>
