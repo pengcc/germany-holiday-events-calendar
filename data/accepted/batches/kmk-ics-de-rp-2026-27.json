@@ -1,0 +1,191 @@
+{
+  "fingerprint": {
+    "bytes": 422500,
+    "contentType": "text/calendar;charset=utf-8",
+    "documents": [
+      {
+        "bytes": 987,
+        "contentType": "text/calendar;charset=utf-8",
+        "documentId": "kmk-ics-de-rp",
+        "finalUrl": "https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=11&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=c8a3136a18ae32a5bdd15246133b9029",
+        "sha256": "7f983cbe34f625d8d468819d8ab8f6dcffae2b53a0bb126035945f3b8da6e3c1"
+      },
+      {
+        "bytes": 421513,
+        "contentType": "application/pdf",
+        "documentId": "kmk-pdf-2026-27",
+        "finalUrl": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2026_27.pdf",
+        "sha256": "516faa0d7fc451115d5127c00dc178a58ac2c0c3509457d377d7e2408a940ee1"
+      }
+    ],
+    "finalUrl": "https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=11&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=c8a3136a18ae32a5bdd15246133b9029",
+    "retrievedAt": "2026-07-01T08:24:39.671Z",
+    "sha256": "e774555f2971b9c312da38e6104e1e9b52d66f22fc3e9faf758feecbe02f54de"
+  },
+  "records": [
+    {
+      "category": "school",
+      "endDate": "2026-10-16",
+      "id": "kmk-ics-de-rp-2026-27:ferien-d20251009-s11-u63@www.kmk.org",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Herbst",
+        "en": "Autumn holidays",
+        "zh": "秋假"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s11-u63@www.kmk.org",
+        "sourceId": "kmk-ics-de-rp-2026-27"
+      },
+      "startDate": "2026-10-05"
+    },
+    {
+      "category": "school",
+      "endDate": "2027-01-08",
+      "id": "kmk-ics-de-rp-2026-27:ferien-d20251009-s11-u64@www.kmk.org",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Weihnachten",
+        "en": "Christmas holidays",
+        "zh": "圣诞假期"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s11-u64@www.kmk.org",
+        "sourceId": "kmk-ics-de-rp-2026-27"
+      },
+      "startDate": "2026-12-23"
+    },
+    {
+      "category": "school",
+      "endDate": "2027-04-02",
+      "id": "kmk-ics-de-rp-2026-27:ferien-d20251009-s11-u65@www.kmk.org",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Ostern/Frühjahr",
+        "en": "Easter or spring holidays",
+        "zh": "复活节或春假"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s11-u65@www.kmk.org",
+        "sourceId": "kmk-ics-de-rp-2026-27"
+      },
+      "startDate": "2027-03-22"
+    },
+    {
+      "category": "school",
+      "endDate": "2027-08-06",
+      "id": "kmk-ics-de-rp-2026-27:ferien-d20251009-s11-u66@www.kmk.org",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Sommer",
+        "en": "Summer holidays",
+        "zh": "暑假"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s11-u66@www.kmk.org",
+        "sourceId": "kmk-ics-de-rp-2026-27"
+      },
+      "startDate": "2027-06-28"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "e774555f2971b9c312da38e6104e1e9b52d66f22fc3e9faf758feecbe02f54de",
+    "jurisdiction": "DE-RP",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2026-27",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.136Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "kmk-ics-de-rp-2026-27"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "kmk-ics",
+    "authority": "official",
+    "category": "school",
+    "crossCheckDocument": {
+      "fetch": {
+        "allowedHosts": [
+          "www.kmk.org"
+        ],
+        "expectedContentTypes": [
+          "application/pdf"
+        ],
+        "maxBytes": 10000000,
+        "maxRedirects": 2,
+        "timeoutMs": 30000
+      },
+      "fetchUrl": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2026_27.pdf",
+      "format": "pdf",
+      "freshness": {
+        "retrievalCadenceDays": 90,
+        "reviewBy": "2027-01-31"
+      },
+      "homepageUrl": "https://www.kmk.org/service/ferien/ferienkalender.html",
+      "id": "kmk-pdf-2026-27",
+      "license": {
+        "note": "Official KMK publication; raw-file redistribution requires separate confirmation.",
+        "redistribution": "unknown"
+      },
+      "name": "KMK Ferienkalender 2026/2027 PDF",
+      "schemaVersion": 1
+    },
+    "crossCheckDocumentId": "kmk-pdf-2026-27",
+    "documentId": "kmk-ics-de-rp",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "www.kmk.org"
+      ],
+      "expectedContentTypes": [
+        "text/calendar",
+        "text/plain",
+        "application/octet-stream"
+      ],
+      "maxBytes": 2000000,
+      "maxRedirects": 2,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=11&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=c8a3136a18ae32a5bdd15246133b9029",
+    "format": "ics",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://www.kmk.org/service/ferien/ferienkalender.html",
+    "id": "kmk-ics-de-rp-2026-27",
+    "jurisdiction": "DE-RP",
+    "license": {
+      "note": "Official KMK publication; raw-file redistribution requires separate confirmation.",
+      "redistribution": "unknown"
+    },
+    "name": "KMK school holidays DE-RP 2026-27",
+    "period": {
+      "endDate": "2027-09-30",
+      "id": "2026-27",
+      "kind": "schoolYear",
+      "startDate": "2026-08-01"
+    },
+    "schemaVersion": 1
+  }
+}

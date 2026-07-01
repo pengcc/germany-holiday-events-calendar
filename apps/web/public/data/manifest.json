@@ -3,55 +3,590 @@
     "school",
     "public"
   ],
-  "coverage": [],
+  "coverage": [
+    {
+      "jurisdiction": "DE-BB",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-bb-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BE",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-be-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BW",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-bw-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BY",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-by-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HB",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-hb-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HE",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-he-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HH",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-hh-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-MV",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-mv-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NI",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-ni-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NW",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-nw-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-RP",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-rp-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SH",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-sh-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SL",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-sl-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SN",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-sn-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-ST",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-st-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-TH",
+      "periodId": "2026-27",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-ics-de-th-2026-27",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BB",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-bb-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BB",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-bb-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BE",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-be-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BE",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-be-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BW",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-bw-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BW",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-bw-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BY",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-by-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BY",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-by-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HB",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-hb-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HB",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-hb-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HE",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-he-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HE",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-he-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HH",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-hh-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HH",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-hh-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-MV",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-mv-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-MV",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-mv-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NI",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-ni-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NI",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-ni-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NW",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-nw-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NW",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-nw-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-RP",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-rp-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-RP",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-rp-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SH",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-sh-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SH",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-sh-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SL",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-sl-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SL",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-sl-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SN",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-sn-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SN",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-sn-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-ST",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-st-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-ST",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-st-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-TH",
+      "periodId": "2025-26",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-th-2025-26",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-TH",
+      "periodId": "2027-28",
+      "reviewBy": "2027-01-31",
+      "sourceId": "kmk-pdf-de-th-2027-28",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BB",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-bb-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BB",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-bb-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BE",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-be-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BE",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-be-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BW",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-bw-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BW",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-bw-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HB",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-hb-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HB",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-hb-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HE",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-he-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HE",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-he-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HH",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-hh-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-HH",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-hh-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-MV",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-mv-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-MV",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-mv-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NI",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-ni-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NI",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-ni-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NW",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-nw-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-NW",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-nw-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-RP",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-rp-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-RP",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-rp-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SH",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-sh-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SH",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-sh-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SL",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-sl-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SL",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-sl-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-ST",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-st-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-ST",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-st-2027",
+      "stale": false
+    }
+  ],
   "coverageMatrix": [
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BW",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-bw-2026-27",
+        "kmk-pdf-de-bw-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BW",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-bw-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BW",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-bw-2026-27",
+        "kmk-pdf-de-bw-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BW",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-bw-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
+      "covered": true,
+      "jurisdiction": "DE-BY",
+      "sourceIds": [
+        "kmk-ics-de-by-2026-27",
+        "kmk-pdf-de-by-2025-26"
+      ],
+      "year": 2026
+    },
+    {
+      "category": "public",
       "covered": false,
       "jurisdiction": "DE-BY",
       "sourceIds": [],
       "year": 2026
     },
     {
-      "category": "public",
-      "covered": false,
-      "jurisdiction": "DE-BY",
-      "sourceIds": [],
-      "year": 2026
-    },
-    {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BY",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-by-2026-27",
+        "kmk-pdf-de-by-2027-28"
+      ],
       "year": 2027
     },
     {
@@ -63,303 +598,409 @@
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BE",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-be-2026-27",
+        "kmk-pdf-de-be-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BE",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-be-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BE",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-be-2026-27",
+        "kmk-pdf-de-be-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BE",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-be-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BB",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-bb-2026-27",
+        "kmk-pdf-de-bb-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BB",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-bb-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BB",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-bb-2026-27",
+        "kmk-pdf-de-bb-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BB",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-bb-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HB",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-hb-2026-27",
+        "kmk-pdf-de-hb-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HB",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-hb-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HB",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-hb-2026-27",
+        "kmk-pdf-de-hb-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HB",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-hb-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HH",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-hh-2026-27",
+        "kmk-pdf-de-hh-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HH",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-hh-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HH",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-hh-2026-27",
+        "kmk-pdf-de-hh-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HH",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-hh-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HE",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-he-2026-27",
+        "kmk-pdf-de-he-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HE",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-he-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HE",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-he-2026-27",
+        "kmk-pdf-de-he-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-HE",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-he-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-MV",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-mv-2026-27",
+        "kmk-pdf-de-mv-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-MV",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-mv-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-MV",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-mv-2026-27",
+        "kmk-pdf-de-mv-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-MV",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-mv-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-NI",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-ni-2026-27",
+        "kmk-pdf-de-ni-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-NI",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-ni-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-NI",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-ni-2026-27",
+        "kmk-pdf-de-ni-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-NI",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-ni-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-NW",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-nw-2026-27",
+        "kmk-pdf-de-nw-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-NW",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-nw-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-NW",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-nw-2026-27",
+        "kmk-pdf-de-nw-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-NW",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-nw-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-RP",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-rp-2026-27",
+        "kmk-pdf-de-rp-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-RP",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-rp-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-RP",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-rp-2026-27",
+        "kmk-pdf-de-rp-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-RP",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-rp-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SL",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-sl-2026-27",
+        "kmk-pdf-de-sl-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SL",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-sl-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SL",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-sl-2026-27",
+        "kmk-pdf-de-sl-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SL",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-sl-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
+      "covered": true,
+      "jurisdiction": "DE-SN",
+      "sourceIds": [
+        "kmk-ics-de-sn-2026-27",
+        "kmk-pdf-de-sn-2025-26"
+      ],
+      "year": 2026
+    },
+    {
+      "category": "public",
       "covered": false,
       "jurisdiction": "DE-SN",
       "sourceIds": [],
       "year": 2026
     },
     {
-      "category": "public",
-      "covered": false,
-      "jurisdiction": "DE-SN",
-      "sourceIds": [],
-      "year": 2026
-    },
-    {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SN",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-sn-2026-27",
+        "kmk-pdf-de-sn-2027-28"
+      ],
       "year": 2027
     },
     {
@@ -371,79 +1012,105 @@
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-ST",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-st-2026-27",
+        "kmk-pdf-de-st-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-ST",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-st-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-ST",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-st-2026-27",
+        "kmk-pdf-de-st-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-ST",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-st-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SH",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-sh-2026-27",
+        "kmk-pdf-de-sh-2025-26"
+      ],
       "year": 2026
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SH",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-sh-2026"
+      ],
       "year": 2026
     },
     {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SH",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-sh-2026-27",
+        "kmk-pdf-de-sh-2027-28"
+      ],
       "year": 2027
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SH",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-sh-2027"
+      ],
       "year": 2027
     },
     {
       "category": "school",
+      "covered": true,
+      "jurisdiction": "DE-TH",
+      "sourceIds": [
+        "kmk-ics-de-th-2026-27",
+        "kmk-pdf-de-th-2025-26"
+      ],
+      "year": 2026
+    },
+    {
+      "category": "public",
       "covered": false,
       "jurisdiction": "DE-TH",
       "sourceIds": [],
       "year": 2026
     },
     {
-      "category": "public",
-      "covered": false,
-      "jurisdiction": "DE-TH",
-      "sourceIds": [],
-      "year": 2026
-    },
-    {
       "category": "school",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-TH",
-      "sourceIds": [],
+      "sourceIds": [
+        "kmk-ics-de-th-2026-27",
+        "kmk-pdf-de-th-2027-28"
+      ],
       "year": 2027
     },
     {
@@ -454,8 +1121,8 @@
       "year": 2027
     }
   ],
-  "datasetVersion": "b7e438728dfa6aee",
-  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "datasetVersion": "6b162680752253d0",
+  "generatedAt": "2026-07-01T09:50:51.475Z",
   "jurisdictions": [
     "DE-BW",
     "DE-BY",
@@ -475,9 +1142,9 @@
     "DE-TH"
   ],
   "overrideIds": [],
-  "recordCount": 0,
+  "recordCount": 483,
   "recordsFile": "holidays.json",
-  "recordsSha256": "b7e438728dfa6aee7b7b3070f719b6f2f861144078a99ecc88f50a3119a1a1f2",
+  "recordsSha256": "6b162680752253d0d9b49c2eb2710bf0f51ebe131c22090fb1d3f0ce10a3a120",
   "regionalRecordCount": 0,
   "schemaVersion": 1,
   "targetYears": [

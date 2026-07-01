@@ -1,0 +1,322 @@
+{
+  "fingerprint": {
+    "bytes": 24006,
+    "contentType": "text/html; charset=utf-8",
+    "documents": [
+      {
+        "bytes": 20288,
+        "contentType": "text/html; charset=utf-8",
+        "documentId": "law-de-bb",
+        "finalUrl": "https://bravors.brandenburg.de/gesetze/ftg_2015",
+        "sha256": "b57d55da25053188717a6c5f7f9a985b34b1e35f6213c31cea2c0f342aee0c3e"
+      },
+      {
+        "bytes": 3718,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "4001d0d4bab1f5229114d16ae81bb742cb09b8db9c72b9cb308e01fffefe3eae"
+      }
+    ],
+    "finalUrl": "https://bravors.brandenburg.de/gesetze/ftg_2015",
+    "lastModified": "Wed, 01 Jul 2026 08:24:40 GMT",
+    "retrievedAt": "2026-07-01T08:24:40.531Z",
+    "sha256": "10741a8fbebc1c32eb502e426e48295e2bc7527f7da86a8762c1f6b3723b3fef"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2026-01-01",
+      "id": "public-law-de-bb-2026:new-year",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-03",
+      "id": "public-law-de-bb-2026:good-friday",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-04-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-05",
+      "id": "public-law-de-bb-2026:easter-sunday",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Ostersonntag",
+        "en": "Easter Sunday",
+        "zh": "复活节星期日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-sunday",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-04-05"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-06",
+      "id": "public-law-de-bb-2026:easter-monday",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-04-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-01",
+      "id": "public-law-de-bb-2026:labour-day",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-14",
+      "id": "public-law-de-bb-2026:ascension-day",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-05-14"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-24",
+      "id": "public-law-de-bb-2026:pentecost-sunday",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Pfingstsonntag",
+        "en": "Pentecost Sunday",
+        "zh": "圣灵降临节星期日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-sunday",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-05-24"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-25",
+      "id": "public-law-de-bb-2026:pentecost-monday",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-05-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-03",
+      "id": "public-law-de-bb-2026:german-unity-day",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-31",
+      "id": "public-law-de-bb-2026:reformation-day",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "Reformationstag",
+        "en": "Reformation Day",
+        "zh": "宗教改革日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "reformation-day",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-10-31"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-25",
+      "id": "public-law-de-bb-2026:christmas-day",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-26",
+      "id": "public-law-de-bb-2026:second-christmas-day",
+      "jurisdiction": "DE-BB",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-bb-2026"
+      },
+      "startDate": "2026-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "10741a8fbebc1c32eb502e426e48295e2bc7527f7da86a8762c1f6b3723b3fef",
+    "jurisdiction": "DE-BB",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2026",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.339Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-bb-2026"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-bb",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "bravors.brandenburg.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://bravors.brandenburg.de/gesetze/ftg_2015",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://bravors.brandenburg.de/",
+    "id": "public-law-de-bb-2026",
+    "jurisdiction": "DE-BB",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-BB 2026",
+    "period": {
+      "endDate": "2026-12-31",
+      "id": "2026",
+      "kind": "calendarYear",
+      "startDate": "2026-01-01"
+    },
+    "schemaVersion": 1
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "fingerprint": {
+    "bytes": 87787,
+    "contentType": "text/html; charset=utf-8",
+    "documents": [
+      {
+        "bytes": 84690,
+        "contentType": "text/html; charset=utf-8",
+        "documentId": "law-de-hb",
+        "finalUrl": "https://www.transparenz.bremen.de/metainformationen/gesetz-ueber-die-sonn-gedenk-und-feiertage-vom-12-november-1954-145882?template=20_gp_ifg_meta_detail_d",
+        "sha256": "91053e23fa6464de083e13c4644ff181b0da27d08dd195673fc3a6b8fd442eaf"
+      },
+      {
+        "bytes": 3097,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "9577a3cbbc621917f6ac5362bee0c92ba4d8385ed8c13b6c70a425abc469163e"
+      }
+    ],
+    "finalUrl": "https://www.transparenz.bremen.de/metainformationen/gesetz-ueber-die-sonn-gedenk-und-feiertage-vom-12-november-1954-145882?template=20_gp_ifg_meta_detail_d",
+    "lastModified": "Wed, 01 Jul 2026 08:24:40 GMT",
+    "retrievedAt": "2026-07-01T08:24:41.548Z",
+    "sha256": "cdf41d5af90f0b104697a99203a33906846f9d0e28b0d0937276d233f15edc98"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2027-01-01",
+      "id": "public-law-de-hb-2027:new-year",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-26",
+      "id": "public-law-de-hb-2027:good-friday",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-03-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-29",
+      "id": "public-law-de-hb-2027:easter-monday",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-03-29"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-01",
+      "id": "public-law-de-hb-2027:labour-day",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-06",
+      "id": "public-law-de-hb-2027:ascension-day",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-05-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-17",
+      "id": "public-law-de-hb-2027:pentecost-monday",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-05-17"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-03",
+      "id": "public-law-de-hb-2027:german-unity-day",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-31",
+      "id": "public-law-de-hb-2027:reformation-day",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "Reformationstag",
+        "en": "Reformation Day",
+        "zh": "宗教改革日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "reformation-day",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-10-31"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-25",
+      "id": "public-law-de-hb-2027:christmas-day",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-26",
+      "id": "public-law-de-hb-2027:second-christmas-day",
+      "jurisdiction": "DE-HB",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-hb-2027"
+      },
+      "startDate": "2027-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "cdf41d5af90f0b104697a99203a33906846f9d0e28b0d0937276d233f15edc98",
+    "jurisdiction": "DE-HB",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2027",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.376Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-hb-2027"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-hb",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "www.transparenz.bremen.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://www.transparenz.bremen.de/metainformationen/gesetz-ueber-die-sonn-gedenk-und-feiertage-vom-12-november-1954-145882?template=20_gp_ifg_meta_detail_d",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://www.transparenz.bremen.de/",
+    "id": "public-law-de-hb-2027",
+    "jurisdiction": "DE-HB",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-HB 2027",
+    "period": {
+      "endDate": "2027-12-31",
+      "id": "2027",
+      "kind": "calendarYear",
+      "startDate": "2027-01-01"
+    },
+    "schemaVersion": 1
+  }
+}

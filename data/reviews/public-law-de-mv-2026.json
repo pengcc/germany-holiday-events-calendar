@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "82835d5626ac290c741e07b4bb111148f57c95ea3dab732b378d758764fccfda",
+  "jurisdiction": "DE-MV",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2026",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.403Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "public-law-de-mv-2026"
+}

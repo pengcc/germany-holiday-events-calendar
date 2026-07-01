@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "968cd17a907afe01257d35844f6500a9d68fbe48a15606ea053655a4f9e5056e",
+  "jurisdiction": "DE-BW",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2026",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.360Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "public-law-de-bw-2026"
+}

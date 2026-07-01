@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "cdf41d5af90f0b104697a99203a33906846f9d0e28b0d0937276d233f15edc98",
+  "jurisdiction": "DE-HB",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2027",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.376Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "public-law-de-hb-2027"
+}

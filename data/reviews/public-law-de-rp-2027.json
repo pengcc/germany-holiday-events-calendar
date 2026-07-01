@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "fb94c7883719c467fb607ecf822dba09fd9acb31d85f8c549c920c532e712070",
+  "jurisdiction": "DE-RP",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2027",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.442Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "public-law-de-rp-2027"
+}

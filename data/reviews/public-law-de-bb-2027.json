@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "10741a8fbebc1c32eb502e426e48295e2bc7527f7da86a8762c1f6b3723b3fef",
+  "jurisdiction": "DE-BB",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2027",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.343Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "public-law-de-bb-2027"
+}

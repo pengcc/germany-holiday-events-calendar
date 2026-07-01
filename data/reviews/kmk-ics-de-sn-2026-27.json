@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "c30a7c8d1814bd0514e96400d90f22851d4295ef9f71545c52826670a4ff136d",
+  "jurisdiction": "DE-SN",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2026-27",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.146Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "kmk-ics-de-sn-2026-27"
+}

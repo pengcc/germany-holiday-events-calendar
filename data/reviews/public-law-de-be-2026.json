@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "b5860f73c5047abf14dbbdcdd0b1904044b2a6e04eb2881ba9ce68c978224b60",
+  "jurisdiction": "DE-BE",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2026",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.349Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "public-law-de-be-2026"
+}

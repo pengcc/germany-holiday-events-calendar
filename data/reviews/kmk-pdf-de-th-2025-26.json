@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "bda7283a95be19dddc058b8e6d8418dadbd5b6b35d33be2de377b0043b45bae1",
+  "jurisdiction": "DE-TH",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2025-26",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.328Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "kmk-pdf-de-th-2025-26"
+}
