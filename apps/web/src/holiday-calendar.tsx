@@ -30,7 +30,7 @@ export function HolidayCalendar({
         "grid min-w-0 gap-4",
         months.length === 1 && "max-w-2xl grid-cols-1",
         months.length === 3 && "md:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3",
-        months.length === 12 && "md:grid-cols-2 2xl:grid-cols-3",
+        months.length === 12 && "grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))]",
       )}
     >
       {months.map((month) => (

@@ -114,6 +114,26 @@ test("region and period controls update the route-backed calendar", async ({ pag
   await expect(page.getByRole("region", { name: "December 2026" })).toBeVisible();
 });
 
+test("desktop year view keeps month cards readable", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await usePublishedDataFixture(page);
+  await page.goto(
+    "/en?year=2026&period=year&region=multiple&states=DE-BE,DE-BB&layers=public,school",
+  );
+
+  const january = page.getByRole("region", { name: "January 2026" });
+  const february = page.getByRole("region", { name: "February 2026" });
+  const march = page.getByRole("region", { name: "March 2026" });
+  const januaryBox = await january.boundingBox();
+  const februaryBox = await february.boundingBox();
+  const marchBox = await march.boundingBox();
+
+  expect(januaryBox?.width).toBeGreaterThanOrEqual(320);
+  expect(februaryBox?.width).toBeGreaterThanOrEqual(320);
+  expect(februaryBox?.y).toBe(januaryBox?.y);
+  expect(marchBox?.y).toBeGreaterThan(januaryBox?.y ?? 0);
+});
+
 test("invalid explorer filters are replaced with safe canonical values", async ({ page }) => {
   await usePublishedDataFixture(page);
   await page.goto(
