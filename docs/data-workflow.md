@@ -42,6 +42,12 @@ The configured 2026–2027 release contains 80 independently reviewed batches:
 2. Inspect validation issues and the accepted-versus-fetched diff.
 3. For a deletion, date movement, scope change, source conflict, or ambiguity, record an explicit
    decision with reviewer, rationale, and official evidence.
+   Evidence-backed public holidays with known regional scope but an unresolved exact municipality
+   set are emitted as nonblocking `REGIONAL_APPLICABILITY_ADVISORY` warnings. Approving their mixed
+   source batch reviews the statewide records and retains the regional record as limited advisory
+   data; it never converts or approves that record as statewide. A regional rule without enough
+   official evidence or applicability information remains a blocking
+   `REGIONAL_SCOPE_REVIEW_REQUIRED` issue.
 4. Create an override draft only when normalized output needs a documented correction. Move a
    reviewed draft to `data/overrides/` and rerun the batch.
 5. Approve or reject each source/state/period batch.
@@ -67,6 +73,9 @@ The configured 2026–2027 release contains 80 independently reviewed batches:
 ## Release Gate
 
 - The first release requires approved, current data for all 80 configured batches.
+- Public state/year coverage requires reviewed statewide public-holiday records. Regional records
+  may accompany a reviewed mixed batch as limited advisory data, but a regional-only public batch
+  cannot establish statewide coverage.
 - `data:publish <run-id>` remains strict and fails before writing when required batches, freshness,
   or release coverage are incomplete.
 - `data:publish <run-id> --approved-partial` writes only approved current-run batches together with
