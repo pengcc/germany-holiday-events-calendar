@@ -10,9 +10,11 @@ import type {
 import { describe, expect, it } from "vitest";
 import {
   batchReviewStatus,
+  batchReviewSummary,
   buildReviewCoverageMatrix,
   filterHolidayRecords,
   inclusiveDayCount,
+  isReadyWithoutIssues,
   type ReviewBatch,
 } from "../../apps/data-studio/src/lib/review-model";
 
@@ -117,6 +119,50 @@ describe("record review model", () => {
       ],
     );
     expect(mixedMatrix[0]?.status).toBe("blocked");
+  });
+
+  it("selects only ready batches without issues or pending decisions", () => {
+    const source = makeSource();
+    const ready = makeBatch(source);
+    const warning = makeBatch(source, {
+      issues: [
+        {
+          code: "SOURCE_WARNING",
+          severity: "warning",
+          stage: "compared",
+          message: "Check the source metadata.",
+          suggestedAction: "Review the source.",
+          decisionRequired: false,
+        },
+      ],
+    });
+    const blocked = makeBatch(source, {
+      issues: [
+        {
+          code: "SOURCE_CONFLICT",
+          severity: "blocker",
+          stage: "compared",
+          message: "Official sources conflict.",
+          suggestedAction: "Resolve the conflict.",
+          decisionRequired: true,
+        },
+      ],
+    });
+
+    expect(isReadyWithoutIssues(ready)).toBe(true);
+    expect(isReadyWithoutIssues(warning)).toBe(false);
+    expect(isReadyWithoutIssues(blocked)).toBe(false);
+    expect(
+      isReadyWithoutIssues({
+        ...ready,
+        review: { decision: "approved" } as BatchReviewDecision,
+      }),
+    ).toBe(false);
+    expect(batchReviewSummary(blocked)).toMatchObject({
+      status: "blocked",
+      issueCount: 1,
+      decisionRequiredCount: 1,
+    });
   });
 });
 
