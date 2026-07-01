@@ -6,6 +6,7 @@ import {
   getCalendarPeriodBounds,
   type HolidayLayer,
 } from "../../apps/web/src/calendar";
+import type { ViewMode } from "../../apps/web/src/explorer-search";
 import { stateCodes } from "../../packages/data-core/src/schemas";
 
 describe("holiday calendar derivation", () => {
@@ -150,6 +151,36 @@ describe("holiday calendar derivation", () => {
     expect(day?.overlap).toBe("partial");
   });
 
+  it("requires all 16 statewide public jurisdictions for nationwide common dates", () => {
+    const sharedRecords = stateCodes.map((stateCode) =>
+      record(`shared-${stateCode}`, stateCode, "public", "2026-10-03", "2026-10-03"),
+    );
+    const calendar = derive({
+      records: [
+        ...sharedRecords,
+        record("limited", "DE-BE", "public", "2026-10-04", "2026-10-04", "regional"),
+      ],
+      states: [...stateCodes],
+      layers: ["public"],
+      viewMode: "nationwide",
+    });
+
+    expect([...calendar.days.keys()]).toEqual(["2026-10-03"]);
+    expect(calendar.days.get("2026-10-03")?.records).toHaveLength(16);
+    expect(calendar.days.get("2026-10-03")?.overlap).toBe("none");
+  });
+
+  it("returns an explicit empty result for invalid comparisons", () => {
+    const calendar = derive({
+      records: [record("single", "DE-BE", "public", "2026-05-01", "2026-05-01")],
+      states: ["DE-BE"],
+      layers: ["public"],
+      viewMode: "compare",
+    });
+
+    expect(calendar.days.size).toBe(0);
+  });
+
   it("returns empty date data without rescanning records", () => {
     const calendar = derive({ records: [], states: ["DE-BE"], layers: ["public"] });
     const month = buildMonth(2026, 5, calendar.days, "en");
@@ -198,6 +229,7 @@ interface DeriveOptions {
   layers: HolidayLayer[];
   period?: { year: number; mode: "year" | "quarter" | "month"; quarter?: number; month?: number };
   coverageMatrix?: PublishedDatasetManifest["coverageMatrix"];
+  viewMode?: ViewMode;
 }
 
 function derive({
@@ -206,8 +238,16 @@ function derive({
   layers,
   period = { year: 2026, mode: "year" },
   coverageMatrix = [],
+  viewMode = states.length >= 2 ? "compare" : "state",
 }: DeriveOptions) {
-  return deriveHolidayCalendar({ records, selectedStates: states, layers, period, coverageMatrix });
+  return deriveHolidayCalendar({
+    records,
+    selectedStates: states,
+    layers,
+    period,
+    coverageMatrix,
+    viewMode,
+  });
 }
 
 function record(

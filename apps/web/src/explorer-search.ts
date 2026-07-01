@@ -4,8 +4,11 @@ import { parseDate } from "@internationalized/date";
 export const periodModes = ["year", "quarter", "month"] as const;
 export type PeriodMode = (typeof periodModes)[number];
 
-export const regionModes = ["all", "single", "multiple"] as const;
-export type RegionMode = (typeof regionModes)[number];
+export const viewModes = ["state", "nationwide", "compare"] as const;
+export type ViewMode = (typeof viewModes)[number];
+
+const legacyRegionModes = ["all", "single", "multiple"] as const;
+type LegacyRegionMode = (typeof legacyRegionModes)[number];
 
 export const holidayLayers = ["public", "school"] as const;
 export type HolidayLayer = (typeof holidayLayers)[number];
@@ -15,25 +18,26 @@ export interface ExplorerSearch {
   period: PeriodMode;
   quarter?: number;
   month?: number;
-  region: RegionMode;
+  view: ViewMode;
   states?: string;
   layers: string;
   date?: string;
 }
 
 const defaultSingleState = stateCodes[0];
-const defaultMultipleStates = stateCodes.slice(0, 2);
-
 export function parseExplorerSearch(search: Record<string, unknown>): ExplorerSearch {
   const period = parseEnum(search.period, periodModes) ?? "year";
-  const region = parseEnum(search.region, regionModes) ?? "all";
+  const view =
+    parseEnum(search.view, viewModes) ??
+    mapLegacyRegion(parseEnum(search.region, legacyRegionModes)) ??
+    "state";
   const year = parseBoundedInteger(search.year, 2000, 2200);
   const quarter =
     period === "quarter" ? (parseBoundedInteger(search.quarter, 1, 4) ?? 1) : undefined;
   const month = period === "month" ? (parseBoundedInteger(search.month, 1, 12) ?? 1) : undefined;
   const selectedStates = normalizeStates(search.states);
-  const states = normalizeRegionStates(region, selectedStates);
-  const layers = normalizeLayers(search.layers);
+  const states = normalizeViewStates(view, selectedStates);
+  const layers = view === "nationwide" ? ["public"] : normalizeLayers(search.layers);
   const date = normalizeDate(search.date, { year, period, quarter, month });
 
   return {
@@ -41,7 +45,7 @@ export function parseExplorerSearch(search: Record<string, unknown>): ExplorerSe
     period,
     quarter,
     month,
-    region,
+    view,
     states: states.length > 0 ? states.join(",") : undefined,
     layers: layers.join(","),
     date,
@@ -56,13 +60,17 @@ export function updateExplorerSearch(
 }
 
 export function getSelectedStates(search: ExplorerSearch): StateCode[] {
-  return search.region === "all"
+  return search.view === "nationwide"
     ? [...stateCodes]
-    : normalizeRegionStates(search.region, normalizeStates(search.states));
+    : normalizeViewStates(search.view, normalizeStates(search.states));
 }
 
 export function getSelectedLayers(search: ExplorerSearch): HolidayLayer[] {
-  return normalizeLayers(search.layers);
+  return search.view === "nationwide" ? ["public"] : normalizeLayers(search.layers);
+}
+
+export function isComparisonValid(search: ExplorerSearch): boolean {
+  return search.view !== "compare" || getSelectedStates(search).length >= 2;
 }
 
 export function getVisibleMonths(search: ExplorerSearch): number[] {
@@ -80,24 +88,24 @@ export function searchValuesEqual(left: ExplorerSearch, right: ExplorerSearch): 
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
-function normalizeRegionStates(region: RegionMode, selectedStates: StateCode[]): StateCode[] {
-  if (region === "all") {
+function normalizeViewStates(view: ViewMode, selectedStates: StateCode[]): StateCode[] {
+  if (view === "nationwide") {
     return [];
   }
-  if (region === "single") {
+  if (view === "state") {
     return [selectedStates[0] ?? defaultSingleState];
   }
+  return [...selectedStates].sort();
+}
 
-  const multipleStates = [...selectedStates];
-  for (const stateCode of defaultMultipleStates) {
-    if (multipleStates.length >= 2) {
-      break;
-    }
-    if (!multipleStates.includes(stateCode)) {
-      multipleStates.push(stateCode);
-    }
-  }
-  return multipleStates.sort();
+function mapLegacyRegion(region: LegacyRegionMode | undefined): ViewMode | undefined {
+  return region === "single"
+    ? "state"
+    : region === "all"
+      ? "nationwide"
+      : region === "multiple"
+        ? "compare"
+        : undefined;
 }
 
 function normalizeStates(value: unknown): StateCode[] {

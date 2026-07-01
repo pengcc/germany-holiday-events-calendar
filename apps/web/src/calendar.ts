@@ -1,5 +1,11 @@
-import type { HolidayRecord, PublishedDatasetManifest, StateCode } from "@hsg/data-core/schemas";
+import {
+  type HolidayRecord,
+  type PublishedDatasetManifest,
+  type StateCode,
+  stateCodes,
+} from "@hsg/data-core/schemas";
 import { CalendarDate, getDayOfWeek, parseDate } from "@internationalized/date";
+import type { ViewMode } from "./explorer-search";
 
 export type HolidayLayer = HolidayRecord["category"];
 export type CalendarPeriodMode = "year" | "quarter" | "month";
@@ -53,6 +59,7 @@ export interface DeriveHolidayCalendarInput {
   layers: readonly HolidayLayer[];
   period: CalendarPeriodSelection;
   coverageMatrix?: PublishedDatasetManifest["coverageMatrix"];
+  viewMode: ViewMode;
 }
 
 export interface CalendarCell extends CalendarDay {
@@ -65,6 +72,7 @@ export function deriveHolidayCalendar({
   layers,
   period,
   coverageMatrix = [],
+  viewMode,
 }: DeriveHolidayCalendarInput): HolidayCalendarDerivation {
   const normalizedStates = uniqueSorted(selectedStates);
   const normalizedLayers = uniqueSorted(layers);
@@ -103,14 +111,24 @@ export function deriveHolidayCalendar({
     const dateRecords = [...recordsForDate.values()].sort(compareRecords);
     const statewideRecords = dateRecords.filter((record) => record.scope === "statewide");
     const matchedStates = uniqueSorted(statewideRecords.map((record) => record.jurisdiction));
+    if (viewMode === "nationwide" && matchedStates.length !== stateCodes.length) {
+      continue;
+    }
     days.set(date, {
       date,
-      records: dateRecords,
+      records: viewMode === "nationwide" ? statewideRecords : dateRecords,
       statewideRecords,
       matchedStates,
       hasStatewideActivity: matchedStates.length > 0,
-      overlap: getOverlapStatus(normalizedStates.length, matchedStates.length),
+      overlap:
+        viewMode === "compare"
+          ? getOverlapStatus(normalizedStates.length, matchedStates.length)
+          : "none",
     });
+  }
+
+  if (viewMode === "compare" && normalizedStates.length < 2) {
+    days.clear();
   }
 
   return {
