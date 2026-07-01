@@ -1,0 +1,187 @@
+{
+  "fingerprint": {
+    "bytes": 420964,
+    "contentType": "application/pdf",
+    "etag": "\"69cbda7e-66c64\"",
+    "finalUrl": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2025_26.pdf",
+    "lastModified": "Tue, 31 Mar 2026 14:30:22 GMT",
+    "retrievedAt": "2026-06-06T19:46:24.871Z",
+    "sha256": "bda7283a95be19dddc058b8e6d8418dadbd5b6b35d33be2de377b0043b45bae1"
+  },
+  "records": [
+    {
+      "category": "school",
+      "endDate": "2025-10-31",
+      "id": "kmk-pdf-de-hh-2025-26:autumn:2025-10-20:1",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Herbstferien",
+        "en": "Autumn holidays",
+        "zh": "秋假"
+      },
+      "periodId": "2025-26",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "autumn-1",
+        "sourceId": "kmk-pdf-de-hh-2025-26"
+      },
+      "startDate": "2025-10-20"
+    },
+    {
+      "category": "school",
+      "endDate": "2026-01-02",
+      "id": "kmk-pdf-de-hh-2025-26:christmas:2025-12-17:1",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Weihnachtsferien",
+        "en": "Christmas holidays",
+        "zh": "圣诞假期"
+      },
+      "periodId": "2025-26",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-1",
+        "sourceId": "kmk-pdf-de-hh-2025-26"
+      },
+      "startDate": "2025-12-17"
+    },
+    {
+      "category": "school",
+      "endDate": "2026-01-30",
+      "id": "kmk-pdf-de-hh-2025-26:winter:2026-01-30:1",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Winterferien",
+        "en": "Winter holidays",
+        "zh": "寒假"
+      },
+      "periodId": "2025-26",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "winter-1",
+        "sourceId": "kmk-pdf-de-hh-2025-26"
+      },
+      "startDate": "2026-01-30"
+    },
+    {
+      "category": "school",
+      "endDate": "2026-03-13",
+      "id": "kmk-pdf-de-hh-2025-26:easter:2026-03-02:1",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Oster-/Frühjahrsferien",
+        "en": "Easter or spring holidays",
+        "zh": "复活节或春假"
+      },
+      "periodId": "2025-26",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-1",
+        "sourceId": "kmk-pdf-de-hh-2025-26"
+      },
+      "startDate": "2026-03-02"
+    },
+    {
+      "category": "school",
+      "endDate": "2026-05-15",
+      "id": "kmk-pdf-de-hh-2025-26:pentecost:2026-05-11:1",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Himmelfahrts-/Pfingstferien",
+        "en": "Ascension or Pentecost holidays",
+        "zh": "升天节或圣灵降临节假期"
+      },
+      "periodId": "2025-26",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-1",
+        "sourceId": "kmk-pdf-de-hh-2025-26"
+      },
+      "startDate": "2026-05-11"
+    },
+    {
+      "category": "school",
+      "endDate": "2026-08-19",
+      "id": "kmk-pdf-de-hh-2025-26:summer:2026-07-09:1",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Sommerferien",
+        "en": "Summer holidays",
+        "zh": "暑假"
+      },
+      "periodId": "2025-26",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "summer-1",
+        "sourceId": "kmk-pdf-de-hh-2025-26"
+      },
+      "startDate": "2026-07-09"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "bda7283a95be19dddc058b8e6d8418dadbd5b6b35d33be2de377b0043b45bae1",
+    "jurisdiction": "DE-HH",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2025-26",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.235Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "kmk-pdf-de-hh-2025-26"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "kmk-pdf",
+    "authority": "official",
+    "category": "school",
+    "documentId": "kmk-pdf-2025-26",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "www.kmk.org"
+      ],
+      "expectedContentTypes": [
+        "application/pdf"
+      ],
+      "maxBytes": 10000000,
+      "maxRedirects": 2,
+      "timeoutMs": 30000
+    },
+    "fetchUrl": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2025_26.pdf",
+    "format": "pdf",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://www.kmk.org/service/ferien/ferienkalender.html",
+    "id": "kmk-pdf-de-hh-2025-26",
+    "jurisdiction": "DE-HH",
+    "license": {
+      "note": "Official KMK publication; raw-file redistribution requires separate confirmation.",
+      "redistribution": "unknown"
+    },
+    "name": "KMK school holidays DE-HH 2025-26",
+    "period": {
+      "endDate": "2026-09-30",
+      "id": "2025-26",
+      "kind": "schoolYear",
+      "startDate": "2025-08-01"
+    },
+    "schemaVersion": 1
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "fingerprint": {
+    "bytes": 8564,
+    "contentType": "text/html",
+    "documents": [
+      {
+        "bytes": 5528,
+        "contentType": "text/html",
+        "documentId": "law-de-he",
+        "finalUrl": "https://www.rv.hessenrecht.hessen.de/bshe/document/jlr-FeiertGHErahmen",
+        "sha256": "353859001161960430be8907a506d0d71b5160f23086afb3c84a275e06bdc1ad"
+      },
+      {
+        "bytes": 3036,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "1dc871df9488200efecaae0ba250e8770d8482e9c1a57b0db256fac2ba7a92ad"
+      }
+    ],
+    "etag": "W/\"5528-1781865878000\"",
+    "finalUrl": "https://www.rv.hessenrecht.hessen.de/bshe/document/jlr-FeiertGHErahmen",
+    "lastModified": "Fri, 19 Jun 2026 10:44:38 GMT",
+    "retrievedAt": "2026-07-01T08:19:48.354Z",
+    "sha256": "73bd0b0f406b5567f5174a6a099270c7ebef9eb8b95c3c7ea4ce7d8b7b38a7f2"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2026-01-01",
+      "id": "public-law-de-he-2026:new-year",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-03",
+      "id": "public-law-de-he-2026:good-friday",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-04-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-06",
+      "id": "public-law-de-he-2026:easter-monday",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-04-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-01",
+      "id": "public-law-de-he-2026:labour-day",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-14",
+      "id": "public-law-de-he-2026:ascension-day",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-05-14"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-25",
+      "id": "public-law-de-he-2026:pentecost-monday",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-05-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-06-04",
+      "id": "public-law-de-he-2026:corpus-christi",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "corpus-christi",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-06-04"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-03",
+      "id": "public-law-de-he-2026:german-unity-day",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-25",
+      "id": "public-law-de-he-2026:christmas-day",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-26",
+      "id": "public-law-de-he-2026:second-christmas-day",
+      "jurisdiction": "DE-HE",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-he-2026"
+      },
+      "startDate": "2026-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "73bd0b0f406b5567f5174a6a099270c7ebef9eb8b95c3c7ea4ce7d8b7b38a7f2",
+    "jurisdiction": "DE-HE",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2026",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.381Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-he-2026"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-he",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "www.rv.hessenrecht.hessen.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://www.rv.hessenrecht.hessen.de/bshe/document/jlr-FeiertGHErahmen",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://www.rv.hessenrecht.hessen.de/",
+    "id": "public-law-de-he-2026",
+    "jurisdiction": "DE-HE",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-HE 2026",
+    "period": {
+      "endDate": "2026-12-31",
+      "id": "2026",
+      "kind": "calendarYear",
+      "startDate": "2026-01-01"
+    },
+    "schemaVersion": 1
+  }
+}

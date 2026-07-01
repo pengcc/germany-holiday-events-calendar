@@ -1,0 +1,283 @@
+{
+  "fingerprint": {
+    "bytes": 8655,
+    "contentType": "text/html",
+    "documents": [
+      {
+        "bytes": 5558,
+        "contentType": "text/html",
+        "documentId": "law-de-hh",
+        "finalUrl": "https://www.landesrecht-hamburg.de/bsha/document/jlr-FeiertGHArahmen",
+        "sha256": "3597f9344f8ca1bf12a541395f89f4247d54b8f02c9f7da790952b577cc7df06"
+      },
+      {
+        "bytes": 3097,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "9577a3cbbc621917f6ac5362bee0c92ba4d8385ed8c13b6c70a425abc469163e"
+      }
+    ],
+    "etag": "W/\"5558-1781866078000\"",
+    "finalUrl": "https://www.landesrecht-hamburg.de/bsha/document/jlr-FeiertGHArahmen",
+    "lastModified": "Fri, 19 Jun 2026 10:47:58 GMT",
+    "retrievedAt": "2026-07-01T08:19:48.549Z",
+    "sha256": "b1db288254b17de49bf1669244c15af9537fa5a3ddcf3f62aacaf42a83d65e92"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2026-01-01",
+      "id": "public-law-de-hh-2026:new-year",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-03",
+      "id": "public-law-de-hh-2026:good-friday",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-04-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-06",
+      "id": "public-law-de-hh-2026:easter-monday",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-04-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-01",
+      "id": "public-law-de-hh-2026:labour-day",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-14",
+      "id": "public-law-de-hh-2026:ascension-day",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-05-14"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-25",
+      "id": "public-law-de-hh-2026:pentecost-monday",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-05-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-03",
+      "id": "public-law-de-hh-2026:german-unity-day",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-31",
+      "id": "public-law-de-hh-2026:reformation-day",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "Reformationstag",
+        "en": "Reformation Day",
+        "zh": "宗教改革日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "reformation-day",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-10-31"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-25",
+      "id": "public-law-de-hh-2026:christmas-day",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-26",
+      "id": "public-law-de-hh-2026:second-christmas-day",
+      "jurisdiction": "DE-HH",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-hh-2026"
+      },
+      "startDate": "2026-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "b1db288254b17de49bf1669244c15af9537fa5a3ddcf3f62aacaf42a83d65e92",
+    "jurisdiction": "DE-HH",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2026",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.393Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-hh-2026"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-hh",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "www.landesrecht-hamburg.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://www.landesrecht-hamburg.de/bsha/document/jlr-FeiertGHArahmen",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://www.landesrecht-hamburg.de/",
+    "id": "public-law-de-hh-2026",
+    "jurisdiction": "DE-HH",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-HH 2026",
+    "period": {
+      "endDate": "2026-12-31",
+      "id": "2026",
+      "kind": "calendarYear",
+      "startDate": "2026-01-01"
+    },
+    "schemaVersion": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "4edd0a6351badde7472702687b53c47adc53f624a7f2d3d6754b62c021490282",
+  "jurisdiction": "DE-NW",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2027",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.430Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "public-law-de-nw-2027"
+}

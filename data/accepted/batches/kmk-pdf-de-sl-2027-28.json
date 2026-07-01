@@ -1,0 +1,167 @@
+{
+  "fingerprint": {
+    "bytes": 422351,
+    "contentType": "application/pdf",
+    "etag": "\"69cbda7e-671cf\"",
+    "finalUrl": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2027_28.pdf",
+    "lastModified": "Tue, 31 Mar 2026 14:30:22 GMT",
+    "retrievedAt": "2026-06-06T19:46:24.888Z",
+    "sha256": "51b76c6abbd030d55eed85ba5cf2b4ade0efc78fa8ec12385f77830fa1b2520d"
+  },
+  "records": [
+    {
+      "category": "school",
+      "endDate": "2027-10-15",
+      "id": "kmk-pdf-de-sl-2027-28:autumn:2027-10-04:1",
+      "jurisdiction": "DE-SL",
+      "names": {
+        "de": "Herbstferien",
+        "en": "Autumn holidays",
+        "zh": "秋假"
+      },
+      "periodId": "2027-28",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "autumn-1",
+        "sourceId": "kmk-pdf-de-sl-2027-28"
+      },
+      "startDate": "2027-10-04"
+    },
+    {
+      "category": "school",
+      "endDate": "2027-12-31",
+      "id": "kmk-pdf-de-sl-2027-28:christmas:2027-12-20:1",
+      "jurisdiction": "DE-SL",
+      "names": {
+        "de": "Weihnachtsferien",
+        "en": "Christmas holidays",
+        "zh": "圣诞假期"
+      },
+      "periodId": "2027-28",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-1",
+        "sourceId": "kmk-pdf-de-sl-2027-28"
+      },
+      "startDate": "2027-12-20"
+    },
+    {
+      "category": "school",
+      "endDate": "2028-02-29",
+      "id": "kmk-pdf-de-sl-2027-28:winter:2028-02-21:1",
+      "jurisdiction": "DE-SL",
+      "names": {
+        "de": "Winterferien",
+        "en": "Winter holidays",
+        "zh": "寒假"
+      },
+      "periodId": "2027-28",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "winter-1",
+        "sourceId": "kmk-pdf-de-sl-2027-28"
+      },
+      "startDate": "2028-02-21"
+    },
+    {
+      "category": "school",
+      "endDate": "2028-04-21",
+      "id": "kmk-pdf-de-sl-2027-28:easter:2028-04-12:1",
+      "jurisdiction": "DE-SL",
+      "names": {
+        "de": "Oster-/Frühjahrsferien",
+        "en": "Easter or spring holidays",
+        "zh": "复活节或春假"
+      },
+      "periodId": "2027-28",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-1",
+        "sourceId": "kmk-pdf-de-sl-2027-28"
+      },
+      "startDate": "2028-04-12"
+    },
+    {
+      "category": "school",
+      "endDate": "2028-08-11",
+      "id": "kmk-pdf-de-sl-2027-28:summer:2028-07-03:1",
+      "jurisdiction": "DE-SL",
+      "names": {
+        "de": "Sommerferien",
+        "en": "Summer holidays",
+        "zh": "暑假"
+      },
+      "periodId": "2027-28",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "summer-1",
+        "sourceId": "kmk-pdf-de-sl-2027-28"
+      },
+      "startDate": "2028-07-03"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "51b76c6abbd030d55eed85ba5cf2b4ade0efc78fa8ec12385f77830fa1b2520d",
+    "jurisdiction": "DE-SL",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2027-28",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.302Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "kmk-pdf-de-sl-2027-28"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "kmk-pdf",
+    "authority": "official",
+    "category": "school",
+    "documentId": "kmk-pdf-2027-28",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "www.kmk.org"
+      ],
+      "expectedContentTypes": [
+        "application/pdf"
+      ],
+      "maxBytes": 10000000,
+      "maxRedirects": 2,
+      "timeoutMs": 30000
+    },
+    "fetchUrl": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2027_28.pdf",
+    "format": "pdf",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://www.kmk.org/service/ferien/ferienkalender.html",
+    "id": "kmk-pdf-de-sl-2027-28",
+    "jurisdiction": "DE-SL",
+    "license": {
+      "note": "Official KMK publication; raw-file redistribution requires separate confirmation.",
+      "redistribution": "unknown"
+    },
+    "name": "KMK school holidays DE-SL 2027-28",
+    "period": {
+      "endDate": "2028-09-30",
+      "id": "2027-28",
+      "kind": "schoolYear",
+      "startDate": "2027-08-01"
+    },
+    "schemaVersion": 1
+  }
+}

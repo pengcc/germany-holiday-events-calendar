@@ -1,0 +1,302 @@
+{
+  "fingerprint": {
+    "bytes": 17538,
+    "contentType": "text/html; charset=UTF-8",
+    "documents": [
+      {
+        "bytes": 14133,
+        "contentType": "text/html; charset=UTF-8",
+        "documentId": "law-de-nw",
+        "finalUrl": "https://recht.nrw.de/suche/lra/?anw_nr=2&aufgehoben=N&bes_id=3367&det_id=144445&menu=1&sg=1",
+        "sha256": "55f686688fca79545ad91b2de99ad4a1bad23044e732b130b4f574c90a777598"
+      },
+      {
+        "bytes": 3405,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "c670bd71b626a0d33e37ee56426ac1d20a8cb238c98070d734955b0418ca8091"
+      }
+    ],
+    "finalUrl": "https://recht.nrw.de/suche/lra/?anw_nr=2&aufgehoben=N&bes_id=3367&det_id=144445&menu=1&sg=1",
+    "lastModified": "Wed, 01 Jul 2026 00:03:36 GMT",
+    "retrievedAt": "2026-07-01T08:19:49.252Z",
+    "sha256": "4edd0a6351badde7472702687b53c47adc53f624a7f2d3d6754b62c021490282"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2027-01-01",
+      "id": "public-law-de-nw-2027:new-year",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-26",
+      "id": "public-law-de-nw-2027:good-friday",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-03-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-29",
+      "id": "public-law-de-nw-2027:easter-monday",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-03-29"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-01",
+      "id": "public-law-de-nw-2027:labour-day",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-06",
+      "id": "public-law-de-nw-2027:ascension-day",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-05-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-17",
+      "id": "public-law-de-nw-2027:pentecost-monday",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-05-17"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-27",
+      "id": "public-law-de-nw-2027:corpus-christi",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "corpus-christi",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-05-27"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-03",
+      "id": "public-law-de-nw-2027:german-unity-day",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-11-01",
+      "id": "public-law-de-nw-2027:all-saints-day",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "Allerheiligen",
+        "en": "All Saints' Day",
+        "zh": "万圣节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "all-saints-day",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-11-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-25",
+      "id": "public-law-de-nw-2027:christmas-day",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-26",
+      "id": "public-law-de-nw-2027:second-christmas-day",
+      "jurisdiction": "DE-NW",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-nw-2027"
+      },
+      "startDate": "2027-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "4edd0a6351badde7472702687b53c47adc53f624a7f2d3d6754b62c021490282",
+    "jurisdiction": "DE-NW",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2027",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.430Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-nw-2027"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-nw",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "recht.nrw.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://recht.nrw.de/lmi/owa/br_bes_detail?anw_nr=2&aufgehoben=N&bes_id=3367&det_id=144445&menu=1&sg=1",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://recht.nrw.de/",
+    "id": "public-law-de-nw-2027",
+    "jurisdiction": "DE-NW",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-NW 2027",
+    "period": {
+      "endDate": "2027-12-31",
+      "id": "2027",
+      "kind": "calendarYear",
+      "startDate": "2027-01-01"
+    },
+    "schemaVersion": 1
+  }
+}

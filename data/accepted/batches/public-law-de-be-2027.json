@@ -1,0 +1,283 @@
+{
+  "fingerprint": {
+    "bytes": 8460,
+    "contentType": "text/html",
+    "documents": [
+      {
+        "bytes": 5441,
+        "contentType": "text/html",
+        "documentId": "law-de-be",
+        "finalUrl": "https://gesetze.berlin.de/bsbe/document/jlr-FeiertGBErahmen",
+        "sha256": "1a5927af2ad11f89b8932c9540202c0ca6ce2edc6b8228f9ec9ca6b6b43563e1"
+      },
+      {
+        "bytes": 3019,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "447a7687b24da79a95ee86355c56b4ea1405485763093830defd21c1ab378b5e"
+      }
+    ],
+    "etag": "W/\"5441-1781865876000\"",
+    "finalUrl": "https://gesetze.berlin.de/bsbe/document/jlr-FeiertGBErahmen",
+    "lastModified": "Fri, 19 Jun 2026 10:44:36 GMT",
+    "retrievedAt": "2026-07-01T08:19:47.935Z",
+    "sha256": "b5860f73c5047abf14dbbdcdd0b1904044b2a6e04eb2881ba9ce68c978224b60"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2027-01-01",
+      "id": "public-law-de-be-2027:new-year",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-08",
+      "id": "public-law-de-be-2027:international-womens-day",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "Internationaler Frauentag",
+        "en": "International Women's Day",
+        "zh": "国际妇女节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "international-womens-day",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-03-08"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-26",
+      "id": "public-law-de-be-2027:good-friday",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-03-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-29",
+      "id": "public-law-de-be-2027:easter-monday",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-03-29"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-01",
+      "id": "public-law-de-be-2027:labour-day",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-06",
+      "id": "public-law-de-be-2027:ascension-day",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-05-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-17",
+      "id": "public-law-de-be-2027:pentecost-monday",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-05-17"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-03",
+      "id": "public-law-de-be-2027:german-unity-day",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-25",
+      "id": "public-law-de-be-2027:christmas-day",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-26",
+      "id": "public-law-de-be-2027:second-christmas-day",
+      "jurisdiction": "DE-BE",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-be-2027"
+      },
+      "startDate": "2027-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "b5860f73c5047abf14dbbdcdd0b1904044b2a6e04eb2881ba9ce68c978224b60",
+    "jurisdiction": "DE-BE",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2027",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.355Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-be-2027"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-be",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "gesetze.berlin.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://gesetze.berlin.de/bsbe/document/jlr-FeiertGBErahmen",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://gesetze.berlin.de/",
+    "id": "public-law-de-be-2027",
+    "jurisdiction": "DE-BE",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-BE 2027",
+    "period": {
+      "endDate": "2027-12-31",
+      "id": "2027",
+      "kind": "calendarYear",
+      "startDate": "2027-01-01"
+    },
+    "schemaVersion": 1
+  }
+}

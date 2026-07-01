@@ -1,0 +1,303 @@
+{
+  "fingerprint": {
+    "bytes": 8821,
+    "contentType": "text/html",
+    "documents": [
+      {
+        "bytes": 5416,
+        "contentType": "text/html",
+        "documentId": "law-de-rp",
+        "finalUrl": "https://landesrecht.rlp.de/bsrp/document/jlr-FeiertGRPrahmen",
+        "sha256": "e8f86c70f45a46fa3a8e4c7df181842684de5fdb32ad0d678b694d2861e9416c"
+      },
+      {
+        "bytes": 3405,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "c670bd71b626a0d33e37ee56426ac1d20a8cb238c98070d734955b0418ca8091"
+      }
+    ],
+    "etag": "W/\"5416-1781865878000\"",
+    "finalUrl": "https://landesrecht.rlp.de/bsrp/document/jlr-FeiertGRPrahmen",
+    "lastModified": "Fri, 19 Jun 2026 10:44:38 GMT",
+    "retrievedAt": "2026-07-01T08:19:49.457Z",
+    "sha256": "fb94c7883719c467fb607ecf822dba09fd9acb31d85f8c549c920c532e712070"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2026-01-01",
+      "id": "public-law-de-rp-2026:new-year",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-03",
+      "id": "public-law-de-rp-2026:good-friday",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-04-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-06",
+      "id": "public-law-de-rp-2026:easter-monday",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-04-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-01",
+      "id": "public-law-de-rp-2026:labour-day",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-14",
+      "id": "public-law-de-rp-2026:ascension-day",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-05-14"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-25",
+      "id": "public-law-de-rp-2026:pentecost-monday",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-05-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-06-04",
+      "id": "public-law-de-rp-2026:corpus-christi",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "corpus-christi",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-06-04"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-03",
+      "id": "public-law-de-rp-2026:german-unity-day",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-11-01",
+      "id": "public-law-de-rp-2026:all-saints-day",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "Allerheiligen",
+        "en": "All Saints' Day",
+        "zh": "万圣节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "all-saints-day",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-11-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-25",
+      "id": "public-law-de-rp-2026:christmas-day",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-26",
+      "id": "public-law-de-rp-2026:second-christmas-day",
+      "jurisdiction": "DE-RP",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-rp-2026"
+      },
+      "startDate": "2026-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "fb94c7883719c467fb607ecf822dba09fd9acb31d85f8c549c920c532e712070",
+    "jurisdiction": "DE-RP",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2026",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.436Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-rp-2026"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-rp",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "landesrecht.rlp.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://landesrecht.rlp.de/bsrp/document/jlr-FeiertGRPrahmen",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://landesrecht.rlp.de/",
+    "id": "public-law-de-rp-2026",
+    "jurisdiction": "DE-RP",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-RP 2026",
+    "period": {
+      "endDate": "2026-12-31",
+      "id": "2026",
+      "kind": "calendarYear",
+      "startDate": "2026-01-01"
+    },
+    "schemaVersion": 1
+  }
+}

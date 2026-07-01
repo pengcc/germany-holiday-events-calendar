@@ -1,0 +1,251 @@
+{
+  "fingerprint": {
+    "bytes": 423162,
+    "contentType": "text/calendar;charset=utf-8",
+    "documents": [
+      {
+        "bytes": 1649,
+        "contentType": "text/calendar;charset=utf-8",
+        "documentId": "kmk-ics-de-bw",
+        "finalUrl": "https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=1&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=8cbe5c786dfadb313a206c0e29bba119",
+        "sha256": "682e36a31660264204a3f2abe31a2afeced54caa62042a0ba75ec6e17cc1b8e1"
+      },
+      {
+        "bytes": 421513,
+        "contentType": "application/pdf",
+        "documentId": "kmk-pdf-2026-27",
+        "finalUrl": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2026_27.pdf",
+        "sha256": "516faa0d7fc451115d5127c00dc178a58ac2c0c3509457d377d7e2408a940ee1"
+      }
+    ],
+    "finalUrl": "https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=1&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=8cbe5c786dfadb313a206c0e29bba119",
+    "retrievedAt": "2026-07-01T08:24:38.648Z",
+    "sha256": "433cb013ce324d25a17c8ef88092a4e53188d9259ad915ec96a38069a97d6e59"
+  },
+  "records": [
+    {
+      "category": "school",
+      "endDate": "2026-10-30",
+      "id": "kmk-ics-de-bw-2026-27:ferien-d20251009-s1-u1@www.kmk.org",
+      "jurisdiction": "DE-BW",
+      "names": {
+        "de": "Herbst",
+        "en": "Autumn holidays",
+        "zh": "秋假"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s1-u1@www.kmk.org",
+        "sourceId": "kmk-ics-de-bw-2026-27"
+      },
+      "startDate": "2026-10-26"
+    },
+    {
+      "category": "school",
+      "endDate": "2026-10-31",
+      "id": "kmk-ics-de-bw-2026-27:ferien-d20251009-s1-u2@www.kmk.org",
+      "jurisdiction": "DE-BW",
+      "names": {
+        "de": "Herbst",
+        "en": "Autumn holidays",
+        "zh": "秋假"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s1-u2@www.kmk.org",
+        "sourceId": "kmk-ics-de-bw-2026-27"
+      },
+      "startDate": "2026-10-31"
+    },
+    {
+      "category": "school",
+      "endDate": "2027-01-09",
+      "id": "kmk-ics-de-bw-2026-27:ferien-d20251009-s1-u3@www.kmk.org",
+      "jurisdiction": "DE-BW",
+      "names": {
+        "de": "Weihnachten",
+        "en": "Christmas holidays",
+        "zh": "圣诞假期"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s1-u3@www.kmk.org",
+        "sourceId": "kmk-ics-de-bw-2026-27"
+      },
+      "startDate": "2026-12-23"
+    },
+    {
+      "category": "school",
+      "endDate": "2027-03-25",
+      "id": "kmk-ics-de-bw-2026-27:ferien-d20251009-s1-u4@www.kmk.org",
+      "jurisdiction": "DE-BW",
+      "names": {
+        "de": "Ostern/Frühjahr",
+        "en": "Easter or spring holidays",
+        "zh": "复活节或春假"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s1-u4@www.kmk.org",
+        "sourceId": "kmk-ics-de-bw-2026-27"
+      },
+      "startDate": "2027-03-25"
+    },
+    {
+      "category": "school",
+      "endDate": "2027-04-03",
+      "id": "kmk-ics-de-bw-2026-27:ferien-d20251009-s1-u5@www.kmk.org",
+      "jurisdiction": "DE-BW",
+      "names": {
+        "de": "Ostern/Frühjahr",
+        "en": "Easter or spring holidays",
+        "zh": "复活节或春假"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s1-u5@www.kmk.org",
+        "sourceId": "kmk-ics-de-bw-2026-27"
+      },
+      "startDate": "2027-03-30"
+    },
+    {
+      "category": "school",
+      "endDate": "2027-05-29",
+      "id": "kmk-ics-de-bw-2026-27:ferien-d20251009-s1-u6@www.kmk.org",
+      "jurisdiction": "DE-BW",
+      "names": {
+        "de": "Himmelfahrt/Pfingsten",
+        "en": "Ascension or Pentecost holidays",
+        "zh": "升天节或圣灵降临节假期"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s1-u6@www.kmk.org",
+        "sourceId": "kmk-ics-de-bw-2026-27"
+      },
+      "startDate": "2027-05-18"
+    },
+    {
+      "category": "school",
+      "endDate": "2027-09-11",
+      "id": "kmk-ics-de-bw-2026-27:ferien-d20251009-s1-u7@www.kmk.org",
+      "jurisdiction": "DE-BW",
+      "names": {
+        "de": "Sommer",
+        "en": "Summer holidays",
+        "zh": "暑假"
+      },
+      "periodId": "2026-27",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ferien-d20251009-s1-u7@www.kmk.org",
+        "sourceId": "kmk-ics-de-bw-2026-27"
+      },
+      "startDate": "2027-07-29"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "433cb013ce324d25a17c8ef88092a4e53188d9259ad915ec96a38069a97d6e59",
+    "jurisdiction": "DE-BW",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2026-27",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-01T09:50:51.107Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-01T08-24-38-250Z",
+    "schemaVersion": 1,
+    "sourceId": "kmk-ics-de-bw-2026-27"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "kmk-ics",
+    "authority": "official",
+    "category": "school",
+    "crossCheckDocument": {
+      "fetch": {
+        "allowedHosts": [
+          "www.kmk.org"
+        ],
+        "expectedContentTypes": [
+          "application/pdf"
+        ],
+        "maxBytes": 10000000,
+        "maxRedirects": 2,
+        "timeoutMs": 30000
+      },
+      "fetchUrl": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2026_27.pdf",
+      "format": "pdf",
+      "freshness": {
+        "retrievalCadenceDays": 90,
+        "reviewBy": "2027-01-31"
+      },
+      "homepageUrl": "https://www.kmk.org/service/ferien/ferienkalender.html",
+      "id": "kmk-pdf-2026-27",
+      "license": {
+        "note": "Official KMK publication; raw-file redistribution requires separate confirmation.",
+        "redistribution": "unknown"
+      },
+      "name": "KMK Ferienkalender 2026/2027 PDF",
+      "schemaVersion": 1
+    },
+    "crossCheckDocumentId": "kmk-pdf-2026-27",
+    "documentId": "kmk-ics-de-bw",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "www.kmk.org"
+      ],
+      "expectedContentTypes": [
+        "text/calendar",
+        "text/plain",
+        "application/octet-stream"
+      ],
+      "maxBytes": 2000000,
+      "maxRedirects": 2,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=1&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=8cbe5c786dfadb313a206c0e29bba119",
+    "format": "ics",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://www.kmk.org/service/ferien/ferienkalender.html",
+    "id": "kmk-ics-de-bw-2026-27",
+    "jurisdiction": "DE-BW",
+    "license": {
+      "note": "Official KMK publication; raw-file redistribution requires separate confirmation.",
+      "redistribution": "unknown"
+    },
+    "name": "KMK school holidays DE-BW 2026-27",
+    "period": {
+      "endDate": "2027-09-30",
+      "id": "2026-27",
+      "kind": "schoolYear",
+      "startDate": "2026-08-01"
+    },
+    "schemaVersion": 1
+  }
+}

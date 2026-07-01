@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "fingerprintSha256": "73bd0b0f406b5567f5174a6a099270c7ebef9eb8b95c3c7ea4ce7d8b7b38a7f2",
+  "jurisdiction": "DE-HE",
+  "notes": "",
+  "overrideIds": [],
+  "periodId": "2026",
+  "resolutionIds": [],
+  "reviewedAt": "2026-07-01T09:50:51.381Z",
+  "reviewer": "pcc",
+  "runId": "run-2026-07-01T08-24-38-250Z",
+  "schemaVersion": 1,
+  "sourceId": "public-law-de-he-2026"
+}
