@@ -88,3 +88,19 @@ This file records durable decisions that future work should not re-litigate acci
   project-owned entrypoint or memory differences.
 - Related files: `AGENTS.md`, `.codex/rules/`, `.codex/skills/meta/`, `.codex/skills/core/`,
   `.codex/project/project-guideline.md`
+
+### Decision 2026-07-01: Separate approved-data publication from release readiness
+
+- Status: Accepted
+- Context: The first release requires 80 approved, current source batches, but that strict gate
+  prevented approved partial data from being written for local frontend review while unrelated
+  batches remained blocked or unreviewed.
+- Decision: Keep `data:publish <run-id>` strict by default. Allow the explicit
+  `--approved-partial` mode to write only approved data with uncovered manifest cells, and assess
+  the currently published dataset independently through `data:release:check`.
+- Reason: Frontend review needs realistic approved data without treating incomplete coverage as a
+  releasable public dataset or admitting blocked, rejected, unresolved, or unapproved records.
+- Impact: Partial output is not release approval. Public release still requires every configured
+  batch, current freshness, and complete coverage to pass the release-readiness check.
+- Related files: `packages/data-core/src/pipeline.ts`, `tools/data-cli/src/index.ts`,
+  `package.json`, `docs/data-workflow.md`

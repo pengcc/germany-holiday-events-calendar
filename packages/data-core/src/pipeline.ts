@@ -697,27 +697,19 @@ export async function previewPublish(
   files: string[];
   warnings: string[];
   suggestedCommitMessage: string;
+  releaseReadiness: ReleaseReadinessAssessment;
 }> {
   const run = await getRun(workspaceRoot, runId);
   const paths = projectPaths(workspaceRoot);
   const approvableSources: string[] = [];
+  const approvedBatches: AcceptedBatch[] = [];
   const blockedSources: string[] = [];
-  let regionalRecordCount = 0;
 
   for (const source of run.sources) {
     try {
-      const review = BatchReviewDecisionSchema.parse(
-        await readJson(resolve(paths.runs, runId, source.sourceId, "review.json")),
-      );
-      if (review.decision === "approved") {
-        approvableSources.push(source.sourceId);
-        const artifacts = await getSourceRunArtifacts(workspaceRoot, runId, source.sourceId);
-        regionalRecordCount += artifacts.records.filter(
-          (record) => record.scope === "regional",
-        ).length;
-      } else {
-        blockedSources.push(source.sourceId);
-      }
+      const batch = await getApprovedRunBatch(workspaceRoot, runId, source.sourceId);
+      approvableSources.push(source.sourceId);
+      approvedBatches.push(batch);
     } catch {
       blockedSources.push(source.sourceId);
     }
@@ -742,10 +734,14 @@ export async function previewPublish(
     )
     .map((source) => source.id)
     .sort();
-  regionalRecordCount += accepted
-    .filter((batch) => !approvedIds.has(batch.source.id))
+  const prospectiveBatches = [
+    ...accepted.filter((batch) => !approvedIds.has(batch.source.id)),
+    ...approvedBatches,
+  ];
+  const regionalRecordCount = prospectiveBatches
     .flatMap((batch) => batch.records)
     .filter((record) => record.scope === "regional").length;
+  const releaseReadiness = await assessReleaseReadiness(workspaceRoot, prospectiveBatches);
   const warnings = [];
   if (retainedSources.length > 0) {
     warnings.push(`${retainedSources.length} source batch(es) will retain reviewed old data.`);
@@ -772,13 +768,14 @@ export async function previewPublish(
     ],
     warnings,
     suggestedCommitMessage: `Update reviewed holiday data from ${runId}`,
+    releaseReadiness,
   };
 }
 
 export async function publishRun(
   workspaceRoot: string,
   runId: string,
-  options: { allowDirty?: boolean } = {},
+  options: { allowDirty?: boolean; approvedPartial?: boolean } = {},
 ): Promise<PublishedDatasetManifest> {
   const paths = projectPaths(workspaceRoot);
   if (!options.allowDirty) {
@@ -794,42 +791,27 @@ export async function publishRun(
     existingBatches.map((batch) => [batch.source.id, batch] as const),
   );
   for (const sourceId of preview.approvableSources) {
-    const artifacts = await getSourceRunArtifacts(workspaceRoot, runId, sourceId);
-    const review = BatchReviewDecisionSchema.parse(
-      await readJson(resolve(paths.runs, runId, sourceId, "review.json")),
-    );
-    prospectiveBatches.set(
-      sourceId,
-      AcceptedBatchSchema.parse({
-        schemaVersion: 1,
-        source: artifacts.source,
-        fingerprint: artifacts.fingerprint,
-        records: artifacts.records,
-        review,
-      }),
-    );
+    prospectiveBatches.set(sourceId, await getApprovedRunBatch(workspaceRoot, runId, sourceId));
   }
-  await assertReleaseReady(workspaceRoot, [...prospectiveBatches.values()]);
+  const releaseReadiness = await assessReleaseReadiness(workspaceRoot, [
+    ...prospectiveBatches.values(),
+  ]);
+  if (!options.approvedPartial) {
+    assertReleaseReady(releaseReadiness);
+  }
 
   for (const sourceId of preview.approvableSources) {
-    const artifacts = await getSourceRunArtifacts(workspaceRoot, runId, sourceId);
-    const review = BatchReviewDecisionSchema.parse(
-      await readJson(resolve(paths.runs, runId, sourceId, "review.json")),
-    );
-    const accepted = AcceptedBatchSchema.parse({
-      schemaVersion: 1,
-      source: artifacts.source,
-      fingerprint: artifacts.fingerprint,
-      records: artifacts.records,
-      review,
-    });
+    const accepted = prospectiveBatches.get(sourceId);
+    if (!accepted) {
+      throw new Error(`Approved source batch ${sourceId} is unavailable for publication.`);
+    }
     await writeJsonAtomic(resolve(paths.accepted, `${sourceId}.json`), accepted);
-    await writeJsonAtomic(resolve(paths.reviews, `${sourceId}.json`), review);
+    await writeJsonAtomic(resolve(paths.reviews, `${sourceId}.json`), accepted.review);
 
-    if (artifacts.source.license.redistribution === "allowed") {
+    if (accepted.source.license.redistribution === "allowed") {
       const raw = await readFile(resolve(paths.runs, runId, sourceId, "raw.source"));
       await writeBytesAtomic(
-        resolve(paths.snapshots, sourceId, `${artifacts.fingerprint.sha256}.source`),
+        resolve(paths.snapshots, sourceId, `${accepted.fingerprint.sha256}.source`),
         raw,
       );
     }
@@ -843,6 +825,98 @@ export async function publishRun(
     updatedAt: new Date().toISOString(),
   });
   return manifest;
+}
+
+export interface ReleaseReadinessAssessment {
+  releaseReady: boolean;
+  requiredSourceCount: number;
+  approvedSourceCount: number;
+  missingSourceIds: string[];
+  staleSourceIds: string[];
+  incompleteCoverage: PublishedDatasetManifest["coverageMatrix"];
+}
+
+export async function assessReleaseReadiness(
+  workspaceRoot: string,
+  batches: AcceptedBatch[],
+  options: { today?: string } = {},
+): Promise<ReleaseReadinessAssessment> {
+  const paths = projectPaths(workspaceRoot);
+  const [release, sources] = await Promise.all([
+    loadReleaseConfig(paths.releaseConfig),
+    loadSourceManifests(paths.sources),
+  ]);
+  const expectedSources = getExpectedReleaseSources(sources, release);
+  const batchesById = new Map(batches.map((batch) => [batch.source.id, batch]));
+  const missingSourceIds = expectedSources
+    .filter((source) => !batchesById.has(source.id))
+    .map((source) => source.id)
+    .sort();
+  const today = options.today ?? new Date().toISOString().slice(0, 10);
+  const staleSourceIds = expectedSources
+    .filter((source) => batchesById.has(source.id) && source.freshness.reviewBy < today)
+    .map((source) => source.id)
+    .sort();
+  const incompleteCoverage = buildCoverageMatrix(batches, release).filter((cell) => !cell.covered);
+  return {
+    releaseReady:
+      missingSourceIds.length === 0 &&
+      staleSourceIds.length === 0 &&
+      incompleteCoverage.length === 0,
+    requiredSourceCount: expectedSources.length,
+    approvedSourceCount: expectedSources.length - missingSourceIds.length,
+    missingSourceIds,
+    staleSourceIds,
+    incompleteCoverage,
+  };
+}
+
+export async function assessPublishedReleaseReadiness(
+  workspaceRoot: string,
+  options: { today?: string } = {},
+): Promise<ReleaseReadinessAssessment> {
+  const paths = projectPaths(workspaceRoot);
+  const [manifest, release, sources] = await Promise.all([
+    PublishedDatasetManifestSchema.parse(
+      await readJson(resolve(paths.publicData, "manifest.json")),
+    ),
+    loadReleaseConfig(paths.releaseConfig),
+    loadSourceManifests(paths.sources),
+  ]);
+  const expectedSources = getExpectedReleaseSources(sources, release);
+  const publishedCoverage = new Map(manifest.coverage.map((item) => [item.sourceId, item]));
+  const missingSourceIds = expectedSources
+    .filter((source) => !publishedCoverage.has(source.id))
+    .map((source) => source.id)
+    .sort();
+  const today = options.today ?? new Date().toISOString().slice(0, 10);
+  const staleSourceIds = expectedSources
+    .filter((source) => {
+      const coverage = publishedCoverage.get(source.id);
+      return coverage && (coverage.stale || coverage.reviewBy < today);
+    })
+    .map((source) => source.id)
+    .sort();
+  const publishedCells = new Map(
+    manifest.coverageMatrix.map((cell) => [
+      `${cell.jurisdiction}:${cell.year}:${cell.category}`,
+      cell,
+    ]),
+  );
+  const incompleteCoverage = buildCoverageMatrix([], release)
+    .map((expected) => publishedCells.get(coverageKey(expected)) ?? expected)
+    .filter((cell) => !cell.covered);
+  return {
+    releaseReady:
+      missingSourceIds.length === 0 &&
+      staleSourceIds.length === 0 &&
+      incompleteCoverage.length === 0,
+    requiredSourceCount: expectedSources.length,
+    approvedSourceCount: expectedSources.length - missingSourceIds.length,
+    missingSourceIds,
+    staleSourceIds,
+    incompleteCoverage,
+  };
 }
 
 export async function validateAcceptedData(workspaceRoot: string): Promise<ValidationIssue[]> {
@@ -925,43 +999,35 @@ export async function rebuildPublishedData(
   return manifest;
 }
 
-async function assertReleaseReady(workspaceRoot: string, batches: AcceptedBatch[]): Promise<void> {
-  const paths = projectPaths(workspaceRoot);
-  const [release, sources] = await Promise.all([
-    loadReleaseConfig(paths.releaseConfig),
-    loadSourceManifests(paths.sources),
-  ]);
-  const expectedSources = sources.filter(
+function assertReleaseReady(assessment: ReleaseReadinessAssessment): void {
+  if (assessment.missingSourceIds.length > 0) {
+    throw new Error(
+      `Publishing is blocked by ${assessment.missingSourceIds.length} missing approved batch(es): ${assessment.missingSourceIds.join(", ")}`,
+    );
+  }
+  if (assessment.staleSourceIds.length > 0) {
+    throw new Error(
+      `Publishing is blocked by stale batches: ${assessment.staleSourceIds.join(", ")}`,
+    );
+  }
+  if (assessment.incompleteCoverage.length > 0) {
+    throw new Error(
+      `Publishing is blocked by ${assessment.incompleteCoverage.length} incomplete release coverage cell(s).`,
+    );
+  }
+}
+
+function getExpectedReleaseSources(
+  sources: SourceManifest[],
+  release: Awaited<ReturnType<typeof loadReleaseConfig>>,
+): SourceManifest[] {
+  return sources.filter(
     (source) =>
       source.enabled &&
       release.jurisdictions.includes(source.jurisdiction) &&
       release.categories.includes(source.category) &&
       release.targetYears.some((year) => periodOverlapsYear(source, year)),
   );
-  const batchesById = new Map(batches.map((batch) => [batch.source.id, batch]));
-  const missing = expectedSources
-    .filter((source) => !batchesById.has(source.id))
-    .map((source) => source.id);
-  if (missing.length > 0) {
-    throw new Error(
-      `Publishing is blocked by ${missing.length} missing approved batch(es): ${missing.join(", ")}`,
-    );
-  }
-
-  const today = new Date().toISOString().slice(0, 10);
-  const stale = expectedSources.filter((source) => source.freshness.reviewBy < today);
-  if (stale.length > 0) {
-    throw new Error(
-      `Publishing is blocked by stale batches: ${stale.map((source) => source.id).join(", ")}`,
-    );
-  }
-
-  const incomplete = buildCoverageMatrix(batches, release).filter((cell) => !cell.covered);
-  if (incomplete.length > 0) {
-    throw new Error(
-      `Publishing is blocked by ${incomplete.length} incomplete release coverage cell(s).`,
-    );
-  }
 }
 
 function buildCoverageMatrix(
@@ -988,6 +1054,10 @@ function buildCoverageMatrix(
 
 function periodOverlapsYear(source: SourceManifest, year: number): boolean {
   return source.period.startDate <= `${year}-12-31` && source.period.endDate >= `${year}-01-01`;
+}
+
+function coverageKey(cell: PublishedDatasetManifest["coverageMatrix"][number]): string {
+  return `${cell.jurisdiction}:${cell.year}:${cell.category}`;
 }
 
 export async function monitorSources(workspaceRoot: string): Promise<{
@@ -1050,6 +1120,54 @@ async function readAcceptedBatch(
   } catch {
     return undefined;
   }
+}
+
+async function getApprovedRunBatch(
+  workspaceRoot: string,
+  runId: string,
+  sourceId: string,
+): Promise<AcceptedBatch> {
+  const paths = projectPaths(workspaceRoot);
+  const [artifacts, review, resolutions] = await Promise.all([
+    getSourceRunArtifacts(workspaceRoot, runId, sourceId),
+    readJson(resolve(paths.runs, runId, sourceId, "review.json")).then((value) =>
+      BatchReviewDecisionSchema.parse(value),
+    ),
+    readResolutions(paths.runs, runId, sourceId),
+  ]);
+  if (review.decision !== "approved") {
+    throw new Error(`Source batch ${sourceId} is not approved.`);
+  }
+  if (
+    review.runId !== runId ||
+    review.sourceId !== sourceId ||
+    review.fingerprintSha256 !== artifacts.fingerprint.sha256
+  ) {
+    throw new Error(`Source batch ${sourceId} has a review that does not match its artifacts.`);
+  }
+  const reviewedResolutionIds = new Set(review.resolutionIds);
+  const resolvedIssueKeys = new Set(
+    resolutions
+      .filter((resolution) => reviewedResolutionIds.has(resolution.id))
+      .map((resolution) => resolution.issueKey),
+  );
+  const unresolvedBlockers = artifacts.issues.filter(
+    (issue) =>
+      (issue.severity === "blocker" || issue.decisionRequired) &&
+      !resolvedIssueKeys.has(issueKey(issue)),
+  );
+  if (unresolvedBlockers.length > 0) {
+    throw new Error(
+      `Source batch ${sourceId} has ${unresolvedBlockers.length} unresolved blocking issue(s).`,
+    );
+  }
+  return AcceptedBatchSchema.parse({
+    schemaVersion: 1,
+    source: artifacts.source,
+    fingerprint: artifacts.fingerprint,
+    records: artifacts.records,
+    review,
+  });
 }
 
 async function readFileOrEmpty(path: string): Promise<string> {
