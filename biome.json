@@ -16,7 +16,10 @@
       "!test-results",
       "!dev_locals",
       "!apps/web/public/data/*.json",
-      "!**/routeTree.gen.ts"
+      "!**/routeTree.gen.ts",
+      "!data/accepted/**/*.json",
+      "!data/reviews/*.json",
+      "!data/overrides/*.json"
     ]
   },
   "formatter": {
