@@ -121,7 +121,7 @@ function DateButton({
       aria-label={ariaLabel}
       aria-pressed={selected}
       className={cn(
-        "relative flex aspect-square min-w-0 items-center justify-center rounded-sm border text-xs font-medium focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700",
+        "relative flex aspect-square min-w-0 items-center justify-center rounded-sm border text-xs font-medium focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 sm:text-sm",
         hasPublic && "border-amber-500 bg-amber-200 text-slate-950",
         !hasPublic && hasSchool && "border-emerald-600 bg-emerald-100 text-emerald-950",
         !hasPublic && !hasSchool && "border-slate-200 bg-white text-slate-700",
@@ -147,7 +147,10 @@ function DateButton({
         </span>
       ) : null}
       {showFractions && cell.hasStatewideActivity ? (
-        <span className="absolute right-0.5 bottom-0.5 text-[8px] font-bold" aria-hidden="true">
+        <span
+          className="absolute right-0.5 bottom-0.5 text-[8px] font-bold sm:text-[9px]"
+          aria-hidden="true"
+        >
           {`${cell.matchedStates.length}/${selectedStateCount}`}
         </span>
       ) : null}

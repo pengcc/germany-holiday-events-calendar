@@ -34,6 +34,8 @@ export const copy = {
       "并非全部 16 个州都有完整的公共假日覆盖。全国共同日期可能不完整。",
     incompleteCompareCoverage: "部分所选州或假期类型尚无已审核的发布数据。比较结果可能不完整。",
     noMatchingPeriod: "当前筛选时间内没有匹配的已发布假期记录。仍可选择日期查看详情。",
+    noNationwideResultMonths: "所选时间范围内没有适用于全部 16 个州的共同公共假日。",
+    noCompareResultMonths: "当前所选州、假期类型和时间范围内没有可比较的假期结果。",
     calendar: "假期日历",
     overlap: "所选州共同放假",
     some: "部分所选州放假",
@@ -115,6 +117,10 @@ export const copy = {
       "Für einige gewählte Bundesländer oder Ferienarten fehlen geprüfte veröffentlichte Daten. Der Vergleich kann unvollständig sein.",
     noMatchingPeriod:
       "Im gewählten Zeitraum gibt es keine passenden veröffentlichten Ferientermine. Datumsdetails können weiterhin geöffnet werden.",
+    noNationwideResultMonths:
+      "Im gewählten Zeitraum gibt es keinen landesweiten Feiertag, der in allen 16 Bundesländern gemeinsam gilt.",
+    noCompareResultMonths:
+      "Für die gewählten Bundesländer, Ferienarten und den Zeitraum gibt es keine vergleichbaren Ferientermine.",
     calendar: "Ferienkalender",
     overlap: "Alle gewählten Länder haben frei",
     some: "Einige gewählte Länder haben frei",
@@ -204,6 +210,10 @@ export const copy = {
       "Some selected states or holiday types do not have complete reviewed published data. Comparison results may be incomplete.",
     noMatchingPeriod:
       "No published holiday records match the current period and filters. You can still select a date for details.",
+    noNationwideResultMonths:
+      "No statewide public holiday is shared by all 16 federal states in the selected period.",
+    noCompareResultMonths:
+      "No comparable holiday results match the selected states, holiday types, and period.",
     calendar: "Holiday calendar",
     overlap: "All selected states are off",
     some: "Some selected states are off",
