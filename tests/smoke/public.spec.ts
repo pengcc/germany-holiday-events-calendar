@@ -3,6 +3,17 @@ import { expect, type Page, test } from "@playwright/test";
 import { stateCodes } from "../../packages/data-core/src/schemas";
 
 const publicFixtureRoot = resolve("tests/fixtures/public");
+const desktopFilterBreakpoint = 1024;
+
+async function expandMobileFilters(page: Page): Promise<void> {
+  if ((page.viewportSize()?.width ?? desktopFilterBreakpoint) >= desktopFilterBreakpoint) {
+    return;
+  }
+  const disclosure = page.locator("details.he-filter-disclosure");
+  if ((await disclosure.getAttribute("open")) === null) {
+    await page.getByTestId("mobile-filter-summary").click();
+  }
+}
 
 async function usePublishedDataFixture(page: Page): Promise<void> {
   await page.route("**/data/holidays.json", (route) =>
@@ -140,37 +151,38 @@ const localeExpectations = {
     appName: "德国假期与重要活动日历",
     language: "语言",
     stateView: "一个联邦州",
-    publicDayLegend: "黄色：全州公共假日",
-    schoolDayLegend: "绿色：学校假期",
-    mixedDayLegend: "绿色底条：同时包含学校假期",
-    selectedDateLegend: "蓝色描边：已选日期",
-    regionalAdvisoryLegend: "ⓘ：部分地区适用提示",
+    publicDayLegend: "浅橙：全州公共假日",
+    schoolDayLegend: "浅青绿：学校假期",
+    mixedDayLegend: "青绿底条：同时包含学校假期",
+    selectedDateLegend: "深色描边：已选日期",
+    regionalAdvisoryLegend: "部分地区适用提示",
   },
   de: {
     appName: "Germany Holiday & Events Calendar",
     language: "Sprache",
     stateView: "Ein Bundesland",
-    publicDayLegend: "Gelb: landesweiter Feiertag",
-    schoolDayLegend: "Grün: Schulferien",
-    mixedDayLegend: "Grüner Balken: zusätzlich Schulferien",
-    selectedDateLegend: "Blaue Umrandung: ausgewähltes Datum",
-    regionalAdvisoryLegend: "ⓘ: Hinweis auf begrenzte regionale Geltung",
+    publicDayLegend: "Hellorange: landesweiter Feiertag",
+    schoolDayLegend: "Helltürkis: Schulferien",
+    mixedDayLegend: "Türkiser Balken: zusätzlich Schulferien",
+    selectedDateLegend: "Dunkle Umrandung: ausgewähltes Datum",
+    regionalAdvisoryLegend: "Hinweis auf regionale Geltung",
   },
   en: {
     appName: "Germany Holiday & Events Calendar",
     language: "Language",
     stateView: "One federal state",
-    publicDayLegend: "Yellow: Statewide public holiday",
-    schoolDayLegend: "Green: School holiday",
-    mixedDayLegend: "Green bar: Also includes school holidays",
-    selectedDateLegend: "Blue outline: Selected date",
-    regionalAdvisoryLegend: "ⓘ: Limited-applicability advisory",
+    publicDayLegend: "Light orange: statewide public holiday",
+    schoolDayLegend: "Light teal: school holiday",
+    mixedDayLegend: "Teal bar: also includes school holiday",
+    selectedDateLegend: "Dark outline: selected date",
+    regionalAdvisoryLegend: "Limited-applicability advisory",
   },
 } as const;
 
 for (const [locale, expected] of Object.entries(localeExpectations)) {
   test(`${locale} comparison route renders`, async ({ page }) => {
     await page.goto(`/${locale}`);
+    await expandMobileFilters(page);
     await expect(page.locator("h1")).toBeVisible();
     await expect(page.getByRole("navigation", { name: expected.language })).toBeVisible();
     await expect(page.locator("header")).toContainText(expected.appName);
@@ -192,6 +204,7 @@ test("validated explorer filters drive the visible period and survive locale nav
   await page.goto(
     "/en?year=2026&period=quarter&quarter=2&region=multiple&states=DE-BE,DE-BB&layers=public,school&date=2026-05-01",
   );
+  await expandMobileFilters(page);
 
   await expect(page.getByRole("radio", { name: "Compare federal states" })).toBeChecked();
   await expect(page.getByLabel("Period")).toHaveValue("quarter");
@@ -201,7 +214,7 @@ test("validated explorer filters drive the visible period and survive locale nav
   await expect(page.getByRole("region", { name: "May 2026" })).toBeVisible();
   await expect(page.getByRole("region", { name: "June 2026" })).toHaveCount(0);
   await expect(page.getByRole("region", { name: "July 2026" })).toHaveCount(0);
-  await expect(page.getByRole("region", { name: "Date details" })).toContainText("Labour Day");
+  await expect(page.getByRole("region", { name: "Holiday details" })).toContainText("Labour Day");
   await expect(page.getByText("Data coverage is incomplete for this selection")).toBeVisible();
 
   await page.getByRole("link", { name: "de" }).click();
@@ -211,7 +224,7 @@ test("validated explorer filters drive the visible period and survive locale nav
   expect(localizedSearch.has("region")).toBe(false);
   expect(localizedSearch.get("states")).toBe("DE-BB,DE-BE");
   expect(localizedSearch.get("date")).toBe("2026-05-01");
-  await expect(page.getByRole("region", { name: "Details zum Datum" })).toContainText(
+  await expect(page.getByRole("region", { name: "Feiertagsdetails" })).toContainText(
     "Tag der Arbeit",
   );
 });
@@ -219,6 +232,7 @@ test("validated explorer filters drive the visible period and survive locale nav
 test("view mode and period controls update the route-backed calendar", async ({ page }) => {
   await usePublishedDataFixture(page);
   await page.goto("/en?year=2026");
+  await expandMobileFilters(page);
 
   await expect(page.getByRole("radio", { name: "One federal state" })).toBeChecked();
   await expect(page.getByLabel("Federal state", { exact: true })).toBeVisible();
@@ -228,7 +242,7 @@ test("view mode and period controls update the route-backed calendar", async ({ 
   ).toBeVisible();
   await expect(page.getByRole("checkbox", { name: "School holiday" })).toBeDisabled();
   await page.getByRole("radio", { name: "Compare federal states" }).check();
-  await expect(page.getByText("0 states selected")).toBeVisible();
+  await expect(page.getByText("Choose states · 0 states selected", { exact: true })).toBeVisible();
   await expect(
     page.getByText("Select at least two federal states to show comparison results."),
   ).toBeVisible();
@@ -293,7 +307,7 @@ test("visible dates update the URL and recover populated and empty details", asy
   await expect(page).toHaveURL(/date=2026-05-01/);
   await expect(mayFirst).toHaveAttribute("aria-pressed", "true");
   await expect(mayFirst).toHaveAttribute("data-selected", "true");
-  const details = page.getByRole("region", { name: "Date details" });
+  const details = page.getByRole("region", { name: "Holiday details" });
   await expect(details).toContainText("Labour Day");
   await expect(details).toContainText("School-specific closure");
   await expect(details).toContainText("School-specific: Fixture schools");
@@ -306,7 +320,7 @@ test("visible dates update the URL and recover populated and empty details", asy
     "aria-pressed",
     "true",
   );
-  await expect(page.getByRole("region", { name: "Date details" })).toContainText("Labour Day");
+  await expect(page.getByRole("region", { name: "Holiday details" })).toContainText("Labour Day");
 
   const mayThird = page.getByRole("button", { name: /May 3, 2026/ });
   await mayThird.focus();
@@ -342,7 +356,7 @@ test("regional public holidays stay advisory-only in state, compare, and nationw
   await expect(mixedDate.locator('[data-regional-advisory-marker="true"]')).toBeVisible();
   await expect(mixedDate).toContainText("2/2");
   await mixedDate.click();
-  const details = page.getByRole("region", { name: "Date details" });
+  const details = page.getByRole("region", { name: "Holiday details" });
   await expect(details).toContainText("Labour Day");
   await expect(details).toContainText("Regional observance");
   await expect(details).not.toContainText("DE-BB-INTERNAL-REGION-TOKEN");
@@ -409,7 +423,7 @@ test("dates outside the active period are ignored and layer and activity labels 
   await expect(julyNinth.locator("[data-holiday-marker]")).toHaveCount(0);
   await expect(julyNinth).toContainText("1/2");
   await julyNinth.click();
-  const details = page.getByRole("region", { name: "Date details" });
+  const details = page.getByRole("region", { name: "Holiday details" });
   await expect(details).toContainText("Summer holidays");
   await expect(details).toContainText("July 9, 2026 – August 22, 2026");
   await expect(details).toContainText("Statewide");
@@ -428,6 +442,7 @@ test("state selection stays compact and native controls have usable hit targets"
 }) => {
   await usePublishedDataFixture(page);
   await page.goto("/en?year=2026");
+  await expandMobileFilters(page);
 
   await page.getByRole("radio", { name: "Compare federal states" }).check();
   const stateDisclosure = page.locator("summary").filter({ hasText: "Choose states" });
@@ -455,14 +470,98 @@ test("state selection stays compact and native controls have usable hit targets"
   );
 });
 
-test("localized filters fit a 320px viewport without expanding all states", async ({ page }) => {
+test("mobile filters stay collapsed, summarize changes, and preserve disclosure state", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await usePublishedDataFixture(page);
+  await page.goto("/en?year=2026&view=state&states=DE-BE&layers=public,school");
+
+  const disclosure = page.locator("details.he-filter-disclosure");
+  const summary = page.getByTestId("mobile-filter-summary");
+  await expect(disclosure).not.toHaveAttribute("open", "");
+  await expect(summary).toContainText("One federal state");
+  await expect(summary).toContainText("Berlin (BE)");
+  await expect(summary).toContainText("2026");
+  await expect(summary).toContainText("Public holiday + School holiday");
+  await expect(page.getByRole("radio", { name: "One federal state" })).toBeHidden();
+  await expect(page.getByRole("heading", { name: "Holiday calendar" })).toBeVisible();
+
+  await summary.click();
+  await expect(disclosure).toHaveAttribute("open", "");
+  await expect(page.getByRole("radio", { name: "One federal state" })).toBeVisible();
+
+  await page.getByLabel("Federal state", { exact: true }).selectOption("DE-BB");
+  await page.getByLabel("Period").selectOption("quarter");
+  await page.getByLabel("Quarter", { exact: true }).selectOption("2");
+  await page.getByRole("checkbox", { name: "School holiday" }).uncheck();
+
+  await expect(disclosure).toHaveAttribute("open", "");
+  await expect(summary).toContainText("Brandenburg (BB)");
+  await expect(summary).toContainText("Q2 2026");
+  await expect(summary).toContainText("Public holiday");
+  await expect(summary).not.toContainText("School holiday");
+  const search = new URL(page.url()).searchParams;
+  expect(search.get("states")).toBe("DE-BB");
+  expect(search.get("period")).toBe("quarter");
+  expect(search.get("quarter")).toBe("2");
+  expect(search.get("layers")).toBe("public");
+
+  await summary.press("Enter");
+  await expect(disclosure).not.toHaveAttribute("open", "");
+  await expect(page.getByRole("radio", { name: "One federal state" })).toBeHidden();
+  await summary.press("Space");
+  await expect(disclosure).toHaveAttribute("open", "");
+  await summary.press("Enter");
+  await expect(disclosure).not.toHaveAttribute("open", "");
+});
+
+test("mobile nationwide and compare summaries reflect canonical mode state", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await usePublishedDataFixture(page);
+  await page.goto("/en?year=2026&view=nationwide&layers=school");
+
+  const summary = page.getByTestId("mobile-filter-summary");
+  await expect(summary).toContainText("Nationwide common public holidays");
+  await expect(summary).toContainText("All 16 federal states");
+  await expect(summary).toContainText("Public holiday");
+  await expect(summary).not.toContainText("School holiday");
+  await summary.click();
+  await expect(page.getByRole("checkbox", { name: "School holiday" })).toBeDisabled();
+
+  await page.goto("/en?year=2026&view=compare&states=DE-BB");
+  await expect(summary).toContainText("Compare federal states");
+  await expect(summary).toContainText("BB");
+  await summary.click();
+  await expect(
+    page.getByText("Select at least two federal states to show comparison results."),
+  ).toBeVisible();
+
+  await page.goto("/en?year=2026&view=compare&states=DE-BB,DE-BE,DE-BY,DE-TH");
+  await expect(summary).toContainText("BB, BE, BY +1");
+});
+
+test("desktop filters remain visible while the mobile summary stays hidden", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/en?year=2026");
+
+  await expect(page.locator("details.he-filter-disclosure")).not.toHaveAttribute("open", "");
+  await expect(page.getByTestId("mobile-filter-summary")).toBeHidden();
+  await expect(page.getByRole("heading", { name: "Filters" })).toBeVisible();
+  await expect(page.getByRole("radio", { name: "One federal state" })).toBeVisible();
+});
+
+test("localized collapsed filters fit a 320px viewport", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto("/zh?year=2026");
 
-  await expect(page.getByRole("heading", { name: "筛选条件" })).toBeVisible();
-  await expect(page.getByRole("radio", { name: "一个联邦州" })).toBeChecked();
-  await expect(page.getByLabel("联邦州", { exact: true })).toBeVisible();
-  await expect(page.locator("summary").filter({ hasText: "选择联邦州" })).toHaveCount(0);
+  const summary = page.getByTestId("mobile-filter-summary");
+  await expect(summary).toBeVisible();
+  await expect(summary).toContainText("筛选条件");
+  await expect(summary).toContainText("一个联邦州");
+  await expect(summary).toContainText("柏林州 (BE)");
+  await expect(summary).toContainText("公共假日 + 学校假期");
+  await expect(page.getByRole("radio", { name: "一个联邦州" })).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
   );
@@ -473,6 +572,7 @@ test("layer and view changes preserve a visible selected date in URL state", asy
   await page.goto(
     "/en?year=2026&period=month&month=5&region=multiple&states=DE-BE,DE-BB&layers=public,school",
   );
+  await expandMobileFilters(page);
 
   await page.getByRole("button", { name: /May 1, 2026/ }).click();
   const publicLayer = page.getByRole("checkbox", { name: "Public holiday" });
@@ -522,7 +622,7 @@ test("an empty state period hides the calendar and explains coverage", async ({ 
     ),
   ).toBeVisible();
   await expect(page.getByRole("region", { name: "February 2026" })).toHaveCount(0);
-  await expect(page.getByRole("region", { name: "Date details" })).toHaveCount(0);
+  await expect(page.getByRole("region", { name: "Holiday details" })).toHaveCount(0);
 });
 
 test("advisory-only dates stay visually neutral and uncounted", async ({ page }) => {

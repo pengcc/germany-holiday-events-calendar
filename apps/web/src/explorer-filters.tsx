@@ -1,4 +1,5 @@
 import { type StateCode, stateCodes } from "@hsg/data-core/schemas";
+import { ChevronDown } from "lucide-react";
 import type { ReactNode } from "react";
 import {
   type ExplorerSearch,
@@ -7,6 +8,7 @@ import {
   periodModes,
   viewModes,
 } from "./explorer-search";
+import { formatActiveFilterSummary } from "./filter-summary";
 import type { ExplorerCopy, Locale } from "./i18n";
 import { stateNames } from "./i18n";
 import { cn } from "./lib/cn";
@@ -38,158 +40,179 @@ export function ExplorerFilters({
   onToggleState,
   onToggleLayer,
 }: ExplorerFiltersProps) {
+  const activeFilterSummary = formatActiveFilterSummary({
+    locale,
+    search,
+    selectedLayers,
+    selectedStates,
+    text,
+    year,
+  });
+
   return (
-    <div>
-      <div>
-        <h2 className="text-lg font-semibold">{text.filters}</h2>
-        <p className="he-text-secondary mt-1 text-sm leading-5">{text.filterHelp}</p>
-      </div>
+    <details className="he-filter-disclosure">
+      <summary className="he-filter-summary he-focus-ring" data-testid="mobile-filter-summary">
+        <span className="min-w-0">
+          <span className="block text-sm font-semibold">{text.filters}</span>
+          <span className="he-text-secondary mt-0.5 block text-xs leading-5">
+            {activeFilterSummary}
+          </span>
+        </span>
+        <ChevronDown aria-hidden="true" className="he-filter-summary-chevron size-5 shrink-0" />
+      </summary>
 
-      <fieldset className="mt-5">
-        <legend className="he-text-secondary text-sm font-semibold">{text.viewMode}</legend>
-        <p className="he-text-muted mt-1 text-xs leading-5">{text.viewModeHelp}</p>
-        <div className="mt-2 grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
-          {viewModes.map((mode) => (
-            <label
-              key={mode}
-              className={cn(
-                "he-filter-option flex min-h-10 cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm",
-                search.view === mode && "he-filter-option-selected",
-              )}
-            >
-              <input
-                checked={search.view === mode}
-                className="he-choice size-4 shrink-0"
-                name="view"
-                type="radio"
-                onChange={() => onChange({ view: mode })}
-              />
-              <span>
-                {mode === "state"
-                  ? text.stateView
-                  : mode === "nationwide"
-                    ? text.nationwideView
-                    : text.compareView}
-              </span>
-            </label>
-          ))}
+      <div className="he-filter-content" data-testid="filter-content">
+        <div className="hidden lg:block">
+          <h2 className="text-lg font-semibold">{text.filters}</h2>
+          <p className="he-text-secondary mt-1 text-sm leading-5">{text.filterHelp}</p>
         </div>
-      </fieldset>
 
-      <div className="mt-5 grid grid-cols-2 gap-3">
-        <SelectField label={text.year}>
-          <select
-            aria-label={text.year}
-            className={selectClasses}
-            value={year}
-            onChange={(event) => onChange({ year: Number(event.target.value) })}
-          >
-            {availableYears.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </SelectField>
-
-        <SelectField label={text.period}>
-          <select
-            aria-label={text.period}
-            className={selectClasses}
-            value={search.period}
-            onChange={(event) => onChange({ period: event.target.value })}
-          >
-            {periodModes.map((mode) => (
-              <option key={mode} value={mode}>
-                {mode === "year"
-                  ? text.yearView
-                  : mode === "quarter"
-                    ? text.quarterView
-                    : text.monthView}
-              </option>
-            ))}
-          </select>
-        </SelectField>
-
-        {search.period === "quarter" ? (
-          <SelectField label={text.quarter}>
-            <select
-              aria-label={text.quarter}
-              className={selectClasses}
-              value={search.quarter}
-              onChange={(event) => onChange({ quarter: Number(event.target.value) })}
-            >
-              {[1, 2, 3, 4].map((quarter) => (
-                <option key={quarter} value={quarter}>
-                  Q{quarter}
-                </option>
-              ))}
-            </select>
-          </SelectField>
-        ) : null}
-
-        {search.period === "month" ? (
-          <SelectField label={text.month}>
-            <select
-              aria-label={text.month}
-              className={selectClasses}
-              value={search.month}
-              onChange={(event) => onChange({ month: Number(event.target.value) })}
-            >
-              {Array.from({ length: 12 }, (_, index) => index + 1).map((month) => (
-                <option key={month} value={month}>
-                  {new Intl.DateTimeFormat(locale, { month: "long", timeZone: "UTC" }).format(
-                    new Date(Date.UTC(year, month - 1, 1)),
-                  )}
-                </option>
-              ))}
-            </select>
-          </SelectField>
-        ) : null}
-      </div>
-
-      <fieldset className="mt-5">
-        <legend className="he-text-secondary text-sm font-semibold">{text.layers}</legend>
-        <p className="he-text-muted mt-1 text-xs leading-5">{text.layerHelp}</p>
-        <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
-          {holidayLayers.map((layer) => {
-            const selected = selectedLayers.includes(layer);
-            const unavailable = search.view === "nationwide" && layer === "school";
-            return (
+        <fieldset className="mt-5">
+          <legend className="he-text-secondary text-sm font-semibold">{text.viewMode}</legend>
+          <p className="he-text-muted mt-1 text-xs leading-5">{text.viewModeHelp}</p>
+          <div className="mt-2 grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
+            {viewModes.map((mode) => (
               <label
-                key={layer}
+                key={mode}
                 className={cn(
-                  "he-filter-option flex min-h-10 cursor-pointer items-center gap-2 rounded-md border px-3 py-2",
-                  selected && "he-filter-option-selected",
+                  "he-filter-option flex min-h-10 cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm",
+                  search.view === mode && "he-filter-option-selected",
                 )}
               >
                 <input
-                  checked={selected}
+                  checked={search.view === mode}
                   className="he-choice size-4 shrink-0"
-                  disabled={unavailable || (selected && selectedLayers.length === 1)}
-                  type="checkbox"
-                  onChange={() => onToggleLayer(layer)}
+                  name="view"
+                  type="radio"
+                  onChange={() => onChange({ view: mode })}
                 />
-                {layer === "public" ? text.public : text.school}
+                <span>
+                  {mode === "state"
+                    ? text.stateView
+                    : mode === "nationwide"
+                      ? text.nationwideView
+                      : text.compareView}
+                </span>
               </label>
-            );
-          })}
-        </div>
-        {search.view === "nationwide" ? (
-          <p className="he-text-muted mt-2 text-xs leading-5">{text.nationwidePublicOnly}</p>
-        ) : null}
-      </fieldset>
+            ))}
+          </div>
+        </fieldset>
 
-      <StateSelection
-        locale={locale}
-        view={search.view}
-        selectedStates={selectedStates}
-        text={text}
-        onChange={(stateCode) =>
-          search.view === "state" ? onChange({ states: stateCode }) : onToggleState(stateCode)
-        }
-      />
-    </div>
+        <div className="mt-5 grid grid-cols-2 gap-3">
+          <SelectField label={text.year}>
+            <select
+              aria-label={text.year}
+              className={selectClasses}
+              value={year}
+              onChange={(event) => onChange({ year: Number(event.target.value) })}
+            >
+              {availableYears.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </SelectField>
+
+          <SelectField label={text.period}>
+            <select
+              aria-label={text.period}
+              className={selectClasses}
+              value={search.period}
+              onChange={(event) => onChange({ period: event.target.value })}
+            >
+              {periodModes.map((mode) => (
+                <option key={mode} value={mode}>
+                  {mode === "year"
+                    ? text.yearView
+                    : mode === "quarter"
+                      ? text.quarterView
+                      : text.monthView}
+                </option>
+              ))}
+            </select>
+          </SelectField>
+
+          {search.period === "quarter" ? (
+            <SelectField label={text.quarter}>
+              <select
+                aria-label={text.quarter}
+                className={selectClasses}
+                value={search.quarter}
+                onChange={(event) => onChange({ quarter: Number(event.target.value) })}
+              >
+                {[1, 2, 3, 4].map((quarter) => (
+                  <option key={quarter} value={quarter}>
+                    Q{quarter}
+                  </option>
+                ))}
+              </select>
+            </SelectField>
+          ) : null}
+
+          {search.period === "month" ? (
+            <SelectField label={text.month}>
+              <select
+                aria-label={text.month}
+                className={selectClasses}
+                value={search.month}
+                onChange={(event) => onChange({ month: Number(event.target.value) })}
+              >
+                {Array.from({ length: 12 }, (_, index) => index + 1).map((month) => (
+                  <option key={month} value={month}>
+                    {new Intl.DateTimeFormat(locale, { month: "long", timeZone: "UTC" }).format(
+                      new Date(Date.UTC(year, month - 1, 1)),
+                    )}
+                  </option>
+                ))}
+              </select>
+            </SelectField>
+          ) : null}
+        </div>
+
+        <fieldset className="mt-5">
+          <legend className="he-text-secondary text-sm font-semibold">{text.layers}</legend>
+          <p className="he-text-muted mt-1 text-xs leading-5">{text.layerHelp}</p>
+          <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
+            {holidayLayers.map((layer) => {
+              const selected = selectedLayers.includes(layer);
+              const unavailable = search.view === "nationwide" && layer === "school";
+              return (
+                <label
+                  key={layer}
+                  className={cn(
+                    "he-filter-option flex min-h-10 cursor-pointer items-center gap-2 rounded-md border px-3 py-2",
+                    selected && "he-filter-option-selected",
+                  )}
+                >
+                  <input
+                    checked={selected}
+                    className="he-choice size-4 shrink-0"
+                    disabled={unavailable || (selected && selectedLayers.length === 1)}
+                    type="checkbox"
+                    onChange={() => onToggleLayer(layer)}
+                  />
+                  {layer === "public" ? text.public : text.school}
+                </label>
+              );
+            })}
+          </div>
+          {search.view === "nationwide" ? (
+            <p className="he-text-muted mt-2 text-xs leading-5">{text.nationwidePublicOnly}</p>
+          ) : null}
+        </fieldset>
+
+        <StateSelection
+          locale={locale}
+          view={search.view}
+          selectedStates={selectedStates}
+          text={text}
+          onChange={(stateCode) =>
+            search.view === "state" ? onChange({ states: stateCode }) : onToggleState(stateCode)
+          }
+        />
+      </div>
+    </details>
   );
 }
 

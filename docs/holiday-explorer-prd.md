@@ -61,6 +61,22 @@ Filters for year, period, and holiday type support these decisions. They do not 
 mode. The view mode establishes the user’s question and determines valid state selection, layer
 availability, overlap presentation, coverage messaging, and legend explanation.
 
+### 1.5 Mobile Filter Interaction
+
+Below the desktop sidebar breakpoint, the filter panel is collapsed by default so users can reach
+the current holiday result context without first scrolling through every control. The collapsed,
+read-only disclosure summary must identify the active view mode, state context, period, and holiday
+layers. Nationwide mode must communicate that all 16 states are included in a common-public-holiday
+query without implying editable individual state selection.
+
+The disclosure uses native, keyboard-operable expand/collapse behavior. Expanding it reveals the
+same URL-backed controls and validation behavior used on desktop. Its open/closed state is
+presentation-only and is not stored in query parameters, browser storage, or data files.
+
+At the desktop sidebar breakpoint and above, the full filter panel remains visible without any
+disclosure interaction. The responsive wrapper must not change view-mode semantics, canonical
+query state, result-month filtering, coverage warnings, calendar semantics, or date details.
+
 ## 2. View Modes
 
 ### 2.1 View Mode A: One Federal State
