@@ -24,8 +24,7 @@ interface ExplorerFiltersProps {
   onToggleLayer: (layer: HolidayLayer) => void;
 }
 
-const selectClasses =
-  "h-10 w-full rounded-md border border-slate-300 bg-white px-3 text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700";
+const selectClasses = "he-control he-focus-ring h-10 w-full rounded-md border px-3";
 
 export function ExplorerFilters({
   locale,
@@ -43,26 +42,24 @@ export function ExplorerFilters({
     <div>
       <div>
         <h2 className="text-lg font-semibold">{text.filters}</h2>
-        <p className="mt-1 text-sm leading-5 text-slate-600">{text.filterHelp}</p>
+        <p className="he-text-secondary mt-1 text-sm leading-5">{text.filterHelp}</p>
       </div>
 
       <fieldset className="mt-5">
-        <legend className="text-sm font-semibold text-slate-700">{text.viewMode}</legend>
-        <p className="mt-1 text-xs leading-5 text-slate-500">{text.viewModeHelp}</p>
+        <legend className="he-text-secondary text-sm font-semibold">{text.viewMode}</legend>
+        <p className="he-text-muted mt-1 text-xs leading-5">{text.viewModeHelp}</p>
         <div className="mt-2 grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
           {viewModes.map((mode) => (
             <label
               key={mode}
               className={cn(
-                "flex min-h-10 cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm",
-                search.view === mode
-                  ? "border-sky-700 bg-sky-50 text-sky-950"
-                  : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
+                "he-filter-option flex min-h-10 cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm",
+                search.view === mode && "he-filter-option-selected",
               )}
             >
               <input
                 checked={search.view === mode}
-                className="size-4 shrink-0 accent-sky-800"
+                className="he-choice size-4 shrink-0"
                 name="view"
                 type="radio"
                 onChange={() => onChange({ view: mode })}
@@ -152,8 +149,8 @@ export function ExplorerFilters({
       </div>
 
       <fieldset className="mt-5">
-        <legend className="text-sm font-semibold text-slate-700">{text.layers}</legend>
-        <p className="mt-1 text-xs leading-5 text-slate-500">{text.layerHelp}</p>
+        <legend className="he-text-secondary text-sm font-semibold">{text.layers}</legend>
+        <p className="he-text-muted mt-1 text-xs leading-5">{text.layerHelp}</p>
         <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
           {holidayLayers.map((layer) => {
             const selected = selectedLayers.includes(layer);
@@ -162,15 +159,13 @@ export function ExplorerFilters({
               <label
                 key={layer}
                 className={cn(
-                  "flex min-h-10 cursor-pointer items-center gap-2 rounded-md border px-3 py-2",
-                  selected
-                    ? "border-sky-700 bg-sky-50 text-sky-950"
-                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
+                  "he-filter-option flex min-h-10 cursor-pointer items-center gap-2 rounded-md border px-3 py-2",
+                  selected && "he-filter-option-selected",
                 )}
               >
                 <input
                   checked={selected}
-                  className="size-4 shrink-0 accent-sky-800"
+                  className="he-choice size-4 shrink-0"
                   disabled={unavailable || (selected && selectedLayers.length === 1)}
                   type="checkbox"
                   onChange={() => onToggleLayer(layer)}
@@ -181,7 +176,7 @@ export function ExplorerFilters({
           })}
         </div>
         {search.view === "nationwide" ? (
-          <p className="mt-2 text-xs leading-5 text-slate-500">{text.nationwidePublicOnly}</p>
+          <p className="he-text-muted mt-2 text-xs leading-5">{text.nationwidePublicOnly}</p>
         ) : null}
       </fieldset>
 
@@ -213,16 +208,16 @@ function StateSelection({
 }) {
   if (view === "nationwide") {
     return (
-      <section className="mt-5 rounded-md border border-slate-200 bg-slate-50 p-3">
-        <h3 className="text-sm font-semibold text-slate-700">{text.selectStates}</h3>
-        <p className="mt-1 text-sm text-slate-600">{text.allStatesIncluded}</p>
+      <section className="he-filter-option mt-5 rounded-md border p-3">
+        <h3 className="he-text-secondary text-sm font-semibold">{text.selectStates}</h3>
+        <p className="he-text-secondary mt-1 text-sm">{text.allStatesIncluded}</p>
       </section>
     );
   }
 
   if (view === "state") {
     return (
-      <label className="mt-5 block text-sm font-semibold text-slate-700">
+      <label className="he-text-secondary mt-5 block text-sm font-semibold">
         <span className="mb-1 block">{text.singleStateChoice}</span>
         <select
           aria-label={text.singleStateChoice}
@@ -242,52 +237,49 @@ function StateSelection({
 
   return (
     <section className="mt-5">
-      <h3 className="text-sm font-semibold text-slate-700">{text.selectStates}</h3>
+      <h3 className="he-text-secondary text-sm font-semibold">{text.selectStates}</h3>
       <ul className="mt-2 flex flex-wrap gap-1.5" aria-label={text.selectedStatesLabel}>
         {selectedStates.slice(0, 3).map((stateCode) => (
-          <li
-            key={stateCode}
-            className="rounded-full border border-sky-200 bg-sky-50 px-2 py-1 text-xs text-sky-950"
-          >
+          <li key={stateCode} className="he-state-chip rounded-full border px-2 py-1 text-xs">
             {stateCode.slice(3)}
           </li>
         ))}
         {selectedStates.length > 3 ? (
-          <li className="rounded-full border border-slate-200 bg-white px-2 py-1 text-xs text-slate-600">
+          <li className="he-control rounded-full border px-2 py-1 text-xs">
             +{selectedStates.length - 3}
           </li>
         ) : null}
       </ul>
       {selectedStates.length < 2 ? (
-        <p
-          className="mt-2 border-l-4 border-amber-500 bg-amber-50 p-2 text-xs leading-5 text-amber-950"
-          role="alert"
-        >
+        <p className="he-warning mt-2 border-l-4 p-2 text-xs leading-5" role="alert">
           {text.compareValidation}
         </p>
       ) : null}
-      <details className="mt-2 rounded-md border border-slate-200 bg-white">
-        <summary className="cursor-pointer px-3 py-2 text-sm font-medium text-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700">
+      <details className="he-control mt-2 rounded-md border">
+        <summary className="he-focus-ring cursor-pointer px-3 py-2 text-sm font-medium">
           {text.chooseStates} · {formatStateCount(selectedStates.length, text)}
         </summary>
-        <div className="border-t border-slate-200 p-3">
-          <p className="mb-2 text-xs leading-5 text-slate-500">{text.minimumTwoStates}</p>
+        <div className="he-border-subtle border-t p-3">
+          <p className="he-text-muted mb-2 text-xs leading-5">{text.minimumTwoStates}</p>
           <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
             {stateCodes.map((stateCode) => {
               const selected = selectedStates.includes(stateCode);
               return (
                 <label
                   key={stateCode}
-                  className="flex min-h-10 cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-slate-50"
+                  className={cn(
+                    "he-filter-option flex min-h-10 cursor-pointer items-center gap-2 rounded-md border border-transparent px-2 py-1.5 text-sm",
+                    selected && "he-filter-option-selected",
+                  )}
                 >
                   <input
                     checked={selected}
-                    className="size-4 shrink-0 accent-sky-800"
+                    className="he-choice size-4 shrink-0"
                     type="checkbox"
                     onChange={() => onChange(stateCode)}
                   />
                   <span className="min-w-0 flex-1">{stateNames[stateCode]?.[locale]}</span>
-                  <span className="text-xs text-slate-500">{stateCode.slice(3)}</span>
+                  <span className="he-text-muted text-xs">{stateCode.slice(3)}</span>
                 </label>
               );
             })}
@@ -300,7 +292,7 @@ function StateSelection({
 
 function SelectField({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="text-sm font-medium text-slate-600">
+    <div className="he-text-secondary text-sm font-medium">
       <span className="mb-1 block">{label}</span>
       {children}
     </div>

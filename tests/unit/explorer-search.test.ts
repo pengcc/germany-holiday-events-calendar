@@ -19,16 +19,17 @@ describe("explorer search state", () => {
       quarter: undefined,
       month: undefined,
       view: "state",
-      states: "DE-BW",
+      states: "DE-BE",
       layers: "public,school",
       date: undefined,
     });
-    expect(getSelectedStates(search)).toEqual(["DE-BW"]);
+    expect(getSelectedStates(search)).toEqual(["DE-BE"]);
     expect(getSelectedLayers(search)).toEqual(["public", "school"]);
     expect(getVisibleMonths(search)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
   });
 
   it("canonicalizes state and comparison selections without inventing comparison states", () => {
+    const explicitSingle = parseExplorerSearch({ view: "state", states: "DE-TH" });
     const single = parseExplorerSearch({ view: "state", states: "invalid,DE-BE,DE-BB" });
     const comparison = parseExplorerSearch({
       view: "compare",
@@ -36,6 +37,8 @@ describe("explorer search state", () => {
     });
     const incomplete = parseExplorerSearch({ view: "compare", states: "DE-BE" });
 
+    expect(explicitSingle.states).toBe("DE-TH");
+    expect(getSelectedStates(explicitSingle)).toEqual(["DE-TH"]);
     expect(single.states).toBe("DE-BB");
     expect(getSelectedStates(single)).toEqual(["DE-BB"]);
     expect(comparison.states).toBe("DE-BE,DE-TH");
