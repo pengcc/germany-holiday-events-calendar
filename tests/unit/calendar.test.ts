@@ -4,6 +4,7 @@ import {
   buildMonth,
   deriveHolidayCalendar,
   getCalendarPeriodBounds,
+  getResultMonths,
   type HolidayLayer,
 } from "../../apps/web/src/calendar";
 import type { ViewMode } from "../../apps/web/src/explorer-search";
@@ -250,6 +251,62 @@ describe("holiday calendar derivation", () => {
     expect(copy.zh.regionalAdvisoryBody).toContain("官方来源");
     expect(copy.de.regionalAdvisoryBody).toContain("offizieller Quellen");
     expect(copy.en.regionalAdvisoryBody).toContain("official sources");
+  });
+
+  it("provides result-empty copy in every supported locale", () => {
+    expect(copy.zh.noStateResultMonths).toContain("没有匹配");
+    expect(copy.zh.noNationwideResultMonths).toContain("16 个州");
+    expect(copy.zh.noCompareResultMonths).toContain("没有可比较");
+    expect(copy.de.noStateResultMonths).toContain("keine passenden");
+    expect(copy.de.noNationwideResultMonths).toContain("16 Bundesländern");
+    expect(copy.de.noCompareResultMonths).toContain("keine vergleichbaren");
+    expect(copy.en.noStateResultMonths).toContain("No holiday results");
+    expect(copy.en.noNationwideResultMonths).toContain("all 16 federal states");
+    expect(copy.en.noCompareResultMonths).toContain("No comparable holiday results");
+  });
+
+  it("filters state months while keeping invalid compare months unfiltered", () => {
+    const calendar = derive({
+      records: [record("may", "DE-BE", "public", "2026-05-01", "2026-05-01")],
+      states: ["DE-BE"],
+      layers: ["public"],
+    });
+    const periodMonths = [4, 5, 6];
+
+    expect(getResultMonths(periodMonths, calendar.days, "state", true)).toEqual([5]);
+    expect(getResultMonths(periodMonths, calendar.days, "compare", false)).toEqual(periodMonths);
+  });
+
+  it("keeps only nationwide months containing common statewide activity", () => {
+    const calendar = derive({
+      records: [
+        ...stateCodes.map((stateCode) =>
+          record(`shared-${stateCode}`, stateCode, "public", "2026-05-01", "2026-05-01"),
+        ),
+        record("regional", "DE-BE", "public", "2026-06-04", "2026-06-04", "regional"),
+      ],
+      states: [...stateCodes],
+      layers: ["public"],
+      viewMode: "nationwide",
+    });
+
+    expect(getResultMonths([4, 5, 6], calendar.days, "nationwide", true)).toEqual([5]);
+    expect(getResultMonths([6], calendar.days, "nationwide", true)).toEqual([]);
+  });
+
+  it("keeps compare months with rendered public or school activity but not advisories", () => {
+    const calendar = derive({
+      records: [
+        record("public", "DE-BE", "public", "2026-05-01", "2026-05-01"),
+        record("advisory", "DE-BB", "public", "2026-06-04", "2026-06-04", "regional"),
+        record("school", "DE-BB", "school", "2026-07-09", "2026-07-09"),
+      ],
+      states: ["DE-BE", "DE-BB"],
+      layers: ["public", "school"],
+      viewMode: "compare",
+    });
+
+    expect(getResultMonths([5, 6, 7], calendar.days, "compare", true)).toEqual([5, 7]);
   });
 });
 

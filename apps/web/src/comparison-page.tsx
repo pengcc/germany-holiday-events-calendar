@@ -2,7 +2,7 @@ import type { HolidayRecord, PublishedDatasetManifest, StateCode } from "@hsg/da
 import { Link } from "@tanstack/react-router";
 import { CalendarDays, DatabaseZap, Languages } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { deriveHolidayCalendar } from "./calendar";
+import { deriveHolidayCalendar, getResultMonths } from "./calendar";
 import { Button } from "./components/button";
 import { loadPublishedData } from "./data";
 import { DateDetails } from "./date-details";
@@ -32,7 +32,7 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
   const [records, setRecords] = useState<HolidayRecord[]>([]);
   const [manifest, setManifest] = useState<PublishedDatasetManifest>();
   const [error, setError] = useState<string>();
-  const visibleMonths = getVisibleMonths(search);
+  const periodMonths = useMemo(() => getVisibleMonths(search), [search]);
   const year = search.year ?? manifest?.targetYears[0] ?? new Date().getFullYear();
   const calendar = useMemo(
     () =>
@@ -54,6 +54,11 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
   const selectedStates = calendar.selectedStates;
   const selectedLayers = calendar.layers;
   const comparisonValid = isComparisonValid(search);
+  const visibleMonths = useMemo(
+    () => getResultMonths(periodMonths, calendar.days, search.view, comparisonValid),
+    [calendar.days, comparisonValid, periodMonths, search.view],
+  );
+  const showResultEmptyState = comparisonValid && visibleMonths.length === 0;
 
   useEffect(() => {
     loadPublishedData()
@@ -81,6 +86,18 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
       onSearchChange(canonicalSearch, { replace: true });
     }
   }, [manifest, onSearchChange, search]);
+
+  useEffect(() => {
+    if (
+      !manifest ||
+      !search.date ||
+      !comparisonValid ||
+      visibleMonths.includes(Number(search.date.slice(5, 7)))
+    ) {
+      return;
+    }
+    onSearchChange(updateExplorerSearch(search, { date: undefined }), { replace: true });
+  }, [comparisonValid, manifest, onSearchChange, search, visibleMonths]);
 
   const availableYears = useMemo(() => {
     if (manifest?.targetYears.length) {
@@ -226,30 +243,35 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
                   </p>
                 </div>
               ) : null}
-              {calendar.days.size === 0 && comparisonValid ? (
+              {showResultEmptyState ? (
                 <p className="mt-4 border border-slate-200 bg-white p-4 text-sm text-slate-700">
-                  {text.noMatchingPeriod}
+                  {search.view === "state"
+                    ? text.noStateResultMonths
+                    : search.view === "nationwide"
+                      ? text.noNationwideResultMonths
+                      : text.noCompareResultMonths}
                 </p>
-              ) : null}
-              <div className="mt-6 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
-                <HolidayCalendar
-                  dayIndex={calendar.days}
-                  locale={locale}
-                  months={visibleMonths}
-                  selectedDate={search.date}
-                  selectedStateCount={selectedStates.length}
-                  showFractions={search.view === "compare" && comparisonValid}
-                  text={text}
-                  year={year}
-                  onSelectDate={(date) => changeSearch({ date })}
-                />
-                <DateDetails
-                  day={search.date ? calendar.days.get(search.date) : undefined}
-                  locale={locale}
-                  selectedDate={search.date}
-                  text={text}
-                />
-              </div>
+              ) : (
+                <div className="mt-6 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
+                  <HolidayCalendar
+                    dayIndex={calendar.days}
+                    locale={locale}
+                    months={visibleMonths}
+                    selectedDate={search.date}
+                    selectedStateCount={selectedStates.length}
+                    showFractions={search.view === "compare" && comparisonValid}
+                    text={text}
+                    year={year}
+                    onSelectDate={(date) => changeSearch({ date })}
+                  />
+                  <DateDetails
+                    day={search.date ? calendar.days.get(search.date) : undefined}
+                    locale={locale}
+                    selectedDate={search.date}
+                    text={text}
+                  />
+                </div>
+              )}
             </>
           )}
         </section>

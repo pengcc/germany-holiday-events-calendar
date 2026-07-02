@@ -182,6 +182,25 @@ export function buildMonth(
   return { leading, cells };
 }
 
+export function getResultMonths(
+  periodMonths: readonly number[],
+  dayIndex: ReadonlyMap<string, CalendarDay>,
+  viewMode: ViewMode,
+  comparisonValid: boolean,
+): number[] {
+  if (viewMode === "compare" && !comparisonValid) {
+    return [...periodMonths];
+  }
+
+  const activityMonths = new Set<number>();
+  for (const day of dayIndex.values()) {
+    if (day.activityRecords.length > 0) {
+      activityMonths.add(Number(day.date.slice(5, 7)));
+    }
+  }
+  return periodMonths.filter((month) => activityMonths.has(month));
+}
+
 function deriveCoverage(
   selectedStates: readonly StateCode[],
   layers: readonly HolidayLayer[],
