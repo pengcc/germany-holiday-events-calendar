@@ -7,6 +7,7 @@ import {
   type HolidayLayer,
 } from "../../apps/web/src/calendar";
 import type { ViewMode } from "../../apps/web/src/explorer-search";
+import { copy } from "../../apps/web/src/i18n";
 import { stateCodes } from "../../packages/data-core/src/schemas";
 
 describe("holiday calendar derivation", () => {
@@ -133,7 +134,7 @@ describe("holiday calendar derivation", () => {
     expect(calendar.days.get("2026-10-03")?.matchedStates).toHaveLength(16);
   });
 
-  it("keeps regional and school-specific records out of statewide overlap", () => {
+  it("separates regional public advisories from normal activity and preserves school behavior", () => {
     const calendar = derive({
       records: [
         record("be-statewide", "DE-BE", "public", "2026-08-08", "2026-08-08"),
@@ -146,9 +147,29 @@ describe("holiday calendar derivation", () => {
     const day = calendar.days.get("2026-08-08");
 
     expect(day?.records).toHaveLength(3);
+    expect(day?.activityRecords.map(({ id }) => id)).toEqual(["bb-school", "be-statewide"]);
+    expect(day?.advisoryRecords.map(({ id }) => id)).toEqual(["bb-regional"]);
     expect(day?.statewideRecords.map(({ id }) => id)).toEqual(["be-statewide"]);
     expect(day?.matchedStates).toEqual(["DE-BE"]);
     expect(day?.overlap).toBe("partial");
+  });
+
+  it("keeps a regional-only public date selectable without statewide activity or overlap", () => {
+    const calendar = derive({
+      records: [record("be-regional", "DE-BE", "public", "2026-06-04", "2026-06-04", "regional")],
+      states: ["DE-BE", "DE-BB"],
+      layers: ["public"],
+    });
+    const day = calendar.days.get("2026-06-04");
+
+    expect(day).toMatchObject({
+      hasStatewideActivity: false,
+      matchedStates: [],
+      overlap: "none",
+    });
+    expect(day?.records.map(({ id }) => id)).toEqual(["be-regional"]);
+    expect(day?.activityRecords).toEqual([]);
+    expect(day?.advisoryRecords.map(({ id }) => id)).toEqual(["be-regional"]);
   });
 
   it("requires all 16 statewide public jurisdictions for nationwide common dates", () => {
@@ -167,6 +188,7 @@ describe("holiday calendar derivation", () => {
 
     expect([...calendar.days.keys()]).toEqual(["2026-10-03"]);
     expect(calendar.days.get("2026-10-03")?.records).toHaveLength(16);
+    expect(calendar.days.get("2026-10-03")?.advisoryRecords).toEqual([]);
     expect(calendar.days.get("2026-10-03")?.overlap).toBe("none");
   });
 
@@ -190,6 +212,8 @@ describe("holiday calendar derivation", () => {
     expect(month.cells[0]).toMatchObject({
       date: "2026-05-01",
       records: [],
+      activityRecords: [],
+      advisoryRecords: [],
       matchedStates: [],
       hasStatewideActivity: false,
       overlap: "none",
@@ -220,6 +244,12 @@ describe("holiday calendar derivation", () => {
         { jurisdiction: "DE-BE", year: 2026, category: "school" },
       ],
     });
+  });
+
+  it("provides regional advisory verification copy in every supported locale", () => {
+    expect(copy.zh.regionalAdvisoryBody).toContain("官方来源");
+    expect(copy.de.regionalAdvisoryBody).toContain("offizieller Quellen");
+    expect(copy.en.regionalAdvisoryBody).toContain("official sources");
   });
 });
 

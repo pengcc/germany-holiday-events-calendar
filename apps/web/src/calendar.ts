@@ -26,6 +26,8 @@ export interface CalendarPeriodBounds extends CalendarPeriodSelection {
 export interface CalendarDay {
   date: string;
   records: readonly HolidayRecord[];
+  activityRecords: readonly HolidayRecord[];
+  advisoryRecords: readonly HolidayRecord[];
   statewideRecords: readonly HolidayRecord[];
   matchedStates: readonly StateCode[];
   hasStatewideActivity: boolean;
@@ -109,6 +111,8 @@ export function deriveHolidayCalendar({
     left.localeCompare(right),
   )) {
     const dateRecords = [...recordsForDate.values()].sort(compareRecords);
+    const advisoryRecords = dateRecords.filter(isRegionalPublicHoliday);
+    const activityRecords = dateRecords.filter((record) => !isRegionalPublicHoliday(record));
     const statewideRecords = dateRecords.filter((record) => record.scope === "statewide");
     const matchedStates = uniqueSorted(statewideRecords.map((record) => record.jurisdiction));
     if (viewMode === "nationwide" && matchedStates.length !== stateCodes.length) {
@@ -117,6 +121,8 @@ export function deriveHolidayCalendar({
     days.set(date, {
       date,
       records: viewMode === "nationwide" ? statewideRecords : dateRecords,
+      activityRecords: viewMode === "nationwide" ? statewideRecords : activityRecords,
+      advisoryRecords: viewMode === "nationwide" ? [] : advisoryRecords,
       statewideRecords,
       matchedStates,
       hasStatewideActivity: matchedStates.length > 0,
@@ -165,6 +171,8 @@ export function buildMonth(
       day,
       date,
       records: indexedDay?.records ?? [],
+      activityRecords: indexedDay?.activityRecords ?? [],
+      advisoryRecords: indexedDay?.advisoryRecords ?? [],
       statewideRecords: indexedDay?.statewideRecords ?? [],
       matchedStates: indexedDay?.matchedStates ?? [],
       hasStatewideActivity: indexedDay?.hasStatewideActivity ?? false,
@@ -247,6 +255,10 @@ function compareRecords(left: HolidayRecord, right: HolidayRecord): number {
     left.endDate.localeCompare(right.endDate) ||
     left.id.localeCompare(right.id)
   );
+}
+
+function isRegionalPublicHoliday(record: HolidayRecord): boolean {
+  return record.category === "public" && record.scope === "regional";
 }
 
 function uniqueSorted<T extends string>(values: readonly T[]): T[] {

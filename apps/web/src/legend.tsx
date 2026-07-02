@@ -1,5 +1,6 @@
 import { HolidayMarker } from "./holiday-marker";
 import type { ExplorerCopy } from "./i18n";
+import { RegionalAdvisoryMarker } from "./regional-advisory-marker";
 
 export function HolidayLegend({ compareMode, text }: { compareMode: boolean; text: ExplorerCopy }) {
   return (
@@ -7,6 +8,12 @@ export function HolidayLegend({ compareMode, text }: { compareMode: boolean; tex
       <legend className="sr-only">{text.legend}</legend>
       <CategoryLegendItem category="public" text={text.publicMarkerLegend} />
       <CategoryLegendItem category="school" text={text.schoolMarkerLegend} />
+      <span className="inline-flex items-center gap-1.5">
+        <span className="inline-flex size-4 items-center justify-center" aria-hidden="true">
+          <RegionalAdvisoryMarker />
+        </span>
+        {text.regionalAdvisoryMarkerLegend}
+      </span>
       <BackgroundLegendItem className="border-amber-500 bg-amber-200" text={text.publicDayLegend} />
       <BackgroundLegendItem
         className="border-emerald-600 bg-emerald-100"

@@ -30,25 +30,30 @@ const localeExpectations = {
     appName: "德国假期与重要活动日历",
     language: "语言",
     stateView: "一个联邦州",
-    publicMarkerLegend: "圆点：公共假日",
+    publicMarkerLegend: "圆点：全州公共假日",
     schoolMarkerLegend: "菱形：学校假期",
-    publicDayLegend: "黄色背景：包含公共假日",
+    publicDayLegend: "黄色背景：包含全州公共假日",
+    regionalAdvisoryLegend: "定位标记：仅部分地区适用的提示，不计为全州公共假日",
   },
   de: {
     appName: "Germany Holiday & Events Calendar",
     language: "Sprache",
     stateView: "Ein Bundesland",
-    publicMarkerLegend: "Kreis: Feiertag",
+    publicMarkerLegend: "Kreis: landesweiter Feiertag",
     schoolMarkerLegend: "Raute: Schulferien",
-    publicDayLegend: "Gelber Hintergrund: enthält einen Feiertag",
+    publicDayLegend: "Gelber Hintergrund: enthält einen landesweiten Feiertag",
+    regionalAdvisoryLegend:
+      "Ortsmarke: Hinweis auf begrenzte regionale Geltung; zählt nicht als landesweiter Feiertag",
   },
   en: {
     appName: "Germany Holiday & Events Calendar",
     language: "Language",
     stateView: "One federal state",
-    publicMarkerLegend: "Circle: Public holiday",
+    publicMarkerLegend: "Circle: Statewide public holiday",
     schoolMarkerLegend: "Diamond: School holiday",
-    publicDayLegend: "Yellow background: includes a public holiday",
+    publicDayLegend: "Yellow background: includes a statewide public holiday",
+    regionalAdvisoryLegend:
+      "Pin: Limited-applicability advisory; not counted as a statewide public holiday",
   },
 } as const;
 
@@ -62,6 +67,7 @@ for (const [locale, expected] of Object.entries(localeExpectations)) {
     await expect(page.getByText(expected.publicMarkerLegend, { exact: true })).toBeVisible();
     await expect(page.getByText(expected.schoolMarkerLegend, { exact: true })).toBeVisible();
     await expect(page.getByText(expected.publicDayLegend, { exact: true })).toBeVisible();
+    await expect(page.getByText(expected.regionalAdvisoryLegend, { exact: true })).toBeVisible();
     await expect(page.getByText("Holiday Sync Germany")).toHaveCount(0);
     await expect(page.locator("main")).toContainText(/reviewed|审核|geprüft/i);
   });
@@ -197,6 +203,51 @@ test("visible dates update the URL and recover populated and empty details", asy
   await expect(details).toContainText(
     "No published holiday records match the current filters on this date.",
   );
+});
+
+test("regional public holidays stay advisory-only in state, compare, and nationwide views", async ({
+  page,
+}) => {
+  await usePublishedDataFixture(page);
+  await page.goto("/en?year=2026&period=month&month=6&region=single&states=DE-BE&layers=public");
+
+  const regionalOnlyDate = page.getByRole("button", { name: /June 4, 2026/ });
+  await expect(regionalOnlyDate).toHaveAccessibleName(
+    /Limited-applicability public holiday advisory/,
+  );
+  await expect(regionalOnlyDate.locator('[data-regional-advisory-marker="true"]')).toBeVisible();
+  await expect(regionalOnlyDate.locator('[data-holiday-marker="public"]')).toHaveCount(0);
+  await expect(regionalOnlyDate).not.toHaveClass(/bg-amber-200/);
+  await expect(regionalOnlyDate).not.toContainText("/1");
+  await regionalOnlyDate.click();
+
+  const details = page.getByRole("region", { name: "Date details" });
+  await expect(details.getByRole("region", { name: "Limited applicability" })).toBeVisible();
+  await expect(details).toContainText("Corpus Christi");
+  await expect(details).toContainText(
+    "This public holiday applies only in parts of the federal state and is not counted as a statewide public holiday.",
+  );
+  await expect(details).toContainText(
+    "Verify municipality or regional applicability with official sources.",
+  );
+  await expect(details).not.toContainText("DE-BE-CORPUS-CHRISTI-MUNICIPALITIES");
+
+  await page.goto(
+    "/en?year=2026&period=month&month=5&region=multiple&states=DE-BE,DE-BB&layers=public",
+  );
+  const mixedDate = page.getByRole("button", { name: /May 1, 2026/ });
+  await expect(mixedDate.locator('[data-holiday-marker="public"]')).toBeVisible();
+  await expect(mixedDate.locator('[data-regional-advisory-marker="true"]')).toBeVisible();
+  await expect(mixedDate).toContainText("2/2");
+  await mixedDate.click();
+  await expect(details).toContainText("Labour Day");
+  await expect(details).toContainText("Regional observance");
+  await expect(details).not.toContainText("DE-BB-INTERNAL-REGION-TOKEN");
+
+  await page.goto("/en?year=2026&period=month&month=6&view=nationwide");
+  const nationwideDate = page.getByRole("button", { name: /June 4, 2026/ });
+  await expect(nationwideDate.locator('[data-regional-advisory-marker="true"]')).toHaveCount(0);
+  await expect(nationwideDate).not.toHaveAccessibleName(/Limited applicability/);
 });
 
 test("dates outside the active period are ignored and layer and activity labels are explicit", async ({
