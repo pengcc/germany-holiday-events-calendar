@@ -383,6 +383,26 @@
     {
       "category": "public",
       "endDate": "2026-01-01",
+      "id": "public-law-de-by-2026:new-year",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-01-01",
       "id": "public-law-de-hb-2026:new-year",
       "jurisdiction": "DE-HB",
       "names": {
@@ -563,6 +583,26 @@
     {
       "category": "public",
       "endDate": "2026-01-01",
+      "id": "public-law-de-sn-2026:new-year",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-01-01",
       "id": "public-law-de-st-2026:new-year",
       "jurisdiction": "DE-ST",
       "names": {
@@ -577,6 +617,26 @@
       "source": {
         "sourceEventId": "new-year",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-01-01",
+      "id": "public-law-de-th-2026:new-year",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-01-01"
     },
@@ -597,6 +657,26 @@
       "source": {
         "sourceEventId": "epiphany",
         "sourceId": "public-law-de-bw-2026"
+      },
+      "startDate": "2026-01-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-01-06",
+      "id": "public-law-de-by-2026:epiphany",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Heilige Drei Könige",
+        "en": "Epiphany",
+        "zh": "主显节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "epiphany",
+        "sourceId": "public-law-de-by-2026"
       },
       "startDate": "2026-01-06"
     },
@@ -1223,6 +1303,26 @@
     {
       "category": "public",
       "endDate": "2026-04-03",
+      "id": "public-law-de-by-2026:good-friday",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-04-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-03",
       "id": "public-law-de-hb-2026:good-friday",
       "jurisdiction": "DE-HB",
       "names": {
@@ -1403,6 +1503,26 @@
     {
       "category": "public",
       "endDate": "2026-04-03",
+      "id": "public-law-de-sn-2026:good-friday",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-04-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-03",
       "id": "public-law-de-st-2026:good-friday",
       "jurisdiction": "DE-ST",
       "names": {
@@ -1417,6 +1537,26 @@
       "source": {
         "sourceEventId": "good-friday",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-04-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-03",
+      "id": "public-law-de-th-2026:good-friday",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-04-03"
     },
@@ -1497,6 +1637,26 @@
       "source": {
         "sourceEventId": "easter-monday",
         "sourceId": "public-law-de-bw-2026"
+      },
+      "startDate": "2026-04-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-06",
+      "id": "public-law-de-by-2026:easter-monday",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-by-2026"
       },
       "startDate": "2026-04-06"
     },
@@ -1683,6 +1843,26 @@
     {
       "category": "public",
       "endDate": "2026-04-06",
+      "id": "public-law-de-sn-2026:easter-monday",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-04-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-06",
       "id": "public-law-de-st-2026:easter-monday",
       "jurisdiction": "DE-ST",
       "names": {
@@ -1697,6 +1877,26 @@
       "source": {
         "sourceEventId": "easter-monday",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-04-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-06",
+      "id": "public-law-de-th-2026:easter-monday",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-04-06"
     },
@@ -1797,6 +1997,26 @@
       "source": {
         "sourceEventId": "labour-day",
         "sourceId": "public-law-de-bw-2026"
+      },
+      "startDate": "2026-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-01",
+      "id": "public-law-de-by-2026:labour-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-by-2026"
       },
       "startDate": "2026-05-01"
     },
@@ -1983,6 +2203,26 @@
     {
       "category": "public",
       "endDate": "2026-05-01",
+      "id": "public-law-de-sn-2026:labour-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-01",
       "id": "public-law-de-st-2026:labour-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -1997,6 +2237,26 @@
       "source": {
         "sourceEventId": "labour-day",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-01",
+      "id": "public-law-de-th-2026:labour-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-05-01"
     },
@@ -2077,6 +2337,26 @@
       "source": {
         "sourceEventId": "ascension-day",
         "sourceId": "public-law-de-bw-2026"
+      },
+      "startDate": "2026-05-14"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-14",
+      "id": "public-law-de-by-2026:ascension-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-by-2026"
       },
       "startDate": "2026-05-14"
     },
@@ -2263,6 +2543,26 @@
     {
       "category": "public",
       "endDate": "2026-05-14",
+      "id": "public-law-de-sn-2026:ascension-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-05-14"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-14",
       "id": "public-law-de-st-2026:ascension-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -2277,6 +2577,26 @@
       "source": {
         "sourceEventId": "ascension-day",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-05-14"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-14",
+      "id": "public-law-de-th-2026:ascension-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-05-14"
     },
@@ -2523,6 +2843,26 @@
     {
       "category": "public",
       "endDate": "2026-05-25",
+      "id": "public-law-de-by-2026:pentecost-monday",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-05-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-25",
       "id": "public-law-de-hb-2026:pentecost-monday",
       "jurisdiction": "DE-HB",
       "names": {
@@ -2703,6 +3043,26 @@
     {
       "category": "public",
       "endDate": "2026-05-25",
+      "id": "public-law-de-sn-2026:pentecost-monday",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-05-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-25",
       "id": "public-law-de-st-2026:pentecost-monday",
       "jurisdiction": "DE-ST",
       "names": {
@@ -2717,6 +3077,26 @@
       "source": {
         "sourceEventId": "pentecost-monday",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-05-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-25",
+      "id": "public-law-de-th-2026:pentecost-monday",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-05-25"
     },
@@ -2903,6 +3283,26 @@
     {
       "category": "public",
       "endDate": "2026-06-04",
+      "id": "public-law-de-by-2026:corpus-christi",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "corpus-christi",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-06-04"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-06-04",
       "id": "public-law-de-he-2026:corpus-christi",
       "jurisdiction": "DE-HE",
       "names": {
@@ -2977,6 +3377,50 @@
       "source": {
         "sourceEventId": "corpus-christi",
         "sourceId": "public-law-de-sl-2026"
+      },
+      "startDate": "2026-06-04"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-06-04",
+      "id": "public-law-de-sn-2026:corpus-christi-saxony",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2026",
+      "regions": [
+        "DE-SN-CORPUS-CHRISTI-MUNICIPALITIES"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "corpus-christi-saxony",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-06-04"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-06-04",
+      "id": "public-law-de-th-2026:corpus-christi-thuringia",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2026",
+      "regions": [
+        "DE-TH-CORPUS-CHRISTI-MUNICIPALITIES"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "corpus-christi-thuringia",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-06-04"
     },
@@ -3302,6 +3746,50 @@
     },
     {
       "category": "public",
+      "endDate": "2026-08-08",
+      "id": "public-law-de-by-2026:augsburg-peace-festival",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Augsburger Hohes Friedensfest",
+        "en": "Augsburg Peace Festival",
+        "zh": "奥格斯堡和平节"
+      },
+      "periodId": "2026",
+      "regions": [
+        "DE-BY-09761000"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "augsburg-peace-festival",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-08-08"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-08-15",
+      "id": "public-law-de-by-2026:assumption-day-bavaria",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Mariä Himmelfahrt",
+        "en": "Assumption Day",
+        "zh": "圣母升天节"
+      },
+      "periodId": "2026",
+      "regions": [
+        "DE-BY-ASSUMPTION-MUNICIPALITIES"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "assumption-day-bavaria",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-08-15"
+    },
+    {
+      "category": "public",
       "endDate": "2026-08-15",
       "id": "public-law-de-sl-2026:assumption-day",
       "jurisdiction": "DE-SL",
@@ -3319,6 +3807,26 @@
         "sourceId": "public-law-de-sl-2026"
       },
       "startDate": "2026-08-15"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-09-20",
+      "id": "public-law-de-th-2026:world-childrens-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Weltkindertag",
+        "en": "World Children's Day",
+        "zh": "世界儿童日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "world-childrens-day",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-09-20"
     },
     {
       "category": "public",
@@ -3377,6 +3885,26 @@
       "source": {
         "sourceEventId": "german-unity-day",
         "sourceId": "public-law-de-bw-2026"
+      },
+      "startDate": "2026-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-03",
+      "id": "public-law-de-by-2026:german-unity-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-by-2026"
       },
       "startDate": "2026-10-03"
     },
@@ -3563,6 +4091,26 @@
     {
       "category": "public",
       "endDate": "2026-10-03",
+      "id": "public-law-de-sn-2026:german-unity-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-03",
       "id": "public-law-de-st-2026:german-unity-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -3577,6 +4125,26 @@
       "source": {
         "sourceEventId": "german-unity-day",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-03",
+      "id": "public-law-de-th-2026:german-unity-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-10-03"
     },
@@ -4023,6 +4591,26 @@
     {
       "category": "public",
       "endDate": "2026-10-31",
+      "id": "public-law-de-sn-2026:reformation-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Reformationstag",
+        "en": "Reformation Day",
+        "zh": "宗教改革日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "reformation-day",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-10-31"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-31",
       "id": "public-law-de-st-2026:reformation-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -4037,6 +4625,26 @@
       "source": {
         "sourceEventId": "reformation-day",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-10-31"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-31",
+      "id": "public-law-de-th-2026:reformation-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Reformationstag",
+        "en": "Reformation Day",
+        "zh": "宗教改革日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "reformation-day",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-10-31"
     },
@@ -4057,6 +4665,26 @@
       "source": {
         "sourceEventId": "all-saints-day",
         "sourceId": "public-law-de-bw-2026"
+      },
+      "startDate": "2026-11-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-11-01",
+      "id": "public-law-de-by-2026:all-saints-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Allerheiligen",
+        "en": "All Saints' Day",
+        "zh": "万圣节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "all-saints-day",
+        "sourceId": "public-law-de-by-2026"
       },
       "startDate": "2026-11-01"
     },
@@ -4139,6 +4767,26 @@
         "sourceId": "kmk-ics-de-by-2026-27"
       },
       "startDate": "2026-11-02"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-11-18",
+      "id": "public-law-de-sn-2026:repentance-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Buß- und Bettag",
+        "en": "Day of Repentance and Prayer",
+        "zh": "忏悔祈祷日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "repentance-day",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-11-18"
     },
     {
       "category": "school",
@@ -4523,6 +5171,26 @@
     {
       "category": "public",
       "endDate": "2026-12-25",
+      "id": "public-law-de-by-2026:christmas-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-25",
       "id": "public-law-de-hb-2026:christmas-day",
       "jurisdiction": "DE-HB",
       "names": {
@@ -4703,6 +5371,26 @@
     {
       "category": "public",
       "endDate": "2026-12-25",
+      "id": "public-law-de-sn-2026:christmas-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-25",
       "id": "public-law-de-st-2026:christmas-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -4717,6 +5405,26 @@
       "source": {
         "sourceEventId": "christmas-day",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-25",
+      "id": "public-law-de-th-2026:christmas-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-12-25"
     },
@@ -4777,6 +5485,26 @@
       "source": {
         "sourceEventId": "second-christmas-day",
         "sourceId": "public-law-de-bw-2026"
+      },
+      "startDate": "2026-12-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-26",
+      "id": "public-law-de-by-2026:second-christmas-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-by-2026"
       },
       "startDate": "2026-12-26"
     },
@@ -4963,6 +5691,26 @@
     {
       "category": "public",
       "endDate": "2026-12-26",
+      "id": "public-law-de-sn-2026:second-christmas-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-sn-2026"
+      },
+      "startDate": "2026-12-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-26",
       "id": "public-law-de-st-2026:second-christmas-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -4977,6 +5725,26 @@
       "source": {
         "sourceEventId": "second-christmas-day",
         "sourceId": "public-law-de-st-2026"
+      },
+      "startDate": "2026-12-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-26",
+      "id": "public-law-de-th-2026:second-christmas-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-th-2026"
       },
       "startDate": "2026-12-26"
     },
@@ -5037,6 +5805,26 @@
       "source": {
         "sourceEventId": "new-year",
         "sourceId": "public-law-de-bw-2027"
+      },
+      "startDate": "2027-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-01-01",
+      "id": "public-law-de-by-2027:new-year",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-by-2027"
       },
       "startDate": "2027-01-01"
     },
@@ -5223,6 +6011,26 @@
     {
       "category": "public",
       "endDate": "2027-01-01",
+      "id": "public-law-de-sn-2027:new-year",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-01-01",
       "id": "public-law-de-st-2027:new-year",
       "jurisdiction": "DE-ST",
       "names": {
@@ -5237,6 +6045,26 @@
       "source": {
         "sourceEventId": "new-year",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-01-01",
+      "id": "public-law-de-th-2027:new-year",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-01-01"
     },
@@ -5257,6 +6085,26 @@
       "source": {
         "sourceEventId": "epiphany",
         "sourceId": "public-law-de-bw-2027"
+      },
+      "startDate": "2027-01-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-01-06",
+      "id": "public-law-de-by-2027:epiphany",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Heilige Drei Könige",
+        "en": "Epiphany",
+        "zh": "主显节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "epiphany",
+        "sourceId": "public-law-de-by-2027"
       },
       "startDate": "2027-01-06"
     },
@@ -5883,6 +6731,26 @@
     {
       "category": "public",
       "endDate": "2027-03-26",
+      "id": "public-law-de-by-2027:good-friday",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-by-2027"
+      },
+      "startDate": "2027-03-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-26",
       "id": "public-law-de-hb-2027:good-friday",
       "jurisdiction": "DE-HB",
       "names": {
@@ -6063,6 +6931,26 @@
     {
       "category": "public",
       "endDate": "2027-03-26",
+      "id": "public-law-de-sn-2027:good-friday",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-03-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-26",
       "id": "public-law-de-st-2027:good-friday",
       "jurisdiction": "DE-ST",
       "names": {
@@ -6077,6 +6965,26 @@
       "source": {
         "sourceEventId": "good-friday",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-03-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-26",
+      "id": "public-law-de-th-2027:good-friday",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-03-26"
     },
@@ -6157,6 +7065,26 @@
       "source": {
         "sourceEventId": "easter-monday",
         "sourceId": "public-law-de-bw-2027"
+      },
+      "startDate": "2027-03-29"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-29",
+      "id": "public-law-de-by-2027:easter-monday",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-by-2027"
       },
       "startDate": "2027-03-29"
     },
@@ -6343,6 +7271,26 @@
     {
       "category": "public",
       "endDate": "2027-03-29",
+      "id": "public-law-de-sn-2027:easter-monday",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-03-29"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-29",
       "id": "public-law-de-st-2027:easter-monday",
       "jurisdiction": "DE-ST",
       "names": {
@@ -6357,6 +7305,26 @@
       "source": {
         "sourceEventId": "easter-monday",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-03-29"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-29",
+      "id": "public-law-de-th-2027:easter-monday",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-03-29"
     },
@@ -6477,6 +7445,26 @@
       "source": {
         "sourceEventId": "labour-day",
         "sourceId": "public-law-de-bw-2027"
+      },
+      "startDate": "2027-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-01",
+      "id": "public-law-de-by-2027:labour-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-by-2027"
       },
       "startDate": "2027-05-01"
     },
@@ -6663,6 +7651,26 @@
     {
       "category": "public",
       "endDate": "2027-05-01",
+      "id": "public-law-de-sn-2027:labour-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-01",
       "id": "public-law-de-st-2027:labour-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -6677,6 +7685,26 @@
       "source": {
         "sourceEventId": "labour-day",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-01",
+      "id": "public-law-de-th-2027:labour-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-05-01"
     },
@@ -6737,6 +7765,26 @@
       "source": {
         "sourceEventId": "ascension-day",
         "sourceId": "public-law-de-bw-2027"
+      },
+      "startDate": "2027-05-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-06",
+      "id": "public-law-de-by-2027:ascension-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-by-2027"
       },
       "startDate": "2027-05-06"
     },
@@ -6923,6 +7971,26 @@
     {
       "category": "public",
       "endDate": "2027-05-06",
+      "id": "public-law-de-sn-2027:ascension-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-05-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-06",
       "id": "public-law-de-st-2027:ascension-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -6937,6 +8005,26 @@
       "source": {
         "sourceEventId": "ascension-day",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-05-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-06",
+      "id": "public-law-de-th-2027:ascension-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-05-06"
     },
@@ -7243,6 +8331,26 @@
     {
       "category": "public",
       "endDate": "2027-05-17",
+      "id": "public-law-de-by-2027:pentecost-monday",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-by-2027"
+      },
+      "startDate": "2027-05-17"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-17",
       "id": "public-law-de-hb-2027:pentecost-monday",
       "jurisdiction": "DE-HB",
       "names": {
@@ -7423,6 +8531,26 @@
     {
       "category": "public",
       "endDate": "2027-05-17",
+      "id": "public-law-de-sn-2027:pentecost-monday",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-05-17"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-17",
       "id": "public-law-de-st-2027:pentecost-monday",
       "jurisdiction": "DE-ST",
       "names": {
@@ -7437,6 +8565,26 @@
       "source": {
         "sourceEventId": "pentecost-monday",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-05-17"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-17",
+      "id": "public-law-de-th-2027:pentecost-monday",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-05-17"
     },
@@ -7603,6 +8751,26 @@
     {
       "category": "public",
       "endDate": "2027-05-27",
+      "id": "public-law-de-by-2027:corpus-christi",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "corpus-christi",
+        "sourceId": "public-law-de-by-2027"
+      },
+      "startDate": "2027-05-27"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-27",
       "id": "public-law-de-he-2027:corpus-christi",
       "jurisdiction": "DE-HE",
       "names": {
@@ -7677,6 +8845,50 @@
       "source": {
         "sourceEventId": "corpus-christi",
         "sourceId": "public-law-de-sl-2027"
+      },
+      "startDate": "2027-05-27"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-27",
+      "id": "public-law-de-sn-2027:corpus-christi-saxony",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2027",
+      "regions": [
+        "DE-SN-CORPUS-CHRISTI-MUNICIPALITIES"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "corpus-christi-saxony",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-05-27"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-27",
+      "id": "public-law-de-th-2027:corpus-christi-thuringia",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2027",
+      "regions": [
+        "DE-TH-CORPUS-CHRISTI-MUNICIPALITIES"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "corpus-christi-thuringia",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-05-27"
     },
@@ -8002,6 +9214,50 @@
     },
     {
       "category": "public",
+      "endDate": "2027-08-08",
+      "id": "public-law-de-by-2027:augsburg-peace-festival",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Augsburger Hohes Friedensfest",
+        "en": "Augsburg Peace Festival",
+        "zh": "奥格斯堡和平节"
+      },
+      "periodId": "2027",
+      "regions": [
+        "DE-BY-09761000"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "augsburg-peace-festival",
+        "sourceId": "public-law-de-by-2027"
+      },
+      "startDate": "2027-08-08"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-08-15",
+      "id": "public-law-de-by-2027:assumption-day-bavaria",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Mariä Himmelfahrt",
+        "en": "Assumption Day",
+        "zh": "圣母升天节"
+      },
+      "periodId": "2027",
+      "regions": [
+        "DE-BY-ASSUMPTION-MUNICIPALITIES"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "assumption-day-bavaria",
+        "sourceId": "public-law-de-by-2027"
+      },
+      "startDate": "2027-08-15"
+    },
+    {
+      "category": "public",
       "endDate": "2027-08-15",
       "id": "public-law-de-sl-2027:assumption-day",
       "jurisdiction": "DE-SL",
@@ -8019,6 +9275,26 @@
         "sourceId": "public-law-de-sl-2027"
       },
       "startDate": "2027-08-15"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-09-20",
+      "id": "public-law-de-th-2027:world-childrens-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Weltkindertag",
+        "en": "World Children's Day",
+        "zh": "世界儿童日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "world-childrens-day",
+        "sourceId": "public-law-de-th-2027"
+      },
+      "startDate": "2027-09-20"
     },
     {
       "category": "public",
@@ -8077,6 +9353,26 @@
       "source": {
         "sourceEventId": "german-unity-day",
         "sourceId": "public-law-de-bw-2027"
+      },
+      "startDate": "2027-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-03",
+      "id": "public-law-de-by-2027:german-unity-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-by-2027"
       },
       "startDate": "2027-10-03"
     },
@@ -8263,6 +9559,26 @@
     {
       "category": "public",
       "endDate": "2027-10-03",
+      "id": "public-law-de-sn-2027:german-unity-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-03",
       "id": "public-law-de-st-2027:german-unity-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -8277,6 +9593,26 @@
       "source": {
         "sourceEventId": "german-unity-day",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-03",
+      "id": "public-law-de-th-2027:german-unity-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-10-03"
     },
@@ -8683,6 +10019,26 @@
     {
       "category": "public",
       "endDate": "2027-10-31",
+      "id": "public-law-de-sn-2027:reformation-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Reformationstag",
+        "en": "Reformation Day",
+        "zh": "宗教改革日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "reformation-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-10-31"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-31",
       "id": "public-law-de-st-2027:reformation-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -8697,6 +10053,26 @@
       "source": {
         "sourceEventId": "reformation-day",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-10-31"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-31",
+      "id": "public-law-de-th-2027:reformation-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Reformationstag",
+        "en": "Reformation Day",
+        "zh": "宗教改革日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "reformation-day",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-10-31"
     },
@@ -8717,6 +10093,26 @@
       "source": {
         "sourceEventId": "all-saints-day",
         "sourceId": "public-law-de-bw-2027"
+      },
+      "startDate": "2027-11-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-11-01",
+      "id": "public-law-de-by-2027:all-saints-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Allerheiligen",
+        "en": "All Saints' Day",
+        "zh": "万圣节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "all-saints-day",
+        "sourceId": "public-law-de-by-2027"
       },
       "startDate": "2027-11-01"
     },
@@ -8819,6 +10215,26 @@
         "sourceId": "kmk-pdf-de-by-2027-28"
       },
       "startDate": "2027-11-02"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-11-17",
+      "id": "public-law-de-sn-2027:repentance-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Buß- und Bettag",
+        "en": "Day of Repentance and Prayer",
+        "zh": "忏悔祈祷日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "repentance-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-11-17"
     },
     {
       "category": "school",
@@ -9203,6 +10619,26 @@
     {
       "category": "public",
       "endDate": "2027-12-25",
+      "id": "public-law-de-by-2027:christmas-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-by-2027"
+      },
+      "startDate": "2027-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-25",
       "id": "public-law-de-hb-2027:christmas-day",
       "jurisdiction": "DE-HB",
       "names": {
@@ -9383,6 +10819,26 @@
     {
       "category": "public",
       "endDate": "2027-12-25",
+      "id": "public-law-de-sn-2027:christmas-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-25",
       "id": "public-law-de-st-2027:christmas-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -9397,6 +10853,26 @@
       "source": {
         "sourceEventId": "christmas-day",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-25",
+      "id": "public-law-de-th-2027:christmas-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-12-25"
     },
@@ -9457,6 +10933,26 @@
       "source": {
         "sourceEventId": "second-christmas-day",
         "sourceId": "public-law-de-bw-2027"
+      },
+      "startDate": "2027-12-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-26",
+      "id": "public-law-de-by-2027:second-christmas-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-by-2027"
       },
       "startDate": "2027-12-26"
     },
@@ -9643,6 +11139,26 @@
     {
       "category": "public",
       "endDate": "2027-12-26",
+      "id": "public-law-de-sn-2027:second-christmas-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-12-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-26",
       "id": "public-law-de-st-2027:second-christmas-day",
       "jurisdiction": "DE-ST",
       "names": {
@@ -9657,6 +11173,26 @@
       "source": {
         "sourceEventId": "second-christmas-day",
         "sourceId": "public-law-de-st-2027"
+      },
+      "startDate": "2027-12-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-26",
+      "id": "public-law-de-th-2027:second-christmas-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-th-2027"
       },
       "startDate": "2027-12-26"
     }

@@ -19,7 +19,7 @@
       }
     ],
     "finalUrl": "https://www.kmk.org/service/ferienregelung/ferienkalender?contentUid=13438&state=12&tx_sitepackage_holidaycalendar%5Baction%5D=ical&tx_sitepackage_holidaycalendar%5Bcontroller%5D=HolidayCalendar&type=1764678067&cHash=637231e1ce60c3e124e3fa5498686220",
-    "retrievedAt": "2026-07-01T08:24:39.950Z",
+    "retrievedAt": "2026-07-02T07:03:45.330Z",
     "sha256": "0dd0445a55b89bfb5ee86f449760ecf2bda878e8779af183a27b0c428caa70ff"
   },
   "records": [
@@ -132,9 +132,9 @@
     "overrideIds": [],
     "periodId": "2026-27",
     "resolutionIds": [],
-    "reviewedAt": "2026-07-01T09:50:51.142Z",
+    "reviewedAt": "2026-07-02T07:04:22.812Z",
     "reviewer": "pcc",
-    "runId": "run-2026-07-01T08-24-38-250Z",
+    "runId": "run-2026-07-02T07-03-43-632Z",
     "schemaVersion": 1,
     "sourceId": "kmk-ics-de-sl-2026-27"
   },

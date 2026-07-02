@@ -383,6 +383,20 @@
       "stale": false
     },
     {
+      "jurisdiction": "DE-BY",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-by-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-BY",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-by-2027",
+      "stale": false
+    },
+    {
       "jurisdiction": "DE-HB",
       "periodId": "2026",
       "reviewBy": "2027-01-31",
@@ -509,6 +523,20 @@
       "stale": false
     },
     {
+      "jurisdiction": "DE-SN",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-sn-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-SN",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-sn-2027",
+      "stale": false
+    },
+    {
       "jurisdiction": "DE-ST",
       "periodId": "2026",
       "reviewBy": "2027-01-31",
@@ -520,6 +548,20 @@
       "periodId": "2027",
       "reviewBy": "2027-01-31",
       "sourceId": "public-law-de-st-2027",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-TH",
+      "periodId": "2026",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-th-2026",
+      "stale": false
+    },
+    {
+      "jurisdiction": "DE-TH",
+      "periodId": "2027",
+      "reviewBy": "2027-01-31",
+      "sourceId": "public-law-de-th-2027",
       "stale": false
     }
   ],
@@ -574,9 +616,11 @@
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BY",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-by-2026"
+      ],
       "year": 2026
     },
     {
@@ -591,9 +635,11 @@
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-BY",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-by-2027"
+      ],
       "year": 2027
     },
     {
@@ -988,9 +1034,11 @@
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SN",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-sn-2026"
+      ],
       "year": 2026
     },
     {
@@ -1005,9 +1053,11 @@
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-SN",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-sn-2027"
+      ],
       "year": 2027
     },
     {
@@ -1098,9 +1148,11 @@
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-TH",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-th-2026"
+      ],
       "year": 2026
     },
     {
@@ -1115,14 +1167,16 @@
     },
     {
       "category": "public",
-      "covered": false,
+      "covered": true,
       "jurisdiction": "DE-TH",
-      "sourceIds": [],
+      "sourceIds": [
+        "public-law-de-th-2027"
+      ],
       "year": 2027
     }
   ],
-  "datasetVersion": "6b162680752253d0",
-  "generatedAt": "2026-07-01T09:50:51.475Z",
+  "datasetVersion": "41b730aae3da176f",
+  "generatedAt": "2026-07-02T07:04:23.133Z",
   "jurisdictions": [
     "DE-BW",
     "DE-BY",
@@ -1142,10 +1196,10 @@
     "DE-TH"
   ],
   "overrideIds": [],
-  "recordCount": 483,
+  "recordCount": 559,
   "recordsFile": "holidays.json",
-  "recordsSha256": "6b162680752253d0d9b49c2eb2710bf0f51ebe131c22090fb1d3f0ce10a3a120",
-  "regionalRecordCount": 0,
+  "recordsSha256": "41b730aae3da176f59714c96d07baafa7995304088c6c61fb430ee8bbf29328e",
+  "regionalRecordCount": 8,
   "schemaVersion": 1,
   "targetYears": [
     2026,

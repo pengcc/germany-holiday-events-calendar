@@ -19,8 +19,8 @@
       }
     ],
     "finalUrl": "https://recht.nrw.de/suche/lra/?anw_nr=2&aufgehoben=N&bes_id=3367&det_id=144445&menu=1&sg=1",
-    "lastModified": "Wed, 01 Jul 2026 00:03:36 GMT",
-    "retrievedAt": "2026-07-01T08:19:49.252Z",
+    "lastModified": "Wed, 01 Jul 2026 23:57:32 GMT",
+    "retrievedAt": "2026-07-02T07:03:47.123Z",
     "sha256": "4edd0a6351badde7472702687b53c47adc53f624a7f2d3d6754b62c021490282"
   },
   "records": [
@@ -253,9 +253,9 @@
     "overrideIds": [],
     "periodId": "2027",
     "resolutionIds": [],
-    "reviewedAt": "2026-07-01T09:50:51.430Z",
+    "reviewedAt": "2026-07-02T07:04:23.066Z",
     "reviewer": "pcc",
-    "runId": "run-2026-07-01T08-24-38-250Z",
+    "runId": "run-2026-07-02T07-03-43-632Z",
     "schemaVersion": 1,
     "sourceId": "public-law-de-nw-2027"
   },
