@@ -104,3 +104,29 @@ This file records durable decisions that future work should not re-litigate acci
   batch, current freshness, and complete coverage to pass the release-readiness check.
 - Related files: `packages/data-core/src/pipeline.ts`, `tools/data-cli/src/index.ts`,
   `package.json`, `docs/data-workflow.md`
+
+### Decision 2026-07-02: Adopt the current Holiday Explorer behavioral baseline
+
+- Status: Accepted
+- Context: Earlier project material described the public frontend through all/single/multiple
+  region-selection mechanics, treated the broad product PRD as the primary behavior source, and
+  predated reviewed publication and regional-advisory support. That framing could cause future
+  work to count limited regional holidays as statewide or restore obsolete empty-month behavior.
+- Decision: Use `docs/holiday-explorer-prd.md` as the current behavioral product baseline for the
+  public Holiday Explorer. Its modes are one-state lookup (`state`), nationwide-common public
+  holidays (`nationwide`), and multi-state comparison (`compare`). Valid modes show only months
+  with normal activity for current filters; invalid compare remains validation and coverage
+  warnings remain independent. Evidence-backed limited-applicability public holidays remain
+  `scope: regional`, may be shown as advisories, and must not count as statewide coverage by
+  themselves, normal statewide activity, nationwide-common results, or multi-state overlap.
+  Unsafe regional cases remain blockers. Treat `docs/product-prd.md` as historical/reference
+  material rather than the current Holiday Explorer behavior source.
+- Reason: The explicit source hierarchy and activity/advisory boundary preserve the product
+  questions users actually ask while preventing regional data from overstating applicability or
+  coverage.
+- Impact: Future frontend, Data Studio, review, and data-workflow tasks must preserve these view,
+  result-month, coverage, and regional-advisory semantics. Reviewed accepted data and published
+  JSON remain committed artifacts; local run workspaces remain under ignored `dev_locals/`.
+- Related files: `docs/holiday-explorer-prd.md`, `docs/product-prd.md`, `docs/data-workflow.md`,
+  `apps/web/src/calendar.ts`, `apps/web/src/comparison-page.tsx`,
+  `packages/data-core/src/public-holidays.ts`
