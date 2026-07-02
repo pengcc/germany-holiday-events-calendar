@@ -182,17 +182,16 @@ test("desktop year view keeps month cards readable", async ({ page }) => {
   await usePublishedDataFixture(page);
   await page.goto("/en?year=2026&period=year&region=single&states=DE-BE&layers=public,school");
 
-  const january = page.getByRole("region", { name: "January 2026" });
-  const february = page.getByRole("region", { name: "February 2026" });
-  const march = page.getByRole("region", { name: "March 2026" });
-  const januaryBox = await january.boundingBox();
-  const februaryBox = await february.boundingBox();
-  const marchBox = await march.boundingBox();
+  const may = page.getByRole("region", { name: "May 2026" });
+  const july = page.getByRole("region", { name: "July 2026" });
+  const mayBox = await may.boundingBox();
+  const julyBox = await july.boundingBox();
 
-  expect(januaryBox?.width).toBeGreaterThanOrEqual(340);
-  expect(februaryBox?.width).toBeGreaterThanOrEqual(340);
-  expect(februaryBox?.y).toBe(januaryBox?.y);
-  expect(marchBox?.y).toBeGreaterThan(januaryBox?.y ?? 0);
+  await expect(page.getByRole("region", { name: "January 2026" })).toHaveCount(0);
+  await expect(page.getByRole("region", { name: "June 2026" })).toHaveCount(0);
+  expect(mayBox?.width).toBeGreaterThanOrEqual(340);
+  expect(julyBox?.width).toBeGreaterThanOrEqual(340);
+  expect(julyBox?.y).toBe(mayBox?.y);
 });
 
 test("invalid explorer filters are replaced with safe canonical values", async ({ page }) => {
@@ -254,28 +253,17 @@ test("regional public holidays stay advisory-only in state, compare, and nationw
   page,
 }) => {
   await usePublishedDataFixture(page);
-  await page.goto("/en?year=2026&period=month&month=6&region=single&states=DE-BE&layers=public");
+  await page.goto(
+    "/en?year=2026&period=month&month=6&region=single&states=DE-BE&layers=public&date=2026-06-04",
+  );
 
-  const regionalOnlyDate = page.getByRole("button", { name: /June 4, 2026/ });
-  await expect(regionalOnlyDate).toHaveAccessibleName(
-    /Limited-applicability public holiday advisory/,
-  );
-  await expect(regionalOnlyDate.locator('[data-regional-advisory-marker="true"]')).toBeVisible();
-  await expect(regionalOnlyDate.locator('[data-holiday-marker="public"]')).toHaveCount(0);
-  await expect(regionalOnlyDate).not.toHaveClass(/bg-amber-200/);
-  await expect(regionalOnlyDate).not.toContainText("/1");
-  await regionalOnlyDate.click();
-
-  const details = page.getByRole("region", { name: "Date details" });
-  await expect(details.getByRole("region", { name: "Limited applicability" })).toBeVisible();
-  await expect(details).toContainText("Corpus Christi");
-  await expect(details).toContainText(
-    "This public holiday applies only in parts of the federal state and is not counted as a statewide public holiday.",
-  );
-  await expect(details).toContainText(
-    "Verify municipality or regional applicability with official sources.",
-  );
-  await expect(details).not.toContainText("DE-BE-CORPUS-CHRISTI-MUNICIPALITIES");
+  await expect(page.getByRole("region", { name: "June 2026" })).toHaveCount(0);
+  await expect(
+    page.getByText(
+      "No holiday results match the selected federal state, holiday types, and period.",
+    ),
+  ).toBeVisible();
+  await expect(page).not.toHaveURL(/date=2026-06-04/);
 
   await page.goto(
     "/en?year=2026&period=month&month=5&region=multiple&states=DE-BE,DE-BB&layers=public",
@@ -285,6 +273,7 @@ test("regional public holidays stay advisory-only in state, compare, and nationw
   await expect(mixedDate.locator('[data-regional-advisory-marker="true"]')).toBeVisible();
   await expect(mixedDate).toContainText("2/2");
   await mixedDate.click();
+  const details = page.getByRole("region", { name: "Date details" });
   await expect(details).toContainText("Labour Day");
   await expect(details).toContainText("Regional observance");
   await expect(details).not.toContainText("DE-BB-INTERNAL-REGION-TOKEN");
@@ -454,17 +443,16 @@ test("invalid runtime JSON shows a localized unavailable state", async ({ page }
   await expect(page.getByRole("region", { name: "Januar 2026" })).toHaveCount(0);
 });
 
-test("an empty filtered period remains browsable and explains coverage", async ({ page }) => {
+test("an empty state period hides the calendar and explains coverage", async ({ page }) => {
   await usePublishedDataFixture(page);
   await page.goto("/en?year=2026&period=month&month=2&region=single&states=DE-BE&layers=public");
 
   await expect(page.getByText("Data coverage is incomplete for this selection")).toBeVisible();
   await expect(
-    page.getByText("No published holiday records match the current period and filters."),
+    page.getByText(
+      "No holiday results match the selected federal state, holiday types, and period.",
+    ),
   ).toBeVisible();
-  await expect(page.getByRole("region", { name: "February 2026" })).toBeVisible();
-  await page.getByRole("button", { name: /February 1, 2026/ }).click();
-  await expect(page.getByRole("region", { name: "Date details" })).toContainText(
-    "No published holiday records match the current filters on this date.",
-  );
+  await expect(page.getByRole("region", { name: "February 2026" })).toHaveCount(0);
+  await expect(page.getByRole("region", { name: "Date details" })).toHaveCount(0);
 });

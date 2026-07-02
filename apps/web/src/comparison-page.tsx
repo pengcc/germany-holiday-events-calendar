@@ -58,8 +58,7 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
     () => getResultMonths(periodMonths, calendar.days, search.view, comparisonValid),
     [calendar.days, comparisonValid, periodMonths, search.view],
   );
-  const showResultEmptyState =
-    search.view !== "state" && comparisonValid && visibleMonths.length === 0;
+  const showResultEmptyState = comparisonValid && visibleMonths.length === 0;
 
   useEffect(() => {
     loadPublishedData()
@@ -92,7 +91,6 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
     if (
       !manifest ||
       !search.date ||
-      search.view === "state" ||
       !comparisonValid ||
       visibleMonths.includes(Number(search.date.slice(5, 7)))
     ) {
@@ -245,16 +243,13 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
                   </p>
                 </div>
               ) : null}
-              {search.view === "state" && calendar.days.size === 0 ? (
-                <p className="mt-4 border border-slate-200 bg-white p-4 text-sm text-slate-700">
-                  {text.noMatchingPeriod}
-                </p>
-              ) : null}
               {showResultEmptyState ? (
                 <p className="mt-4 border border-slate-200 bg-white p-4 text-sm text-slate-700">
-                  {search.view === "nationwide"
-                    ? text.noNationwideResultMonths
-                    : text.noCompareResultMonths}
+                  {search.view === "state"
+                    ? text.noStateResultMonths
+                    : search.view === "nationwide"
+                      ? text.noNationwideResultMonths
+                      : text.noCompareResultMonths}
                 </p>
               ) : (
                 <div className="mt-6 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">

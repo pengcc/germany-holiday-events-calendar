@@ -254,15 +254,18 @@ describe("holiday calendar derivation", () => {
   });
 
   it("provides result-empty copy in every supported locale", () => {
+    expect(copy.zh.noStateResultMonths).toContain("没有匹配");
     expect(copy.zh.noNationwideResultMonths).toContain("16 个州");
     expect(copy.zh.noCompareResultMonths).toContain("没有可比较");
+    expect(copy.de.noStateResultMonths).toContain("keine passenden");
     expect(copy.de.noNationwideResultMonths).toContain("16 Bundesländern");
     expect(copy.de.noCompareResultMonths).toContain("keine vergleichbaren");
+    expect(copy.en.noStateResultMonths).toContain("No holiday results");
     expect(copy.en.noNationwideResultMonths).toContain("all 16 federal states");
     expect(copy.en.noCompareResultMonths).toContain("No comparable holiday results");
   });
 
-  it("keeps state and invalid compare months unfiltered", () => {
+  it("filters state months while keeping invalid compare months unfiltered", () => {
     const calendar = derive({
       records: [record("may", "DE-BE", "public", "2026-05-01", "2026-05-01")],
       states: ["DE-BE"],
@@ -270,7 +273,7 @@ describe("holiday calendar derivation", () => {
     });
     const periodMonths = [4, 5, 6];
 
-    expect(getResultMonths(periodMonths, calendar.days, "state", true)).toEqual(periodMonths);
+    expect(getResultMonths(periodMonths, calendar.days, "state", true)).toEqual([5]);
     expect(getResultMonths(periodMonths, calendar.days, "compare", false)).toEqual(periodMonths);
   });
 

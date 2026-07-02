@@ -188,7 +188,7 @@ export function getResultMonths(
   viewMode: ViewMode,
   comparisonValid: boolean,
 ): number[] {
-  if (viewMode === "state" || (viewMode === "compare" && !comparisonValid)) {
+  if (viewMode === "compare" && !comparisonValid) {
     return [...periodMonths];
   }
 
