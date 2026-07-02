@@ -13,9 +13,9 @@ Plans, handoffs, and scratch notes are process documents. They may become outdat
   holidays, school holidays, and, after the holiday MVP, selected planning-relevant major events.
 - Primary users include Chinese-speaking families in Germany and travel planners comparing dates
   across federal states. German and English readers are also supported.
-- Current phase: the Holiday Explorer frontend MVP is accepted. P1-DATA remains required before
-  release because the committed generated dataset has no reviewed coverage. Berlin major events
-  are post-MVP.
+- Current phase: the Holiday Explorer frontend and reviewed 2026–2027 holiday dataset are
+  implemented. The committed manifest has complete configured coverage. Berlin major events are
+  post-MVP.
 
 ## 2. Current Scope
 
@@ -23,11 +23,16 @@ The holiday MVP includes:
 
 - German public holidays and school holidays.
 - All 16 German federal states.
-- All-Germany, single-state, and multi-state selection.
+- Three explicit view modes: one-state lookup (`state`), nationwide-common public holidays
+  (`nationwide`), and multi-state comparison (`compare`).
 - Year, month, and quarter filtering.
 - Holiday overlap highlighting across selected states.
 - Localized date details and Chinese, German, and English public routes.
 - A practical, readable, mobile-first public frontend.
+- Result-focused calendars that hide months without normal activity in valid state, nationwide,
+  and compare modes while preserving explicit invalid-compare validation and coverage warnings.
+- Limited-applicability regional public-holiday advisories that remain separate from statewide
+  activity and comparison results.
 - Reviewed generated JSON consumed by a static frontend.
 - A local manual refresh, validation, review, and publish workflow.
 
@@ -113,14 +118,17 @@ Local data workflow commands also include `data:refresh`, `data:resume`, `data:r
 The project remains one monorepo with two distinct frontend applications:
 
 - `apps/web` is a static-only public SPA. It reads reviewed JSON bundled under
-  `apps/web/public/data/` and must not use server functions, fetch upstream sources at runtime, or
-  modify data.
+  `apps/web/public/data/holidays.json` and `apps/web/public/data/manifest.json` and must not use
+  server functions, fetch upstream sources at runtime, or modify data.
 - `apps/data-studio` is a local-only TanStack Start application bound to `127.0.0.1`. It may use
   local server functions and filesystem access for review and publishing workflows. It is not
   deployed and does not call the deployed public frontend.
 - `packages/data-core` owns framework-independent schemas, parsing, normalization, validation,
   date handling, review, and publishing logic shared by local tools and apps.
 - `tools/data-cli` exposes the local file-based workflow.
+- Reviewed accepted batches, review decisions, and published public JSON are committed project
+  artifacts. Immutable refresh/run workspaces under `dev_locals/data-runs/` are local-only and
+  must not be committed.
 
 The data flow is:
 
@@ -179,31 +187,35 @@ installation, stop and obtain approval rather than changing the environment impl
 
 ## 12. Current Implementation Status
 
-As of 2026-06-30:
+As of 2026-07-02:
 
 - The foundation-kit workflow is the active operating standard, project memory is populated, and
   the project-local `tanstack-static-frontend` skill is installed.
 - The monorepo structure and static/local application boundary are implemented.
-- The public app has explicit `/zh`, `/de`, and `/en` routes with URL-backed all-Germany,
-  single-state, and multi-state selection; year, quarter, and month periods; and public-holiday
-  and school-holiday layers.
+- The public app has explicit `/zh`, `/de`, and `/en` routes with URL-backed `state`, `nationwide`,
+  and `compare` view modes; year, quarter, and month periods; and public-holiday and school-holiday
+  layers where valid for the selected mode.
 - The static frontend validates schema-version-1 generated JSON in the browser, derives inclusive
   date ranges and statewide overlap/activity, and excludes regional and school-specific records
-  from statewide overlap counts.
-- The calendar provides semantic date selection, URL-backed selected-date recovery, localized
-  date details, source/applicability labels, honest empty/error/coverage states, and responsive
-  filter and state-selection controls.
-- P1-06 acceptance validation passed formatting/lint checks, type checking, unit tests, data
-  validation, deterministic rebuild verification, production builds, and desktop/mobile browser
-  smoke tests. The frontend MVP is accepted, with two non-blocking document-metadata polish items:
-  the static page title uses legacy naming and the document language is not route-specific.
+  from statewide overlap counts. Regional public records may appear as limited-applicability
+  advisory information but never create normal public activity, nationwide-common results, or
+  multi-state overlap.
+- State, nationwide, and valid compare modes hide months without normal activity for the current
+  filters. Regional-advisory-only months stay hidden. Invalid compare remains a validation state,
+  and mode-aware coverage warnings remain visible even when the result-month list is empty.
+- The calendar provides semantic date selection, URL-backed selected-date recovery for visible
+  results, localized date details, source/applicability labels, honest empty/error/coverage
+  states, and responsive filter and state-selection controls.
+- Holiday Explorer acceptance and follow-up validation passed formatting/lint checks, type
+  checking, unit tests, deterministic rebuild verification, production builds, and desktop/mobile
+  browser smoke tests.
 - Data Studio and the CLI implement local source refresh, validation, comparison, review,
   recovery, deterministic rebuild, and explicit publishing workflows.
 - The release configuration covers all 16 states for 2026 and 2027 and defines an 80-batch review
   gate.
-- The committed generated manifest currently reports zero published holiday records and no
-  accepted coverage for 2026 or 2027. P1-DATA is therefore a hard blocker for public release even
-  though the frontend MVP is accepted.
+- The committed published manifest contains 559 reviewed records, including 8 regional records,
+  for 2026–2027. It lists all 80 current source coverage entries as non-stale and all 64
+  state/year/category matrix cells as covered.
 - Berlin major-event schemas, sources, tooling, data, and UI are not implemented.
 
 ## 13. Known Constraints and Risks
@@ -211,6 +223,10 @@ As of 2026-06-30:
 - Public deployment must remain static and free of secrets or server runtime dependencies.
 - Data quality depends on provenance, explicit review decisions, and deterministic publication.
 - Regional and school-specific holiday applicability must not be silently presented as statewide.
+  Evidence-backed regional public holidays may be nonblocking advisories, remain
+  `scope: regional`, and never count as statewide coverage by themselves, nationwide-common
+  activity, normal public calendar activity, or multi-state overlap. Unsafe or insufficiently
+  evidenced regional cases remain blocking.
 - TanStack Start remains isolated to local Data Studio responsibilities.
 - Legacy `codex-skills/` content contains useful domain guidance but also old product naming and
   duplicated workflow guidance; do not delete it until useful guidance is migrated or proven
@@ -227,6 +243,14 @@ As of 2026-06-30:
 - **Data Studio**: the local-only review and publishing application in `apps/data-studio`.
 - **Reviewed generated JSON**: the only data boundary consumed by the public frontend.
 - **Accepted batch**: one source/state/period data batch with an explicit human review decision.
+- **State view**: lookup of normal public/school holiday activity for exactly one federal state.
+- **Nationwide view**: statewide public holiday dates shared by all 16 federal states.
+- **Compare view**: normal holiday activity and overlap across 2–16 selected federal states;
+  fewer than two states is an explicit invalid comparison.
+- **Regional advisory**: a reviewed, limited-applicability public holiday record that remains
+  regional and may be shown as advisory information but does not count as statewide activity.
+- **Coverage warning**: manifest-derived notice that results may be incomplete; it remains visible
+  independently of whether result months are present.
 
 ## 15. Project Boundaries
 
@@ -240,7 +264,10 @@ As of 2026-06-30:
 
 ## 16. Agent Notes
 
-- Use `docs/product-prd.md` as the primary product source.
+- Use `docs/holiday-explorer-prd.md` as the current behavioral product baseline for the public
+  Holiday Explorer frontend.
+- Treat `docs/product-prd.md` as historical/reference material for broader product direction,
+  architecture boundaries, and post-MVP event framing.
 - Use the project-local `tanstack-static-frontend` skill for work touching public routing, static
   frontend data loading, locale/search state, or the Data Studio/public boundary.
 - Use docs-first research for framework, API, version, deployment, or tooling claims.

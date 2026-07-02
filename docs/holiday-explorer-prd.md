@@ -166,6 +166,17 @@ Date numbers must remain clearly visible. Marker and fraction placement must not
 number. Full holiday names and explanations belong in accessible labels, the legend, and date
 details rather than compact calendar badges.
 
+### 3.1 Result-Focused Month Visibility
+
+State, nationwide-common, and valid compare views show only months that contain normal holiday
+activity under the current state, period, and holiday-layer filters. A regional-advisory-only
+record does not make a month visible because it is not normal statewide/comparison activity.
+
+When a valid view has no matching months, the UI shows a mode-specific empty-result state.
+Compare mode with fewer than two selected states remains an explicit validation state rather than
+a generic empty result. Manifest-derived coverage warnings remain visible independently of result
+month visibility.
+
 ## 4. Data Coverage Warnings
 
 Coverage warnings must reflect the active view mode and must not imply that an uncovered date has
