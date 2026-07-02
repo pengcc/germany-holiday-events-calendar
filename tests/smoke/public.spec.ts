@@ -24,6 +24,15 @@ async function usePublishedDataFixture(page: Page): Promise<void> {
   );
 }
 
+async function expectDateDetailsPromptForViewport(page: Page): Promise<void> {
+  const prompt = page.getByText("Select a date in the calendar to view details.");
+  if ((page.viewportSize()?.width ?? 0) >= 1280) {
+    await expect(prompt).toBeVisible();
+    return;
+  }
+  await expect(prompt).toHaveCount(0);
+}
+
 async function useInvalidPublishedDataFixture(page: Page): Promise<void> {
   await page.route("**/data/holidays.json", (route) =>
     route.fulfill({
@@ -331,6 +340,88 @@ test("visible dates update the URL and recover populated and empty details", asy
   );
 });
 
+test("date selection preserves SPA scroll and focus context", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await usePublishedDataFixture(page);
+  await page.goto("/en?year=2026&period=year&view=compare&states=DE-BE,DE-BB&layers=public,school");
+
+  const julyNinth = page.getByRole("button", { name: /July 9, 2026/ });
+  await julyNinth.scrollIntoViewIfNeeded();
+  await page.evaluate(() => {
+    document.documentElement.dataset.dateSelectionSentinel = "present";
+  });
+  const scrollBeforeSelection = await page.evaluate(() => window.scrollY);
+
+  await julyNinth.click();
+
+  await expect(page).toHaveURL(/date=2026-07-09/);
+  await expect(julyNinth).toBeFocused();
+  expect(await page.evaluate(() => document.documentElement.dataset.dateSelectionSentinel)).toBe(
+    "present",
+  );
+  const scrollAfterSelection = await page.evaluate(() => window.scrollY);
+  expect(Math.abs(scrollAfterSelection - scrollBeforeSelection)).toBeLessThanOrEqual(1);
+});
+
+test("mobile and tablet details follow the selected month without duplication", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await usePublishedDataFixture(page);
+  await page.goto("/en?year=2026&period=year&view=compare&states=DE-BE,DE-BB&layers=public,school");
+
+  const details = page.getByRole("region", { name: "Holiday details" });
+  const may = page.getByRole("region", { name: "May 2026" });
+  const july = page.getByRole("region", { name: "July 2026" });
+  await expect(details).toHaveCount(0);
+
+  await page.getByRole("button", { name: /May 1, 2026/ }).click();
+  await expect(details).toHaveCount(1);
+  await expect(may.locator("xpath=following-sibling::*[1]")).toHaveClass(/he-inline-date-details/);
+  await expect(may.locator("xpath=following-sibling::*[1]")).toContainText("Labour Day");
+  await expect(july.locator("xpath=preceding-sibling::*[1]")).toHaveClass(/he-inline-date-details/);
+
+  await page.setViewportSize({ width: 768, height: 900 });
+  await expect(details).toHaveCount(1);
+  await expect(may.locator("xpath=following-sibling::*[1]")).toHaveClass(/he-inline-date-details/);
+
+  await page.getByRole("button", { name: /July 9, 2026/ }).click();
+  await expect(details).toHaveCount(1);
+  await expect(july.locator("xpath=following-sibling::*[1]")).toHaveClass(/he-inline-date-details/);
+  await expect(july.locator("xpath=following-sibling::*[1]")).toContainText("Summer holidays");
+  await expect(may.locator("xpath=following-sibling::*[1]")).not.toHaveClass(
+    /he-inline-date-details/,
+  );
+});
+
+test("xl keeps one sticky details panel and date buttons expose interaction affordances", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await usePublishedDataFixture(page);
+  await page.goto("/en?year=2026&period=year&view=compare&states=DE-BE,DE-BB&layers=public,school");
+
+  const details = page.getByRole("region", { name: "Holiday details" });
+  const mayFirst = page.getByRole("button", { name: /May 1, 2026/ });
+  const mayThird = page.getByRole("button", { name: /May 3, 2026/ });
+  await expect(details).toHaveCount(1);
+  await expect(details).toContainText("Select a date in the calendar to view details.");
+  await expect(details).toHaveCSS("position", "sticky");
+  expect((await details.boundingBox())?.x).toBeGreaterThan((await mayFirst.boundingBox())?.x ?? 0);
+
+  await expect(mayThird).toHaveCSS("cursor", "pointer");
+  const restingShadow = await mayThird.evaluate((element) => getComputedStyle(element).boxShadow);
+  await mayThird.hover();
+  const hoverShadow = await mayThird.evaluate((element) => getComputedStyle(element).boxShadow);
+  expect(hoverShadow).not.toBe(restingShadow);
+  await mayThird.focus();
+  await expect(mayThird).toHaveCSS("outline-style", "solid");
+
+  await mayFirst.click();
+  await expect(details).toHaveCount(1);
+  await expect(details).toContainText("Labour Day");
+});
+
 test("regional public holidays stay advisory-only in state, compare, and nationwide views", async ({
   page,
 }) => {
@@ -393,7 +484,7 @@ test("valid compare filters result months, preserves warnings, and clears hidden
   await expect(page.getByRole("region", { name: "July 2026" })).toBeVisible();
   await expect(page.getByRole("region", { name: "June 2026" })).toHaveCount(0);
   await expect(page).not.toHaveURL(/date=2026-06-04/);
-  await expect(page.getByText("Select a date in the calendar to view details.")).toBeVisible();
+  await expectDateDetailsPromptForViewport(page);
 
   await page.goto(
     "/en?year=2026&period=month&month=2&view=compare&states=DE-BE,DE-BB&layers=public",
@@ -415,7 +506,7 @@ test("dates outside the active period are ignored and layer and activity labels 
     "/en?year=2026&period=month&month=7&region=multiple&states=DE-BE,DE-BB&layers=school&date=2026-05-01",
   );
 
-  await expect(page.getByText("Select a date in the calendar to view details.")).toBeVisible();
+  await expectDateDetailsPromptForViewport(page);
   const julyNinth = page.getByRole("button", { name: /July 9, 2026/ });
   await expect(julyNinth).toHaveAccessibleName(/School holiday/);
   await expect(julyNinth).toHaveAccessibleName(/Partial overlap/);

@@ -26,7 +26,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "biome check . && git diff --check",
-    "validate:full": "pnpm check && pnpm typecheck && pnpm test && pnpm build",
+    "validate": "corepack pnpm check && corepack pnpm typecheck && corepack pnpm test && corepack pnpm build",
     "smoke": "playwright test",
     "workflow:check-new-stage": "node --import tsx tools/workflow-guard/src/check-new-stage.ts",
     "data:refresh": "node --import tsx tools/data-cli/src/index.ts refresh",
