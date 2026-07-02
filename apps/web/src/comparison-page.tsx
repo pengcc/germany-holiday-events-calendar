@@ -24,11 +24,17 @@ import { HolidayLegend } from "./legend";
 interface ComparisonPageProps {
   locale: Locale;
   search: ExplorerSearch;
-  onSearchChange: (search: ExplorerSearch, options?: { replace?: boolean }) => void;
+  onSearchChange: (
+    search: ExplorerSearch,
+    options?: { replace?: boolean; resetScroll?: boolean },
+  ) => void;
 }
+
+const xlMediaQuery = "(min-width: 80rem)";
 
 export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPageProps) {
   const text = copy[locale];
+  const isXl = useMediaQuery(xlMediaQuery);
   const [records, setRecords] = useState<HolidayRecord[]>([]);
   const [manifest, setManifest] = useState<PublishedDatasetManifest>();
   const [error, setError] = useState<string>();
@@ -111,8 +117,11 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
     return [...years].sort();
   }, [manifest, records]);
 
-  function changeSearch(updates: Partial<Record<keyof ExplorerSearch, unknown>>): void {
-    onSearchChange(updateExplorerSearch(search, updates));
+  function changeSearch(
+    updates: Partial<Record<keyof ExplorerSearch, unknown>>,
+    options?: { resetScroll?: boolean },
+  ): void {
+    onSearchChange(updateExplorerSearch(search, updates), options);
   }
 
   function toggleState(stateCode: StateCode): void {
@@ -255,6 +264,16 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
                 <div className="mt-6 grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
                   <HolidayCalendar
                     dayIndex={calendar.days}
+                    details={
+                      !isXl && search.date ? (
+                        <DateDetails
+                          day={calendar.days.get(search.date)}
+                          locale={locale}
+                          selectedDate={search.date}
+                          text={text}
+                        />
+                      ) : undefined
+                    }
                     locale={locale}
                     months={visibleMonths}
                     selectedDate={search.date}
@@ -262,14 +281,16 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
                     showFractions={search.view === "compare" && comparisonValid}
                     text={text}
                     year={year}
-                    onSelectDate={(date) => changeSearch({ date })}
+                    onSelectDate={(date) => changeSearch({ date }, { resetScroll: false })}
                   />
-                  <DateDetails
-                    day={search.date ? calendar.days.get(search.date) : undefined}
-                    locale={locale}
-                    selectedDate={search.date}
-                    text={text}
-                  />
+                  {isXl ? (
+                    <DateDetails
+                      day={search.date ? calendar.days.get(search.date) : undefined}
+                      locale={locale}
+                      selectedDate={search.date}
+                      text={text}
+                    />
+                  ) : null}
                 </div>
               )}
             </>
@@ -278,4 +299,20 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
       </div>
     </main>
   );
+}
+
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(() =>
+    typeof window === "undefined" ? false : window.matchMedia(query).matches,
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    const updateMatches = () => setMatches(mediaQuery.matches);
+    updateMatches();
+    mediaQuery.addEventListener("change", updateMatches);
+    return () => mediaQuery.removeEventListener("change", updateMatches);
+  }, [query]);
+
+  return matches;
 }

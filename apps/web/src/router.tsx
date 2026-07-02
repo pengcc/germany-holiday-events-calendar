@@ -49,7 +49,13 @@ function ZhPage() {
     <ComparisonPage
       locale="zh"
       search={search}
-      onSearchChange={(next, options) => navigate({ search: next, replace: options?.replace })}
+      onSearchChange={(next, options) =>
+        navigate({
+          search: next,
+          replace: options?.replace,
+          resetScroll: options?.resetScroll,
+        })
+      }
     />
   );
 }
@@ -61,7 +67,13 @@ function DePage() {
     <ComparisonPage
       locale="de"
       search={search}
-      onSearchChange={(next, options) => navigate({ search: next, replace: options?.replace })}
+      onSearchChange={(next, options) =>
+        navigate({
+          search: next,
+          replace: options?.replace,
+          resetScroll: options?.resetScroll,
+        })
+      }
     />
   );
 }
@@ -73,7 +85,13 @@ function EnPage() {
     <ComparisonPage
       locale="en"
       search={search}
-      onSearchChange={(next, options) => navigate({ search: next, replace: options?.replace })}
+      onSearchChange={(next, options) =>
+        navigate({
+          search: next,
+          replace: options?.replace,
+          resetScroll: options?.resetScroll,
+        })
+      }
     />
   );
 }
