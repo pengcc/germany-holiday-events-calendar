@@ -44,6 +44,7 @@ export const copy = {
     noDataBody: "本地数据工具已就绪。完成来源抓取、人工审核与发布后，日历会自动显示。",
     selected: "个州已选择",
     allStatesIncluded: "已包含全部 16 个联邦州，无需逐一选择。",
+    allStatesSummary: "全部 16 个联邦州",
     nationwidePublicOnly: "此模式仅显示全部 16 个州共同适用的全州公共假日。",
     singleStateChoice: "联邦州",
     chooseStates: "选择联邦州",
@@ -130,6 +131,7 @@ export const copy = {
       "Die lokalen Datenwerkzeuge sind bereit. Nach Abruf, Prüfung und Veröffentlichung erscheint der Kalender automatisch.",
     selected: "Länder ausgewählt",
     allStatesIncluded: "Alle 16 Bundesländer sind enthalten; eine Einzelauswahl ist nicht nötig.",
+    allStatesSummary: "Alle 16 Bundesländer",
     nationwidePublicOnly:
       "Diese Ansicht zeigt nur landesweite Feiertage, die in allen 16 Bundesländern gelten.",
     singleStateChoice: "Bundesland",
@@ -222,6 +224,7 @@ export const copy = {
       "The local data workflow is ready. The calendar will populate after fetch, human review, and publication.",
     selected: "states selected",
     allStatesIncluded: "All 16 federal states are included; no individual selection is needed.",
+    allStatesSummary: "All 16 federal states",
     nationwidePublicOnly:
       "This view shows only statewide public holidays shared by all 16 federal states.",
     singleStateChoice: "Federal state",
