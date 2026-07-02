@@ -600,7 +600,12 @@ th {
   background: #fffbea;
 }
 
-.issue-main > div {
+.issue-advisory {
+  border-left-color: #0284c7;
+  background: #f0f9ff;
+}
+
+.issue-meta {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -616,6 +621,35 @@ th {
   color: #475569;
   font-size: 13px;
   line-height: 1.5;
+}
+
+.issue a,
+.advisory-summary a {
+  color: #0369a1;
+}
+
+.advisory-summary {
+  margin-top: 12px;
+  border-left: 4px solid #0284c7;
+  background: #f0f9ff;
+  padding: 11px 13px;
+  color: #0c4a6e;
+  font-size: 13px;
+}
+
+.advisory-summary p {
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+
+.advisory-details {
+  display: grid;
+  gap: 5px;
+  margin: 8px 0;
+}
+
+.advisory-action-note {
+  max-width: 240px;
 }
 
 .issue details {

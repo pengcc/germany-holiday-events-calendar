@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "schemaVersion": 1,
+    "id": "public-by-2026",
+    "name": "Bayerisches Feiertagsgesetz 2026",
+    "authority": "official",
+    "category": "public",
+    "jurisdiction": "DE-BY",
+    "homepageUrl": "https://www.gesetze-bayern.de/",
+    "fetchUrl": "https://www.gesetze-bayern.de/test",
+    "format": "html",
+    "adapter": "public-rules",
+    "enabled": true,
+    "period": {
+      "kind": "calendarYear",
+      "id": "2026",
+      "startDate": "2026-01-01",
+      "endDate": "2026-12-31"
+    },
+    "license": {
+      "note": "Official test fixture",
+      "redistribution": "prohibited"
+    },
+    "fetch": {
+      "expectedContentTypes": ["text/html"],
+      "allowedHosts": ["www.gesetze-bayern.de"],
+      "timeoutMs": 1000,
+      "maxBytes": 10000,
+      "maxRedirects": 0
+    },
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    }
+  },
+  "fingerprint": {
+    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "bytes": 1024,
+    "contentType": "text/html",
+    "retrievedAt": "2026-06-06T10:05:00.000Z",
+    "finalUrl": "https://www.gesetze-bayern.de/test"
+  },
+  "records": [
+    {
+      "schemaVersion": 1,
+      "id": "public-by-2026:unity",
+      "jurisdiction": "DE-BY",
+      "category": "public",
+      "scope": "statewide",
+      "regions": [],
+      "startDate": "2026-10-03",
+      "endDate": "2026-10-03",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "source": {
+        "sourceId": "public-by-2026",
+        "sourceEventId": "unity-2026"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "public-by-2026:assumption-regional",
+      "jurisdiction": "DE-BY",
+      "category": "public",
+      "scope": "regional",
+      "regions": [],
+      "startDate": "2026-08-15",
+      "endDate": "2026-08-15",
+      "names": {
+        "de": "Mariä Himmelfahrt",
+        "en": "Assumption Day",
+        "zh": "圣母升天节"
+      },
+      "periodId": "2026",
+      "source": {
+        "sourceId": "public-by-2026",
+        "sourceEventId": "assumption-day-bavaria"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "code": "REGIONAL_SCOPE_REVIEW_REQUIRED",
+      "severity": "blocker",
+      "stage": "validated",
+      "sourceId": "public-by-2026",
+      "jurisdiction": "DE-BY",
+      "periodId": "2026",
+      "recordId": "public-by-2026:assumption-regional",
+      "message": "Mariä Himmelfahrt has unresolved regional applicability without enough evidence for safe advisory publication.",
+      "suggestedAction": "Add official regional evidence and an applicability set, or record a reviewed resolution or versioned override.",
+      "decisionRequired": true
+    }
+  ],
+  "diff": [],
+  "overrideIds": []
+}

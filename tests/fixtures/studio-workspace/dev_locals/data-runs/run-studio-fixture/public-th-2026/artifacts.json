@@ -61,9 +61,44 @@
         "sourceId": "public-th-2026",
         "sourceEventId": "unity-2026"
       }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "public-th-2026:corpus-christi-regional",
+      "jurisdiction": "DE-TH",
+      "category": "public",
+      "scope": "regional",
+      "regions": ["DE-TH-CORPUS-CHRISTI-MUNICIPALITIES"],
+      "startDate": "2026-06-04",
+      "endDate": "2026-06-04",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2026",
+      "source": {
+        "sourceId": "public-th-2026",
+        "sourceEventId": "corpus-christi-thuringia"
+      }
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "code": "REGIONAL_APPLICABILITY_ADVISORY",
+      "severity": "warning",
+      "stage": "validated",
+      "sourceId": "public-th-2026",
+      "jurisdiction": "DE-TH",
+      "periodId": "2026",
+      "recordId": "public-th-2026:corpus-christi-regional",
+      "message": "Fronleichnam has limited regional applicability; the exact municipality set remains advisory.",
+      "actual": "DE-TH-CORPUS-CHRISTI-MUNICIPALITIES",
+      "suggestedAction": "Keep this record regional and advise users to verify municipality applicability with the official source.",
+      "decisionRequired": false,
+      "technicalDetails": "https://landesrecht.thueringen.de/test"
+    }
+  ],
   "diff": [],
   "overrideIds": []
 }

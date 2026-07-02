@@ -23,6 +23,8 @@ import {
   batchReviewSummary,
   buildReviewCoverageMatrix,
   bulkApprovalDisabledReason,
+  isRegionalApplicabilityAdvisory,
+  regionalApplicabilityAdvisories,
 } from "../lib/review-model";
 import {
   getDashboard,
@@ -97,6 +99,9 @@ function StudioPage() {
         !resolvedKeys.has(issueKey(issue)),
     ) ?? [];
   const selectedBatchSummary = selectedBatch ? batchReviewSummary(selectedBatch) : undefined;
+  const selectedBatchAdvisories = selectedBatch
+    ? regionalApplicabilityAdvisories(selectedBatch)
+    : [];
   const selectedBatchIdSet = new Set(selectedBatchIds);
   const selectedBatches = dashboard.batches.filter((batch) =>
     selectedBatchIdSet.has(batch.sourceRun.sourceId),
@@ -327,7 +332,24 @@ function StudioPage() {
                   </p>
                 ) : null}
                 {selectedBatch.artifacts ? (
-                  <BatchSummary artifacts={selectedBatch.artifacts} />
+                  <>
+                    <BatchSummary artifacts={selectedBatch.artifacts} />
+                    {selectedBatchAdvisories.length > 0 ? (
+                      <div className="advisory-summary">
+                        <strong>
+                          {selectedBatchAdvisories.length} regional applicability
+                          {selectedBatchAdvisories.length === 1 ? " advisory" : " advisories"}
+                        </strong>
+                        <p>
+                          {selectedBatchSummary?.status === "blocked"
+                            ? "These advisories are nonblocking, but other blocking issues must still be resolved. "
+                            : "This source batch can be reviewed and approved for statewide public-holiday coverage. "}
+                          Regional holidays remain limited-applicability advisory data and are not
+                          approved or converted as statewide holidays.
+                        </p>
+                      </div>
+                    ) : null}
+                  </>
                 ) : (
                   <p className="blocking-note">
                     Normalized artifacts are unavailable for this batch. Resume its failed stage
@@ -490,17 +512,61 @@ function StudioPage() {
                     {selectedBatch.artifacts.issues.map((issue) => {
                       const key = issueKey(issue);
                       const resolved = resolvedKeys.has(key);
+                      const regionalAdvisory = isRegionalApplicabilityAdvisory(issue);
+                      const affectedRecord = selectedBatch.artifacts?.records.find(
+                        (record) => record.id === issue.recordId,
+                      );
+                      const evidenceLink = safeEvidenceUrl(issue.technicalDetails);
                       return (
-                        <article key={key} className={`issue issue-${issue.severity}`}>
+                        <article
+                          key={key}
+                          className={`issue ${regionalAdvisory ? "issue-advisory" : `issue-${issue.severity}`}`}
+                        >
                           <div className="issue-main">
-                            <div>
-                              <span className="status">{issue.severity}</span>
+                            <div className="issue-meta">
+                              <span className="status">
+                                {regionalAdvisory ? "advisory" : issue.severity}
+                              </span>
                               <code>{issue.code}</code>
                             </div>
-                            <h3>{issue.message}</h3>
+                            <h3>
+                              {regionalAdvisory ? "Regional applicability advisory" : issue.message}
+                            </h3>
+                            {regionalAdvisory ? (
+                              <div className="advisory-details">
+                                <p>
+                                  <strong>Affected holiday:</strong>{" "}
+                                  {affectedRecord?.names.de ?? issue.recordId ?? "Unknown record"}
+                                </p>
+                                <p>
+                                  <strong>Scope:</strong>{" "}
+                                  <span className="status status-regional">regional</span>
+                                </p>
+                                <p>This public holiday applies only in parts of the state.</p>
+                                <p>
+                                  The source batch can be approved for statewide public-holiday
+                                  coverage, but this regional holiday remains limited-applicability
+                                  advisory data. Approval does not confirm the exact municipality
+                                  list.
+                                </p>
+                                <p>
+                                  Do not treat this as a statewide holiday. Verify exact
+                                  municipality or regional applicability with official sources
+                                  before adding more precise regional data.
+                                </p>
+                              </div>
+                            ) : null}
                             <p>
                               <strong>Next:</strong> {issue.suggestedAction}
                             </p>
+                            {evidenceLink ? (
+                              <p>
+                                <strong>Official evidence:</strong>{" "}
+                                <a href={evidenceLink} rel="noreferrer" target="_blank">
+                                  Open source
+                                </a>
+                              </p>
+                            ) : null}
                             {issue.actual ? (
                               <details>
                                 <summary>Technical details</summary>
@@ -509,7 +575,12 @@ function StudioPage() {
                             ) : null}
                           </div>
                           <div className="issue-actions">
-                            {issue.decisionRequired ? (
+                            {regionalAdvisory ? (
+                              <p className="advisory-action-note">
+                                No “Accept source change” decision or override is required to review
+                                this batch.
+                              </p>
+                            ) : issue.decisionRequired ? (
                               <button
                                 disabled={resolved || !reviewer || Boolean(busy)}
                                 type="button"
@@ -778,4 +849,16 @@ function StatusText({ summary }: { summary: ReturnType<typeof batchReviewSummary
 
 function issueKey(issue: ValidationIssue): string {
   return `${issue.code}:${issue.recordId ?? "batch"}`;
+}
+
+function safeEvidenceUrl(value: string | undefined): string | undefined {
+  if (!value) {
+    return undefined;
+  }
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:" ? url.toString() : undefined;
+  } catch {
+    return undefined;
+  }
 }
