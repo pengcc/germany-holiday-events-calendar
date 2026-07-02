@@ -1,14 +1,14 @@
 {
   "decision": "approved",
-  "fingerprintSha256": "cdf41d5af90f0b104697a99203a33906846f9d0e28b0d0937276d233f15edc98",
+  "fingerprintSha256": "d90ea6e4cdf2e83021c31a10a8b3637fc4bed240d5e1179a067b64659ffcbdd4",
   "jurisdiction": "DE-HB",
   "notes": "",
   "overrideIds": [],
   "periodId": "2027",
   "resolutionIds": [],
-  "reviewedAt": "2026-07-01T09:50:51.376Z",
+  "reviewedAt": "2026-07-02T07:04:23.022Z",
   "reviewer": "pcc",
-  "runId": "run-2026-07-01T08-24-38-250Z",
+  "runId": "run-2026-07-02T07-03-43-632Z",
   "schemaVersion": 1,
   "sourceId": "public-law-de-hb-2027"
 }

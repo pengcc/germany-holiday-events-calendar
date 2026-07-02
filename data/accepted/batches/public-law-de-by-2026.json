@@ -1,0 +1,365 @@
+{
+  "fingerprint": {
+    "bytes": 22609,
+    "contentType": "text/html; charset=utf-8",
+    "documents": [
+      {
+        "bytes": 17886,
+        "contentType": "text/html; charset=utf-8",
+        "documentId": "law-de-by",
+        "finalUrl": "https://www.gesetze-bayern.de/Content/Document/BayFTG",
+        "sha256": "6246052d74a71c0629871eb9a02e40a41f0ba95ef9fb7ab62f4c894fb8a8f6c0"
+      },
+      {
+        "bytes": 4723,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "0fc359302fc22ada9eeb4b798c92a834e57a7d8bd4cc34853510cb7b26cbeb38"
+      }
+    ],
+    "finalUrl": "https://www.gesetze-bayern.de/Content/Document/BayFTG",
+    "retrievedAt": "2026-07-02T07:03:46.191Z",
+    "sha256": "54847071514b1fd2d2daee681f705b488a98c243984083fd11875ecb5373c3b9"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2026-01-01",
+      "id": "public-law-de-by-2026:new-year",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-01-06",
+      "id": "public-law-de-by-2026:epiphany",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Heilige Drei Könige",
+        "en": "Epiphany",
+        "zh": "主显节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "epiphany",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-01-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-03",
+      "id": "public-law-de-by-2026:good-friday",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-04-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-06",
+      "id": "public-law-de-by-2026:easter-monday",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-04-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-01",
+      "id": "public-law-de-by-2026:labour-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-14",
+      "id": "public-law-de-by-2026:ascension-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-05-14"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-25",
+      "id": "public-law-de-by-2026:pentecost-monday",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-05-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-06-04",
+      "id": "public-law-de-by-2026:corpus-christi",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "corpus-christi",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-06-04"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-08-08",
+      "id": "public-law-de-by-2026:augsburg-peace-festival",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Augsburger Hohes Friedensfest",
+        "en": "Augsburg Peace Festival",
+        "zh": "奥格斯堡和平节"
+      },
+      "periodId": "2026",
+      "regions": [
+        "DE-BY-09761000"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "augsburg-peace-festival",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-08-08"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-08-15",
+      "id": "public-law-de-by-2026:assumption-day-bavaria",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Mariä Himmelfahrt",
+        "en": "Assumption Day",
+        "zh": "圣母升天节"
+      },
+      "periodId": "2026",
+      "regions": [
+        "DE-BY-ASSUMPTION-MUNICIPALITIES"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "assumption-day-bavaria",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-08-15"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-03",
+      "id": "public-law-de-by-2026:german-unity-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-11-01",
+      "id": "public-law-de-by-2026:all-saints-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "Allerheiligen",
+        "en": "All Saints' Day",
+        "zh": "万圣节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "all-saints-day",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-11-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-25",
+      "id": "public-law-de-by-2026:christmas-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-26",
+      "id": "public-law-de-by-2026:second-christmas-day",
+      "jurisdiction": "DE-BY",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-by-2026"
+      },
+      "startDate": "2026-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "54847071514b1fd2d2daee681f705b488a98c243984083fd11875ecb5373c3b9",
+    "jurisdiction": "DE-BY",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2026",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-02T07:04:23.011Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-02T07-03-43-632Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-by-2026"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-by",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "www.gesetze-bayern.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://www.gesetze-bayern.de/Content/Document/BayFTG",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://www.gesetze-bayern.de/",
+    "id": "public-law-de-by-2026",
+    "jurisdiction": "DE-BY",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-BY 2026",
+    "period": {
+      "endDate": "2026-12-31",
+      "id": "2026",
+      "kind": "calendarYear",
+      "startDate": "2026-01-01"
+    },
+    "schemaVersion": 1
+  }
+}

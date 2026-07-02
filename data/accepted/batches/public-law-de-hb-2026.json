@@ -8,7 +8,7 @@
         "contentType": "text/html; charset=utf-8",
         "documentId": "law-de-hb",
         "finalUrl": "https://www.transparenz.bremen.de/metainformationen/gesetz-ueber-die-sonn-gedenk-und-feiertage-vom-12-november-1954-145882?template=20_gp_ifg_meta_detail_d",
-        "sha256": "91053e23fa6464de083e13c4644ff181b0da27d08dd195673fc3a6b8fd442eaf"
+        "sha256": "fbb3d4d194c40437980d37bb71d8091156f382e4969790d3c10149075e4568cd"
       },
       {
         "bytes": 3097,
@@ -19,9 +19,9 @@
       }
     ],
     "finalUrl": "https://www.transparenz.bremen.de/metainformationen/gesetz-ueber-die-sonn-gedenk-und-feiertage-vom-12-november-1954-145882?template=20_gp_ifg_meta_detail_d",
-    "lastModified": "Wed, 01 Jul 2026 08:24:40 GMT",
-    "retrievedAt": "2026-07-01T08:24:41.548Z",
-    "sha256": "cdf41d5af90f0b104697a99203a33906846f9d0e28b0d0937276d233f15edc98"
+    "lastModified": "Thu, 02 Jul 2026 07:03:46 GMT",
+    "retrievedAt": "2026-07-02T07:03:47.224Z",
+    "sha256": "d90ea6e4cdf2e83021c31a10a8b3637fc4bed240d5e1179a067b64659ffcbdd4"
   },
   "records": [
     {
@@ -227,15 +227,15 @@
   ],
   "review": {
     "decision": "approved",
-    "fingerprintSha256": "cdf41d5af90f0b104697a99203a33906846f9d0e28b0d0937276d233f15edc98",
+    "fingerprintSha256": "d90ea6e4cdf2e83021c31a10a8b3637fc4bed240d5e1179a067b64659ffcbdd4",
     "jurisdiction": "DE-HB",
     "notes": "",
     "overrideIds": [],
     "periodId": "2026",
     "resolutionIds": [],
-    "reviewedAt": "2026-07-01T09:50:51.370Z",
+    "reviewedAt": "2026-07-02T07:04:23.018Z",
     "reviewer": "pcc",
-    "runId": "run-2026-07-01T08-24-38-250Z",
+    "runId": "run-2026-07-02T07-03-43-632Z",
     "schemaVersion": 1,
     "sourceId": "public-law-de-hb-2026"
   },

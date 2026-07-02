@@ -1,0 +1,325 @@
+{
+  "fingerprint": {
+    "bytes": 9768,
+    "contentType": "text/html",
+    "documents": [
+      {
+        "bytes": 5850,
+        "contentType": "text/html",
+        "documentId": "law-de-th",
+        "finalUrl": "https://landesrecht.thueringen.de/bsth/document/jlr-FeiertGTHrahmen",
+        "sha256": "2ff4ab925bb9d3f3ed887a9d85ac243328bf7f9d64e5409959996f3088196bfe"
+      },
+      {
+        "bytes": 3918,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "b6a60035d353094d960536b8c858f7ea2956671b4222efdfcce40abb91a1bd61"
+      }
+    ],
+    "etag": "W/\"5850-1781865876000\"",
+    "finalUrl": "https://landesrecht.thueringen.de/bsth/document/jlr-FeiertGTHrahmen",
+    "lastModified": "Fri, 19 Jun 2026 10:44:36 GMT",
+    "retrievedAt": "2026-07-01T08:19:50.305Z",
+    "sha256": "0900f14e4ea12029c52d78a32c23f64fa10bd29b336cbd2d157c0d41aa00f7f0"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2026-01-01",
+      "id": "public-law-de-th-2026:new-year",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-03",
+      "id": "public-law-de-th-2026:good-friday",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-04-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-04-06",
+      "id": "public-law-de-th-2026:easter-monday",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-04-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-01",
+      "id": "public-law-de-th-2026:labour-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-14",
+      "id": "public-law-de-th-2026:ascension-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-05-14"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-05-25",
+      "id": "public-law-de-th-2026:pentecost-monday",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-05-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-06-04",
+      "id": "public-law-de-th-2026:corpus-christi-thuringia",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2026",
+      "regions": [
+        "DE-TH-CORPUS-CHRISTI-MUNICIPALITIES"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "corpus-christi-thuringia",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-06-04"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-09-20",
+      "id": "public-law-de-th-2026:world-childrens-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Weltkindertag",
+        "en": "World Children's Day",
+        "zh": "世界儿童日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "world-childrens-day",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-09-20"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-03",
+      "id": "public-law-de-th-2026:german-unity-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-10-31",
+      "id": "public-law-de-th-2026:reformation-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "Reformationstag",
+        "en": "Reformation Day",
+        "zh": "宗教改革日"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "reformation-day",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-10-31"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-25",
+      "id": "public-law-de-th-2026:christmas-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2026-12-26",
+      "id": "public-law-de-th-2026:second-christmas-day",
+      "jurisdiction": "DE-TH",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2026",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-th-2026"
+      },
+      "startDate": "2026-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "0900f14e4ea12029c52d78a32c23f64fa10bd29b336cbd2d157c0d41aa00f7f0",
+    "jurisdiction": "DE-TH",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2026",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-02T07:04:23.128Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-02T07-03-43-632Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-th-2026"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-th",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "landesrecht.thueringen.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://landesrecht.thueringen.de/bsth/document/jlr-FeiertGTHrahmen",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://landesrecht.thueringen.de/",
+    "id": "public-law-de-th-2026",
+    "jurisdiction": "DE-TH",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-TH 2026",
+    "period": {
+      "endDate": "2026-12-31",
+      "id": "2026",
+      "kind": "calendarYear",
+      "startDate": "2026-01-01"
+    },
+    "schemaVersion": 1
+  }
+}

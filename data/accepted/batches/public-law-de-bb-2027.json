@@ -19,8 +19,8 @@
       }
     ],
     "finalUrl": "https://bravors.brandenburg.de/gesetze/ftg_2015",
-    "lastModified": "Wed, 01 Jul 2026 08:24:40 GMT",
-    "retrievedAt": "2026-07-01T08:24:40.531Z",
+    "lastModified": "Thu, 02 Jul 2026 07:03:46 GMT",
+    "retrievedAt": "2026-07-02T07:03:46.067Z",
     "sha256": "10741a8fbebc1c32eb502e426e48295e2bc7527f7da86a8762c1f6b3723b3fef"
   },
   "records": [
@@ -273,9 +273,9 @@
     "overrideIds": [],
     "periodId": "2027",
     "resolutionIds": [],
-    "reviewedAt": "2026-07-01T09:50:51.343Z",
+    "reviewedAt": "2026-07-02T07:04:22.990Z",
     "reviewer": "pcc",
-    "runId": "run-2026-07-01T08-24-38-250Z",
+    "runId": "run-2026-07-02T07-03-43-632Z",
     "schemaVersion": 1,
     "sourceId": "public-law-de-bb-2027"
   },

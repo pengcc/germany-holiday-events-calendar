@@ -1,0 +1,324 @@
+{
+  "fingerprint": {
+    "bytes": 43187,
+    "contentType": "text/html; charset=utf-8",
+    "documents": [
+      {
+        "bytes": 39248,
+        "contentType": "text/html; charset=utf-8",
+        "documentId": "law-de-sn",
+        "finalUrl": "https://www.revosax.sachsen.de/vorschrift/16238",
+        "sha256": "a40e3c9d41889232709ec17e6cbaffd048f82475afb4331b00ce7a4309be2cd5"
+      },
+      {
+        "bytes": 3939,
+        "contentType": "application/yaml+derived",
+        "documentId": "public-holiday-rules",
+        "finalUrl": "https://holiday-sync-germany.invalid/local/public-holiday-rules",
+        "sha256": "afcb1860af2575042c37d88c81dda1ebaa6381ce04357c069f958470c948d86a"
+      }
+    ],
+    "etag": "W/\"a40e3c9d41889232709ec17e6cbaffd0\"",
+    "finalUrl": "https://www.revosax.sachsen.de/vorschrift/16238",
+    "retrievedAt": "2026-07-02T07:03:47.566Z",
+    "sha256": "af81ef73abb3bfa60251221b4643e6a4518ebca598fc445a0dc07e8c32c86c03"
+  },
+  "records": [
+    {
+      "category": "public",
+      "endDate": "2027-01-01",
+      "id": "public-law-de-sn-2027:new-year",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Neujahr",
+        "en": "New Year's Day",
+        "zh": "元旦"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "new-year",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-01-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-26",
+      "id": "public-law-de-sn-2027:good-friday",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Karfreitag",
+        "en": "Good Friday",
+        "zh": "耶稣受难日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "good-friday",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-03-26"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-03-29",
+      "id": "public-law-de-sn-2027:easter-monday",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Ostermontag",
+        "en": "Easter Monday",
+        "zh": "复活节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "easter-monday",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-03-29"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-01",
+      "id": "public-law-de-sn-2027:labour-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Tag der Arbeit",
+        "en": "Labour Day",
+        "zh": "劳动节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "labour-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-05-01"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-06",
+      "id": "public-law-de-sn-2027:ascension-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Christi Himmelfahrt",
+        "en": "Ascension Day",
+        "zh": "耶稣升天节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "ascension-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-05-06"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-17",
+      "id": "public-law-de-sn-2027:pentecost-monday",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Pfingstmontag",
+        "en": "Pentecost Monday",
+        "zh": "圣灵降临节星期一"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "pentecost-monday",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-05-17"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-05-27",
+      "id": "public-law-de-sn-2027:corpus-christi-saxony",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Fronleichnam",
+        "en": "Corpus Christi",
+        "zh": "基督圣体节"
+      },
+      "periodId": "2027",
+      "regions": [
+        "DE-SN-CORPUS-CHRISTI-MUNICIPALITIES"
+      ],
+      "schemaVersion": 1,
+      "scope": "regional",
+      "source": {
+        "sourceEventId": "corpus-christi-saxony",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-05-27"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-03",
+      "id": "public-law-de-sn-2027:german-unity-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Tag der Deutschen Einheit",
+        "en": "German Unity Day",
+        "zh": "德国统一日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "german-unity-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-10-03"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-10-31",
+      "id": "public-law-de-sn-2027:reformation-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Reformationstag",
+        "en": "Reformation Day",
+        "zh": "宗教改革日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "reformation-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-10-31"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-11-17",
+      "id": "public-law-de-sn-2027:repentance-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "Buß- und Bettag",
+        "en": "Day of Repentance and Prayer",
+        "zh": "忏悔祈祷日"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "repentance-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-11-17"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-25",
+      "id": "public-law-de-sn-2027:christmas-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "1. Weihnachtsfeiertag",
+        "en": "Christmas Day",
+        "zh": "圣诞节"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "christmas-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-12-25"
+    },
+    {
+      "category": "public",
+      "endDate": "2027-12-26",
+      "id": "public-law-de-sn-2027:second-christmas-day",
+      "jurisdiction": "DE-SN",
+      "names": {
+        "de": "2. Weihnachtsfeiertag",
+        "en": "Second Day of Christmas",
+        "zh": "圣诞节第二天"
+      },
+      "periodId": "2027",
+      "regions": [],
+      "schemaVersion": 1,
+      "scope": "statewide",
+      "source": {
+        "sourceEventId": "second-christmas-day",
+        "sourceId": "public-law-de-sn-2027"
+      },
+      "startDate": "2027-12-26"
+    }
+  ],
+  "review": {
+    "decision": "approved",
+    "fingerprintSha256": "af81ef73abb3bfa60251221b4643e6a4518ebca598fc445a0dc07e8c32c86c03",
+    "jurisdiction": "DE-SN",
+    "notes": "",
+    "overrideIds": [],
+    "periodId": "2027",
+    "resolutionIds": [],
+    "reviewedAt": "2026-07-02T07:04:23.111Z",
+    "reviewer": "pcc",
+    "runId": "run-2026-07-02T07-03-43-632Z",
+    "schemaVersion": 1,
+    "sourceId": "public-law-de-sn-2027"
+  },
+  "schemaVersion": 1,
+  "source": {
+    "adapter": "public-rules",
+    "authority": "official",
+    "category": "public",
+    "documentId": "law-de-sn",
+    "enabled": true,
+    "fetch": {
+      "allowedHosts": [
+        "www.revosax.sachsen.de"
+      ],
+      "expectedContentTypes": [
+        "text/html"
+      ],
+      "maxBytes": 5000000,
+      "maxRedirects": 3,
+      "timeoutMs": 20000
+    },
+    "fetchUrl": "https://www.revosax.sachsen.de/vorschrift/3911-SaechsSFG",
+    "format": "html",
+    "freshness": {
+      "retrievalCadenceDays": 90,
+      "reviewBy": "2027-01-31"
+    },
+    "homepageUrl": "https://www.revosax.sachsen.de/",
+    "id": "public-law-de-sn-2027",
+    "jurisdiction": "DE-SN",
+    "license": {
+      "note": "Official state law portal; derived holiday facts are published, not raw pages.",
+      "redistribution": "prohibited"
+    },
+    "name": "State public holidays DE-SN 2027",
+    "period": {
+      "endDate": "2027-12-31",
+      "id": "2027",
+      "kind": "calendarYear",
+      "startDate": "2027-01-01"
+    },
+    "schemaVersion": 1
+  }
+}
