@@ -2,6 +2,7 @@ import { buildMonth, type CalendarCell, type CalendarDay } from "./calendar";
 import { HolidayMarker } from "./holiday-marker";
 import type { ExplorerCopy, Locale } from "./i18n";
 import { cn } from "./lib/cn";
+import { RegionalAdvisoryMarker } from "./regional-advisory-marker";
 
 const leadingCellKeys = ["mon", "tue", "wed", "thu", "fri", "sat"];
 
@@ -83,7 +84,8 @@ function DateButton({
   text: ExplorerCopy;
   onSelectDate: (date: string) => void;
 }) {
-  const categories = new Set(cell.records.map((record) => record.category));
+  const categories = new Set(cell.activityRecords.map((record) => record.category));
+  const hasRegionalAdvisory = cell.advisoryRecords.length > 0;
   const fullOverlap = cell.overlap === "full";
   const partialOverlap = cell.overlap === "partial";
   const hasPublic = categories.has("public");
@@ -106,7 +108,12 @@ function DateButton({
   const ariaLabel = [
     dateLabel,
     ...layerLabels,
-    ...(activityText ? [activityText] : categories.size === 0 ? [text.none] : []),
+    ...(hasRegionalAdvisory ? [text.regionalAdvisoryAccessible] : []),
+    ...(activityText
+      ? [activityText]
+      : categories.size === 0 && !hasRegionalAdvisory
+        ? [text.none]
+        : []),
   ].join("; ");
 
   return (
@@ -132,6 +139,11 @@ function DateButton({
           {categories.has("school") ? (
             <HolidayMarker category="school" className="border-white/80" />
           ) : null}
+        </span>
+      ) : null}
+      {hasRegionalAdvisory ? (
+        <span className="absolute top-0.5 right-0.5" aria-hidden="true">
+          <RegionalAdvisoryMarker />
         </span>
       ) : null}
       {showFractions && cell.hasStatewideActivity ? (

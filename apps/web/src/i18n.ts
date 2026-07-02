@@ -56,10 +56,11 @@ export const copy = {
     nationwideModeSummary: "仅显示全部 16 个州共同适用的全州公共假日。",
     compareModeSummary: "仅以全州适用记录计算州数和重合比例。",
     legend: "日历图例",
-    publicMarkerLegend: "圆点：公共假日",
+    publicMarkerLegend: "圆点：全州公共假日",
     schoolMarkerLegend: "菱形：学校假期",
-    publicDayLegend: "黄色背景：包含公共假日",
+    publicDayLegend: "黄色背景：包含全州公共假日",
     schoolDayLegend: "绿色背景：仅包含学校假期",
+    regionalAdvisoryMarkerLegend: "定位标记：仅部分地区适用的提示，不计为全州公共假日",
     fullOverlap: "完全重合（全部所选州）",
     partialOverlap: "部分重合（部分所选州）",
     dateDetails: "日期详情",
@@ -72,6 +73,11 @@ export const copy = {
     statewide: "全州适用",
     regional: "地区适用",
     schoolSpecific: "特定学校适用",
+    regionalAdvisoryAccessible: "仅部分地区适用的公共假日提示；不计为全州公共假日",
+    regionalAdvisoryTitle: "仅部分地区适用",
+    regionalAdvisoryBody:
+      "此公共假日仅适用于该联邦州的部分地区，不计为全州公共假日。请通过官方来源核实您所在市镇或地区是否适用。",
+    regionalLimitedApplicability: "仅部分地区适用；请通过官方来源核实市镇或地区",
   },
   de: {
     appName: "Germany Holiday & Events Calendar",
@@ -135,10 +141,12 @@ export const copy = {
       "Nur landesweite Feiertage, die in allen 16 Bundesländern gemeinsam gelten.",
     compareModeSummary: "Länderzahlen und Anteile verwenden nur landesweit geltende Termine.",
     legend: "Kalenderlegende",
-    publicMarkerLegend: "Kreis: Feiertag",
+    publicMarkerLegend: "Kreis: landesweiter Feiertag",
     schoolMarkerLegend: "Raute: Schulferien",
-    publicDayLegend: "Gelber Hintergrund: enthält einen Feiertag",
+    publicDayLegend: "Gelber Hintergrund: enthält einen landesweiten Feiertag",
     schoolDayLegend: "Grüner Hintergrund: nur Schulferien",
+    regionalAdvisoryMarkerLegend:
+      "Ortsmarke: Hinweis auf begrenzte regionale Geltung; zählt nicht als landesweiter Feiertag",
     fullOverlap: "Vollständige Überschneidung (alle gewählten Länder)",
     partialOverlap: "Teilweise Überschneidung (einige gewählte Länder)",
     dateDetails: "Details zum Datum",
@@ -152,6 +160,13 @@ export const copy = {
     statewide: "Landesweit",
     regional: "Regional",
     schoolSpecific: "Schulspezifisch",
+    regionalAdvisoryAccessible:
+      "Hinweis auf einen regional begrenzt geltenden Feiertag; zählt nicht als landesweiter Feiertag",
+    regionalAdvisoryTitle: "Regional begrenzte Geltung",
+    regionalAdvisoryBody:
+      "Dieser Feiertag gilt nur in Teilen des Bundeslandes und zählt nicht als landesweiter Feiertag. Bitte prüfen Sie die Geltung für Ihre Gemeinde oder Region anhand offizieller Quellen.",
+    regionalLimitedApplicability:
+      "Gilt nur regional; Gemeinde oder Region anhand offizieller Quellen prüfen",
   },
   en: {
     appName: "Germany Holiday & Events Calendar",
@@ -213,10 +228,12 @@ export const copy = {
     nationwideModeSummary: "Only statewide public holidays shared by all 16 federal states.",
     compareModeSummary: "State counts and fractions use statewide records only.",
     legend: "Calendar legend",
-    publicMarkerLegend: "Circle: Public holiday",
+    publicMarkerLegend: "Circle: Statewide public holiday",
     schoolMarkerLegend: "Diamond: School holiday",
-    publicDayLegend: "Yellow background: includes a public holiday",
+    publicDayLegend: "Yellow background: includes a statewide public holiday",
     schoolDayLegend: "Green background: school holiday only",
+    regionalAdvisoryMarkerLegend:
+      "Pin: Limited-applicability advisory; not counted as a statewide public holiday",
     fullOverlap: "Full overlap (all selected states)",
     partialOverlap: "Partial overlap (some selected states)",
     dateDetails: "Date details",
@@ -229,6 +246,13 @@ export const copy = {
     statewide: "Statewide",
     regional: "Regional",
     schoolSpecific: "School-specific",
+    regionalAdvisoryAccessible:
+      "Limited-applicability public holiday advisory; not counted as a statewide public holiday",
+    regionalAdvisoryTitle: "Limited applicability",
+    regionalAdvisoryBody:
+      "This public holiday applies only in parts of the federal state and is not counted as a statewide public holiday. Verify municipality or regional applicability with official sources.",
+    regionalLimitedApplicability:
+      "Applies only regionally; verify the municipality or region with official sources",
   },
 } as const;
 

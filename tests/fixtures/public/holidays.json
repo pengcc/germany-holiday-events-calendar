@@ -59,6 +59,42 @@
       "names": { "de": "Sommerferien", "en": "Summer holidays", "zh": "暑假" },
       "periodId": "2026-27",
       "source": { "sourceId": "school-de-be-2026-27" }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "public-de-be-2026-regional-corpus-christi",
+      "jurisdiction": "DE-BE",
+      "category": "public",
+      "scope": "regional",
+      "regions": ["DE-BE-CORPUS-CHRISTI-MUNICIPALITIES"],
+      "startDate": "2026-06-04",
+      "endDate": "2026-06-04",
+      "names": { "de": "Fronleichnam", "en": "Corpus Christi", "zh": "基督圣体节" },
+      "periodId": "2026",
+      "source": {
+        "sourceId": "public-de-be-2026",
+        "sourceEventId": "fixture-regional-corpus-christi"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "public-de-bb-2026-regional-observance",
+      "jurisdiction": "DE-BB",
+      "category": "public",
+      "scope": "regional",
+      "regions": ["DE-BB-INTERNAL-REGION-TOKEN"],
+      "startDate": "2026-05-01",
+      "endDate": "2026-05-01",
+      "names": {
+        "de": "Regionaler Gedenktag",
+        "en": "Regional observance",
+        "zh": "地区纪念日"
+      },
+      "periodId": "2026",
+      "source": {
+        "sourceId": "public-de-bb-2026",
+        "sourceEventId": "fixture-regional-observance"
+      }
     }
   ]
 }
