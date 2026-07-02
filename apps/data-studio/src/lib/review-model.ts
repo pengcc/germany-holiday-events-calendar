@@ -6,6 +6,7 @@ import type {
   SourceManifest,
   SourceRun,
   SourceRunArtifacts,
+  ValidationIssue,
 } from "@hsg/data-core";
 import { enumerateDates } from "@hsg/data-core/dates";
 
@@ -40,6 +41,14 @@ export type RecordFilters = {
   scope: "all" | HolidayRecord["scope"];
   year: "all" | number;
 };
+
+export function isRegionalApplicabilityAdvisory(issue: Pick<ValidationIssue, "code">): boolean {
+  return issue.code === "REGIONAL_APPLICABILITY_ADVISORY";
+}
+
+export function regionalApplicabilityAdvisories(batch: ReviewBatch): ValidationIssue[] {
+  return batch.artifacts?.issues.filter(isRegionalApplicabilityAdvisory) ?? [];
+}
 
 export function inclusiveDayCount(record: Pick<HolidayRecord, "startDate" | "endDate">): number {
   return enumerateDates(record.startDate, record.endDate).length;

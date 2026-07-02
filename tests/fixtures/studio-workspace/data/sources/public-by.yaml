@@ -1,0 +1,28 @@
+schemaVersion: 1
+id: public-by-2026
+name: Bayerisches Feiertagsgesetz 2026
+authority: official
+category: public
+jurisdiction: DE-BY
+homepageUrl: https://www.gesetze-bayern.de/
+fetchUrl: https://www.gesetze-bayern.de/test
+format: html
+adapter: public-rules
+enabled: true
+period:
+  kind: calendarYear
+  id: "2026"
+  startDate: 2026-01-01
+  endDate: 2026-12-31
+license:
+  note: Official test fixture
+  redistribution: prohibited
+fetch:
+  expectedContentTypes: [text/html]
+  allowedHosts: [www.gesetze-bayern.de]
+  timeoutMs: 1000
+  maxBytes: 10000
+  maxRedirects: 0
+freshness:
+  retrievalCadenceDays: 90
+  reviewBy: 2027-01-31

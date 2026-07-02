@@ -17,7 +17,9 @@ import {
   filterHolidayRecords,
   inclusiveDayCount,
   isReadyWithoutIssues,
+  isRegionalApplicabilityAdvisory,
   type ReviewBatch,
+  regionalApplicabilityAdvisories,
 } from "../../apps/data-studio/src/lib/review-model";
 
 const record: HolidayRecord = {
@@ -189,6 +191,55 @@ describe("record review model", () => {
       ),
     ).toBe("Selected batches include blocked or already approved items.");
     expect(bulkApprovalDisabledReason([ready], 2, "Reviewer", false)).toBe(
+      "Selected batches include blocked or already approved items.",
+    );
+  });
+
+  it("keeps regional advisories approvable while true regional blockers remain blocked", () => {
+    const source = makeSource();
+    const advisory = makeBatch(source, {
+      issues: [
+        {
+          code: "REGIONAL_APPLICABILITY_ADVISORY",
+          severity: "warning",
+          stage: "validated",
+          recordId: record.id,
+          message: "Regional applicability remains advisory.",
+          suggestedAction: "Keep the record regional.",
+          decisionRequired: false,
+          technicalDetails: "https://official.example/regional-law",
+        },
+      ],
+    });
+    const blocker = makeBatch(source, {
+      issues: [
+        {
+          code: "REGIONAL_SCOPE_REVIEW_REQUIRED",
+          severity: "blocker",
+          stage: "validated",
+          recordId: record.id,
+          message: "Regional scope lacks sufficient evidence.",
+          suggestedAction: "Review official evidence.",
+          decisionRequired: true,
+        },
+      ],
+    });
+
+    expect(batchReviewSummary(advisory)).toMatchObject({
+      status: "ready",
+      issueCount: 1,
+      decisionRequiredCount: 0,
+    });
+    expect(regionalApplicabilityAdvisories(advisory)).toHaveLength(1);
+    expect(isRegionalApplicabilityAdvisory(advisory.artifacts?.issues[0] ?? { code: "" })).toBe(
+      true,
+    );
+    expect(bulkApprovalDisabledReason([advisory], 1, "Reviewer", false)).toBeUndefined();
+    expect(batchIdsForSelection([advisory], "all")).toEqual([advisory.sourceRun.sourceId]);
+    expect(batchIdsForSelection([advisory], "readyWithoutIssues")).toEqual([]);
+
+    expect(batchReviewSummary(blocker).status).toBe("blocked");
+    expect(bulkApprovalDisabledReason([blocker], 1, "Reviewer", false)).toBe(
       "Selected batches include blocked or already approved items.",
     );
   });

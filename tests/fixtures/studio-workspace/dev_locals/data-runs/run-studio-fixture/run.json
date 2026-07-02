@@ -21,9 +21,19 @@
       "periodId": "2026",
       "status": "completed",
       "stage": "compared",
-      "recordCount": 1,
-      "issueCount": 0,
+      "recordCount": 2,
+      "issueCount": 1,
       "decisionRequiredCount": 0
+    },
+    {
+      "sourceId": "public-by-2026",
+      "jurisdiction": "DE-BY",
+      "periodId": "2026",
+      "status": "blocked",
+      "stage": "compared",
+      "recordCount": 2,
+      "issueCount": 1,
+      "decisionRequiredCount": 1
     }
   ]
 }
