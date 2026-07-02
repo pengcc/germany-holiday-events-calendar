@@ -265,9 +265,9 @@ As of 2026-07-02:
 ## 16. Agent Notes
 
 - Use `docs/holiday-explorer-prd.md` as the current behavioral product baseline for the public
-  Holiday Explorer frontend. Treat `docs/product-prd.md` as historical/reference material for
-  broader product direction, architecture boundaries, and post-MVP event framing—not as the
-  primary source for Holiday Explorer behavior.
+  Holiday Explorer frontend.
+- Treat `docs/product-prd.md` as historical/reference material for broader product direction,
+  architecture boundaries, and post-MVP event framing.
 - Use the project-local `tanstack-static-frontend` skill for work touching public routing, static
   frontend data loading, locale/search state, or the Data Studio/public boundary.
 - Use docs-first research for framework, API, version, deployment, or tooling claims.
