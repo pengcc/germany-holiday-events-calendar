@@ -145,17 +145,17 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-950">
-      <header className="border-b border-slate-200 bg-white">
+    <main className="he-page min-h-screen">
+      <header className="he-surface he-border-subtle border-b">
         <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <span className="flex size-9 items-center justify-center rounded-md bg-sky-800 text-white">
+            <span className="he-button-primary flex size-9 items-center justify-center rounded-md">
               <CalendarDays aria-hidden="true" className="size-5" />
             </span>
             <span className="font-semibold">{text.appName}</span>
           </div>
           <nav aria-label={text.language} className="flex items-center gap-1">
-            <Languages aria-hidden="true" className="mr-1 size-4 text-slate-500" />
+            <Languages aria-hidden="true" className="he-text-muted mr-1 size-4" />
             {(["zh", "de", "en"] as const).map((item) => (
               <Button
                 key={item}
@@ -172,16 +172,16 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
         </div>
       </header>
 
-      <section className="border-b border-slate-200 bg-white">
+      <section className="he-surface he-border-subtle border-b">
         <div className="mx-auto max-w-[1480px] px-4 py-8 sm:px-6 lg:py-10">
-          <p className="mb-2 text-sm font-semibold text-sky-800">{text.appName}</p>
+          <p className="mb-2 text-sm font-semibold text-[var(--ui-primary)]">{text.appName}</p>
           <h1 className="max-w-4xl text-3xl font-bold sm:text-4xl">{text.title}</h1>
-          <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">{text.intro}</p>
+          <p className="he-text-secondary mt-3 max-w-3xl text-base leading-7">{text.intro}</p>
         </div>
       </section>
 
       <div className="mx-auto grid max-w-[1480px] gap-0 lg:grid-cols-[300px_1fr]">
-        <aside className="border-b border-slate-200 bg-white p-4 sm:p-6 lg:border-r lg:border-b-0">
+        <aside className="he-surface he-border-subtle border-b p-4 sm:p-6 lg:border-r lg:border-b-0">
           <ExplorerFilters
             availableYears={availableYears}
             locale={locale}
@@ -200,7 +200,7 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <h2 className="text-xl font-semibold">{text.calendar}</h2>
-              <p className="mt-1 text-sm text-slate-600">
+              <p className="he-text-secondary mt-1 text-sm">
                 {search.view === "state"
                   ? text.stateModeSummary
                   : search.view === "nationwide"
@@ -220,19 +220,19 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
               <p className="mt-1 leading-6">{text.dataErrorBody}</p>
             </div>
           ) : !manifest ? (
-            <div className="mt-6 border border-slate-200 bg-white p-4 text-sm text-slate-700">
+            <div className="he-surface he-border-subtle he-text-secondary mt-6 border p-4 text-sm">
               {text.loading}
             </div>
           ) : manifest.recordCount === 0 ? (
-            <div className="mt-6 flex min-h-64 flex-col items-center justify-center border border-dashed border-slate-300 bg-white px-6 py-10 text-center">
-              <DatabaseZap aria-hidden="true" className="size-9 text-sky-800" />
+            <div className="he-surface he-text-secondary mt-6 flex min-h-64 flex-col items-center justify-center border border-dashed border-[var(--border-strong)] px-6 py-10 text-center">
+              <DatabaseZap aria-hidden="true" className="size-9 text-[var(--ui-primary)]" />
               <h3 className="mt-4 text-lg font-semibold">{text.noDataTitle}</h3>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">{text.noDataBody}</p>
+              <p className="he-text-secondary mt-2 max-w-xl text-sm leading-6">{text.noDataBody}</p>
             </div>
           ) : (
             <>
               {!calendar.coverage.complete && comparisonValid ? (
-                <div className="mt-6 border-l-4 border-amber-500 bg-amber-50 p-4 text-sm text-amber-950">
+                <div className="he-warning mt-6 border-l-4 p-4 text-sm">
                   <h3 className="font-semibold">{text.incompleteCoverageTitle}</h3>
                   <p className="mt-1 leading-6">
                     {search.view === "state"
@@ -244,7 +244,7 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
                 </div>
               ) : null}
               {showResultEmptyState ? (
-                <p className="mt-4 border border-slate-200 bg-white p-4 text-sm text-slate-700">
+                <p className="he-surface he-border-subtle he-text-secondary mt-4 border p-4 text-sm">
                   {search.view === "state"
                     ? text.noStateResultMonths
                     : search.view === "nationwide"

@@ -69,35 +69,102 @@ async function useNationwidePublishedDataFixture(page: Page): Promise<void> {
   );
 }
 
+async function useAdvisoryVisualFixture(page: Page): Promise<void> {
+  const records = [
+    {
+      schemaVersion: 1,
+      id: "public-de-be-2026-regional",
+      jurisdiction: "DE-BE",
+      category: "public",
+      scope: "regional",
+      regions: ["Fixture municipality"],
+      startDate: "2026-06-04",
+      endDate: "2026-06-04",
+      names: { de: "Regionaler Hinweis", en: "Regional advisory", zh: "地区提示" },
+      periodId: "2026",
+      source: { sourceId: "fixture-regional" },
+    },
+    {
+      schemaVersion: 1,
+      id: "public-de-be-2026-statewide",
+      jurisdiction: "DE-BE",
+      category: "public",
+      scope: "statewide",
+      regions: [],
+      startDate: "2026-06-05",
+      endDate: "2026-06-05",
+      names: { de: "Landesweiter Feiertag", en: "Statewide holiday", zh: "全州公共假日" },
+      periodId: "2026",
+      source: { sourceId: "fixture-statewide" },
+    },
+  ];
+  await page.route("**/data/holidays.json", (route) =>
+    route.fulfill({
+      body: JSON.stringify({ schemaVersion: 1, records }),
+      contentType: "application/json",
+    }),
+  );
+  await page.route("**/data/manifest.json", (route) =>
+    route.fulfill({
+      body: JSON.stringify({
+        schemaVersion: 1,
+        datasetVersion: "fixture-advisory-visual-2026",
+        generatedAt: "2026-07-02T00:00:00.000Z",
+        recordsFile: "holidays.json",
+        recordsSha256: "0".repeat(64),
+        recordCount: records.length,
+        targetYears: [2026],
+        jurisdictions: ["DE-BE"],
+        categories: ["public"],
+        regionalRecordCount: 1,
+        coverageMatrix: [
+          {
+            jurisdiction: "DE-BE",
+            year: 2026,
+            category: "public",
+            covered: true,
+            sourceIds: ["fixture-statewide"],
+          },
+        ],
+        coverage: [],
+        warnings: [],
+        overrideIds: [],
+      }),
+      contentType: "application/json",
+    }),
+  );
+}
+
 const localeExpectations = {
   zh: {
     appName: "德国假期与重要活动日历",
     language: "语言",
     stateView: "一个联邦州",
-    publicMarkerLegend: "圆点：全州公共假日",
-    schoolMarkerLegend: "菱形：学校假期",
-    publicDayLegend: "黄色背景：包含全州公共假日",
-    regionalAdvisoryLegend: "定位标记：仅部分地区适用的提示，不计为全州公共假日",
+    publicDayLegend: "黄色：全州公共假日",
+    schoolDayLegend: "绿色：学校假期",
+    mixedDayLegend: "绿色底条：同时包含学校假期",
+    selectedDateLegend: "蓝色描边：已选日期",
+    regionalAdvisoryLegend: "ⓘ：部分地区适用提示",
   },
   de: {
     appName: "Germany Holiday & Events Calendar",
     language: "Sprache",
     stateView: "Ein Bundesland",
-    publicMarkerLegend: "Kreis: landesweiter Feiertag",
-    schoolMarkerLegend: "Raute: Schulferien",
-    publicDayLegend: "Gelber Hintergrund: enthält einen landesweiten Feiertag",
-    regionalAdvisoryLegend:
-      "Ortsmarke: Hinweis auf begrenzte regionale Geltung; zählt nicht als landesweiter Feiertag",
+    publicDayLegend: "Gelb: landesweiter Feiertag",
+    schoolDayLegend: "Grün: Schulferien",
+    mixedDayLegend: "Grüner Balken: zusätzlich Schulferien",
+    selectedDateLegend: "Blaue Umrandung: ausgewähltes Datum",
+    regionalAdvisoryLegend: "ⓘ: Hinweis auf begrenzte regionale Geltung",
   },
   en: {
     appName: "Germany Holiday & Events Calendar",
     language: "Language",
     stateView: "One federal state",
-    publicMarkerLegend: "Circle: Statewide public holiday",
-    schoolMarkerLegend: "Diamond: School holiday",
-    publicDayLegend: "Yellow background: includes a statewide public holiday",
-    regionalAdvisoryLegend:
-      "Pin: Limited-applicability advisory; not counted as a statewide public holiday",
+    publicDayLegend: "Yellow: Statewide public holiday",
+    schoolDayLegend: "Green: School holiday",
+    mixedDayLegend: "Green bar: Also includes school holidays",
+    selectedDateLegend: "Blue outline: Selected date",
+    regionalAdvisoryLegend: "ⓘ: Limited-applicability advisory",
   },
 } as const;
 
@@ -108,9 +175,10 @@ for (const [locale, expected] of Object.entries(localeExpectations)) {
     await expect(page.getByRole("navigation", { name: expected.language })).toBeVisible();
     await expect(page.locator("header")).toContainText(expected.appName);
     await expect(page.getByRole("radio", { name: expected.stateView })).toBeChecked();
-    await expect(page.getByText(expected.publicMarkerLegend, { exact: true })).toBeVisible();
-    await expect(page.getByText(expected.schoolMarkerLegend, { exact: true })).toBeVisible();
     await expect(page.getByText(expected.publicDayLegend, { exact: true })).toBeVisible();
+    await expect(page.getByText(expected.schoolDayLegend, { exact: true })).toBeVisible();
+    await expect(page.getByText(expected.mixedDayLegend, { exact: true })).toBeVisible();
+    await expect(page.getByText(expected.selectedDateLegend, { exact: true })).toBeVisible();
     await expect(page.getByText(expected.regionalAdvisoryLegend, { exact: true })).toBeVisible();
     await expect(page.getByText("Holiday Sync Germany")).toHaveCount(0);
     await expect(page.locator("main")).toContainText(/reviewed|审核|geprüft/i);
@@ -217,14 +285,14 @@ test("visible dates update the URL and recover populated and empty details", asy
   );
 
   const mayFirst = page.getByRole("button", { name: /May 1, 2026/ });
-  await expect(mayFirst.locator('[data-holiday-marker="public"]')).toBeVisible();
-  await expect(mayFirst.locator('[data-holiday-marker="school"]')).toBeVisible();
-  await expect(mayFirst).toHaveClass(/bg-amber-200/);
+  await expect(mayFirst).toHaveAttribute("data-calendar-state", "public-school");
+  await expect(mayFirst.locator("[data-holiday-marker]")).toHaveCount(0);
   await expect(mayFirst).toContainText("2/2");
   await mayFirst.click();
 
   await expect(page).toHaveURL(/date=2026-05-01/);
   await expect(mayFirst).toHaveAttribute("aria-pressed", "true");
+  await expect(mayFirst).toHaveAttribute("data-selected", "true");
   const details = page.getByRole("region", { name: "Date details" });
   await expect(details).toContainText("Labour Day");
   await expect(details).toContainText("School-specific closure");
@@ -269,7 +337,8 @@ test("regional public holidays stay advisory-only in state, compare, and nationw
     "/en?year=2026&period=month&month=5&region=multiple&states=DE-BE,DE-BB&layers=public",
   );
   const mixedDate = page.getByRole("button", { name: /May 1, 2026/ });
-  await expect(mixedDate.locator('[data-holiday-marker="public"]')).toBeVisible();
+  await expect(mixedDate).toHaveAttribute("data-calendar-state", "public");
+  await expect(mixedDate.locator("[data-holiday-marker]")).toHaveCount(0);
   await expect(mixedDate.locator('[data-regional-advisory-marker="true"]')).toBeVisible();
   await expect(mixedDate).toContainText("2/2");
   await mixedDate.click();
@@ -336,9 +405,8 @@ test("dates outside the active period are ignored and layer and activity labels 
   const julyNinth = page.getByRole("button", { name: /July 9, 2026/ });
   await expect(julyNinth).toHaveAccessibleName(/School holiday/);
   await expect(julyNinth).toHaveAccessibleName(/Partial overlap/);
-  await expect(julyNinth.locator('[data-holiday-marker="school"]')).toBeVisible();
-  await expect(julyNinth.locator('[data-holiday-marker="public"]')).toHaveCount(0);
-  await expect(julyNinth).toHaveClass(/bg-emerald-100/);
+  await expect(julyNinth).toHaveAttribute("data-calendar-state", "school");
+  await expect(julyNinth.locator("[data-holiday-marker]")).toHaveCount(0);
   await expect(julyNinth).toContainText("1/2");
   await julyNinth.click();
   const details = page.getByRole("region", { name: "Date details" });
@@ -367,20 +435,20 @@ test("state selection stays compact and native controls have usable hit targets"
   await expect(page.getByRole("checkbox", { name: /Berlin/ })).toBeHidden();
 
   await stateDisclosure.click();
-  const badenWuerttemberg = page.getByRole("checkbox", { name: /Baden-Württemberg/ });
-  await badenWuerttemberg.uncheck();
+  const berlin = page.getByRole("checkbox", { name: /Berlin/ });
+  await berlin.uncheck();
   await expect(stateDisclosure).toContainText("0 states selected");
   await expect(
     page.getByText("Select at least two federal states to show comparison results."),
   ).toBeVisible();
-  const berlin = page.getByRole("checkbox", { name: /Berlin/ });
-  await expect(berlin).toBeVisible();
-  await berlin.check();
-  await expect(berlin).toBeChecked();
-  expect(new URL(page.url()).searchParams.get("states")).toContain("DE-BE");
+  const badenWuerttemberg = page.getByRole("checkbox", { name: /Baden-Württemberg/ });
+  await expect(badenWuerttemberg).toBeVisible();
+  await badenWuerttemberg.check();
+  await expect(badenWuerttemberg).toBeChecked();
+  expect(new URL(page.url()).searchParams.get("states")).toContain("DE-BW");
 
   await stateDisclosure.click();
-  await expect(berlin).toBeHidden();
+  await expect(badenWuerttemberg).toBeHidden();
   await expect(page.getByRole("heading", { name: "Holiday calendar" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
@@ -455,4 +523,19 @@ test("an empty state period hides the calendar and explains coverage", async ({ 
   ).toBeVisible();
   await expect(page.getByRole("region", { name: "February 2026" })).toHaveCount(0);
   await expect(page.getByRole("region", { name: "Date details" })).toHaveCount(0);
+});
+
+test("advisory-only dates stay visually neutral and uncounted", async ({ page }) => {
+  await useAdvisoryVisualFixture(page);
+  await page.goto("/en?year=2026&period=month&month=6&view=state&states=DE-BE&layers=public");
+
+  const advisoryDate = page.getByRole("button", { name: /June 4, 2026/ });
+  await expect(advisoryDate).toHaveAttribute("data-calendar-state", "normal");
+  await expect(advisoryDate.locator('[data-regional-advisory-marker="true"]')).toBeVisible();
+  await expect(advisoryDate).toHaveAccessibleName(/Limited-applicability public holiday advisory/);
+  await expect(advisoryDate).not.toContainText("1/1");
+
+  const statewideDate = page.getByRole("button", { name: /June 5, 2026/ });
+  await expect(statewideDate).toHaveAttribute("data-calendar-state", "public");
+  await expect(statewideDate.locator('[data-regional-advisory-marker="true"]')).toHaveCount(0);
 });

@@ -1,7 +1,5 @@
 import { buildMonth, type CalendarCell, type CalendarDay } from "./calendar";
-import { HolidayMarker } from "./holiday-marker";
 import type { ExplorerCopy, Locale } from "./i18n";
-import { cn } from "./lib/cn";
 import { RegionalAdvisoryMarker } from "./regional-advisory-marker";
 
 const leadingCellKeys = ["mon", "tue", "wed", "thu", "fri", "sat"];
@@ -41,9 +39,9 @@ export function MonthGrid({
         : ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
   return (
-    <section className="border border-slate-200 bg-white p-3" aria-label={`${monthName} ${year}`}>
+    <section className="he-month-card border p-3" aria-label={`${monthName} ${year}`}>
       <h3 className="mb-3 text-sm font-semibold capitalize">{monthName}</h3>
-      <div className="grid grid-cols-7 gap-1 text-center text-[11px] text-slate-500">
+      <div className="he-text-muted grid grid-cols-7 gap-1 text-center text-[11px]">
         {weekdays.map((weekday) => (
           <span key={weekday}>{weekday}</span>
         ))}
@@ -90,6 +88,13 @@ function DateButton({
   const partialOverlap = cell.overlap === "partial";
   const hasPublic = categories.has("public");
   const hasSchool = categories.has("school");
+  const calendarState = hasPublic
+    ? hasSchool
+      ? "public-school"
+      : "public"
+    : hasSchool
+      ? "school"
+      : "normal";
   const activityText = showFractions
     ? fullOverlap
       ? text.fullOverlap
@@ -120,35 +125,23 @@ function DateButton({
     <button
       aria-label={ariaLabel}
       aria-pressed={selected}
-      className={cn(
-        "relative flex aspect-square min-w-0 items-center justify-center rounded-sm border text-xs font-medium focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 sm:text-sm",
-        hasPublic && "border-amber-500 bg-amber-200 text-slate-950",
-        !hasPublic && hasSchool && "border-emerald-600 bg-emerald-100 text-emerald-950",
-        !hasPublic && !hasSchool && "border-slate-200 bg-white text-slate-700",
-        selected && "ring-2 ring-sky-950 ring-offset-1",
-      )}
+      className="he-calendar-day relative flex aspect-square min-w-0 items-center justify-center rounded-sm border text-xs font-medium sm:text-sm"
+      data-calendar-state={calendarState}
+      data-selected={selected ? "true" : undefined}
       type="button"
       onClick={() => onSelectDate(cell.date)}
     >
-      <time dateTime={cell.date}>{cell.day}</time>
-      {categories.size > 0 ? (
-        <span className="absolute bottom-0.5 left-0.5 flex gap-0.5" aria-hidden="true">
-          {categories.has("public") ? (
-            <HolidayMarker category="public" className="border-white/80" />
-          ) : null}
-          {categories.has("school") ? (
-            <HolidayMarker category="school" className="border-white/80" />
-          ) : null}
-        </span>
-      ) : null}
+      <time className="relative z-1" dateTime={cell.date}>
+        {cell.day}
+      </time>
       {hasRegionalAdvisory ? (
-        <span className="absolute top-0.5 right-0.5" aria-hidden="true">
+        <span className="absolute top-0.5 right-0.5 z-2" aria-hidden="true">
           <RegionalAdvisoryMarker />
         </span>
       ) : null}
       {showFractions && cell.hasStatewideActivity ? (
         <span
-          className="absolute right-0.5 bottom-0.5 text-[8px] font-bold sm:text-[9px]"
+          className="he-calendar-fraction absolute right-0.5 bottom-0.5 px-px text-[8px] font-bold sm:text-[9px]"
           aria-hidden="true"
         >
           {`${cell.matchedStates.length}/${selectedStateCount}`}

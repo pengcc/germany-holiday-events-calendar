@@ -85,7 +85,9 @@ Calendar semantics:
 - Yellow date background: the date includes a public holiday.
 - Green date background: the date has school holiday activity only.
 - White date background: no reviewed holiday activity matches the selected state and filters.
-- Circle and diamond markers identify public and school holiday types when present.
+- A green bottom bar on a yellow date shows that school holiday activity is also present.
+- An information indicator identifies a limited-applicability regional advisory without changing
+  the date's normal holiday status.
 
 ### 2.2 View Mode B: Nationwide Common Holidays
 
@@ -147,24 +149,27 @@ Overlap semantics:
 
 ## 3. Calendar Visual Semantics
 
-The calendar legend must explain the visual elements users actually see. Background and marker
-semantics are separate: backgrounds communicate the dominant day status, while markers preserve
-holiday-type detail.
+The calendar legend must explain the visual elements users actually see. Date background and
+border communicate normal holiday activity; a secondary bar communicates a mixed public/school
+date; an information indicator remains separate from normal holiday activity.
 
 - **Yellow date background:** includes a public holiday.
 - **Green date background:** school holiday activity only.
 - **White date background:** no reviewed holiday activity for the selected view mode and filters.
-- **Circle marker:** public holiday marker.
-- **Diamond marker:** school holiday marker.
+- **Green bottom bar on yellow:** school holiday activity is also present.
+- **Information indicator:** limited-applicability regional advisory; it does not make a date a
+  normal statewide public holiday.
+- **Blue outline:** selected date.
 - **Fraction such as `2/2`:** overlap count, shown only in Compare multiple federal states.
 
 If a date includes both public holiday and school holiday activity, the public holiday background
-has priority, normally yellow. Markers and date details continue to indicate that both holiday
-types are present.
+has priority, normally yellow, and the green bottom bar preserves the school-holiday meaning. Date
+details continue to identify both holiday types.
 
-Date numbers must remain clearly visible. Marker and fraction placement must not obscure the date
-number. Full holiday names and explanations belong in accessible labels, the legend, and date
-details rather than compact calendar badges.
+Regional-advisory-only dates retain the normal white date background and show only the information
+indicator. Date numbers must remain clearly visible. The advisory indicator, mixed-state bar, and
+fraction placement must not obscure the date number. Full holiday names and explanations belong in
+accessible labels, the legend, and date details rather than compact calendar badges.
 
 ### 3.1 Result-Focused Month Visibility
 
@@ -246,7 +251,8 @@ Recommended implementation scope:
 - allow selected states to be unchecked in Compare multiple federal states;
 - show validation when fewer than two states are selected for comparison;
 - hide overlap fractions outside comparison mode;
-- explain backgrounds, markers, and fractions through mode-appropriate legend text;
+- explain backgrounds, the mixed-date bar, advisory indicator, selected outline, and fractions
+  through mode-appropriate legend text;
 - provide mode-specific coverage warnings;
 - preserve date selection, URL-backed state, filters, accessibility, and date details; and
 - keep data, schema, publish/release logic, Data Studio, and generated files unchanged.

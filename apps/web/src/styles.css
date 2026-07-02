@@ -2,6 +2,31 @@
 @import "tw-animate-css";
 
 :root {
+  --surface-page: #f8fafc;
+  --surface-card: #ffffff;
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --ui-primary: #0369a1;
+  --ui-primary-hover: #075985;
+  --ui-primary-soft: #f0f9ff;
+  --ui-primary-border: #0284c7;
+  --ui-focus-ring: #0369a1;
+  --holiday-public-bg: #fde68a;
+  --holiday-public-border: #f59e0b;
+  --holiday-public-accent: #92400e;
+  --holiday-school-bg: #d1fae5;
+  --holiday-school-border: #059669;
+  --holiday-school-accent: #047857;
+  --advisory-icon: #0369a1;
+  --advisory-bg: #f0f9ff;
+  --advisory-border: #7dd3fc;
+  --warning-bg: #fff7ed;
+  --warning-border: #ea580c;
+  --warning-text: #7c2d12;
+  --selected-date-ring: #0369a1;
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color-scheme: light;
@@ -16,11 +41,200 @@
 body {
   margin: 0;
   min-width: 320px;
-  background: #f8fafc;
+  background: var(--surface-page);
 }
 
 button,
 select,
 input {
   font: inherit;
+}
+
+.he-page {
+  background: var(--surface-page);
+  color: var(--text-primary);
+}
+
+.he-surface {
+  background: var(--surface-card);
+}
+
+.he-border-subtle {
+  border-color: var(--border-subtle);
+}
+
+.he-text-secondary {
+  color: var(--text-secondary);
+}
+
+.he-text-muted {
+  color: var(--text-muted);
+}
+
+.he-focus-ring:focus-visible {
+  outline: 2px solid var(--ui-focus-ring);
+  outline-offset: 2px;
+}
+
+.he-button-primary {
+  background: var(--ui-primary);
+  color: var(--surface-card);
+}
+
+.he-button-primary:hover {
+  background: var(--ui-primary-hover);
+}
+
+.he-button-secondary {
+  border: 1px solid var(--border-strong);
+  background: var(--surface-card);
+  color: var(--text-primary);
+}
+
+.he-button-secondary:hover,
+.he-button-ghost:hover {
+  background: var(--ui-primary-soft);
+}
+
+.he-button-ghost {
+  color: var(--text-secondary);
+}
+
+.he-control {
+  border-color: var(--border-strong);
+  background: var(--surface-card);
+  color: var(--text-primary);
+}
+
+.he-choice {
+  accent-color: var(--ui-primary);
+}
+
+.he-filter-option {
+  border-color: var(--border-subtle);
+  background: var(--surface-card);
+  color: var(--text-secondary);
+}
+
+.he-filter-option:hover {
+  background: var(--ui-primary-soft);
+}
+
+.he-filter-option-selected {
+  border-color: var(--ui-primary-border);
+  background: var(--ui-primary-soft);
+  color: var(--text-primary);
+}
+
+.he-state-chip {
+  border-color: var(--ui-primary-border);
+  background: var(--ui-primary-soft);
+  color: var(--text-primary);
+}
+
+.he-warning {
+  border-color: var(--warning-border);
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}
+
+.he-month-card {
+  border-color: var(--border-subtle);
+  background: var(--surface-card);
+}
+
+.he-calendar-day {
+  border-color: var(--border-subtle);
+  background: var(--surface-card);
+  color: var(--text-secondary);
+  transition:
+    filter 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.he-calendar-day:hover {
+  filter: brightness(0.98);
+}
+
+.he-calendar-day:focus-visible {
+  z-index: 20;
+  outline: 2px solid var(--ui-focus-ring);
+  outline-offset: 2px;
+}
+
+.he-calendar-day[data-calendar-state="public"],
+.he-calendar-day[data-calendar-state="public-school"] {
+  border-color: var(--holiday-public-border);
+  background: var(--holiday-public-bg);
+  color: var(--text-primary);
+}
+
+.he-calendar-day[data-calendar-state="school"] {
+  border-color: var(--holiday-school-border);
+  background: var(--holiday-school-bg);
+  color: var(--text-primary);
+}
+
+.he-calendar-day[data-calendar-state="public-school"]::after {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--holiday-school-accent);
+  content: "";
+  pointer-events: none;
+}
+
+.he-calendar-day[data-selected="true"] {
+  z-index: 10;
+  box-shadow:
+    0 0 0 2px var(--selected-date-ring),
+    0 0 0 4px var(--surface-card);
+}
+
+.he-calendar-fraction {
+  z-index: 2;
+  border-radius: 2px;
+  background: var(--surface-card);
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.he-advisory-marker {
+  color: var(--advisory-icon);
+}
+
+.he-legend-swatch {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.125rem;
+  background: var(--surface-card);
+}
+
+.he-legend-public {
+  border-color: var(--holiday-public-border);
+  background: var(--holiday-public-bg);
+}
+
+.he-legend-school {
+  border-color: var(--holiday-school-border);
+  background: var(--holiday-school-bg);
+}
+
+.he-legend-mixed {
+  border-color: var(--holiday-public-border);
+  background: linear-gradient(
+    to top,
+    var(--holiday-school-accent) 0 3px,
+    var(--holiday-public-bg) 3px 100%
+  );
+}
+
+.he-legend-selected {
+  box-shadow: 0 0 0 2px var(--selected-date-ring);
 }

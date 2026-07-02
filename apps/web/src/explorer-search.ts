@@ -24,7 +24,7 @@ export interface ExplorerSearch {
   date?: string;
 }
 
-const defaultSingleState = stateCodes[0];
+const defaultSingleState: StateCode = "DE-BE";
 export function parseExplorerSearch(search: Record<string, unknown>): ExplorerSearch {
   const period = parseEnum(search.period, periodModes) ?? "year";
   const view =
