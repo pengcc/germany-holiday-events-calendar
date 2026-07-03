@@ -1,8 +1,12 @@
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, type Page, test } from "@playwright/test";
 import { stateCodes } from "../../packages/data-core/src/schemas";
 
 const publicFixtureRoot = resolve("tests/fixtures/public");
+const publicManifestFixture = JSON.parse(
+  readFileSync(resolve(publicFixtureRoot, "manifest.json"), "utf8"),
+) as Record<string, unknown>;
 const desktopFilterBreakpoint = 1024;
 
 async function expandMobileFilters(page: Page): Promise<void> {
@@ -15,12 +19,33 @@ async function expandMobileFilters(page: Page): Promise<void> {
   }
 }
 
+async function selectFilterOption(
+  page: Page,
+  label: string,
+  option: string | RegExp,
+): Promise<void> {
+  await page.getByRole("combobox", { name: label, exact: true }).click();
+  await page.getByRole("option", { name: option, exact: typeof option === "string" }).click();
+}
+
 async function usePublishedDataFixture(page: Page): Promise<void> {
   await page.route("**/data/holidays.json", (route) =>
     route.fulfill({ path: resolve(publicFixtureRoot, "holidays.json") }),
   );
   await page.route("**/data/manifest.json", (route) =>
     route.fulfill({ path: resolve(publicFixtureRoot, "manifest.json") }),
+  );
+}
+
+async function useMultiYearPublishedDataFixture(page: Page): Promise<void> {
+  await page.route("**/data/holidays.json", (route) =>
+    route.fulfill({ path: resolve(publicFixtureRoot, "holidays.json") }),
+  );
+  await page.route("**/data/manifest.json", (route) =>
+    route.fulfill({
+      body: JSON.stringify({ ...publicManifestFixture, targetYears: [2026, 2027] }),
+      contentType: "application/json",
+    }),
   );
 }
 
@@ -216,8 +241,8 @@ test("validated explorer filters drive the visible period and survive locale nav
   await expandMobileFilters(page);
 
   await expect(page.getByRole("radio", { name: "Compare federal states" })).toBeChecked();
-  await expect(page.getByLabel("Period")).toHaveValue("quarter");
-  await expect(page.getByLabel("Quarter", { exact: true })).toHaveValue("2");
+  await expect(page.getByRole("combobox", { name: "Period", exact: true })).toHaveText("Quarter");
+  await expect(page.getByRole("combobox", { name: "Quarter", exact: true })).toHaveText("Q2");
   await expect(page.getByText("2 states selected")).toBeVisible();
   await expect(page.getByRole("region", { name: "April 2026" })).toHaveCount(0);
   await expect(page.getByRole("region", { name: "May 2026" })).toBeVisible();
@@ -258,12 +283,12 @@ test("view mode and period controls update the route-backed calendar", async ({ 
   await expect(page.getByRole("region", { name: "January 2026" })).toBeVisible();
   await expect(page.getByText(/No comparable holiday results match/)).toHaveCount(0);
 
-  await page.getByLabel("Period").selectOption("month");
-  await page.getByLabel("Month", { exact: true }).selectOption("7");
+  await selectFilterOption(page, "Period", "Month");
+  await selectFilterOption(page, "Month", "July");
   await expect(page.getByRole("region", { name: "July 2026" })).toBeVisible();
   await expect(page.getByRole("region", { name: "June 2026" })).toHaveCount(0);
 
-  await page.getByLabel("Period").selectOption("year");
+  await selectFilterOption(page, "Period", "Year");
   await expect(page.getByRole("region", { name: "January 2026" })).toBeVisible();
   await expect(page.getByRole("region", { name: "December 2026" })).toBeVisible();
 });
@@ -582,9 +607,9 @@ test("mobile filters stay collapsed, summarize changes, and preserve disclosure 
   await expect(disclosure).toHaveAttribute("open", "");
   await expect(page.getByRole("radio", { name: "One federal state" })).toBeVisible();
 
-  await page.getByLabel("Federal state", { exact: true }).selectOption("DE-BB");
-  await page.getByLabel("Period").selectOption("quarter");
-  await page.getByLabel("Quarter", { exact: true }).selectOption("2");
+  await selectFilterOption(page, "Federal state", "Brandenburg (DE-BB)");
+  await selectFilterOption(page, "Period", "Quarter");
+  await selectFilterOption(page, "Quarter", "Q2");
   await page.getByRole("checkbox", { name: "School holiday" }).uncheck();
 
   await expect(disclosure).toHaveAttribute("open", "");
@@ -632,6 +657,76 @@ test("mobile nationwide and compare summaries reflect canonical mode state", asy
   await expect(summary).toContainText("BB, BE, BY +1");
 });
 
+test("single-state select contains the 16-state list on a narrow mobile viewport", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  await usePublishedDataFixture(page);
+  await page.goto("/en?year=2026&view=state&states=DE-BE&layers=public,school");
+  await page.getByTestId("mobile-filter-summary").click();
+
+  const stateSelect = page.getByRole("combobox", { name: "Federal state", exact: true });
+  await expect(stateSelect).toHaveAttribute("aria-expanded", "false");
+  await stateSelect.click();
+
+  const listbox = page.getByRole("listbox");
+  await expect(listbox).toBeVisible();
+  await expect(page.locator("#filter-state")).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByRole("option")).toHaveCount(16);
+  const contentBox = await listbox.locator("xpath=..").boundingBox();
+  expect(contentBox?.x ?? -1).toBeGreaterThanOrEqual(0);
+  expect((contentBox?.x ?? 0) + (contentBox?.width ?? 0)).toBeLessThanOrEqual(320);
+
+  const thuringia = page.getByRole("option", { name: "Thuringia (DE-TH)", exact: true });
+  await thuringia.scrollIntoViewIfNeeded();
+  await thuringia.click();
+  await expect(page).toHaveURL(/states=DE-TH/);
+  await expect(stateSelect).toBeFocused();
+  await expect(page.getByTestId("mobile-filter-summary")).toContainText("Thuringia (TH)");
+
+  await stateSelect.click();
+  await page.keyboard.press("Escape");
+  await expect(listbox).toHaveCount(0);
+  await expect(stateSelect).toBeFocused();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
+    true,
+  );
+});
+
+test("replacement selects expose keyboard, selected-state, and typeahead behavior", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await useMultiYearPublishedDataFixture(page);
+  await page.goto("/en?year=2026&view=state&states=DE-BE&layers=public,school");
+
+  const yearSelect = page.getByRole("combobox", { name: "Year", exact: true });
+  await yearSelect.focus();
+  await yearSelect.press("Enter");
+  const selectedYear = page.getByRole("option", { name: "2026", exact: true });
+  await expect(selectedYear).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/year=2027/);
+  await expect(yearSelect).toBeFocused();
+
+  await yearSelect.press("Space");
+  await expect(page.getByRole("listbox")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("listbox")).toHaveCount(0);
+  await expect(yearSelect).toBeFocused();
+
+  const stateSelect = page.getByRole("combobox", { name: "Federal state", exact: true });
+  await stateSelect.focus();
+  await stateSelect.press("Enter");
+  await page.keyboard.type("thu");
+  const thuringia = page.getByRole("option", { name: "Thuringia (DE-TH)", exact: true });
+  await expect(thuringia).toHaveAttribute("data-highlighted", "");
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/states=DE-TH/);
+  await expect(stateSelect).toBeFocused();
+});
+
 test("desktop filters remain visible while the mobile summary stays hidden", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/en?year=2026");
@@ -676,7 +771,7 @@ test("layer and view changes preserve a visible selected date in URL state", asy
   await expect(publicLayer).toBeDisabled();
 
   await page.getByRole("radio", { name: "One federal state" }).check();
-  await page.getByLabel("Federal state", { exact: true }).selectOption("DE-BE");
+  await selectFilterOption(page, "Federal state", "Berlin (DE-BE)");
   search = new URL(page.url()).searchParams;
   expect(search.get("date")).toBe("2026-05-01");
   expect(search.get("view")).toBe("state");
