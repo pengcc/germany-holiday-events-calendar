@@ -5,8 +5,13 @@ import {
   Navigate,
   Outlet,
 } from "@tanstack/react-router";
-import { ComparisonPage } from "./comparison-page";
+import { lazy, Suspense } from "react";
 import { parseExplorerSearch } from "./explorer-search";
+
+const ComparisonPage = lazy(async () => {
+  const module = await import("./comparison-page");
+  return { default: module.ComparisonPage };
+});
 
 const defaultExplorerSearch = parseExplorerSearch({});
 
@@ -46,17 +51,19 @@ function ZhPage() {
   const search = zhRoute.useSearch();
   const navigate = zhRoute.useNavigate();
   return (
-    <ComparisonPage
-      locale="zh"
-      search={search}
-      onSearchChange={(next, options) =>
-        navigate({
-          search: next,
-          replace: options?.replace,
-          resetScroll: options?.resetScroll,
-        })
-      }
-    />
+    <Suspense fallback={<PageLoadingFallback label="正在加载" />}>
+      <ComparisonPage
+        locale="zh"
+        search={search}
+        onSearchChange={(next, options) =>
+          navigate({
+            search: next,
+            replace: options?.replace,
+            resetScroll: options?.resetScroll,
+          })
+        }
+      />
+    </Suspense>
   );
 }
 
@@ -64,17 +71,19 @@ function DePage() {
   const search = deRoute.useSearch();
   const navigate = deRoute.useNavigate();
   return (
-    <ComparisonPage
-      locale="de"
-      search={search}
-      onSearchChange={(next, options) =>
-        navigate({
-          search: next,
-          replace: options?.replace,
-          resetScroll: options?.resetScroll,
-        })
-      }
-    />
+    <Suspense fallback={<PageLoadingFallback label="Wird geladen" />}>
+      <ComparisonPage
+        locale="de"
+        search={search}
+        onSearchChange={(next, options) =>
+          navigate({
+            search: next,
+            replace: options?.replace,
+            resetScroll: options?.resetScroll,
+          })
+        }
+      />
+    </Suspense>
   );
 }
 
@@ -82,17 +91,29 @@ function EnPage() {
   const search = enRoute.useSearch();
   const navigate = enRoute.useNavigate();
   return (
-    <ComparisonPage
-      locale="en"
-      search={search}
-      onSearchChange={(next, options) =>
-        navigate({
-          search: next,
-          replace: options?.replace,
-          resetScroll: options?.resetScroll,
-        })
-      }
-    />
+    <Suspense fallback={<PageLoadingFallback label="Loading" />}>
+      <ComparisonPage
+        locale="en"
+        search={search}
+        onSearchChange={(next, options) =>
+          navigate({
+            search: next,
+            replace: options?.replace,
+            resetScroll: options?.resetScroll,
+          })
+        }
+      />
+    </Suspense>
+  );
+}
+
+function PageLoadingFallback({ label }: { label: string }) {
+  return (
+    <main aria-busy="true" className="min-h-screen">
+      <p className="sr-only" role="status">
+        {label}
+      </p>
+    </main>
   );
 }
 
