@@ -1,6 +1,6 @@
 import { type StateCode, stateCodes } from "@hsg/data-core/schemas";
 import { ChevronDown } from "lucide-react";
-import type { ReactNode } from "react";
+import { FilterSelect } from "./components/select";
 import {
   type ExplorerSearch,
   type HolidayLayer,
@@ -25,8 +25,6 @@ interface ExplorerFiltersProps {
   onToggleState: (stateCode: StateCode) => void;
   onToggleLayer: (layer: HolidayLayer) => void;
 }
-
-const selectClasses = "he-control he-focus-ring h-10 w-full rounded-md border px-3";
 
 export function ExplorerFilters({
   locale,
@@ -99,74 +97,57 @@ export function ExplorerFilters({
         </fieldset>
 
         <div className="mt-5 grid grid-cols-2 gap-3">
-          <SelectField label={text.year}>
-            <select
-              aria-label={text.year}
-              className={selectClasses}
-              value={year}
-              onChange={(event) => onChange({ year: Number(event.target.value) })}
-            >
-              {availableYears.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </SelectField>
+          <FilterSelect
+            id="filter-year"
+            label={text.year}
+            options={availableYears.map((item) => ({ value: String(item), label: String(item) }))}
+            value={String(year)}
+            onValueChange={(value) => onChange({ year: Number(value) })}
+          />
 
-          <SelectField label={text.period}>
-            <select
-              aria-label={text.period}
-              className={selectClasses}
-              value={search.period}
-              onChange={(event) => onChange({ period: event.target.value })}
-            >
-              {periodModes.map((mode) => (
-                <option key={mode} value={mode}>
-                  {mode === "year"
-                    ? text.yearView
-                    : mode === "quarter"
-                      ? text.quarterView
-                      : text.monthView}
-                </option>
-              ))}
-            </select>
-          </SelectField>
+          <FilterSelect
+            id="filter-period"
+            label={text.period}
+            options={periodModes.map((mode) => ({
+              value: mode,
+              label:
+                mode === "year"
+                  ? text.yearView
+                  : mode === "quarter"
+                    ? text.quarterView
+                    : text.monthView,
+            }))}
+            value={search.period}
+            onValueChange={(value) => onChange({ period: value })}
+          />
 
           {search.period === "quarter" ? (
-            <SelectField label={text.quarter}>
-              <select
-                aria-label={text.quarter}
-                className={selectClasses}
-                value={search.quarter}
-                onChange={(event) => onChange({ quarter: Number(event.target.value) })}
-              >
-                {[1, 2, 3, 4].map((quarter) => (
-                  <option key={quarter} value={quarter}>
-                    Q{quarter}
-                  </option>
-                ))}
-              </select>
-            </SelectField>
+            <FilterSelect
+              id="filter-quarter"
+              label={text.quarter}
+              options={[1, 2, 3, 4].map((quarter) => ({
+                value: String(quarter),
+                label: `Q${quarter}`,
+              }))}
+              value={String(search.quarter)}
+              onValueChange={(value) => onChange({ quarter: Number(value) })}
+            />
           ) : null}
 
           {search.period === "month" ? (
-            <SelectField label={text.month}>
-              <select
-                aria-label={text.month}
-                className={selectClasses}
-                value={search.month}
-                onChange={(event) => onChange({ month: Number(event.target.value) })}
-              >
-                {Array.from({ length: 12 }, (_, index) => index + 1).map((month) => (
-                  <option key={month} value={month}>
-                    {new Intl.DateTimeFormat(locale, { month: "long", timeZone: "UTC" }).format(
-                      new Date(Date.UTC(year, month - 1, 1)),
-                    )}
-                  </option>
-                ))}
-              </select>
-            </SelectField>
+            <FilterSelect
+              id="filter-month"
+              label={text.month}
+              options={Array.from({ length: 12 }, (_, index) => index + 1).map((month) => ({
+                value: String(month),
+                label: new Intl.DateTimeFormat(locale, {
+                  month: "long",
+                  timeZone: "UTC",
+                }).format(new Date(Date.UTC(year, month - 1, 1))),
+              }))}
+              value={String(search.month)}
+              onValueChange={(value) => onChange({ month: Number(value) })}
+            />
           ) : null}
         </div>
 
@@ -240,21 +221,17 @@ function StateSelection({
 
   if (view === "state") {
     return (
-      <label className="he-text-secondary mt-5 block text-sm font-semibold">
-        <span className="mb-1 block">{text.singleStateChoice}</span>
-        <select
-          aria-label={text.singleStateChoice}
-          className={selectClasses}
-          value={selectedStates[0]}
-          onChange={(event) => onChange(event.target.value as StateCode)}
-        >
-          {stateCodes.map((stateCode) => (
-            <option key={stateCode} value={stateCode}>
-              {stateNames[stateCode]?.[locale]} ({stateCode})
-            </option>
-          ))}
-        </select>
-      </label>
+      <FilterSelect
+        className="mt-5"
+        id="filter-state"
+        label={text.singleStateChoice}
+        options={stateCodes.map((stateCode) => ({
+          value: stateCode,
+          label: `${stateNames[stateCode]?.[locale]} (${stateCode})`,
+        }))}
+        value={selectedStates[0] ?? stateCodes[0]}
+        onValueChange={(value) => onChange(value as StateCode)}
+      />
     );
   }
 
@@ -310,15 +287,6 @@ function StateSelection({
         </div>
       </details>
     </section>
-  );
-}
-
-function SelectField({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div className="he-text-secondary text-sm font-medium">
-      <span className="mb-1 block">{label}</span>
-      {children}
-    </div>
   );
 }
 

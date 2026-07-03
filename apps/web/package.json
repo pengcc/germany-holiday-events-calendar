@@ -12,6 +12,7 @@
   "dependencies": {
     "@hsg/data-core": "workspace:*",
     "@internationalized/date": "3.12.2",
+    "@radix-ui/react-select": "2.3.2",
     "@radix-ui/react-slot": "1.2.4",
     "@tanstack/react-router": "1.170.13",
     "class-variance-authority": "0.7.1",
