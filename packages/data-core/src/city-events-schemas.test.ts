@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  AcceptedCityEventSourceFactSchema,
   CityEventCurationSchema,
+  CityEventCurationSetSchema,
   CityEventsManifestSchema,
   cityEventCategoryBySource,
   getCityEventCategoryForSource,
@@ -61,6 +63,17 @@ const manifest = {
     },
   ],
   warnings: [],
+} as const;
+
+const acceptedFact = {
+  schemaVersion: 1,
+  event: importedEvent,
+  evidenceCheckedAt: "2026-07-03T10:00:00.000Z",
+  review: {
+    reviewedAt: "2026-07-03T11:00:00.000Z",
+    reviewer: "Internal reviewer",
+    rationale: "Dates and official URL checked against the source page.",
+  },
 } as const;
 
 describe("city event schemas", () => {
@@ -140,6 +153,54 @@ describe("city event schemas", () => {
     ).toBe(false);
   });
 
+  it("validates internal accepted facts and keeps review metadata internal", () => {
+    expect(AcceptedCityEventSourceFactSchema.parse(acceptedFact)).toEqual(acceptedFact);
+    expect(
+      AcceptedCityEventSourceFactSchema.safeParse({
+        ...acceptedFact,
+        event: { ...importedEvent, category: "trade_fair" },
+      }).success,
+    ).toBe(false);
+    expect(
+      AcceptedCityEventSourceFactSchema.safeParse({
+        ...acceptedFact,
+        event: { ...importedEvent, sourceUrl: "http://www.scc-events.com/event" },
+      }).success,
+    ).toBe(false);
+    expect(
+      AcceptedCityEventSourceFactSchema.safeParse({
+        ...acceptedFact,
+        evidenceCheckedAt: "2026-07-03",
+      }).success,
+    ).toBe(false);
+    expect(
+      AcceptedCityEventSourceFactSchema.safeParse({
+        ...acceptedFact,
+        review: { ...acceptedFact.review, reviewedAt: "not-a-datetime" },
+      }).success,
+    ).toBe(false);
+  });
+
+  it("rejects duplicate curation ids and v1 impact note overrides in curation sets", () => {
+    const curation = { eventId: importedEvent.id, impactLevel: "none", hidden: false } as const;
+    expect(CityEventCurationSetSchema.parse({ schemaVersion: 1, curations: [curation] })).toEqual({
+      schemaVersion: 1,
+      curations: [curation],
+    });
+    expect(
+      CityEventCurationSetSchema.safeParse({
+        schemaVersion: 1,
+        curations: [curation, curation],
+      }).success,
+    ).toBe(false);
+    expect(
+      CityEventCurationSetSchema.safeParse({
+        schemaVersion: 1,
+        curations: [{ ...curation, impactNoteOverride: "Not part of v1" }],
+      }).success,
+    ).toBe(false);
+  });
+
   it("keeps internal and curation fields out of published records", () => {
     expect(PublishedCityEventSchema.parse(publishedEvent)).toEqual(publishedEvent);
     expect(
@@ -195,6 +256,55 @@ describe("city event schemas", () => {
         sourceCoverage: [{ ...manifest.sourceCoverage[0], reviewStatus: "approved" }],
       }).success,
     ).toBe(false);
+  });
+
+  it("rejects duplicate and inconsistent public manifest coverage", () => {
+    expect(
+      CityEventsManifestSchema.safeParse({
+        ...manifest,
+        coveredSources: ["scc_events", "scc_events"],
+      }).success,
+    ).toBe(false);
+    expect(
+      CityEventsManifestSchema.safeParse({
+        ...manifest,
+        coveredCities: ["berlin", "berlin"],
+      }).success,
+    ).toBe(false);
+    expect(
+      CityEventsManifestSchema.safeParse({
+        ...manifest,
+        coveredSources: ["messe_berlin"],
+      }).success,
+    ).toBe(false);
+    expect(
+      CityEventsManifestSchema.safeParse({
+        ...manifest,
+        coveredSources: ["scc_events", "messe_berlin"],
+      }).success,
+    ).toBe(false);
+    expect(
+      CityEventsManifestSchema.safeParse({
+        ...manifest,
+        coveredCities: [],
+      }).success,
+    ).toBe(false);
+    expect(
+      CityEventsManifestSchema.safeParse({
+        ...manifest,
+        recordCount: 0,
+        coveredSources: [],
+        sourceCoverage: [],
+      }).success,
+    ).toBe(false);
+    expect(
+      CityEventsManifestSchema.safeParse({
+        ...manifest,
+        sourceCoverage: [manifest.sourceCoverage[0], manifest.sourceCoverage[0]],
+        recordCount: 2,
+      }).success,
+    ).toBe(false);
+    expect(CityEventsManifestSchema.safeParse({ ...manifest, recordCount: 2 }).success).toBe(false);
   });
 
   it("rejects public reviewer identity and reviewBy metadata", () => {
