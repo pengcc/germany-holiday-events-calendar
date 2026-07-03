@@ -1,0 +1,35 @@
+{
+  "coverageKind": "selected_official_sources",
+  "coveredCities": [
+    "berlin"
+  ],
+  "coveredSources": [
+    "csd_berlin"
+  ],
+  "datasetVersion": "90bef79a7913a6b2",
+  "generatedAt": "2026-07-03T12:29:25.000Z",
+  "recordCount": 1,
+  "recordsFile": "city-events.json",
+  "recordsSha256": "90bef79a7913a6b26e4fdd0d7ef97f50b7f8d2d317071d36d26d9dcff6d79182",
+  "schemaVersion": 1,
+  "sourceCoverage": [
+    {
+      "city": "berlin",
+      "publishedRecordCount": 1,
+      "retrievedAt": "2026-07-03T12:29:25.000Z",
+      "reviewedAt": "2026-07-03T12:29:25.000Z",
+      "reviewPolicyVersion": "city-events-v1",
+      "reviewStatus": "current",
+      "source": "csd_berlin",
+      "stale": false,
+      "status": "manual",
+      "warnings": [
+        "Manual top-level CSD Berlin Pride Demonstration record only. Route details, Pride Month listings, official parties, stage programmes, vehicle/group line-ups, maps, and partner events are excluded."
+      ]
+    }
+  ],
+  "warnings": [
+    "Coverage includes selected official sources only and is not a complete Berlin event listing.",
+    "Event dates are based on selected official sources and may change. Verify the linked official source before making travel, hotel, booking, or business decisions."
+  ]
+}

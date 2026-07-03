@@ -1,3 +1,4 @@
+export * from "./city-events-data";
 export * from "./city-events-publish";
 export * from "./city-events-schemas";
 export * from "./dates";

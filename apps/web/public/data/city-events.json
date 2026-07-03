@@ -1,0 +1,16 @@
+{
+  "records": [
+    {
+      "category": "major_culture",
+      "city": "berlin",
+      "endDate": "2026-07-25",
+      "id": "city-event:csd_berlin:demonstration:2026",
+      "impactLevel": "high",
+      "source": "csd_berlin",
+      "sourceUrl": "https://csd-berlin.de/en/demo-route-2026",
+      "startDate": "2026-07-25",
+      "title": "CSD Berlin Pride Demonstration 2026"
+    }
+  ],
+  "schemaVersion": 1
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "event": {
+    "id": "city-event:csd_berlin:demonstration:2026",
+    "sourceEventKey": "demonstration:2026",
+    "source": "csd_berlin",
+    "category": "major_culture",
+    "title": "CSD Berlin Pride Demonstration 2026",
+    "startDate": "2026-07-25",
+    "endDate": "2026-07-25",
+    "city": "berlin",
+    "sourceUrl": "https://csd-berlin.de/en/demo-route-2026"
+  },
+  "evidenceCheckedAt": "2026-07-03T12:29:25.000Z",
+  "review": {
+    "reviewedAt": "2026-07-03T12:29:25.000Z",
+    "reviewer": "Codex",
+    "rationale": "Official CSD Berlin page identifies the 2026 top-level Berlin Pride Demonstration and states that it will take place on Saturday, July 25, 2026. Only the top-level demonstration/main event record is used; route details, Pride Month listings, official parties, stage programmes, vehicle/group line-ups, maps, and partner events are excluded."
+  }
+}
