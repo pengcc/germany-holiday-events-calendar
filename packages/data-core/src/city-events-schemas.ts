@@ -87,6 +87,39 @@ export const CityEventCurationSchema = z
   .strict();
 export type CityEventCuration = z.infer<typeof CityEventCurationSchema>;
 
+export const AcceptedCityEventSourceFactSchema = z
+  .object({
+    schemaVersion: z.literal(1),
+    event: ImportedCityEventSchema,
+    evidenceCheckedAt: z.iso.datetime(),
+    review: z
+      .object({
+        reviewedAt: z.iso.datetime(),
+        reviewer: z.string().trim().min(1),
+        rationale: z.string().trim().min(1),
+      })
+      .strict(),
+  })
+  .strict();
+export type AcceptedCityEventSourceFact = z.infer<typeof AcceptedCityEventSourceFactSchema>;
+
+export const CityEventCurationSetSchema = z
+  .object({
+    schemaVersion: z.literal(1),
+    curations: z.array(CityEventCurationSchema),
+  })
+  .strict()
+  .superRefine((curationSet, context) => {
+    addDuplicateIssues(
+      curationSet.curations,
+      (curation) => curation.eventId,
+      context,
+      "curations",
+      "city event curation id",
+    );
+  });
+export type CityEventCurationSet = z.infer<typeof CityEventCurationSetSchema>;
+
 export const PublishedCityEventSchema = ImportedCityEventBaseSchema.omit({
   sourceEventKey: true,
 })
@@ -163,8 +196,107 @@ export const CityEventsManifestSchema = z
     sourceCoverage: z.array(CityEventSourceCoverageSchema),
     warnings: z.array(z.string()),
   })
-  .strict();
+  .strict()
+  .superRefine((manifest, context) => {
+    addDuplicateIssues(
+      manifest.coveredSources,
+      (source) => source,
+      context,
+      "coveredSources",
+      "covered source",
+    );
+    addDuplicateIssues(
+      manifest.coveredCities,
+      (city) => city,
+      context,
+      "coveredCities",
+      "covered city",
+    );
+    addDuplicateIssues(
+      manifest.sourceCoverage,
+      (coverage) => `${coverage.source}:${coverage.city}`,
+      context,
+      "sourceCoverage",
+      "source coverage pair",
+    );
+
+    const coveredSources = new Set(manifest.coveredSources);
+    const coveredCities = new Set(manifest.coveredCities);
+    const coverageSources = new Set<CityEventSource>();
+    const coverageCities = new Set<CityCode>();
+
+    manifest.sourceCoverage.forEach((coverage, index) => {
+      coverageSources.add(coverage.source);
+      coverageCities.add(coverage.city);
+      if (!coveredSources.has(coverage.source)) {
+        context.addIssue({
+          code: "custom",
+          path: ["sourceCoverage", index, "source"],
+          message: `Source coverage source is not declared in coveredSources: ${coverage.source}`,
+        });
+      }
+      if (!coveredCities.has(coverage.city)) {
+        context.addIssue({
+          code: "custom",
+          path: ["sourceCoverage", index, "city"],
+          message: `Source coverage city is not declared in coveredCities: ${coverage.city}`,
+        });
+      }
+    });
+
+    manifest.coveredSources.forEach((source, index) => {
+      if (!coverageSources.has(source)) {
+        context.addIssue({
+          code: "custom",
+          path: ["coveredSources", index],
+          message: `Covered source has no sourceCoverage entry: ${source}`,
+        });
+      }
+    });
+    manifest.coveredCities.forEach((city, index) => {
+      if (!coverageCities.has(city)) {
+        context.addIssue({
+          code: "custom",
+          path: ["coveredCities", index],
+          message: `Covered city has no sourceCoverage entry: ${city}`,
+        });
+      }
+    });
+
+    const coverageRecordCount = manifest.sourceCoverage.reduce(
+      (total, coverage) => total + coverage.publishedRecordCount,
+      0,
+    );
+    if (manifest.recordCount !== coverageRecordCount) {
+      context.addIssue({
+        code: "custom",
+        path: ["recordCount"],
+        message: `Expected recordCount to equal source coverage count ${coverageRecordCount}`,
+      });
+    }
+  });
 export type CityEventsManifest = z.infer<typeof CityEventsManifestSchema>;
+
+function addDuplicateIssues<T>(
+  values: T[],
+  getKey: (value: T) => string,
+  context: z.RefinementCtx,
+  path: string,
+  label: string,
+): void {
+  const seenKeys = new Set<string>();
+  values.forEach((value, index) => {
+    const key = getKey(value);
+    if (seenKeys.has(key)) {
+      context.addIssue({
+        code: "custom",
+        path: [path, index],
+        message: `Duplicate ${label}: ${key}`,
+      });
+    }
+    seenKeys.add(key);
+  });
+}
 
 function isValidIsoCalendarDate(value: string): boolean {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
