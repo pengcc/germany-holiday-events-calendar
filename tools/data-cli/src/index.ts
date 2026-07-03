@@ -9,6 +9,7 @@ import {
   previewPublish,
   projectPaths,
   publishRun,
+  rebuildPublishedCityEventsData,
   rebuildPublishedData,
   refreshSources,
   resolveDecision,
@@ -198,6 +199,17 @@ program
     const manifest = await rebuildPublishedData(process.cwd(), { check: options.check });
     console.log(
       `${options.check ? "Verified" : "Wrote"} ${manifest.recordCount} records (${manifest.datasetVersion}).`,
+    );
+  });
+
+program
+  .command("city-events-rebuild")
+  .description("Regenerate static City Events JSON from reviewed manual facts and curation")
+  .option("--check", "Fail when committed static JSON differs")
+  .action(async (options: { check?: boolean }) => {
+    const result = await rebuildPublishedCityEventsData(process.cwd(), { check: options.check });
+    console.log(
+      `${options.check ? "Verified" : "Wrote"} ${result.manifest.recordCount} City Events record(s) (${result.manifest.datasetVersion}).`,
     );
   });
 

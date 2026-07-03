@@ -1,0 +1,16 @@
+[
+  {
+    "source": "csd_berlin",
+    "city": "berlin",
+    "status": "manual",
+    "retrievedAt": "2026-07-03T12:29:25.000Z",
+    "reviewedAt": "2026-07-03T12:29:25.000Z",
+    "reviewStatus": "current",
+    "reviewPolicyVersion": "city-events-v1",
+    "stale": false,
+    "publishedRecordCount": 1,
+    "warnings": [
+      "Manual top-level CSD Berlin Pride Demonstration record only. Route details, Pride Month listings, official parties, stage programmes, vehicle/group line-ups, maps, and partner events are excluded."
+    ]
+  }
+]

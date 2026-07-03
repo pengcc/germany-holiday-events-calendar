@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "curations": [
+    {
+      "eventId": "city-event:csd_berlin:demonstration:2026",
+      "impactLevel": "high",
+      "hidden": false
+    }
+  ]
+}
