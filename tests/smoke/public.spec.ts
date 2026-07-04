@@ -825,3 +825,104 @@ test("advisory-only dates stay visually neutral and uncounted", async ({ page })
   await expect(statewideDate).toHaveAttribute("data-calendar-state", "public");
   await expect(statewideDate.locator('[data-regional-advisory-marker="true"]')).toHaveCount(0);
 });
+
+const cityEventsLocaleExpectations = {
+  zh: {
+    title: "精选城市活动",
+    impact: "明显出行影响",
+    source: "查看官方来源",
+    explorer: "假期日历",
+  },
+  de: {
+    title: "Ausgewählte Stadt-Events",
+    impact: "Hohe Reiseauswirkung",
+    source: "Offizielle Quelle öffnen",
+    explorer: "Ferienkalender",
+  },
+  en: {
+    title: "Selected City Events",
+    impact: "High travel impact",
+    source: "Open official source",
+    explorer: "Holiday Explorer",
+  },
+} as const;
+
+for (const [locale, expected] of Object.entries(cityEventsLocaleExpectations)) {
+  test(`${locale} City Events route renders reviewed public data`, async ({ page }) => {
+    await page.goto(`/${locale}/city-events`);
+
+    await expect(page.getByRole("heading", { level: 1, name: expected.title })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "CSD Berlin Pride Demonstration 2026" }),
+    ).toBeVisible();
+    await expect(page.getByText(expected.impact, { exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: new RegExp(expected.source) })).toHaveAttribute(
+      "href",
+      "https://csd-berlin.de/en/demo-route-2026",
+    );
+    await expect(page.getByRole("link", { name: expected.explorer })).toHaveAttribute(
+      "href",
+      new RegExp(`/${locale}`),
+    );
+    await expect(page.locator("main")).not.toContainText(/route|party|stage|vehicle/i);
+  });
+}
+
+test("City Events route shows safe validation and selected-source empty states", async ({
+  page,
+}) => {
+  await page.route("**/data/city-events.json", (route) =>
+    route.fulfill({
+      body: JSON.stringify({ schemaVersion: 1, records: [{ invalid: true }] }),
+      contentType: "application/json",
+    }),
+  );
+  await page.goto("/en/city-events");
+  await expect(page.getByRole("alert")).toContainText(
+    "City Events data is temporarily unavailable",
+  );
+
+  await page.unroute("**/data/city-events.json");
+  await page.route("**/data/city-events.json", (route) =>
+    route.fulfill({
+      body: JSON.stringify({ schemaVersion: 1, records: [] }),
+      contentType: "application/json",
+    }),
+  );
+  await page.route("**/data/city-events-manifest.json", (route) =>
+    route.fulfill({
+      body: JSON.stringify({
+        schemaVersion: 1,
+        datasetVersion: "empty-fixture",
+        generatedAt: "2026-07-03T12:29:25.000Z",
+        recordsFile: "city-events.json",
+        recordsSha256: "0".repeat(64),
+        recordCount: 0,
+        coverageKind: "selected_official_sources",
+        coveredCities: ["berlin"],
+        coveredSources: ["csd_berlin"],
+        sourceCoverage: [
+          {
+            source: "csd_berlin",
+            city: "berlin",
+            status: "manual",
+            retrievedAt: "2026-07-03T12:29:25.000Z",
+            reviewedAt: "2026-07-03T12:29:25.000Z",
+            reviewStatus: "current",
+            reviewPolicyVersion: "city-events-v1",
+            stale: false,
+            publishedRecordCount: 0,
+            warnings: [],
+          },
+        ],
+        warnings: [],
+      }),
+      contentType: "application/json",
+    }),
+  );
+  await page.reload();
+  await expect(
+    page.getByRole("heading", { name: "No published selected events yet" }),
+  ).toBeVisible();
+  await expect(page.getByText(/does not mean there are no other events in Berlin/i)).toBeVisible();
+});

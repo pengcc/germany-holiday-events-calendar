@@ -13,6 +13,11 @@ const ComparisonPage = lazy(async () => {
   return { default: module.ComparisonPage };
 });
 
+const CityEventsPage = lazy(async () => {
+  const module = await import("./city-events-page");
+  return { default: module.CityEventsPage };
+});
+
 const defaultExplorerSearch = parseExplorerSearch({});
 
 const rootRoute = createRootRoute({
@@ -45,6 +50,36 @@ const enRoute = createRoute({
   path: "/en",
   validateSearch: parseExplorerSearch,
   component: EnPage,
+});
+
+const zhCityEventsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/zh/city-events",
+  component: () => (
+    <Suspense fallback={<PageLoadingFallback label="正在加载" />}>
+      <CityEventsPage locale="zh" />
+    </Suspense>
+  ),
+});
+
+const deCityEventsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/de/city-events",
+  component: () => (
+    <Suspense fallback={<PageLoadingFallback label="Wird geladen" />}>
+      <CityEventsPage locale="de" />
+    </Suspense>
+  ),
+});
+
+const enCityEventsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/en/city-events",
+  component: () => (
+    <Suspense fallback={<PageLoadingFallback label="Loading" />}>
+      <CityEventsPage locale="en" />
+    </Suspense>
+  ),
 });
 
 function ZhPage() {
@@ -117,7 +152,15 @@ function PageLoadingFallback({ label }: { label: string }) {
   );
 }
 
-const routeTree = rootRoute.addChildren([indexRoute, zhRoute, deRoute, enRoute]);
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  zhRoute,
+  deRoute,
+  enRoute,
+  zhCityEventsRoute,
+  deCityEventsRoute,
+  enCityEventsRoute,
+]);
 
 export const router = createRouter({ routeTree });
 

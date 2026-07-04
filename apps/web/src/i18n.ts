@@ -7,6 +7,7 @@ export const copy = {
     appName: "德国假期与重要活动日历",
     title: "比较德国公共假日与学校假期",
     intro: "按联邦州和时间范围浏览已审核的公共假日与学校假期，并比较全州适用日期。",
+    cityEventsLink: "查看精选城市活动",
     language: "语言",
     filters: "筛选条件",
     filterHelp: "选择查看模式、时间和假期类型。",
@@ -87,6 +88,7 @@ export const copy = {
     title: "Feiertage und Schulferien vergleichen",
     intro:
       "Geprüfte Feiertage und Schulferien nach Bundesland und Zeitraum anzeigen und landesweit geltende Termine vergleichen.",
+    cityEventsLink: "Ausgewählte Stadt-Events anzeigen",
     language: "Sprache",
     filters: "Filter",
     filterHelp: "Ansicht, Zeitraum und Ferienart auswählen.",
@@ -180,6 +182,7 @@ export const copy = {
     title: "Compare public and school holidays",
     intro:
       "Browse reviewed public and school holidays by state and period, then compare statewide dates.",
+    cityEventsLink: "View selected city events",
     language: "Language",
     filters: "Filters",
     filterHelp: "Choose a view, period, and holiday type.",
