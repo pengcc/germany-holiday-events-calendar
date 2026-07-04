@@ -186,6 +186,12 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
           <p className="mb-2 text-sm font-semibold text-[var(--ui-primary)]">{text.appName}</p>
           <h1 className="max-w-4xl text-3xl font-bold sm:text-4xl">{text.title}</h1>
           <p className="he-text-secondary mt-3 max-w-3xl text-base leading-7">{text.intro}</p>
+          <Link
+            className="he-button-secondary he-focus-ring mt-5 inline-flex min-h-10 items-center rounded-md px-3 py-2 text-sm font-medium"
+            to={`/${locale}/city-events`}
+          >
+            {text.cityEventsLink}
+          </Link>
         </div>
       </section>
 
