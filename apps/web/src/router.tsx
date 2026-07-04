@@ -18,6 +18,11 @@ const CityEventsPage = lazy(async () => {
   return { default: module.CityEventsPage };
 });
 
+const MesseEventsPage = lazy(async () => {
+  const module = await import("./messe-events-page");
+  return { default: module.MesseEventsPage };
+});
+
 const defaultExplorerSearch = parseExplorerSearch({});
 
 const rootRoute = createRootRoute({
@@ -78,6 +83,36 @@ const enCityEventsRoute = createRoute({
   component: () => (
     <Suspense fallback={<PageLoadingFallback label="Loading" />}>
       <CityEventsPage locale="en" />
+    </Suspense>
+  ),
+});
+
+const zhMesseEventsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/zh/messe-events",
+  component: () => (
+    <Suspense fallback={<PageLoadingFallback label="正在加载" />}>
+      <MesseEventsPage locale="zh" />
+    </Suspense>
+  ),
+});
+
+const deMesseEventsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/de/messe-events",
+  component: () => (
+    <Suspense fallback={<PageLoadingFallback label="Wird geladen" />}>
+      <MesseEventsPage locale="de" />
+    </Suspense>
+  ),
+});
+
+const enMesseEventsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/en/messe-events",
+  component: () => (
+    <Suspense fallback={<PageLoadingFallback label="Loading" />}>
+      <MesseEventsPage locale="en" />
     </Suspense>
   ),
 });
@@ -160,6 +195,9 @@ const routeTree = rootRoute.addChildren([
   zhCityEventsRoute,
   deCityEventsRoute,
   enCityEventsRoute,
+  zhMesseEventsRoute,
+  deMesseEventsRoute,
+  enMesseEventsRoute,
 ]);
 
 export const router = createRouter({ routeTree });

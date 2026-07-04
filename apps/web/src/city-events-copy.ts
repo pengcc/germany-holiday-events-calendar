@@ -11,7 +11,6 @@ type CityEventsCopy = {
   intro: string;
   disclaimer: string;
   language: string;
-  holidayExplorer: string;
   selectedEvents: string;
   loading: string;
   errorTitle: string;
@@ -37,7 +36,6 @@ export const cityEventsCopy = {
     disclaimer:
       "活动日期基于已选官方来源整理，可能会调整。出行、订酒店或安排商务行程前，请以链接的官方来源为准。本页面不提供完整城市活动列表。",
     language: "语言",
-    holidayExplorer: "假期日历",
     selectedEvents: "已审核的精选活动",
     loading: "正在加载已审核的城市活动…",
     errorTitle: "城市活动数据暂时无法使用",
@@ -69,7 +67,6 @@ export const cityEventsCopy = {
     disclaimer:
       "Die Termine basieren auf ausgewählten offiziellen Quellen und können sich ändern. Bitte prüfen Sie vor Reise-, Hotel- oder Geschäftsentscheidungen die verlinkte offizielle Quelle. Dies ist keine vollständige Veranstaltungsliste.",
     language: "Sprache",
-    holidayExplorer: "Ferienkalender",
     selectedEvents: "Geprüfte ausgewählte Events",
     loading: "Geprüfte Stadt-Events werden geladen…",
     errorTitle: "Stadt-Events derzeit nicht verfügbar",
@@ -103,7 +100,6 @@ export const cityEventsCopy = {
     disclaimer:
       "Dates are based on selected official sources and may change. Please check the linked official source before making travel, hotel, or business decisions. This is not a complete city event listing.",
     language: "Language",
-    holidayExplorer: "Holiday Explorer",
     selectedEvents: "Reviewed selected events",
     loading: "Loading reviewed city events…",
     errorTitle: "City Events data is temporarily unavailable",

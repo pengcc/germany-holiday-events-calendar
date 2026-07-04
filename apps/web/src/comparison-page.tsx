@@ -20,6 +20,7 @@ import {
 import { HolidayCalendar } from "./holiday-calendar";
 import { copy, type Locale } from "./i18n";
 import { HolidayLegend } from "./legend";
+import { PublicAreaNavigation } from "./public-area-navigation";
 
 interface ComparisonPageProps {
   locale: Locale;
@@ -181,17 +182,13 @@ export function ComparisonPage({ locale, search, onSearchChange }: ComparisonPag
         </div>
       </header>
 
+      <PublicAreaNavigation activeArea="holidays" locale={locale} />
+
       <section className="he-surface he-border-subtle border-b">
         <div className="mx-auto max-w-[1480px] px-4 py-8 sm:px-6 lg:py-10">
           <p className="mb-2 text-sm font-semibold text-[var(--ui-primary)]">{text.appName}</p>
           <h1 className="max-w-4xl text-3xl font-bold sm:text-4xl">{text.title}</h1>
           <p className="he-text-secondary mt-3 max-w-3xl text-base leading-7">{text.intro}</p>
-          <Link
-            className="he-button-secondary he-focus-ring mt-5 inline-flex min-h-10 items-center rounded-md px-3 py-2 text-sm font-medium"
-            to={`/${locale}/city-events`}
-          >
-            {text.cityEventsLink}
-          </Link>
         </div>
       </section>
 
