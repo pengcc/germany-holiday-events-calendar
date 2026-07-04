@@ -123,9 +123,15 @@ Use `grill-me` first when the goal, MVP boundary, business rules, scope, constra
 
 Do not use `grill-me` when the answer can be found by inspecting available project sources.
 
-Use `product-framing-review` before planning when product purpose, user goals, workflow meaning,
-data semantics, or a PRD/product baseline is unclear, or when proposed work is framed mainly as
-widget mechanics. Return here after framing is ready for implementation planning.
+Use `product-framing-review` before planning when the task or change is unclear or drift-prone, or
+when its intended capability, affected party, smallest sufficient solution, or non-goals need
+framing. Use its deeper Product Framing mode when end-user purpose, workflow meaning, data
+semantics, or a PRD/product baseline is unclear, or when proposed work is framed mainly as widget
+mechanics. Return here after framing is ready for implementation planning.
+
+Before reviewing or approving a plan, use `product-framing-review` when the proposal may have
+drifted from the intended capability, current problem, proposed solution, non-goals, or readiness.
+If it solves a broader or different problem, reframe it before reviewing implementation details.
 
 ## UI Design Guidance
 
