@@ -177,6 +177,10 @@ installation, stop and obtain approval rather than changing the environment impl
   baseline. Project memory remains project-owned, and generic `AGENTS.md` changes are adopted
   through targeted manual merges.
 - Route work through the installed workflow skill that matches the task.
+- Use `product-framing-review` as the stable workflow identifier for Task and Product Framing.
+  Apply Task / Change Framing to unclear or drift-prone non-product work without forcing end-user
+  Product Framing; use deeper Product Framing only for end-user behavior. Apply the Framing Review Gate
+  before reviewing, approving, or executing a plan or proposal when its scope may have drifted.
 - Store approved executable plans under `dev_locals/plans/` and use `execute-plan` only after
   explicit approval.
 - Update durable facts and decisions through `update-project-memory`; do not treat plans as current
