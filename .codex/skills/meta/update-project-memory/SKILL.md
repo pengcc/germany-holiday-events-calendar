@@ -313,9 +313,9 @@ External / global actions:
 - None
 ```
 
-When at least one project-memory file changed, apply the Publishable Change Handoff from
-`.codex/rules/agent-operating-contract.md` exactly without duplicating its fixed field list in this
-skill. The no-update output below does not trigger that handoff.
+When at least one project-memory file changed, apply the Publishable Change Handoff from the
+`agent-operating-contract` rule exactly without duplicating its fixed field list in this skill. The
+no-update output below does not trigger that handoff.
 
 If no update is needed, say:
 
