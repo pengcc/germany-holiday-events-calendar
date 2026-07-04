@@ -7,6 +7,11 @@
 Holiday Explorer helps people understand German public holidays and school holidays in the
 federal states that matter to them. It supports both direct lookup and cross-state comparison.
 
+It is the default/home public area of Germany Holiday & Events Calendar at `/zh`, `/de`, and `/en`.
+It is not the entire public site. Trade Fairs / Messe and Culture / major city events are separate
+top-level areas defined in
+[`docs/public-site-product-framing.md`](public-site-product-framing.md).
+
 Holiday Explorer is not simply a “show all Germany holidays” calendar. Users primarily come to
 the page to answer two questions:
 
@@ -22,6 +27,14 @@ goal.
 Holiday Explorer is the public, static holiday-browsing frontend within Germany Holiday & Events
 Calendar. It presents reviewed published data for planning and comparison. It does not fetch,
 review, edit, approve, or publish holiday data.
+
+The area covers German public holidays and school holidays. Its page title must describe that
+scope rather than one interaction mode. The preferred Chinese title is:
+
+> 德国公共假日与学校假期
+
+Do not use `比较德国公共假日与学校假期` as the page title. Comparison is only one of the three
+view modes below.
 
 The primary experience is organized around three view modes derived from the two user questions:
 
@@ -47,6 +60,11 @@ This refinement does not supersede or change data workflow, Data Studio, schema,
 publishing, release-readiness, deployment, or generated-data rules. Data Studio remains governed
 by separate data workflow documentation and is not affected by this public frontend view-mode
 design.
+
+Public-site information architecture, shared navigation, and the relationship between Holidays,
+Trade Fairs, and Culture Events are governed by
+[`docs/public-site-product-framing.md`](public-site-product-framing.md). This PRD governs only the
+Holidays area.
 
 ### 1.4 Page Goal and User Decisions
 

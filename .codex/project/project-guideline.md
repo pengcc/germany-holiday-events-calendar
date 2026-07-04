@@ -9,13 +9,13 @@ Plans, handoffs, and scratch notes are process documents. They may become outdat
 - Product name: Germany Holiday & Events Calendar.
 - Chinese product name: 德国假期与重要活动日历.
 - Repository name: `germany-holiday-events-calendar`.
-- Purpose: provide a neutral, multilingual calendar for browsing and comparing German public
-  holidays, school holidays, and, after the holiday MVP, selected planning-relevant major events.
+- Purpose: provide a neutral, multilingual public planning site for German public and school
+  holidays, selected trade fairs, and selected culture or major city events.
 - Primary users include Chinese-speaking families in Germany and travel planners comparing dates
   across federal states. German and English readers are also supported.
 - Current phase: the Holiday Explorer frontend and reviewed 2026–2027 holiday dataset are
-  implemented. The committed manifest has complete configured coverage. Berlin major events are
-  post-MVP.
+  implemented. The first reviewed Culture Events record and localized Culture Events page are
+  implemented. Shared three-area navigation and the Trade Fairs public area remain planned.
 
 ## 2. Current Scope
 
@@ -36,9 +36,19 @@ The holiday MVP includes:
 - Reviewed generated JSON consumed by a static frontend.
 - A local manual refresh, validation, review, and publish workflow.
 
-Selected Berlin major events are a planned post-MVP layer. Events must be presented neutrally as
-information users may use to attend, avoid, or plan around a period, not only as negative impact or
-risk signals.
+The public site has three distinct top-level areas:
+
+1. **Holidays** — German public holidays and school holidays; the default/home area at `/zh`,
+   `/de`, and `/en`.
+2. **Trade Fairs / Messe** — a first-class planned area for selected official trade-fair events.
+3. **Culture Events** — selected culture and major city events, currently represented by
+   `/zh/city-events`, `/de/city-events`, and `/en/city-events`.
+
+Trade Fairs must not be merged into Holiday Explorer or the Culture Events product area. Before
+adding more event data or event filters, establish shared public navigation and this three-area
+information architecture. Events remain neutral planning information users may use to attend,
+avoid, or plan around a period, not only negative impact or risk signals. See
+`docs/public-site-product-framing.md`.
 
 ## 3. Non-Goals
 
@@ -118,8 +128,9 @@ Local data workflow commands also include `data:refresh`, `data:resume`, `data:r
 The project remains one monorepo with two distinct frontend applications:
 
 - `apps/web` is a static-only public SPA. It reads reviewed JSON bundled under
-  `apps/web/public/data/holidays.json` and `apps/web/public/data/manifest.json` and must not use
-  server functions, fetch upstream sources at runtime, or modify data.
+  `apps/web/public/data/` and must not use server functions, fetch upstream sources at runtime, or
+  modify data. Its public information architecture separates Holidays, Trade Fairs, and Culture
+  Events rather than combining them as calendar modes.
 - `apps/data-studio` is a local-only TanStack Start application bound to `127.0.0.1`. It may use
   local server functions and filesystem access for review and publishing workflows. It is not
   deployed and does not call the deployed public frontend.
@@ -187,7 +198,7 @@ installation, stop and obtain approval rather than changing the environment impl
 
 ## 12. Current Implementation Status
 
-As of 2026-07-02:
+As of 2026-07-04:
 
 - The foundation-kit workflow is the active operating standard, project memory is populated, and
   the project-local `tanstack-static-frontend` skill is installed.
@@ -216,11 +227,17 @@ As of 2026-07-02:
 - The committed published manifest contains 559 reviewed records, including 8 regional records,
   for 2026–2027. It lists all 80 current source coverage entries as non-stale and all 64
   state/year/category matrix cells as covered.
-- Berlin major-event schemas, sources, tooling, data, and UI are not implemented.
+- City Events v1 schemas, manual reviewed publication tooling, one reviewed CSD Berlin 2026
+  top-level record, deterministic public JSON, and localized `/zh|de|en/city-events` pages are
+  implemented.
+- The public site has adopted a three-area architecture: Holidays, Trade Fairs / Messe, and Culture
+  Events. Shared navigation and the Trade Fairs route/page are not implemented yet.
 
 ## 13. Known Constraints and Risks
 
 - Public deployment must remain static and free of secrets or server runtime dependencies.
+- More event data and filters must not be added before shared navigation and the three-area public
+  information architecture are established.
 - Data quality depends on provenance, explicit review decisions, and deterministic publication.
 - Regional and school-specific holiday applicability must not be silently presented as statewide.
   Evidence-backed regional public holidays may be nonblocking advisories, remain
@@ -237,6 +254,12 @@ As of 2026-07-02:
 ## 14. Shared Language / Project Terms
 
 - **Holiday MVP**: the public and school holiday browsing/comparison release before events.
+- **Holidays area**: the default/home public area at `/zh`, `/de`, and `/en` for German public and
+  school holidays.
+- **Trade Fairs area**: a separate first-class planned public area for selected official Messe and
+  trade-fair events.
+- **Culture Events area**: the separate public area currently served by localized `/city-events`
+  routes for selected culture and major city events.
 - **Planning event**: a selected major event presented neutrally for attending, avoiding, or
   planning around.
 - **Public frontend**: the static application in `apps/web`.
@@ -264,11 +287,13 @@ As of 2026-07-02:
 
 ## 16. Agent Notes
 
-- Use `docs/holiday-explorer-prd.md` as the current behavioral product baseline for the public
-  Holiday Explorer frontend.
+- Use `docs/public-site-product-framing.md` as the public-site information architecture baseline.
+- Use `docs/holiday-explorer-prd.md` as the current behavioral product baseline for the Holidays
+  area only.
 - Treat `docs/product-prd.md` as historical/reference material for broader product direction,
   architecture boundaries, and post-MVP event framing.
 - Use the project-local `tanstack-static-frontend` skill for work touching public routing, static
   frontend data loading, locale/search state, or the Data Studio/public boundary.
 - Use docs-first research for framework, API, version, deployment, or tooling claims.
-- Berlin events require a separate approved plan after holiday MVP acceptance.
+- Public navigation, Trade Fairs, additional event data, and event filters each require an
+  explicitly approved implementation slice consistent with the three-area architecture.
