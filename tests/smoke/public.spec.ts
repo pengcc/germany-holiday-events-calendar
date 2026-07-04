@@ -183,7 +183,10 @@ async function useAdvisoryVisualFixture(page: Page): Promise<void> {
 const localeExpectations = {
   zh: {
     appName: "德国假期与重要活动日历",
+    title: "德国公共假日与学校假期",
     language: "语言",
+    areaNavigation: "公共网站区域",
+    activeArea: "假期日历",
     stateView: "一个联邦州",
     publicDayLegend: "浅橙：全州公共假日",
     schoolDayLegend: "浅青绿：学校假期",
@@ -193,7 +196,10 @@ const localeExpectations = {
   },
   de: {
     appName: "Germany Holiday & Events Calendar",
+    title: "Feiertage und Schulferien vergleichen",
     language: "Sprache",
+    areaNavigation: "Öffentliche Bereiche",
+    activeArea: "Feiertage",
     stateView: "Ein Bundesland",
     publicDayLegend: "Hellorange: landesweiter Feiertag",
     schoolDayLegend: "Helltürkis: Schulferien",
@@ -203,7 +209,10 @@ const localeExpectations = {
   },
   en: {
     appName: "Germany Holiday & Events Calendar",
+    title: "Compare public and school holidays",
     language: "Language",
+    areaNavigation: "Public site areas",
+    activeArea: "Holidays",
     stateView: "One federal state",
     publicDayLegend: "Light orange: statewide public holiday",
     schoolDayLegend: "Light teal: school holiday",
@@ -217,8 +226,13 @@ for (const [locale, expected] of Object.entries(localeExpectations)) {
   test(`${locale} comparison route renders`, async ({ page }) => {
     await page.goto(`/${locale}`);
     await expandMobileFilters(page);
-    await expect(page.locator("h1")).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: expected.title })).toBeVisible();
     await expect(page.getByRole("navigation", { name: expected.language })).toBeVisible();
+    await expect(
+      page
+        .getByRole("navigation", { name: expected.areaNavigation })
+        .getByRole("link", { name: expected.activeArea }),
+    ).toHaveAttribute("aria-current", "page");
     await expect(page.locator("header")).toContainText(expected.appName);
     await expect(page.getByRole("radio", { name: expected.stateView })).toBeChecked();
     await expect(page.getByText(expected.publicDayLegend, { exact: true })).toBeVisible();
@@ -251,7 +265,7 @@ test("validated explorer filters drive the visible period and survive locale nav
   await expect(page.getByRole("region", { name: "Holiday details" })).toContainText("Labour Day");
   await expect(page.getByText("Data coverage is incomplete for this selection")).toBeVisible();
 
-  await page.getByRole("link", { name: "de" }).click();
+  await page.getByRole("link", { name: "de", exact: true }).click();
   await expect(page).toHaveURL(/\/de\?/);
   const localizedSearch = new URL(page.url()).searchParams;
   expect(localizedSearch.get("view")).toBe("compare");
@@ -832,18 +846,24 @@ const cityEventsLocaleExpectations = {
     impact: "明显出行影响",
     source: "查看官方来源",
     explorer: "假期日历",
+    areaNavigation: "公共网站区域",
+    tradeFairs: "展会活动",
   },
   de: {
     title: "Ausgewählte Stadt-Events",
     impact: "Hohe Reiseauswirkung",
     source: "Offizielle Quelle öffnen",
-    explorer: "Ferienkalender",
+    explorer: "Feiertage",
+    areaNavigation: "Öffentliche Bereiche",
+    tradeFairs: "Messen",
   },
   en: {
     title: "Selected City Events",
     impact: "High travel impact",
     source: "Open official source",
-    explorer: "Holiday Explorer",
+    explorer: "Holidays",
+    areaNavigation: "Public site areas",
+    tradeFairs: "Trade Fairs",
   },
 } as const;
 
@@ -864,9 +884,79 @@ for (const [locale, expected] of Object.entries(cityEventsLocaleExpectations)) {
       "href",
       new RegExp(`/${locale}`),
     );
+    const areaNavigation = page.getByRole("navigation", { name: expected.areaNavigation });
+    await expect(
+      areaNavigation.getByRole("link", { name: /文化活动|Kultur-Events|Culture Events/ }),
+    ).toHaveAttribute("aria-current", "page");
+    await expect(areaNavigation.getByRole("link", { name: expected.tradeFairs })).toHaveAttribute(
+      "href",
+      `/${locale}/messe-events`,
+    );
     await expect(page.locator("main")).not.toContainText(/route|party|stage|vehicle/i);
   });
 }
+
+const messeLocaleExpectations = {
+  zh: {
+    title: "精选展会活动",
+    status: "展会数据尚未发布",
+    database: "不会提供完整的展会数据库",
+    navigation: "公共网站区域",
+    activeArea: "展会活动",
+  },
+  de: {
+    title: "Ausgewählte Messe-Events",
+    status: "Noch keine Messedaten veröffentlicht",
+    database: "keine vollständige Messedatenbank",
+    navigation: "Öffentliche Bereiche",
+    activeArea: "Messen",
+  },
+  en: {
+    title: "Selected Trade Fair Events",
+    status: "Trade-fair data is not published yet",
+    database: "not be a complete trade-fair database",
+    navigation: "Public site areas",
+    activeArea: "Trade Fairs",
+  },
+} as const;
+
+for (const [locale, expected] of Object.entries(messeLocaleExpectations)) {
+  test(`${locale} Trade Fairs placeholder exposes the three-area architecture`, async ({
+    page,
+  }) => {
+    await page.goto(`/${locale}/messe-events`);
+
+    await expect(page.getByRole("heading", { level: 1, name: expected.title })).toBeVisible();
+    await expect(page.getByRole("heading", { name: expected.status })).toBeVisible();
+    await expect(page.getByText(new RegExp(expected.database))).toBeVisible();
+    await expect(
+      page
+        .getByRole("navigation", { name: expected.navigation })
+        .getByRole("link", { name: expected.activeArea }),
+    ).toHaveAttribute("aria-current", "page");
+  });
+}
+
+test("three-area navigation preserves locale and drops Holiday search state", async ({ page }) => {
+  await usePublishedDataFixture(page);
+  await page.goto(
+    "/en?year=2026&period=month&month=5&view=compare&states=DE-BE,DE-BB&layers=public",
+  );
+  const navigation = page.getByRole("navigation", { name: "Public site areas" });
+
+  await navigation.getByRole("link", { name: "Culture Events" }).click();
+  await expect(page).toHaveURL("/en/city-events");
+  await page
+    .getByRole("navigation", { name: "Public site areas" })
+    .getByRole("link", { name: "Trade Fairs" })
+    .click();
+  await expect(page).toHaveURL("/en/messe-events");
+  await page
+    .getByRole("navigation", { name: "Public site areas" })
+    .getByRole("link", { name: "Holidays" })
+    .click();
+  await expect(page).toHaveURL("/en");
+});
 
 test("City Events route shows safe validation and selected-source empty states", async ({
   page,
