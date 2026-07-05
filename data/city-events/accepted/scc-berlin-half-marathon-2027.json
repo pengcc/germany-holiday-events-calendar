@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "event": {
+    "id": "city-event:scc_events:berlin-half-marathon:2027",
+    "sourceEventKey": "berlin-half-marathon-2027",
+    "source": "scc_events",
+    "category": "sport",
+    "title": "GENERALI BERLINER HALBMARATHON 2027",
+    "startDate": "2027-04-04",
+    "endDate": "2027-04-04",
+    "city": "berlin",
+    "venue": "Berlin",
+    "sourceUrl": "https://www.generali-berliner-halbmarathon.de/"
+  },
+  "evidenceCheckedAt": "2026-07-05T08:47:27.000Z",
+  "review": {
+    "reviewedAt": "2026-07-05T08:47:27.000Z",
+    "reviewer": "Codex",
+    "rationale": "The official GENERALI BERLINER HALBMARATHON site confirms the event date as April 4, 2027. This record covers only the top-level half-marathon event; expo activities, children’s events, inline-skating details, course information, and programme items are excluded."
+  }
+}

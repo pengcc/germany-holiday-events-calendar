@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "event": {
+    "id": "city-event:berlinale:festival:2026",
+    "sourceEventKey": "berlinale-2026",
+    "source": "berlinale",
+    "category": "major_culture",
+    "title": "Berlinale 2026",
+    "startDate": "2026-02-12",
+    "endDate": "2026-02-22",
+    "city": "berlin",
+    "venue": "Berlin",
+    "sourceUrl": "https://b2b.berlinale.de/en/downloads/download_document/3443/original/media-data-berlinale-programme.pdf"
+  },
+  "evidenceCheckedAt": "2026-07-05T08:47:27.000Z",
+  "review": {
+    "reviewedAt": "2026-07-05T08:47:27.000Z",
+    "reviewer": "Codex",
+    "rationale": "The official Berlinale 2026 programme media kit confirms that the 76th Berlin International Film Festival runs from February 12 through February 22, 2026. This record covers only the top-level festival dates; individual films, screenings, markets, awards, and programme events are excluded."
+  }
+}

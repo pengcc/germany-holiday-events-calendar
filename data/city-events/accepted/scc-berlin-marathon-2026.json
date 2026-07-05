@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "event": {
+    "id": "city-event:scc_events:berlin-marathon:2026",
+    "sourceEventKey": "berlin-marathon-2026",
+    "source": "scc_events",
+    "category": "sport",
+    "title": "BMW Berlin Marathon 2026",
+    "startDate": "2026-09-27",
+    "endDate": "2026-09-27",
+    "city": "berlin",
+    "venue": "Berlin",
+    "sourceUrl": "https://www.bmw-berlin-marathon.com/"
+  },
+  "evidenceCheckedAt": "2026-07-05T08:47:27.000Z",
+  "review": {
+    "reviewedAt": "2026-07-05T08:47:27.000Z",
+    "reviewer": "Codex",
+    "rationale": "The official BMW BERLIN-MARATHON site confirms the event date as September 27, 2026. This record covers only the top-level marathon event; expo activities, inline skating, children’s events, course details, and programme items are excluded."
+  }
+}

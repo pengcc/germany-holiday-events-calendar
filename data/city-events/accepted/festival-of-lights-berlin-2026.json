@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "event": {
+    "id": "city-event:festival_of_lights:festival:2026",
+    "sourceEventKey": "festival-of-lights-berlin-2026",
+    "source": "festival_of_lights",
+    "category": "major_culture",
+    "title": "Festival of Lights Berlin 2026",
+    "startDate": "2026-10-09",
+    "endDate": "2026-10-18",
+    "city": "berlin",
+    "venue": "Berlin",
+    "sourceUrl": "https://festival-of-lights.de/de/programm-2026/"
+  },
+  "evidenceCheckedAt": "2026-07-05T08:47:27.000Z",
+  "review": {
+    "reviewedAt": "2026-07-05T08:47:27.000Z",
+    "reviewer": "Codex",
+    "rationale": "The official Festival of Lights 2026 page states that the Berlin festival runs from October 9 through October 18, 2026. This record covers only the top-level festival dates; individual installations, programme items, locations, tours, and partner events are excluded."
+  }
+}
