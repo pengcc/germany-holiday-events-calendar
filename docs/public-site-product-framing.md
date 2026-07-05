@@ -16,9 +16,9 @@ accommodation, or business arrangements. The three areas support related plannin
 have different data sources, coverage claims, filters, and user questions. They must remain
 separate public areas rather than becoming modes or overlays in one calendar.
 
-This architecture is the baseline for future public navigation and feature work. Shared navigation
-and the three-area information architecture must be established before adding more event data,
-event filters, or page-level event complexity.
+This architecture is the baseline for public navigation and feature work. Shared navigation and
+the three-area information architecture are implemented. Adding more event data, event filters,
+or page-level event complexity requires a separate approved slice.
 
 ## 2. Public Areas
 
@@ -58,14 +58,15 @@ Trade Fairs is a first-class public area for selected official Messe and trade-f
 not a Holiday Explorer layer and must not be merged into Culture Events merely because both use
 event records.
 
-Prospective localized route pattern:
+Implemented localized placeholder routes:
 
 - `/zh/messe-events`
 - `/de/messe-events`
 - `/en/messe-events`
 
-The route and page are not implemented yet. Their later implementation requires a separate
-approved slice.
+The localized placeholder routes/pages are implemented and honestly state that Trade Fairs data
+is not published yet. Reviewed Trade Fairs data, event records, listings, and filters are not
+implemented.
 
 The area should help users notice selected trade-fair dates relevant to accommodation, travel,
 transport, or business planning and verify each event through an official source. It is not a
@@ -105,8 +106,8 @@ Recommended short navigation labels:
 
 ## 3. Shared Navigation Requirements
 
-The public site must provide shared navigation across Holidays, Trade Fairs, and Culture Events.
-Navigation must:
+The public site implements shared navigation across Holidays, Trade Fairs, and Culture Events.
+Navigation must continue to:
 
 - make the current area clear;
 - preserve the current language where practical;
@@ -114,12 +115,10 @@ Navigation must:
 - distinguish implemented areas from planned areas honestly; and
 - avoid relying on browser back navigation or isolated page-specific return links.
 
-The navigation implementation may be staged, but the product model always includes all three
-areas. A planned Trade Fairs entry must not silently redirect to Holidays or Culture Events.
-
-Whether the unimplemented Trade Fairs entry appears immediately as a non-link, waits until its page
-exists, or later receives a placeholder page is an implementation decision for a separate slice.
-This document does not authorize a placeholder route.
+The product model includes all three areas. The implemented Trade Fairs entry links to the
+localized placeholder page; it must not redirect to Holidays or Culture Events. The placeholder
+does not imply that reviewed Trade Fairs records, listings, filters, or full page-level event
+functionality are implemented.
 
 ## 4. Area and Data Boundaries
 
@@ -137,13 +136,13 @@ published records from the selected covered sources; it does not mean no events 
 
 ## 5. Implementation Sequence
 
-Use this sequence for the next public-site work:
+Treat the completed navigation and placeholder work as the current baseline:
 
-1. establish shared three-area navigation and a neutral Holiday area title;
-2. keep the current localized Culture Events routes working;
-3. add a Trade Fairs route and page only through a separately approved implementation slice; and
-4. add more event data or event filters only after the navigation model and area ownership are
-   clear.
+1. shared three-area navigation and a neutral Holiday area title are implemented;
+2. the localized Culture Events routes remain implemented and must keep working;
+3. localized Trade Fairs placeholder routes/pages are implemented; and
+4. reviewed Trade Fairs data, event records, listings, filters, or page-level event complexity
+   require a separate approved implementation slice.
 
 This sequence prevents new event records or controls from reinforcing an unclear two-area or
 single-calendar architecture.
