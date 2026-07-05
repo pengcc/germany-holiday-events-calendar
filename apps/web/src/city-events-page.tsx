@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ExternalLink, Info, Landmark, Languages } from "lucide-react";
+import { ChevronDown, ExternalLink, Info, Landmark, Languages } from "lucide-react";
 import { useEffect, useState } from "react";
 import type {
   CityEventsManifest,
@@ -15,6 +15,7 @@ export function CityEventsPage({ locale }: { locale: Locale }) {
   const [records, setRecords] = useState<PublishedCityEvent[]>([]);
   const [manifest, setManifest] = useState<CityEventsManifest>();
   const [error, setError] = useState(false);
+  const [showPastEvents, setShowPastEvents] = useState(false);
 
   useEffect(() => {
     loadPublishedCityEvents()
@@ -24,6 +25,19 @@ export function CityEventsPage({ locale }: { locale: Locale }) {
       })
       .catch(() => setError(true));
   }, []);
+
+  const todayGermanyDate = getTodayGermanyDate();
+  const upcomingEvents = records
+    .filter((event) => event.endDate >= todayGermanyDate)
+    .sort(
+      (left, right) =>
+        left.startDate.localeCompare(right.startDate) || left.id.localeCompare(right.id),
+    );
+  const pastEvents = records
+    .filter((event) => event.endDate < todayGermanyDate)
+    .sort(
+      (left, right) => right.endDate.localeCompare(left.endDate) || right.id.localeCompare(left.id),
+    );
 
   return (
     <main className="city-events-theme min-h-screen">
@@ -67,7 +81,7 @@ export function CityEventsPage({ locale }: { locale: Locale }) {
       </section>
 
       <section
-        aria-labelledby="selected-events-heading"
+        aria-labelledby="upcoming-events-heading"
         className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:py-8"
       >
         <section
@@ -77,10 +91,6 @@ export function CityEventsPage({ locale }: { locale: Locale }) {
           <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
           <p className="leading-6">{text.disclaimer}</p>
         </section>
-
-        <h2 className="mt-8 text-xl font-semibold" id="selected-events-heading">
-          {text.selectedEvents}
-        </h2>
 
         {error ? (
           <div
@@ -105,62 +115,138 @@ export function CityEventsPage({ locale }: { locale: Locale }) {
             </p>
           </div>
         ) : (
-          <ul className="mt-5 grid list-none gap-4 p-0" aria-live="polite">
-            {records.map((event) => (
-              <li className="city-events-card rounded-lg border" key={event.id}>
-                <article className="flex h-full flex-col">
-                  <header className="flex flex-wrap items-start justify-between gap-4 p-5 sm:p-6">
-                    <div className="min-w-0">
-                      <p className="city-events-text-secondary text-sm font-medium">
-                        {formatDateRange(event.startDate, event.endDate, locale)}
-                      </p>
-                      <h3 className="mt-1 text-xl font-semibold leading-snug">{event.title}</h3>
-                    </div>
-                    {event.impactLevel === "none" ? null : (
-                      <span
-                        className={`city-events-impact-badge city-events-impact-${event.impactLevel} rounded-full border px-3 py-1 text-xs font-semibold`}
-                      >
-                        {text.impact[event.impactLevel]}
-                      </span>
-                    )}
-                  </header>
+          <div aria-live="polite">
+            <h2 className="mt-8 text-xl font-semibold" id="upcoming-events-heading">
+              {text.upcomingEvents}
+            </h2>
 
-                  <div className="city-events-card-divider border-t px-5 py-4 sm:px-6">
-                    <dl className="city-events-text-secondary grid gap-4 text-sm sm:grid-cols-2">
-                      <div>
-                        <dt className="font-medium text-[var(--city-events-text-primary)]">
-                          {text.cityLabel}
-                        </dt>
-                        <dd className="mt-1">{text.city[event.city]}</dd>
-                      </div>
-                      <div>
-                        <dt className="font-medium text-[var(--city-events-text-primary)]">
-                          {text.categoryLabel}
-                        </dt>
-                        <dd className="mt-1">{text.category[event.category]}</dd>
-                      </div>
-                    </dl>
-                  </div>
+            {upcomingEvents.length === 0 ? (
+              <div className="city-events-card mt-5 border border-dashed p-6 text-center">
+                <h3 className="font-semibold">{text.noUpcomingTitle}</h3>
+                <p className="city-events-text-secondary mx-auto mt-2 max-w-2xl text-sm leading-6">
+                  {text.noUpcomingBody}
+                </p>
+              </div>
+            ) : (
+              <EventList events={upcomingEvents} locale={locale} text={text} />
+            )}
 
-                  <footer className="city-events-card-divider mt-auto border-t px-5 py-4 sm:px-6">
-                    <a
-                      className="city-events-source-link he-focus-ring inline-flex items-center gap-1.5 font-medium underline-offset-4 hover:underline"
-                      href={event.sourceUrl}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      {text.officialSource} · {text.source[event.source]}
-                      <ExternalLink aria-hidden="true" className="size-4" />
-                    </a>
-                  </footer>
-                </article>
-              </li>
-            ))}
-          </ul>
+            {pastEvents.length === 0 ? null : (
+              <section aria-labelledby="past-events-heading" className="mt-8">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h2 className="text-xl font-semibold" id="past-events-heading">
+                    {text.pastEvents}
+                  </h2>
+                  <button
+                    aria-controls="past-events-list"
+                    aria-expanded={showPastEvents}
+                    className="he-button-secondary he-focus-ring inline-flex min-h-10 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium"
+                    onClick={() => setShowPastEvents((current) => !current)}
+                    type="button"
+                  >
+                    {showPastEvents ? text.hidePastEvents : text.showPastEvents}
+                    <ChevronDown
+                      aria-hidden="true"
+                      className={`size-4 transition-transform ${showPastEvents ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                </div>
+                <EventList
+                  events={pastEvents}
+                  hidden={!showPastEvents}
+                  id="past-events-list"
+                  locale={locale}
+                  text={text}
+                />
+              </section>
+            )}
+          </div>
         )}
       </section>
     </main>
   );
+}
+
+type CityEventsText = (typeof cityEventsCopy)[Locale];
+
+function EventList({
+  events,
+  hidden,
+  id,
+  locale,
+  text,
+}: {
+  events: PublishedCityEvent[];
+  hidden?: boolean;
+  id?: string;
+  locale: Locale;
+  text: CityEventsText;
+}) {
+  return (
+    <ul className="mt-5 grid list-none gap-4 p-0" hidden={hidden} id={id}>
+      {events.map((event) => (
+        <li className="city-events-card rounded-lg border" key={event.id}>
+          <article className="flex h-full flex-col">
+            <header className="flex flex-wrap items-start justify-between gap-4 p-5 sm:p-6">
+              <div className="min-w-0">
+                <p className="city-events-text-secondary text-base font-semibold">
+                  {formatDateRange(event.startDate, event.endDate, locale)}
+                </p>
+                <h3 className="mt-1 text-xl font-semibold leading-snug">{event.title}</h3>
+              </div>
+              {event.impactLevel === "none" ? null : (
+                <span
+                  className={`city-events-impact-badge city-events-impact-${event.impactLevel} rounded-full border px-3 py-1 text-xs font-semibold`}
+                >
+                  {text.impact[event.impactLevel]}
+                </span>
+              )}
+            </header>
+
+            <div className="city-events-card-divider border-t px-5 py-4 sm:px-6">
+              <dl className="city-events-text-secondary grid gap-4 text-sm sm:grid-cols-2">
+                <div>
+                  <dt className="font-medium text-[var(--city-events-text-primary)]">
+                    {text.cityLabel}
+                  </dt>
+                  <dd className="mt-1">{text.city[event.city]}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-[var(--city-events-text-primary)]">
+                    {text.categoryLabel}
+                  </dt>
+                  <dd className="mt-1">{text.category[event.category]}</dd>
+                </div>
+              </dl>
+            </div>
+
+            <footer className="city-events-card-divider mt-auto border-t px-5 py-4 sm:px-6">
+              <a
+                className="city-events-source-link he-focus-ring inline-flex items-center gap-1.5 font-medium underline-offset-4 hover:underline"
+                href={event.sourceUrl}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {text.officialSource} · {text.source[event.source]}
+                <ExternalLink aria-hidden="true" className="size-4" />
+              </a>
+            </footer>
+          </article>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function getTodayGermanyDate(now = new Date()): string {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone: "Europe/Berlin",
+    year: "numeric",
+  }).formatToParts(now);
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
 }
 
 function formatDateRange(startDate: string, endDate: string, locale: Locale): string {

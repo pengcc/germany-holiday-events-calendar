@@ -12,7 +12,12 @@ type CityEventsCopy = {
   disclaimer: string;
   sourceNotice: string;
   language: string;
-  selectedEvents: string;
+  upcomingEvents: string;
+  pastEvents: string;
+  showPastEvents: string;
+  hidePastEvents: string;
+  noUpcomingTitle: string;
+  noUpcomingBody: string;
   loading: string;
   errorTitle: string;
   errorBody: string;
@@ -36,7 +41,12 @@ export const cityEventsCopy = {
       "本页面仅收录来自已选官方来源的部分活动，并非完整的柏林活动日历。活动日期可能调整；出行、预订酒店或安排商务行程前，请查看链接的官方来源。",
     sourceNotice: "活动来源与日期说明",
     language: "语言",
-    selectedEvents: "精选活动",
+    upcomingEvents: "即将到来的活动",
+    pastEvents: "已过去的活动",
+    showPastEvents: "展开已过去的活动",
+    hidePastEvents: "收起已过去的活动",
+    noUpcomingTitle: "暂无即将到来的活动",
+    noUpcomingBody: "当前已发布的精选活动中没有尚未结束的活动。你仍可查看已过去的活动。",
     loading: "正在加载精选活动…",
     errorTitle: "城市活动数据暂时无法使用",
     errorBody: "已发布的城市活动数据无法加载或未通过校验，请稍后重试。",
@@ -66,7 +76,13 @@ export const cityEventsCopy = {
       "Diese Seite enthält nur eine Auswahl aus offiziellen Quellen und ist kein vollständiger Berliner Veranstaltungskalender. Termine können sich ändern; prüfen Sie vor Reise-, Hotel- oder Geschäftsentscheidungen die verlinkte offizielle Quelle.",
     sourceNotice: "Hinweis zu Quellen und Terminen",
     language: "Sprache",
-    selectedEvents: "Ausgewählte Events",
+    upcomingEvents: "Bevorstehende Veranstaltungen",
+    pastEvents: "Vergangene Veranstaltungen",
+    showPastEvents: "Vergangene anzeigen",
+    hidePastEvents: "Vergangene ausblenden",
+    noUpcomingTitle: "Keine bevorstehenden Veranstaltungen",
+    noUpcomingBody:
+      "Unter den veröffentlichten ausgewählten Events gibt es derzeit keine laufenden oder bevorstehenden Veranstaltungen. Vergangene Veranstaltungen bleiben verfügbar.",
     loading: "Ausgewählte Events werden geladen…",
     errorTitle: "Stadt-Events derzeit nicht verfügbar",
     errorBody:
@@ -98,7 +114,13 @@ export const cityEventsCopy = {
       "This page covers a selection from official sources and is not a complete Berlin event calendar. Dates may change; check the linked official source before making travel, hotel, or business decisions.",
     sourceNotice: "Source and date notice",
     language: "Language",
-    selectedEvents: "Selected events",
+    upcomingEvents: "Upcoming events",
+    pastEvents: "Past events",
+    showPastEvents: "Show past events",
+    hidePastEvents: "Hide past events",
+    noUpcomingTitle: "No upcoming events",
+    noUpcomingBody:
+      "There are currently no ongoing or upcoming events in the published selection. Past events remain available below.",
     loading: "Loading selected events…",
     errorTitle: "City Events data is temporarily unavailable",
     errorBody:
