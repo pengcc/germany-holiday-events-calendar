@@ -1,5 +1,19 @@
 [
   {
+    "source": "berlinale",
+    "city": "berlin",
+    "status": "manual",
+    "retrievedAt": "2026-07-05T08:47:27.000Z",
+    "reviewedAt": "2026-07-05T08:47:27.000Z",
+    "reviewStatus": "current",
+    "reviewPolicyVersion": "city-events-v1",
+    "stale": false,
+    "publishedRecordCount": 1,
+    "warnings": [
+      "Manual top-level Berlinale festival record only. Individual films, screenings, markets, awards, and programme events are excluded."
+    ]
+  },
+  {
     "source": "csd_berlin",
     "city": "berlin",
     "status": "manual",
@@ -11,6 +25,48 @@
     "publishedRecordCount": 1,
     "warnings": [
       "Manual top-level CSD Berlin Pride Demonstration record only. Route details, Pride Month listings, official parties, stage programmes, vehicle/group line-ups, maps, and partner events are excluded."
+    ]
+  },
+  {
+    "source": "festival_of_lights",
+    "city": "berlin",
+    "status": "manual",
+    "retrievedAt": "2026-07-05T08:47:27.000Z",
+    "reviewedAt": "2026-07-05T08:47:27.000Z",
+    "reviewStatus": "current",
+    "reviewPolicyVersion": "city-events-v1",
+    "stale": false,
+    "publishedRecordCount": 1,
+    "warnings": [
+      "Manual top-level Festival of Lights record only. Individual installations, programme items, locations, tours, and partner events are excluded."
+    ]
+  },
+  {
+    "source": "karneval_der_kulturen",
+    "city": "berlin",
+    "status": "manual",
+    "retrievedAt": "2026-07-05T08:47:27.000Z",
+    "reviewedAt": "2026-07-05T08:47:27.000Z",
+    "reviewStatus": "current",
+    "reviewPolicyVersion": "city-events-v1",
+    "stale": false,
+    "publishedRecordCount": 1,
+    "warnings": [
+      "Manual top-level Karneval der Kulturen festival record only. Stages, performances, parade groups, routes, exhibitions, and programme items are excluded."
+    ]
+  },
+  {
+    "source": "scc_events",
+    "city": "berlin",
+    "status": "manual",
+    "retrievedAt": "2026-07-05T08:47:27.000Z",
+    "reviewedAt": "2026-07-05T08:47:27.000Z",
+    "reviewStatus": "current",
+    "reviewPolicyVersion": "city-events-v1",
+    "stale": false,
+    "publishedRecordCount": 2,
+    "warnings": [
+      "Manual top-level BMW BERLIN-MARATHON and GENERALI BERLINER HALBMARATHON records only. Expos, children’s events, inline-skating details, course information, and programme items are excluded."
     ]
   }
 ]

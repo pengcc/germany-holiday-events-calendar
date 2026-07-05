@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "event": {
+    "id": "city-event:karneval_der_kulturen:festival:2026",
+    "sourceEventKey": "karneval-der-kulturen-2026",
+    "source": "karneval_der_kulturen",
+    "category": "major_culture",
+    "title": "Karneval der Kulturen 2026",
+    "startDate": "2026-05-22",
+    "endDate": "2026-05-25",
+    "city": "berlin",
+    "venue": "Berlin",
+    "sourceUrl": "https://www.karneval.berlin/"
+  },
+  "evidenceCheckedAt": "2026-07-05T08:47:27.000Z",
+  "review": {
+    "reviewedAt": "2026-07-05T08:47:27.000Z",
+    "reviewer": "Codex",
+    "rationale": "The official Karneval der Kulturen site confirms that the 2026 festival runs from May 22 through May 25, with the street parade on May 24. This record covers only the top-level festival period; stages, performances, parade groups, routes, exhibitions, and programme items are excluded."
+  }
+}

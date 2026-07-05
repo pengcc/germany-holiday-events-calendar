@@ -232,6 +232,73 @@ input {
   color: var(--warning-text);
 }
 
+/* Culture Events: page surfaces and text */
+.city-events-theme {
+  --city-events-surface-page: #f8fafc;
+  --city-events-surface-card: #ffffff;
+  --city-events-border-subtle: #dbe3ee;
+  --city-events-text-primary: #172033;
+  --city-events-text-secondary: #526176;
+  --city-events-source-link: #1d4ed8;
+
+  /* Culture Events: informational source notice */
+  --city-events-notice-bg: #eff6ff;
+  --city-events-notice-border: #3b82f6;
+  --city-events-notice-text: #1e3a8a;
+
+  /* Culture Events: travel-impact status */
+  --city-events-impact-medium-bg: #fffbeb;
+  --city-events-impact-medium-border: #f59e0b;
+  --city-events-impact-medium-text: #854d0e;
+  --city-events-impact-high-bg: #fef2f2;
+  --city-events-impact-high-border: #ef4444;
+  --city-events-impact-high-text: #991b1b;
+
+  background: var(--city-events-surface-page);
+  color: var(--city-events-text-primary);
+}
+
+.city-events-surface,
+.city-events-card {
+  background: var(--city-events-surface-card);
+}
+
+.city-events-border-subtle,
+.city-events-card,
+.city-events-card-divider {
+  border-color: var(--city-events-border-subtle);
+}
+
+.city-events-text-secondary {
+  color: var(--city-events-text-secondary);
+}
+
+.city-events-source-link {
+  color: var(--city-events-source-link);
+}
+
+.city-events-notice {
+  border-color: var(--city-events-notice-border);
+  background: var(--city-events-notice-bg);
+  color: var(--city-events-notice-text);
+}
+
+.city-events-impact-badge {
+  white-space: nowrap;
+}
+
+.city-events-impact-medium {
+  border-color: var(--city-events-impact-medium-border);
+  background: var(--city-events-impact-medium-bg);
+  color: var(--city-events-impact-medium-text);
+}
+
+.city-events-impact-high {
+  border-color: var(--city-events-impact-high-border);
+  background: var(--city-events-impact-high-bg);
+  color: var(--city-events-impact-high-text);
+}
+
 .he-month-card {
   border-color: var(--border-subtle);
   background: var(--surface-card);

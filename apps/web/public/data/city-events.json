@@ -3,6 +3,30 @@
     {
       "category": "major_culture",
       "city": "berlin",
+      "endDate": "2026-02-22",
+      "id": "city-event:berlinale:festival:2026",
+      "impactLevel": "medium",
+      "source": "berlinale",
+      "sourceUrl": "https://b2b.berlinale.de/en/downloads/download_document/3443/original/media-data-berlinale-programme.pdf",
+      "startDate": "2026-02-12",
+      "title": "Berlinale 2026",
+      "venue": "Berlin"
+    },
+    {
+      "category": "major_culture",
+      "city": "berlin",
+      "endDate": "2026-05-25",
+      "id": "city-event:karneval_der_kulturen:festival:2026",
+      "impactLevel": "high",
+      "source": "karneval_der_kulturen",
+      "sourceUrl": "https://www.karneval.berlin/",
+      "startDate": "2026-05-22",
+      "title": "Karneval der Kulturen 2026",
+      "venue": "Berlin"
+    },
+    {
+      "category": "major_culture",
+      "city": "berlin",
       "endDate": "2026-07-25",
       "id": "city-event:csd_berlin:demonstration:2026",
       "impactLevel": "high",
@@ -10,6 +34,42 @@
       "sourceUrl": "https://csd-berlin.de/en/demo-route-2026",
       "startDate": "2026-07-25",
       "title": "CSD Berlin Pride Demonstration 2026"
+    },
+    {
+      "category": "sport",
+      "city": "berlin",
+      "endDate": "2026-09-27",
+      "id": "city-event:scc_events:berlin-marathon:2026",
+      "impactLevel": "high",
+      "source": "scc_events",
+      "sourceUrl": "https://www.bmw-berlin-marathon.com/",
+      "startDate": "2026-09-27",
+      "title": "BMW Berlin Marathon 2026",
+      "venue": "Berlin"
+    },
+    {
+      "category": "major_culture",
+      "city": "berlin",
+      "endDate": "2026-10-18",
+      "id": "city-event:festival_of_lights:festival:2026",
+      "impactLevel": "medium",
+      "source": "festival_of_lights",
+      "sourceUrl": "https://festival-of-lights.de/de/programm-2026/",
+      "startDate": "2026-10-09",
+      "title": "Festival of Lights Berlin 2026",
+      "venue": "Berlin"
+    },
+    {
+      "category": "sport",
+      "city": "berlin",
+      "endDate": "2027-04-04",
+      "id": "city-event:scc_events:berlin-half-marathon:2027",
+      "impactLevel": "high",
+      "source": "scc_events",
+      "sourceUrl": "https://www.generali-berliner-halbmarathon.de/",
+      "startDate": "2027-04-04",
+      "title": "GENERALI BERLINER HALBMARATHON 2027",
+      "venue": "Berlin"
     }
   ],
   "schemaVersion": 1

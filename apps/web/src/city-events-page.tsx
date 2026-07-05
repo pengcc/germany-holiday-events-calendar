@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ExternalLink, Landmark, Languages } from "lucide-react";
+import { ExternalLink, Info, Landmark, Languages } from "lucide-react";
 import { useEffect, useState } from "react";
 import type {
   CityEventsManifest,
@@ -26,8 +26,8 @@ export function CityEventsPage({ locale }: { locale: Locale }) {
   }, []);
 
   return (
-    <main className="he-page min-h-screen">
-      <header className="he-surface he-border-subtle border-b">
+    <main className="city-events-theme min-h-screen">
+      <header className="city-events-surface city-events-border-subtle border-b">
         <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
             <span className="he-button-primary flex size-9 items-center justify-center rounded-md">
@@ -56,11 +56,13 @@ export function CityEventsPage({ locale }: { locale: Locale }) {
 
       <PublicAreaNavigation activeArea="culture-events" locale={locale} />
 
-      <section className="he-surface he-border-subtle border-b">
+      <section className="city-events-surface city-events-border-subtle border-b">
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:py-10">
           <p className="mb-2 text-sm font-semibold text-[var(--ui-primary)]">{text.appName}</p>
           <h1 className="text-3xl font-bold sm:text-4xl">{text.title}</h1>
-          <p className="he-text-secondary mt-3 max-w-3xl text-base leading-7">{text.intro}</p>
+          <p className="city-events-text-secondary mt-3 max-w-3xl text-base leading-7">
+            {text.intro}
+          </p>
         </div>
       </section>
 
@@ -68,9 +70,13 @@ export function CityEventsPage({ locale }: { locale: Locale }) {
         aria-labelledby="selected-events-heading"
         className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:py-8"
       >
-        <div className="he-warning border-l-4 p-4 text-sm">
+        <section
+          aria-label={text.sourceNotice}
+          className="city-events-notice flex gap-3 border-l-4 p-4 text-sm"
+        >
+          <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
           <p className="leading-6">{text.disclaimer}</p>
-        </div>
+        </section>
 
         <h2 className="mt-8 text-xl font-semibold" id="selected-events-heading">
           {text.selectedEvents}
@@ -99,60 +105,58 @@ export function CityEventsPage({ locale }: { locale: Locale }) {
             </p>
           </div>
         ) : (
-          <ol className="mt-5 grid list-none gap-4 p-0" aria-live="polite">
+          <ul className="mt-5 grid list-none gap-4 p-0" aria-live="polite">
             {records.map((event) => (
-              <li className="he-surface he-border-subtle border p-5 sm:p-6" key={event.id}>
-                <article>
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <div>
-                      <p className="he-text-muted text-sm">
+              <li className="city-events-card rounded-lg border" key={event.id}>
+                <article className="flex h-full flex-col">
+                  <header className="flex flex-wrap items-start justify-between gap-4 p-5 sm:p-6">
+                    <div className="min-w-0">
+                      <p className="city-events-text-secondary text-sm font-medium">
                         {formatDateRange(event.startDate, event.endDate, locale)}
                       </p>
-                      <h3 className="mt-1 text-xl font-semibold">{event.title}</h3>
+                      <h3 className="mt-1 text-xl font-semibold leading-snug">{event.title}</h3>
                     </div>
                     {event.impactLevel === "none" ? null : (
-                      <span className="he-warning rounded-full border px-3 py-1 text-xs font-semibold">
+                      <span
+                        className={`city-events-impact-badge city-events-impact-${event.impactLevel} rounded-full border px-3 py-1 text-xs font-semibold`}
+                      >
                         {text.impact[event.impactLevel]}
                       </span>
                     )}
+                  </header>
+
+                  <div className="city-events-card-divider border-t px-5 py-4 sm:px-6">
+                    <dl className="city-events-text-secondary grid gap-4 text-sm sm:grid-cols-2">
+                      <div>
+                        <dt className="font-medium text-[var(--city-events-text-primary)]">
+                          {text.cityLabel}
+                        </dt>
+                        <dd className="mt-1">{text.city[event.city]}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-medium text-[var(--city-events-text-primary)]">
+                          {text.categoryLabel}
+                        </dt>
+                        <dd className="mt-1">{text.category[event.category]}</dd>
+                      </div>
+                    </dl>
                   </div>
 
-                  <dl className="he-text-secondary mt-4 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
-                    <div>
-                      <dt className="font-medium text-[var(--text-primary)]">{text.date}</dt>
-                      <dd className="mt-1">
-                        {formatDateRange(event.startDate, event.endDate, locale)}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="font-medium text-[var(--text-primary)]">{text.cityLabel}</dt>
-                      <dd className="mt-1">{text.city[event.city]}</dd>
-                    </div>
-                    <div>
-                      <dt className="font-medium text-[var(--text-primary)]">
-                        {text.categoryLabel}
-                      </dt>
-                      <dd className="mt-1">{text.category[event.category]}</dd>
-                    </div>
-                    <div>
-                      <dt className="font-medium text-[var(--text-primary)]">{text.sourceLabel}</dt>
-                      <dd className="mt-1">
-                        <a
-                          className="he-focus-ring inline-flex items-center gap-1 font-medium text-[var(--ui-primary)] underline-offset-4 hover:underline"
-                          href={event.sourceUrl}
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          {text.officialSource} · {text.source[event.source]}
-                          <ExternalLink aria-hidden="true" className="size-4" />
-                        </a>
-                      </dd>
-                    </div>
-                  </dl>
+                  <footer className="city-events-card-divider mt-auto border-t px-5 py-4 sm:px-6">
+                    <a
+                      className="city-events-source-link he-focus-ring inline-flex items-center gap-1.5 font-medium underline-offset-4 hover:underline"
+                      href={event.sourceUrl}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {text.officialSource} · {text.source[event.source]}
+                      <ExternalLink aria-hidden="true" className="size-4" />
+                    </a>
+                  </footer>
                 </article>
               </li>
             ))}
-          </ol>
+          </ul>
         )}
       </section>
     </main>

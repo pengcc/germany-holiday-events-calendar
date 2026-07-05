@@ -4,15 +4,33 @@
     "berlin"
   ],
   "coveredSources": [
-    "csd_berlin"
+    "berlinale",
+    "csd_berlin",
+    "festival_of_lights",
+    "karneval_der_kulturen",
+    "scc_events"
   ],
-  "datasetVersion": "90bef79a7913a6b2",
-  "generatedAt": "2026-07-03T12:29:25.000Z",
-  "recordCount": 1,
+  "datasetVersion": "a7d7c1a53e66c1cc",
+  "generatedAt": "2026-07-05T08:47:27.000Z",
+  "recordCount": 6,
   "recordsFile": "city-events.json",
-  "recordsSha256": "90bef79a7913a6b26e4fdd0d7ef97f50b7f8d2d317071d36d26d9dcff6d79182",
+  "recordsSha256": "a7d7c1a53e66c1cc00d7ea4700e0d8766790c74943d059261356e7c8a69b1645",
   "schemaVersion": 1,
   "sourceCoverage": [
+    {
+      "city": "berlin",
+      "publishedRecordCount": 1,
+      "retrievedAt": "2026-07-05T08:47:27.000Z",
+      "reviewedAt": "2026-07-05T08:47:27.000Z",
+      "reviewPolicyVersion": "city-events-v1",
+      "reviewStatus": "current",
+      "source": "berlinale",
+      "stale": false,
+      "status": "manual",
+      "warnings": [
+        "Manual top-level Berlinale festival record only. Individual films, screenings, markets, awards, and programme events are excluded."
+      ]
+    },
     {
       "city": "berlin",
       "publishedRecordCount": 1,
@@ -25,6 +43,48 @@
       "status": "manual",
       "warnings": [
         "Manual top-level CSD Berlin Pride Demonstration record only. Route details, Pride Month listings, official parties, stage programmes, vehicle/group line-ups, maps, and partner events are excluded."
+      ]
+    },
+    {
+      "city": "berlin",
+      "publishedRecordCount": 1,
+      "retrievedAt": "2026-07-05T08:47:27.000Z",
+      "reviewedAt": "2026-07-05T08:47:27.000Z",
+      "reviewPolicyVersion": "city-events-v1",
+      "reviewStatus": "current",
+      "source": "festival_of_lights",
+      "stale": false,
+      "status": "manual",
+      "warnings": [
+        "Manual top-level Festival of Lights record only. Individual installations, programme items, locations, tours, and partner events are excluded."
+      ]
+    },
+    {
+      "city": "berlin",
+      "publishedRecordCount": 1,
+      "retrievedAt": "2026-07-05T08:47:27.000Z",
+      "reviewedAt": "2026-07-05T08:47:27.000Z",
+      "reviewPolicyVersion": "city-events-v1",
+      "reviewStatus": "current",
+      "source": "karneval_der_kulturen",
+      "stale": false,
+      "status": "manual",
+      "warnings": [
+        "Manual top-level Karneval der Kulturen festival record only. Stages, performances, parade groups, routes, exhibitions, and programme items are excluded."
+      ]
+    },
+    {
+      "city": "berlin",
+      "publishedRecordCount": 2,
+      "retrievedAt": "2026-07-05T08:47:27.000Z",
+      "reviewedAt": "2026-07-05T08:47:27.000Z",
+      "reviewPolicyVersion": "city-events-v1",
+      "reviewStatus": "current",
+      "source": "scc_events",
+      "stale": false,
+      "status": "manual",
+      "warnings": [
+        "Manual top-level BMW BERLIN-MARATHON and GENERALI BERLINER HALBMARATHON records only. Expos, children’s events, inline-skating details, course information, and programme items are excluded."
       ]
     }
   ],
