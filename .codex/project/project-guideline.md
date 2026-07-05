@@ -15,7 +15,8 @@ Plans, handoffs, and scratch notes are process documents. They may become outdat
   across federal states. German and English readers are also supported.
 - Current phase: the Holiday Explorer frontend and reviewed 2026–2027 holiday dataset are
   implemented. The first reviewed Culture Events record and localized Culture Events page are
-  implemented. Shared three-area navigation and the Trade Fairs public area remain planned.
+  implemented. Shared three-area navigation and localized Trade Fairs placeholder routes/pages
+  are implemented. Reviewed Trade Fairs data, listings, and filters are not implemented.
 
 ## 2. Current Scope
 
@@ -40,14 +41,16 @@ The public site has three distinct top-level areas:
 
 1. **Holidays** — German public holidays and school holidays; the default/home area at `/zh`,
    `/de`, and `/en`.
-2. **Trade Fairs / Messe** — a first-class planned area for selected official trade-fair events.
+2. **Trade Fairs / Messe** — a first-class public area with localized placeholder routes/pages;
+   reviewed official trade-fair data, listings, and filters remain unimplemented.
 3. **Culture Events** — selected culture and major city events, currently represented by
    `/zh/city-events`, `/de/city-events`, and `/en/city-events`.
 
-Trade Fairs must not be merged into Holiday Explorer or the Culture Events product area. Before
-adding more event data or event filters, establish shared public navigation and this three-area
-information architecture. Events remain neutral planning information users may use to attend,
-avoid, or plan around a period, not only negative impact or risk signals. See
+Trade Fairs must not be merged into Holiday Explorer or the Culture Events product area. Shared
+public navigation and the three-area information architecture are established. Adding more event
+data or event filters requires a separate approved slice. Events remain neutral planning
+information users may use to attend, avoid, or plan around a period, not only negative impact or
+risk signals. See
 `docs/public-site-product-framing.md`.
 
 ## 3. Non-Goals
@@ -235,13 +238,15 @@ As of 2026-07-04:
   top-level record, deterministic public JSON, and localized `/zh|de|en/city-events` pages are
   implemented.
 - The public site has adopted a three-area architecture: Holidays, Trade Fairs / Messe, and Culture
-  Events. Shared navigation and the Trade Fairs route/page are not implemented yet.
+  Events. Shared three-area navigation and localized `/zh|de|en/messe-events` placeholder
+  routes/pages are implemented. Reviewed Trade Fairs data, event records, listings, and filters are
+  not implemented.
 
 ## 13. Known Constraints and Risks
 
 - Public deployment must remain static and free of secrets or server runtime dependencies.
-- More event data and filters must not be added before shared navigation and the three-area public
-  information architecture are established.
+- Shared navigation and the three-area public information architecture are established. More
+  event data or filters still require a separate approved implementation slice.
 - Data quality depends on provenance, explicit review decisions, and deterministic publication.
 - Regional and school-specific holiday applicability must not be silently presented as statewide.
   Evidence-backed regional public holidays may be nonblocking advisories, remain
@@ -260,8 +265,8 @@ As of 2026-07-04:
 - **Holiday MVP**: the public and school holiday browsing/comparison release before events.
 - **Holidays area**: the default/home public area at `/zh`, `/de`, and `/en` for German public and
   school holidays.
-- **Trade Fairs area**: a separate first-class planned public area for selected official Messe and
-  trade-fair events.
+- **Trade Fairs area**: a separate first-class public area with localized placeholder routes/pages;
+  selected official Messe and trade-fair records, listings, and filters remain unimplemented.
 - **Culture Events area**: the separate public area currently served by localized `/city-events`
   routes for selected culture and major city events.
 - **Planning event**: a selected major event presented neutrally for attending, avoiding, or
@@ -299,5 +304,7 @@ As of 2026-07-04:
 - Use the project-local `tanstack-static-frontend` skill for work touching public routing, static
   frontend data loading, locale/search state, or the Data Studio/public boundary.
 - Use docs-first research for framework, API, version, deployment, or tooling claims.
-- Public navigation, Trade Fairs, additional event data, and event filters each require an
-  explicitly approved implementation slice consistent with the three-area architecture.
+- Shared public navigation and localized Trade Fairs placeholder routes/pages are implemented.
+  Trade Fairs reviewed data/listing functionality, additional event data, and event filters each
+  require a separate explicitly approved implementation slice consistent with the three-area
+  architecture.
